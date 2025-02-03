@@ -1,10 +1,12 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
+require("dotenv").config();
 const bcrypt = require("bcrypt");
+const jwt = require('jsonwebtoken');
 
 const userSchema = new Schema(
   {
-    userName: {
+    username: {
       type: String,
       required: true,
       unique: true,
@@ -85,5 +87,38 @@ userSchema.pre("save", async function (next) {
   }
   next();
 });
+
+// Static method for login
+userSchema.statics.login = async function (username, password) {
+  const user = await this.findOne({ username });
+  if (!user) {
+    throw new Error("User not found");
+  }
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch) {
+    throw new Error("Invalid credentials");
+  }
+  return user;
+};
+
+// Instance method to generate JWT
+userSchema.methods.generateToken = function () {
+  const payload = { id: this._id, role: this.role };
+  const secret = process.env.JWT_SECRET || "default_secret_key";
+  const options = { expiresIn: "6h" };
+  return jwt.sign(payload, secret, options);
+};
+
+userSchema.statics.decodeToken = function (token) {
+  const secret = process.env.JWT_SECRET || "default";
+  const decoded = jwt.verify(token, secret, (err, decoded) => {
+    if (err) {
+      return err;
+    }
+    return decoded;
+  });
+
+  return decoded;
+};
 
 module.exports = userSchema;
