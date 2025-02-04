@@ -1,19 +1,7 @@
-const { body, validationResult } = require("express-validator");
+const { body, param, validationResult } = require("express-validator");
 
-const validateRegistration = [
-  body("username")
-    .notEmpty()
-    .withMessage("Username cannot be empty.")
-    .isLength({ min: 3 })
-    .withMessage("Username must be at least 3 characters long.")
-    .trim(),
-
-  body("email")
-    .notEmpty()
-    .withMessage("Email cannot be empty.")
-    .isEmail()
-    .withMessage("Please provide a valid email.")
-    .normalizeEmail(),
+const updatePasswordValidator = [
+  param("id").isMongoId().withMessage("Invalid user ID format"),
 
   body("password")
     .notEmpty()
@@ -28,11 +16,15 @@ const validateRegistration = [
     .withMessage("Password must contain at least one lowercase letter.")
     .trim(),
 
-  body("image")
+  body("confirmPassword")
     .notEmpty()
-    .withMessage("Image cannot be empty.")
-    .isURL()
-    .withMessage("Image must be a valid URL."),
+    .withMessage("Confirm Password is required")
+    .custom((value, { req }) => {
+      if (value !== req.body.password) {
+        throw new Error("Passwords do not match");
+      }
+      return true;
+    }),
 
   (req, res, next) => {
     const errors = validationResult(req);
@@ -47,4 +39,4 @@ const validateRegistration = [
   },
 ];
 
-module.exports = validateRegistration;
+module.exports = updatePasswordValidator;

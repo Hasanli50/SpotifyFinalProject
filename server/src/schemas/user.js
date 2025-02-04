@@ -73,6 +73,22 @@ const userSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    isFrozen: {
+      type: Boolean,
+      default: false,
+    },
+    isBanned: {
+      type: Boolean,
+      default: false,
+    },
+    banExpiresAt: {
+      type: Date,
+      default: null,
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );

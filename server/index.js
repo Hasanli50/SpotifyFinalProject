@@ -5,12 +5,15 @@ const PORT = process.env.PORT;
 const connectToDb = require("./src/config/db.js");
 const cors = require("cors");
 const userRouter = require("./src/routes/userRouter.js");
+const multerErrorHandling = require("./src/middlewares/multerErrorHendling.js");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 app.use("/users", userRouter);
+
+app.use(multerErrorHandling);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");

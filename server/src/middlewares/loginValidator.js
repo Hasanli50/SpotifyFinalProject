@@ -1,23 +1,14 @@
 const { body, validationResult } = require("express-validator");
 
-const validateRegistration = [
-  body("username")
+const validateLogin = [
+    body("username")
     .notEmpty()
     .withMessage("Username cannot be empty.")
     .isLength({ min: 3 })
     .withMessage("Username must be at least 3 characters long.")
     .trim(),
 
-  body("email")
-    .notEmpty()
-    .withMessage("Email cannot be empty.")
-    .isEmail()
-    .withMessage("Please provide a valid email.")
-    .normalizeEmail(),
-
   body("password")
-    .notEmpty()
-    .withMessage("Password is required")
     .isLength({ min: 6 })
     .withMessage("Password must be at least 6 characters long.")
     .matches(/\d/)
@@ -27,12 +18,6 @@ const validateRegistration = [
     .matches(/[a-z]/)
     .withMessage("Password must contain at least one lowercase letter.")
     .trim(),
-
-  body("image")
-    .notEmpty()
-    .withMessage("Image cannot be empty.")
-    .isURL()
-    .withMessage("Image must be a valid URL."),
 
   (req, res, next) => {
     const errors = validationResult(req);
@@ -47,4 +32,4 @@ const validateRegistration = [
   },
 ];
 
-module.exports = validateRegistration;
+module.exports = validateLogin;
