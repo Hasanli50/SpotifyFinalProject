@@ -2,9 +2,9 @@ const multer = require("multer");
 const path = require("path");
 const { storage: cloudinaryStorage } = require("./imageCloudinary.js");
 
-const objUpload = multer({
+const imageUpload = multer({
   storage: cloudinaryStorage,
-  limits: { fileSize: 10 * 1024 * 1024 }, 
+  limits: { fileSize: 5 * 1024 * 1024 }, 
   fileFilter: (req, file, cb) => {
     const allowedTypes = /jpeg|jpg|png|gif/;
     const mimeType = allowedTypes.test(file.mimetype);
@@ -22,4 +22,4 @@ const objUpload = multer({
   },
 });
 
-module.exports = objUpload
+module.exports = imageUpload

@@ -13,9 +13,25 @@ const verifyToken = (req, res, next) => {
     if (err) {
       return res.status(401).json({ message: "Unauthorized!" });
     }
-    req.user = decoded; 
+    req.user = decoded;
     next();
   });
 };
 
-module.exports = verifyToken;
+const verifyTokenArtist = (req, res, next) => {
+  const token = req.headers["authorization"]?.split(" ")[1];
+  console.log("auth", req.headers["authorization"]);
+
+  if (!token) {
+    return res.status(403).json({ message: "No token provided!" });
+  }
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      return res.status(401).json({ message: "Unauthorized!" });
+    }
+    req.artist = decoded;
+    next();
+  });
+};
+module.exports = {verifyToken, verifyTokenArtist};

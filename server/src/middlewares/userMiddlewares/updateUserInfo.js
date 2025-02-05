@@ -15,7 +15,13 @@ const updateUserInfoValidator = [
     .withMessage("Please provide a valid email.")
     .normalizeEmail(),
 
-  body("image").optional().isURL().withMessage("Image must be a valid URL"),
+    body("image").custom((value, { req }) => {
+      // Image is optional, but validate if present
+      if (req.file && !req.file.mimetype.match(/^image\//)) {
+        throw new Error("Uploaded file is not an image");
+      }
+      return true;
+    }),
 
   (req, res, next) => {
     const errors = validationResult(req);

@@ -3,8 +3,8 @@ const User = require("../models/user.js");
 const formatObj = require("../utils/formatObj.js");
 const path = require("path");
 const bcrypt = require("bcrypt");
-// const { cloudinary } = require("../config/cloudinary.js");
-// const { extractPublicIdUser } = require("../utils/extractPublicId.js");
+const extractPublicId = require("../utils/extractPublicId.js");
+const { cloudinary } = require("../config/imageCloudinary.js");
 
 const getAllNonDeletedUsers = async (_, res) => {
   try {
@@ -53,7 +53,9 @@ const getAllDeletedUsers = async (_, res) => {
 const getById = async (req, res) => {
   try {
     const { id } = req.params;
-    const user = await User.findById(id, { isDeleted: false }, "-password");
+    const user = await User.findById(id, { isDeleted: false }).select(
+      "-password"
+    );
     if (!user) {
       return res.status(404).json({
         message: "User not found",
@@ -75,7 +77,7 @@ const getById = async (req, res) => {
 
 const register = async (req, res) => {
   try {
-    const { username, email, password, image } = req.body;
+    const { username, email, password } = req.body;
 
     const duplicate = await User.findOne({
       $or: [{ email }, { username }],
@@ -87,13 +89,13 @@ const register = async (req, res) => {
         status: "fail",
       });
     }
+
     const newUser = new User({
       username,
       email,
       password,
       role: "user",
-      image,
-      //   image: req.file.path,
+      image: req.file.path,
       isBanned: false,
       isFrozen: false,
       banExpiresAt: null,
@@ -123,8 +125,7 @@ const register = async (req, res) => {
         username: newUser.username,
         email: newUser.email,
         role: newUser.role,
-        image: newUser.image,
-        // image: req.file.path,
+        image: req.file.path,
         token: token,
       },
     });
@@ -243,20 +244,17 @@ const verifyAccount = async (req, res) => {
 
 const deleteAccount = async (req, res) => {
   const { id } = req.params;
-  const { _id } = req.user;
+  const { id: userId } = req.user;
+
   try {
-    if (id !== _id) {
+    if (id !== userId) {
       return res.status(401).json({
         message: "Unauthorized",
         status: "fail",
       });
     }
 
-    const user = User.findByIdAndUpdate(id, {
-      isDeleted: true,
-      email: null,
-      username: null,
-    });
+    const user = await User.findById(id);
 
     if (!user) {
       return res.status(404).json({
@@ -265,8 +263,26 @@ const deleteAccount = async (req, res) => {
       });
     }
 
+    if (user.image) {
+      const publicId = extractPublicId(user);
+      await cloudinary.uploader.destroy(`uploads/${publicId}`, (error) => {
+        if (error) throw new Error("Failed to delete image from Cloudinary");
+      });
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      {
+        isDeleted: true,
+        email: null,
+        username: null,
+        image: null,
+      },
+      { new: true }
+    );
+
     res.status(200).json({
-      data: user,
+      data: formatObj(updatedUser),
       message: "User deleted successfully",
       status: "success",
     });
@@ -281,7 +297,11 @@ const deleteAccount = async (req, res) => {
 const freezeAccount = async (req, res) => {
   const { id } = req.params;
   try {
-    const user = await User.findByIdAndUpdate(id, { isFrozen: true }, { new: true })
+    const user = await User.findByIdAndUpdate(
+      id,
+      { isFrozen: true },
+      { new: true }
+    );
 
     if (!user) {
       return res.status(404).json({
@@ -290,9 +310,8 @@ const freezeAccount = async (req, res) => {
       });
     }
 
-
     res.status(200).json({
-      data: user,
+      data: formatObj(user),
       message: "User frozen successfully",
       status: "success",
     });
@@ -307,7 +326,11 @@ const freezeAccount = async (req, res) => {
 const unfreezeAccount = async (req, res) => {
   const { id } = req.params;
   try {
-    const user = await User.findByIdAndUpdate(id, { isFrozen: false }, { new: true });
+    const user = await User.findByIdAndUpdate(
+      id,
+      { isFrozen: false },
+      { new: true }
+    );
 
     if (!user) {
       return res.status(404).json({
@@ -354,7 +377,7 @@ const banAccount = async (req, res) => {
     );
 
     return res.status(200).json({
-      data: updated,
+      data: formatObj(updated),
       message: `User banned for ${duration} minutes`,
       status: "success",
     });
@@ -385,7 +408,7 @@ const unBanAccount = async (req, res) => {
     }
 
     res.status(200).json({
-      data: user,
+      data: formatObj(user),
       message: "User unbanned successfully",
       status: "success",
     });
@@ -400,45 +423,65 @@ const unBanAccount = async (req, res) => {
 const updateUserInfo = async (req, res) => {
   try {
     const { id } = req.params;
-    const { _id } = req.user;
-    const { username, email, image } = req.body;
+    const { id: userId } = req.user;
+    const { username, email } = req.body;
 
-    const duplicate = await User.find({ $or: [{ username }, { email }] });
-
-    if (id !== _id) {
+    if (id !== userId) {
       return res.status(401).json({
         message: "Unauthorized",
         status: "fail",
       });
     }
 
-    //check duplicate username or email
-    if (duplicate) {
+    const duplicate = await User.find({
+      $or: [{ username }, { email }],
+    });
+
+    if (duplicate.length > 0) {
       return res.status(400).json({
         message: "Username or email already exists!",
         status: "fail",
       });
     }
 
-    const updatedUser = await User.findByIdAndUpdate(
-      id,
-      { username, email, image },
-      { new: true }
-    );
+    const sentUser = {
+      ...req.body,
+    };
 
-    if (!updatedUser) {
+    if (req.file) {
+      sentUser.image = req.file.path;
+    }
+
+    const prevUser = await User.findById(id);
+
+    if (!prevUser) {
       return res.status(404).json({
         message: "User not found",
         status: "fail",
       });
     }
 
+    const updatedUser = await User.findByIdAndUpdate(id, sentUser, {
+      new: true,
+      runValidators: true,
+    });
+
+    console.log("Previous user image:", prevUser.image);
+
+    if (req.file) {
+      const publicId = extractPublicId(prevUser);
+      await cloudinary.uploader.destroy(`uploads/${publicId}`, (error) => {
+        if (error) throw new Error("Failed to delete image from Cloudinary");
+      });
+    }
+
     return res.status(200).json({
-      data: updatedUser,
+      data: formatObj(updatedUser),
       message: "User updated successfully",
       status: "success",
     });
   } catch (error) {
+    console.error(error);
     res.status(500).json({
       message: error?.message || "Internal server error",
       status: "fail",
@@ -446,13 +489,13 @@ const updateUserInfo = async (req, res) => {
   }
 };
 
-const updatePassword = async function (req, res) {
+const updatePassword = async (req, res) => {
   try {
     const { id } = req.params;
-    const { _id } = req.user;
+    const { id: userId } = req.user;
     const { password, confirmPassword } = req.body;
 
-    if (id !== _id) {
+    if (id !== userId) {
       return res.status(401).json({
         message: "Unauthorized",
         status: "fail",
@@ -511,7 +554,7 @@ const updatePassword = async function (req, res) {
 };
 
 //send email
-const forgotPassword = async function (req, res) {
+const forgotPassword = async (req, res) => {
   try {
     const { email } = req.body;
     const users = await User.find({ email: email, isDeleted: false });
@@ -551,13 +594,11 @@ const forgotPassword = async function (req, res) {
 };
 
 //reset password
-const resetPassword = async function (req, res) {
+const resetPassword = async (req, res) => {
   try {
     const { token } = req.params;
     const { id } = req.user;
     const { password, confirmPassword } = req.body;
-    console.log("ID:", id); // Log user id for debugging
-    console.log("Token:", token); // Log token for debugging
 
     if (password !== confirmPassword) {
       return res.status(400).json({
