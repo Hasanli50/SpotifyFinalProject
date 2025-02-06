@@ -19,10 +19,6 @@ const playlistSchema = new Schema(
         ref: "User",
       },
     ],
-    trackCount: {
-      type: Number,
-      default: 0,
-    },
     trackIds: [
       {
         trackId: {

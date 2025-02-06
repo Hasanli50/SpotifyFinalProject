@@ -9,7 +9,9 @@ const authRoutes = require("./src/routes/authRoutes.js");
 const userRouter = require("./src/routes/userRouter.js");
 const artistRouter = require("./src/routes/artistRouter.js");
 const playlistRouter = require("./src/routes/playlistRouter.js");
+const trackRouter = require("./src/routes/trackRouter.js");
 const genreRoutes = require("./src/routes/genreRouter.js");
+const albumRouter = require("./src/routes/albumRouter.js")
 const multerErrorHandling = require("./src/middlewares/multerErrorHendling.js");
 const passport = require("passport");
 const session = require("express-session");
@@ -38,6 +40,9 @@ app.use("/users", userRouter);
 app.use("/artists", artistRouter);
 app.use("/playlists", playlistRouter);
 app.use("/genres", genreRoutes);
+app.use("/tracks", trackRouter);
+app.use("/albums", albumRouter)
+
 
 app.use(multerErrorHandling);
 

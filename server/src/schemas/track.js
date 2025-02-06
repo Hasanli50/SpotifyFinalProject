@@ -14,7 +14,7 @@ const trackSchema = new Schema(
     },
     albumId: {
       type: Schema.Types.ObjectId,
-      ref: "Album", 
+      ref: "Album",
       default: null,
     },
     durationMs: {
@@ -33,10 +33,6 @@ const trackSchema = new Schema(
       type: Number,
       default: 0,
     },
-    releaseDate: {
-      type: Date,
-      required: true,
-    },
     genreId: {
       type: Schema.Types.ObjectId,
       ref: "Genre",
@@ -51,18 +47,16 @@ const trackSchema = new Schema(
       type: String,
       required: true,
     },
-    collaborated_artistIds: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Artist",
-      },
-    ],
+    collaboratedArtistIds: {
+      type: [Schema.Types.ObjectId],
+      ref: "Artist",
+    },
     premiumOnly: {
       type: Boolean,
       default: false,
     },
   },
-  { timestamps: true } 
+  { timestamps: true }
 );
 
 module.exports = trackSchema;

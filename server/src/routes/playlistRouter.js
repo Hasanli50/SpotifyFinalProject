@@ -13,11 +13,17 @@ const {
 const express = require("express");
 const router = express.Router();
 const { verifyToken } = require("../middlewares/verifyToken.js");
+const createPlaylistValidation = require("../middlewares/playlistMiddlewares/createPlaylistValidator.js");
+const createPlaylistWithCollaboratorsValidation = require("../middlewares/playlistMiddlewares/createPlaylistWithCollaboratorsValidator.js");
 
 router.get("/", verifyToken, getPlaylists); //+
-router.post("/", verifyToken, createPlaylist);  //+
-router.post("/create", verifyToken, createPlaylistWithCollaborators); //+
-router.delete("/:playlistId/removeCollaborator/:collaboratorId", verifyToken, removeCollaboratorFromPlaylist); //+
+router.post("/", verifyToken, createPlaylistValidation, createPlaylist); //+
+router.post("/create", verifyToken, createPlaylistWithCollaboratorsValidation, createPlaylistWithCollaborators); //+
+router.delete(
+  "/:playlistId/removeCollaborator/:collaboratorId",
+  verifyToken,
+  removeCollaboratorFromPlaylist
+); //+
 router.delete("/:playlistId", verifyToken, deletePlaylist); //+
 router.get("/:id", verifyToken, getPlaylistById); //+
 router.get("/:id/tracks", verifyToken, getPlaylistTracks);

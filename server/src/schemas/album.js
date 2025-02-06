@@ -31,10 +31,6 @@ const albumSchema = new Schema(
       type: Number,
       default: 0,
     },
-    explicit: {
-      type: Boolean,
-      default: false,
-    },
   },
   { timestamps: true }
 );

@@ -109,6 +109,17 @@ const addTracksToPlaylist = async (req, res) => {
     }
 
     for (const track of tracks) {
+      const trackExists = playlist.trackIds.some(
+        (existingTrack) =>
+          existingTrack.trackId.toString() === track.trackId.toString()
+      );
+
+      if (trackExists) {
+        return res.status(400).json({
+          message: `Track with ID ${track.trackId} is already in the playlist`,
+          status: "fail",
+        });
+      }
       playlist.trackIds.push(track);
     }
 
@@ -164,7 +175,7 @@ const removeTrackFromPlaylist = async (req, res) => {
 const updatePlaylist = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, collaborators } = req.body; 
+    const { name, collaborators } = req.body;
 
     const playlist = await Playlist.findById(id);
 
@@ -226,9 +237,7 @@ const updatePlaylist = async (req, res) => {
 const deletePlaylist = async (req, res) => {
   try {
     const { playlistId } = req.params;
-    const userId = req.user.id; // The user making the request (authenticated user)
-
-    // Find the playlist by ID
+    const userId = req.user.id; 
     const playlist = await Playlist.findById(playlistId);
     if (!playlist) {
       return res.status(404).json({
@@ -237,7 +246,6 @@ const deletePlaylist = async (req, res) => {
       });
     }
 
-    // Check if the authenticated user is the one who created the playlist
     if (playlist.userId.toString() !== userId) {
       return res.status(403).json({
         message: "You can only delete your own playlists",
@@ -245,7 +253,6 @@ const deletePlaylist = async (req, res) => {
       });
     }
 
-    // Decrement the playlist count of the user who created the playlist
     const user = await User.findById(userId);
     if (user) {
       user.playlistCount -= 1;
@@ -253,17 +260,15 @@ const deletePlaylist = async (req, res) => {
       await user.save();
     }
 
-    // Remove the playlist ID from each collaborator's 'collaboratedUserId' array
     if (playlist.collaborators && playlist.collaborators.length > 0) {
       for (const collaboratorId of playlist.collaborators) {
         const collaborator = await User.findById(collaboratorId);
         if (collaborator) {
-          // Remove the playlist ID from the collaborator's 'collaboratedUserId' array
           collaborator.collaboratedUserId =
             collaborator.collaboratedUserId.filter(
               (id) => id.toString() !== playlistId
             );
-          collaborator.playlistCount -= 1; // Decrement the playlist count of the collaborator
+          collaborator.playlistCount -= 1; 
           await collaborator.save();
         }
       }
@@ -314,58 +319,58 @@ const getPlaylistTracks = async (req, res) => {
 };
 
 // Create a new playlist and add collaborators
-const createPlaylistWithCollaborators = async (req, res) => {
-  try {
-    const { name, collaborators } = req.body;
-    const userId = req.user.id;
+  const createPlaylistWithCollaborators = async (req, res) => {
+    try {
+      const { name, collaborators } = req.body;
+      const userId = req.user.id;
 
-    const newPlaylist = new Playlist({
-      name,
-      userId,
-      trackCount: 0,
-      isMix: false,
-    });
+      const newPlaylist = new Playlist({
+        name,
+        userId,
+        trackCount: 0,
+        isMix: false,
+      });
 
-    await newPlaylist.save();
+      await newPlaylist.save();
 
-    const user = await User.findById(userId);
-    if (!user) {
-      return res.status(404).json({
-        message: "User not found",
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).json({
+          message: "User not found",
+          status: "fail",
+        });
+      }
+
+      user.playlistCount += 1;
+      user.collaboratedUserId.push(newPlaylist._id);
+      await user.save();
+
+      if (collaborators && collaborators.length > 0) {
+        newPlaylist.collaborators = [userId, ...collaborators];
+        await newPlaylist.save();
+
+        for (const collaboratorId of collaborators) {
+          const collaborator = await User.findById(collaboratorId);
+          if (collaborator) {
+            collaborator.playlistCount += 1;
+            collaborator.collaboratedUserId.push(newPlaylist._id);
+            await collaborator.save();
+          }
+        }
+      }
+
+      return res.status(201).json({
+        data: formatObj(newPlaylist),
+        message: "Playlist created successfully and collaborators added",
+        status: "success",
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message || "Internal server error",
         status: "fail",
       });
     }
-
-    user.playlistCount += 1;
-    user.collaboratedUserId.push(newPlaylist._id);
-    await user.save();
-
-    if (collaborators && collaborators.length > 0) {
-      newPlaylist.collaborators = [userId, ...collaborators];
-      await newPlaylist.save();
-
-      for (const collaboratorId of collaborators) {
-        const collaborator = await User.findById(collaboratorId);
-        if (collaborator) {
-          collaborator.playlistCount += 1;
-          collaborator.collaboratedUserId.push(newPlaylist._id);
-          await collaborator.save();
-        }
-      }
-    }
-
-    return res.status(201).json({
-      data: formatObj(newPlaylist),
-      message: "Playlist created successfully and collaborators added",
-      status: "success",
-    });
-  } catch (error) {
-    return res.status(500).json({
-      message: error.message || "Internal server error",
-      status: "fail",
-    });
-  }
-};
+  };
 
 // Remove a collaborator from a playlist
 const removeCollaboratorFromPlaylist = async (req, res) => {

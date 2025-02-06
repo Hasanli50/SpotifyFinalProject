@@ -5,6 +5,7 @@ const path = require("path");
 const bcrypt = require("bcrypt");
 const extractPublicId = require("../utils/extractPublicId.js");
 const { cloudinary } = require("../config/imageCloudinary.js");
+const Track = require("../models/track.js");
 
 const getAllNonDeletedArtists = async (_, res) => {
   try {
@@ -150,7 +151,6 @@ const register = async (req, res) => {
         token: token,
       },
     });
-    console.log(newArtist);
   } catch (error) {
     res.status(500).json({
       message: error.message || "Internal server error",
@@ -283,8 +283,8 @@ const deleteAccount = async (req, res) => {
     }
 
     await Track.updateMany(
-      { _id: { $in: artist.trackIds } }, // Filter tracks where the artist's trackIds are present
-      { $pull: { artistIds: artist._id } } // Remove the artist from the artistIds of those tracks
+      { _id: { $in: artist.trackIds } }, 
+      { $pull: { artistIds: artist._id } } 
     );
 
     const updatedArtist = await Artist.findByIdAndUpdate(
