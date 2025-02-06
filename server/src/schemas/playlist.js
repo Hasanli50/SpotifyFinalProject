@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const playlistSchema = new Schema(
@@ -10,9 +10,15 @@ const playlistSchema = new Schema(
     },
     userId: {
       type: Schema.Types.ObjectId,
-      ref: 'User', 
+      ref: "User",
       required: true,
     },
+    collaborators: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
     trackCount: {
       type: Number,
       default: 0,
@@ -21,11 +27,11 @@ const playlistSchema = new Schema(
       {
         trackId: {
           type: Schema.Types.ObjectId,
-          refPath: 'trackType', 
+          refPath: "trackType",
         },
         type: {
           type: String,
-          enum: ['album', 'single'], 
+          enum: ["album", "single"],
           required: true,
         },
       },
@@ -39,8 +45,8 @@ const playlistSchema = new Schema(
 );
 
 // Virtual field to dynamically reference the 'Track' or 'Single' model based on the 'type' of track
-playlistSchema.virtual('trackType').get(function () {
-  return this.trackIds[0]?.type === 'album' ? 'Track' : 'Single';
+playlistSchema.virtual("trackType").get(function () {
+  return this.trackIds[0]?.type === "album" ? "Track" : "Single";
 });
 
 module.exports = playlistSchema;
