@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 require("dotenv").config();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 const connectToDb = require("./src/config/db.js");
 const cors = require("cors");
 const path = require("path");
@@ -11,7 +11,8 @@ const artistRouter = require("./src/routes/artistRouter.js");
 const playlistRouter = require("./src/routes/playlistRouter.js");
 const trackRouter = require("./src/routes/trackRouter.js");
 const genreRoutes = require("./src/routes/genreRouter.js");
-const albumRouter = require("./src/routes/albumRouter.js")
+const albumRouter = require("./src/routes/albumRouter.js");
+const searchRouter = require("./src/routes/searchRouter.js");
 const multerErrorHandling = require("./src/middlewares/multerErrorHendling.js");
 const passport = require("passport");
 const session = require("express-session");
@@ -41,8 +42,8 @@ app.use("/artists", artistRouter);
 app.use("/playlists", playlistRouter);
 app.use("/genres", genreRoutes);
 app.use("/tracks", trackRouter);
-app.use("/albums", albumRouter)
-
+app.use("/albums", albumRouter);
+app.use("/search", searchRouter);
 
 app.use(multerErrorHandling);
 

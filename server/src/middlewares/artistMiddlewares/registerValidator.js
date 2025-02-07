@@ -19,8 +19,8 @@ const validateRegistration = [
     .optional()
     .isString()
     .withMessage("Description must be a string.")
-    .isLength({ max: 500 })
-    .withMessage("Description should not exceed 500 characters."),
+    .isLength({ max: 2200 })
+    .withMessage("Description should not exceed 2200 characters."),
 
   body("genreIds")
     .isArray({ min: 1 })
