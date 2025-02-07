@@ -15,8 +15,15 @@ const updateArtistInfoValidator = [
     .withMessage("Please provide a valid email.")
     .normalizeEmail(),
 
+  body("description")
+    .optional()
+    .isString()
+    .withMessage("Description must be a string.")
+    .isLength({ max: 2200 })
+    .withMessage("Description should not exceed 2200 characters."),
+
   body("genreIds")
-    .optional() 
+    .optional()
     .isArray()
     .withMessage("genreIds must be an array.")
     .custom((value) => {

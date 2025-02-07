@@ -15,13 +15,6 @@ const validateRegistration = [
     .withMessage("Please provide a valid email.")
     .normalizeEmail(),
 
-  body("description")
-    .optional()
-    .isString()
-    .withMessage("Description must be a string.")
-    .isLength({ max: 2200 })
-    .withMessage("Description should not exceed 2200 characters."),
-
   body("genreIds")
     .isArray({ min: 1 })
     .withMessage("At least one genre ID is required."),

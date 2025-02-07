@@ -2,6 +2,7 @@ const transporter = require("../config/nodemailer.js");
 const Artist = require("../models/artist.js");
 const formatObj = require("../utils/formatObj.js");
 const path = require("path");
+const transporter = require("../config/nodemailer.js");
 const bcrypt = require("bcrypt");
 const extractPublicId = require("../utils/extractPublicId.js");
 const { cloudinary } = require("../config/imageCloudinary.js");
@@ -109,7 +110,7 @@ const getById = async (req, res) => {
 
 const register = async (req, res) => {
   try {
-    const { username, genreIds, description, email, password } = req.body;
+    const { username, genreIds, email, password } = req.body;
 
     const duplicate = await Artist.findOne({
       $or: [{ email }, { username }],
@@ -236,6 +237,18 @@ const verifyAccount = async (req, res) => {
       });
     }
 
+    //send mail with nodemailer
+    await transporter
+      .sendMail({
+        from: process.env.MAIL_USER,
+        to: updatedArtist.email,
+        subject: "Account Verification | Melodies",
+        html: `<h1>Click <a href="${process.env.APP_BASE_URL}/users/login">here</a> to login your account</h1>`,
+      })
+      .catch((error) => {
+        console.log("error: ", error);
+      });
+
     res.status(200).json({
       data: {
         id: formatObj(updatedArtist).id,
@@ -283,8 +296,8 @@ const deleteAccount = async (req, res) => {
     }
 
     await Track.updateMany(
-      { _id: { $in: artist.trackIds } }, 
-      { $pull: { artistIds: artist._id } } 
+      { _id: { $in: artist.trackIds } },
+      { $pull: { artistIds: artist._id } }
     );
 
     const updatedArtist = await Artist.findByIdAndUpdate(
@@ -443,7 +456,7 @@ const updateArtistInfo = async (req, res) => {
   try {
     const { id } = req.params;
     const { id: artistId } = req.artist;
-    const { username, email, genreIds } = req.body;
+    const { username, email, genreIds, description } = req.body;
 
     if (id !== artistId) {
       return res.status(401).json({

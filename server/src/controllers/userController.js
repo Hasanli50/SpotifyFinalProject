@@ -110,7 +110,7 @@ const register = async (req, res) => {
       .sendMail({
         from: process.env.MAIL_USER,
         to: email,
-        subject: "Account Verification | Spotify",
+        subject: "Account Verification | Melodies",
         html: `<h1>Click <a href="${process.env.APP_BASE_URL}/users/verify/${token}">here</a> to verify your account</h1>`,
       })
       .catch((error) => {
