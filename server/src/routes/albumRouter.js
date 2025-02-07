@@ -19,18 +19,22 @@ router.post(
   imageUpload.single("coverImage"),
   createAlbumValidation,
   createAlbum
-); 
-router.get("/", getAllAlbums); 
-router.get("/:id", getAlbumById); 
+);
+router.get("/", getAllAlbums);
+router.get("/:id", getAlbumById);
 router.patch(
   "/:id",
   imageUpload.single("coverImage"),
   updateAlbumValidatiion,
   updateAlbum
 );
-router.delete("/:id", deleteAlbum);
+router.delete("/:id", imageUpload.single("coverImage"), deleteAlbum);
 router.patch("/:id/tracks", addTracksToAlbum);
-router.delete("/:id/tracks", removeTrackFromAlbum); 
-router.patch("/:id/increment-play", incrementMonthlyPlayCount); 
+router.delete(
+  "/:id/tracks",
+  imageUpload.single("coverImage"),
+  removeTrackFromAlbum
+);
+router.patch("/:id/increment-play", incrementMonthlyPlayCount);
 
 module.exports = router;

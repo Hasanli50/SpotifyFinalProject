@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const Album = require("../models/album");
 const Track = require("../models/track");
 const Artist = require("../models/artist");
@@ -6,6 +5,8 @@ const formatObj = require("../utils/formatObj");
 const { extractPublicIdImage } = require("../utils/extractPublicIdTrack");
 const path = require("path");
 const { cloudinary } = require("../config/imageCloudinary");
+const Playlist = require("../models/playlist");
+const mongoose = require("mongoose");
 
 // Create a new album ++
 const createAlbum = async (req, res) => {
@@ -30,8 +31,11 @@ const createAlbum = async (req, res) => {
 
     await album.save();
 
+    artist.albumIds.push(album._id);
+    await artist.save();
+
     res.status(201).json({
-      message: "Artist registered successfully, pending approval",
+      message: "Artist successfully created",
       status: "success",
       data: formatObj(album),
     });
@@ -145,19 +149,63 @@ const updateAlbum = async (req, res) => {
   }
 };
 
-// Delete an album by ID
+// Delete an album by ID ++
 const deleteAlbum = async (req, res) => {
   try {
-    const album = await Album.findByIdAndDelete(req.params.id);
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ error: "Invalid album ID format" });
+    }
+
+    const objectId = new mongoose.Types.ObjectId(id);
+
+    const album = await Album.findByIdAndDelete(objectId);
 
     if (!album) {
       return res.status(404).json({ error: "Album not found" });
     }
 
-    res.status(200).json({ message: "Album deleted successfully" });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Failed to delete album" });
+    if (album.coverImage) {
+      const publicId = extractPublicIdImage(album);
+      await cloudinary.uploader.destroy(`uploads/${publicId}`);
+    }
+
+    // Step 1: Delete all tracks from the Track model that were associated with the album
+    await Track.deleteMany({ _id: { $in: album.trackIds } });
+
+    // Step 2: Remove the trackIds from all playlists that contain any of the deleted tracks
+    await Playlist.updateMany(
+      { "trackIds.trackId": { $in: album.trackIds } },
+      { $pull: { trackIds: { trackId: { $in: album.trackIds } } } }
+    );
+
+    // Step 3: Remove the trackIds from the Artist model
+    await Artist.updateMany(
+      { trackIds: { $in: album.trackIds } },
+      {
+        $pull: { trackIds: { $in: album.trackIds } },
+        $inc: { albumsCount: -1 },
+      }
+    );
+
+    // Step 4: Update artist album list by removing the deleted albumId
+    await Artist.findByIdAndUpdate(
+      album.artistId,
+      { $pull: { albumIds: album._id } },
+      { new: true }
+    );
+
+    // Respond back with success
+    res.status(200).json({
+      message: "Album and associated data deleted successfully",
+      status: "success",
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error?.message || "Internal server error",
+      status: "fail",
+    });
   }
 };
 
@@ -189,42 +237,93 @@ const addTracksToAlbum = async (req, res) => {
 
     await album.save();
 
+    const artist = await Artist.findById(album.artistId);
+
+    if (!artist) {
+      return res.status(404).json({
+        message: "Artist not found",
+        status: "fail",
+      });
+    }
+
+    artist.trackIds.push(...trackIds);
+    await artist.save();
+
     return res.status(200).json({
       data: formatObj(album),
       message: "Track added successfully",
       status: "success",
     });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Failed to add tracks to album" });
+    res.status(500).json({
+      message: error?.message || "Internal server error",
+      status: "fail",
+    });
   }
 };
 
-// Remove a track from an album
+// Remove a track from an album ++
 const removeTrackFromAlbum = async (req, res) => {
   try {
     const { trackId } = req.body;
 
     const album = await Album.findById(req.params.id);
-
     if (!album) {
-      return res.status(404).json({ error: "Album not found" });
+      return res.status(404).json({
+        message: "Album not found",
+        status: "fail",
+      });
     }
 
-    const index = album.trackIds.indexOf(trackId);
+    const trackObjectId = new mongoose.Types.ObjectId(trackId);
+
+    const index = album.trackIds.findIndex((track) =>
+      track.equals(trackObjectId)
+    );
+
     if (index > -1) {
       album.trackIds.splice(index, 1);
       album.trackCount = album.trackIds.length;
 
+      const track = await Track.findById(trackObjectId);
+      if (track && track.coverImage) {
+        const publicId = extractPublicIdImage(album);
+        await cloudinary.uploader.destroy(`uploads/${publicId}`);
+      }
+      
+      // Step 1: Delete the track from the Track model
+      await Track.findByIdAndDelete(trackObjectId);
+
+      // Step 2: Remove the trackId from all Playlists that contain this track
+      await Playlist.updateMany(
+        { "trackIds.trackId": trackObjectId },
+        { $pull: { trackIds: { trackId: trackObjectId } } }
+      );
+
+      // Step 3: Remove the trackId from the Artist model
+      await Artist.updateMany(
+        { trackIds: trackObjectId },
+        { $pull: { trackIds: trackObjectId } }
+      );
+
       await album.save();
 
-      res.status(200).json(album);
+      res.status(200).json({
+        message: "Track removed from album, playlists, and artist",
+        status: "success",
+        album,
+      });
     } else {
-      res.status(404).json({ error: "Track not found in the album" });
+      return res.status(404).json({
+        message: "Track not found in the album",
+        status: "fail",
+      });
     }
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Failed to remove track from album" });
+    res.status(500).json({
+      message: err.message || "Internal server error",
+      status: "fail",
+    });
   }
 };
 

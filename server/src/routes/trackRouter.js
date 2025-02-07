@@ -5,7 +5,6 @@ const {
   createTrack,
   getTrackById,
   getAllTracks,
-  updateTrack,
   deleteTrack,
   incrementPlayCount,
 } = require("../controllers/trackController.js");
