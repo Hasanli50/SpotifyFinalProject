@@ -13,9 +13,11 @@
   align-items: baseline;
   gap: 16px;
   margin-bottom: 8px;
+  position: relative;
 }
 
 .letter {
+  text-decoration: none;
   cursor: pointer;
   color: #FDE7F7;
   font-size: 20px;
@@ -24,9 +26,18 @@
   transition: 0.3s ease-in-out;
 }
 
-.letter.active {
+.signUp {
   color: #EE10B0;
-  border-bottom: 2px solid #EE10B0;
+}
+
+.signUp::after {
+  position: absolute;
+  content: "";
+  height: 3px;
+  background-color: #EE10B0;
+  width: 80px;
+  color: #EE10B0;
+  top: 50px;
 }
 
 .field {

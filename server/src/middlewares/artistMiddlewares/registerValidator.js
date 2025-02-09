@@ -15,10 +15,6 @@ const validateRegistration = [
     .withMessage("Please provide a valid email.")
     .normalizeEmail(),
 
-  body("genreIds")
-    .isArray({ min: 1 })
-    .withMessage("At least one genre ID is required."),
-
   body("password")
     .notEmpty()
     .withMessage("Password is required")

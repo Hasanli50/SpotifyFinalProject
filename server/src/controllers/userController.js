@@ -6,27 +6,27 @@ const bcrypt = require("bcrypt");
 const extractPublicId = require("../utils/extractPublicId.js");
 const { cloudinary } = require("../config/imageCloudinary.js");
 
-const getAllNonDeletedUsers = async (_, res) => {
-  try {
-    const users = await User.find({ isDeleted: false }, { password: 0 });
-    if (users.length === 0) {
-      return res.status(404).json({
-        message: "Users not found",
+  const getAllNonDeletedUsers = async (_, res) => {
+    try {
+      const users = await User.find({ isDeleted: false }, { password: 0 });
+      if (users.length === 0) {
+        return res.status(404).json({
+          message: "Users not found",
+          status: "fail",
+        });
+      }
+      res.status(200).json({
+        message: "Users successfully found",
+        status: "success",
+        data: users.map(formatObj),
+      });
+    } catch (error) {
+      res.status(500).json({
+        message: error?.message || "Internal server error",
         status: "fail",
       });
     }
-    res.status(200).json({
-      message: "Users successfully found",
-      status: "success",
-      data: users.map(formatObj),
-    });
-  } catch (error) {
-    res.status(500).json({
-      message: error?.message || "Internal server error",
-      status: "fail",
-    });
-  }
-};
+  };
 
 const getAllDeletedUsers = async (_, res) => {
   try {
@@ -655,19 +655,19 @@ const resetPassword = async (req, res) => {
 };
 
 module.exports = {
-  getAllNonDeletedUsers,
-  getAllDeletedUsers,
-  getById,
-  register,
-  login,
-  verifyAccount,
-  deleteAccount,
-  freezeAccount,
-  unfreezeAccount,
-  banAccount,
-  unBanAccount,
-  resetPassword,
-  forgotPassword,
-  updateUserInfo,
+  getAllNonDeletedUsers, 
+  getAllDeletedUsers,  
+  getById,  
+  register,  
+  login,  
+  verifyAccount,  
+  deleteAccount,  
+  freezeAccount,  
+  unfreezeAccount,  
+  banAccount,  
+  unBanAccount,  
+  resetPassword,  
+  forgotPassword,  
   updatePassword,
+  updateUserInfo,  
 };

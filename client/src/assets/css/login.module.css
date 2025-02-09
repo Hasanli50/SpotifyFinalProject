@@ -1,11 +1,10 @@
 .card {
   max-width: 476.5px;
-  max-height: 372px;
   background-color: #53063E;
   padding: 16px 25px;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  margin: 9% auto;
+  margin: 40px auto;
 }
 
 .top {
@@ -14,6 +13,7 @@
   align-items: baseline;
   gap: 16px;
   margin-bottom: 8px;
+  position: relative;
 }
 
 .letter {
@@ -21,13 +21,23 @@
   color: #FDE7F7;
   font-size: 20px;
   font-weight: bold;
-  margin: 0;
+  text-decoration: none;
   transition: 0.3s ease-in-out;
+  margin: 0;
 }
 
-.letter.active {
+.login {
   color: #EE10B0;
-  border-bottom: 2px solid #EE10B0;
+}
+
+.login::after {
+  position: absolute;
+  content: "";
+  height: 3px;
+  background-color: #EE10B0;
+  width: 60px;
+  color: #EE10B0;
+  top: 50px;
 }
 
 .field {

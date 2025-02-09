@@ -2,7 +2,6 @@ const transporter = require("../config/nodemailer.js");
 const Artist = require("../models/artist.js");
 const formatObj = require("../utils/formatObj.js");
 const path = require("path");
-const transporter = require("../config/nodemailer.js");
 const bcrypt = require("bcrypt");
 const extractPublicId = require("../utils/extractPublicId.js");
 const { cloudinary } = require("../config/imageCloudinary.js");
@@ -110,7 +109,7 @@ const getById = async (req, res) => {
 
 const register = async (req, res) => {
   try {
-    const { username, genreIds, email, password } = req.body;
+    const { username, email, password } = req.body;
 
     const duplicate = await Artist.findOne({
       $or: [{ email }, { username }],
@@ -127,7 +126,7 @@ const register = async (req, res) => {
       email,
       password,
       role: "artist",
-      genreIds,
+      genreIds: [],
       description,
       image: req.file.path,
       status: "pending",

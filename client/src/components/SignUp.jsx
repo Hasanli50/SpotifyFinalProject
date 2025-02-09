@@ -1,38 +1,21 @@
 import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
 import style from "../assets/style/register.module.scss";
 import GoogleIcon from "../assets/image/icon/GoogleIcon";
-import { useState } from "react";
+import { Link } from "react-router";
 import { Input } from "antd";
-// import { Link } from "react-router";
 
 const SignUp = () => {
-  const [activeTab, setActiveTab] = useState("signup");
-
   return (
     <>
       <div className={style.card}>
         <div className={style.top}>
-          {/* <Link to={"/sign-up"}> */}
-          <p
-            className={`${style.letter} ${
-              activeTab === "signup" ? style.active : ""
-            }`}
-            onClick={() => setActiveTab("signup")}
-          >
-            Sign Up
-          </p>
-          {/* </Link> */}
+          <Link to={"/register"} className={`${style.letter} ${style.signUp}`}>
+            <p>Sign Up</p>
+          </Link>
 
-          {/* <Link to={"/login"}> */}
-          <p
-            className={`${style.letter} ${
-              activeTab === "login" ? style.active : ""
-            }`}
-            onClick={() => setActiveTab("login")}
-          >
-            Login
-          </p>
-          {/* </Link> */}
+          <Link to={"/login"} className={style.letter}>
+            <p>Login</p>
+          </Link>
         </div>
         <form className={style.form}>
           <div className={style.field} style={{ position: "relative" }}>
@@ -91,7 +74,7 @@ const SignUp = () => {
             />
           </div>
 
-          <button className={style.loginBtn}>Login</button>
+          <button className={style.loginBtn}>Sign Up</button>
           <div className={style.orBox}>
             <p className={style.or}>Or</p>
           </div>

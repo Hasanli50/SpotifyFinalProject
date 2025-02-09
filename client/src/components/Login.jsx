@@ -1,38 +1,21 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import style from "../assets/style/login.module.scss";
 import GoogleIcon from "../assets/image/icon/GoogleIcon";
-import { useState } from "react";
 import { Input } from "antd";
-// import { Link } from "react-router";
+import { Link } from "react-router";
 
 const Login = () => {
-  const [activeTab, setActiveTab] = useState("signup");
-
   return (
     <>
       <div className={style.card}>
         <div className={style.top}>
-          {/* <Link to={"/sign-up"}> */}
-            <p
-              className={`${style.letter} ${
-                activeTab === "signup" ? style.active : ""
-              }`}
-              onClick={() => setActiveTab("signup")}
-            >
-              Sign Up
-            </p>
-          {/* </Link> */}
+          <Link to={"/register"} className={style.letter}>
+            <p>Sign Up</p>
+          </Link>
 
-          {/* <Link to={"/login"}> */}
-            <p
-              className={`${style.letter} ${
-                activeTab === "login" ? style.active : ""
-              }`}
-              onClick={() => setActiveTab("login")}
-            >
-              Login
-            </p>
-          {/* </Link> */}
+          <Link to={"/login"} className={`${style.letter} ${style.login}`}>
+            <p>Login</p>
+          </Link>
         </div>
         <form className={style.form}>
           <div className={style.field} style={{ position: "relative" }}>
@@ -77,9 +60,8 @@ const Login = () => {
           </div>
           <button className={style.googleBtn}>
             <GoogleIcon />
-            <span className={style.red}>Sign</span>
-            <span className={style.yellow}>Up</span>
-            <span className={style.green}>With</span>
+            <span className={style.red}>Login</span>
+            <span className={style.yellow}>With</span>
             <span className={style.blue}>Google</span>
           </button>
         </form>

@@ -2,12 +2,11 @@
 
 .card {
   max-width: 476.5px;
-  max-height: 372px;
   background-color: $darkerPurple;
-  padding: 16px 25px ; 
+  padding: 16px 25px;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  margin: 9% auto;
+  margin: 40px auto;
 }
 
 .top {
@@ -16,6 +15,7 @@
   align-items: baseline;
   gap: 16px;
   margin-bottom: 8px;
+  position: relative;
 }
 
 .letter {
@@ -23,20 +23,28 @@
   color: $lightPink;
   font-size: 20px;
   font-weight: bold;
-  margin: 0;
+  text-decoration: none;
   transition: 0.3s ease-in-out;
+  margin: 0;
 }
-
-.letter.active {
+.login{
   color: $normalPurple;
-  border-bottom: 2px solid $normalPurple;
+}
+.login::after {
+  position: absolute;
+  content: "";
+  height: 3px;
+  background-color: $normalPurple;
+  width: 60px;
+  color: $normalPurple;
+  top: 50px;
 }
 
 .field {
   margin-bottom: 20px;
   max-width: 100%;
 }
-.form{
+.form {
   // width: 100%;
 }
 
@@ -47,7 +55,7 @@
   font-size: 16px;
 }
 :global(.ant-input::placeholder) {
-  color: #d4c1cf; 
+  color: #d4c1cf;
   font-size: 15px;
 }
 
@@ -107,7 +115,7 @@
   color: $whiteColor;
   font-size: 16px;
 }
-.orBox{
+.orBox {
   position: relative;
 }
 .or::after {
@@ -118,9 +126,8 @@
   width: 45%;
   right: 0;
   top: 50%;
-
 }
-.or::before{
+.or::before {
   position: absolute;
   content: "";
   height: 1px;

@@ -113,19 +113,6 @@ const getTracksByGenre = async (req, res) => {
   }
 };
 
-// Search for genres (if needed)
-// const searchGenres = async (req, res) => {
-//   try {
-//     const query = req.query.name; // Assuming search is done by genre name
-//     const genres = await Genre.find({ name: { $regex: query, $options: "i" } });
-
-//     return res.status(200).json({ genres });
-//   } catch (error) {
-//     console.error(error);
-//     return res.status(500).json({ message: "Server error." });
-//   }
-// };
-
 module.exports = {
   createGenre,
   getAllGenres,
