@@ -111,9 +111,6 @@ const register = async (req, res) => {
   console.log("🔵 Register route hit!");
   try {
     const { username, email, password } = req.body;
-    
-    console.log("Request Body:", req.body);
-    console.log("Uploaded File:", req.file); // Should show Cloudinary details
 
     if (!req.body.username || !req.body.email || !req.body.password) {
       return res.status(400).json({
@@ -179,12 +176,9 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   try {
     const { username, password } = req.body;
-    // console.log("req.body: ",req.body)
 
     const artist = await Artist.login(username, password);
-    // console.log("Username:", username);
-    // console.log("Password:", password);
-    // console.log(artist);
+    console.log(artist)
     if (!artist) {
       return res.status(404).json({
         message: "Invalid username or password",
@@ -220,14 +214,6 @@ const login = async (req, res) => {
     if (artist.isFrozen === true) {
       await Artist.findByIdAndUpdate(artist._id, { isFrozen: false });
     }
-
-    // console.log(
-    //   formatObj(artist).id,
-    //   artist.username,
-    //   artist.email,
-    //   artist.role,
-    //   artist.generateToken(), // generate token
-    // )
 
     res.status(200).json({
       data: {

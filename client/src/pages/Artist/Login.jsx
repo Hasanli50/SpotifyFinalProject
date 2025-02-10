@@ -2,14 +2,17 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import style from "../../assets/style/login.module.scss";
 import GoogleIcon from "../../assets/image/icon/GoogleIcon";
 import { Input } from "antd";
-import { Link, useNavigate } from "react-router"; // Changed to useNavigate hook
+import { Link, useNavigate } from "react-router";
 import { useFormik } from "formik";
 import { loginSchema } from "../../schema/loginSchema";
-import { useLogin } from "../../hooks/useArtist";
 import toast from "react-hot-toast";
+import { BASE_URL, ENDPOINT } from "../../api/endpoint";
+import axios from "axios";
+import { saveUserToStorage } from "../../utils/localeStorage";
+import { useAllNonDeletedArtists } from "../../hooks/useArtist";
 
 const Login = () => {
-  const { mutate } = useLogin();
+  const { data } = useAllNonDeletedArtists();
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -19,26 +22,37 @@ const Login = () => {
     },
     onSubmit: async (values, actions) => {
       try {
-        console.log("Form Values:", values);
-
-        const response = await mutate(values);
-
-        console.log("Response from mutate:", response);
-
-        if (response && response.token) {
-          actions.resetForm();
-          toast.success("Successfully signed in!");
-          localStorage.setItem("token", response.token);
-
-          setTimeout(() => {
-            navigate("/artist");
-          }, 300);
+        const cleanedValues = {
+          username: values.username.trim(),
+          password: values.password.trim(),
+        };
+        const isUsernameValid = data.some(
+          (artist) => artist.username === cleanedValues.username
+        );
+        if (!isUsernameValid) {
+          toast.error("Username or password is incorrect. Please try again.");
+          return;
         } else {
-          toast.error("Login failed. Please try again.");
+          const response = await axios.post(
+            `${BASE_URL + ENDPOINT.artists}/login`,
+            cleanedValues
+          );
+          if (response && response.data.token) {
+            actions.resetForm();
+            toast.success("Successfully signed in!");
+            saveUserToStorage(response.data.token);
+            console.log(response.data.token);
+
+            setTimeout(() => {
+              navigate("/artist");
+            }, 300);
+          } else {
+            toast.error("Login failed. Please try again.");
+          }
         }
       } catch (error) {
         console.error("Login error:", error);
-        toast.error("Login failed. Please try again.");
+        toast.error("Username or password is incorrect. Please try again.");
       }
     },
     validationSchema: loginSchema,

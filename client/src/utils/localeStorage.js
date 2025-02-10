@@ -1,7 +1,7 @@
-const KEY = "id";
+const KEY = "token";
 
-export const saveUserToStorage = (id) => {
-  localStorage.setItem(KEY, JSON.stringify(id));
+export const saveUserToStorage = (token) => {
+  localStorage.setItem(KEY, JSON.stringify(token));
 };
 
 export const removeUserFromStorage = () => {

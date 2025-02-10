@@ -2,7 +2,7 @@
 
 const Home = () => {
   return (
-    <div style={{color: "#fff"}}>Home</div>
+    <div style={{color: "#fff"}}>Welcome to Home</div>
   )
 }
 

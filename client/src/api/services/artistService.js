@@ -51,16 +51,10 @@ export const register = async (newArtist) => {
     if (newArtist.image && newArtist.image instanceof File) {
       formData.append("image", newArtist.image);
     }
-    // console.log("FormData before sending:");
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}:`, value);
-    }
-
     const response = await axiosInstance.post(
       `${BASE_URL + ENDPOINT.artists}/register`,
       formData
     );
-    console.log("response", response.data )
     const { token } = response.data.data;
     localStorage.setItem("authToken", token);
     return response.data.data;
