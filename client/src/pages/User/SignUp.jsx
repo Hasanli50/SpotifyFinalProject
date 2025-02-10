@@ -1,10 +1,22 @@
 import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
-import style from "../assets/style/register.module.scss";
-import GoogleIcon from "../assets/image/icon/GoogleIcon";
+import style from "../../assets/style/register.module.scss";
+import GoogleIcon from "../../assets/image/icon/GoogleIcon";
 import { Link } from "react-router";
 import { Input } from "antd";
+// import { useFormik } from "formik";
 
 const SignUp = () => {
+  // const formik = useFormik({
+  //   initialValues: {
+  //     username: "",
+  //     email: "",
+  //     password: "",
+  //     image: null,
+  //   },
+  //   onSubmit: (values, actions) => {
+      
+  //   },
+  // });
   return (
     <>
       <div className={style.card}>

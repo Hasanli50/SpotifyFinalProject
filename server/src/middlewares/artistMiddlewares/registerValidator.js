@@ -1,6 +1,6 @@
 const { body, validationResult } = require("express-validator");
 
-const validateRegistration = [
+const   validateRegistration = [
   body("username")
     .notEmpty()
     .withMessage("Username cannot be empty.")

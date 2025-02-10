@@ -24,7 +24,11 @@ app.set("views", path.join(__dirname, "/src/views"));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors({
+  origin: "*", // Allow all domains (Change to your frontend URL in production)
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
 
 app.use(
   session({

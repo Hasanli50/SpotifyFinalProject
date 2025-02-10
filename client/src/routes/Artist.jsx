@@ -1,14 +1,15 @@
-
 import { Route, Routes } from "react-router";
-import Login from "../pages/User/Login";
-import SignUp from "../pages/User/SignUp";
-const User = () => {
+import Login from "../pages/Artist/Login";
+import SignUp from "../pages/Artist/Register";
+import Home from "../pages/Artist/Home";
+const Artist = () => {
   return (
     <>
-     <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<SignUp />} />
-      {/* <Route path="/" element={<StudentLayout />}>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/register" element={<SignUp />} />
+        {/* <Route path="/" element={<StudentLayout />}>
         <Route index element={<PrivateRoute element={<Home />} />} />
         <Route path="/tasks/:taskId" element={<PrivateRoute element={<Tasks />} />} />
         <Route path="/tasks/:taskId/zego-meet" element={<PrivateRoute element={<ZegoMeet />} />} />
@@ -32,9 +33,9 @@ const User = () => {
         />
       </Route>
       <Route path="*" element={<NotFound />} /> */}
-    </Routes>
+      </Routes>
     </>
-  )
-}
+  );
+};
 
-export default User
+export default Artist;

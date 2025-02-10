@@ -57,6 +57,13 @@
   font-size: 15px;
 }
 
+.pass {
+  color: #0E9EEF;
+  text-align: right;
+  cursor: pointer;
+  text-decoration: none;
+}
+
 .loginBtn,
 .googleBtn {
   width: 100%;
