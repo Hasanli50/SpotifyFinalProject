@@ -26,33 +26,41 @@ const Login = () => {
           username: values.username.trim(),
           password: values.password.trim(),
         };
-        const isUsernameValid = data.some(
+
+        const artist = data.find(
           (artist) => artist.username === cleanedValues.username
         );
-        if (!isUsernameValid) {
-          toast.error("Username or password is incorrect. Please try again.");
+        if (!artist) {
+          toast.error("Incorrect username. Please try again.");
           return;
-        } else {
-          const response = await axios.post(
-            `${BASE_URL + ENDPOINT.artists}/login`,
-            cleanedValues
-          );
-          if (response && response.data.token) {
-            actions.resetForm();
-            toast.success("Successfully signed in!");
-            saveUserToStorage(response.data.token);
-            console.log(response.data.token);
+        }
 
-            setTimeout(() => {
-              navigate("/artist");
-            }, 300);
-          } else {
-            toast.error("Login failed. Please try again.");
-          }
+        if (artist.status !== "approved") {
+          toast.error("Your status is not approved!");
+          return;
+        }
+
+        const response = await axios.post(
+          `${BASE_URL + ENDPOINT.artists}/login`,
+          cleanedValues
+        );
+        if (response && response.data.token) {
+          actions.resetForm();
+          toast.success("Successfully signed in!");
+          saveUserToStorage(response.data.token);
+          // console.log(response.data.token);
+
+          setTimeout(() => {
+            navigate("/artist");
+          }, 300);
+        } else {
+          toast.error("Login failed. Please try again.");
         }
       } catch (error) {
-        console.error("Login error:", error);
-        toast.error("Username or password is incorrect. Please try again.");
+        console.log("Error: ", error);
+        toast.error(
+          "Incorrect password. Please try again or click to `Forgot Password`."
+        );
       }
     },
     validationSchema: loginSchema,
@@ -123,8 +131,9 @@ const Login = () => {
             <p style={{ color: "#0E9EEF" }}>{formik.errors.password}</p>
           ) : null}
         </div>
-
-        <p className={style.pass}>Forgot Password?</p>
+        <Link to={"/artist/forgot-password"} className={style.pass}>
+          <p>Forgot Password?</p>
+        </Link>
         <button type="submit" className={style.loginBtn}>
           Login
         </button>

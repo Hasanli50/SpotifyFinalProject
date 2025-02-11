@@ -2,12 +2,16 @@ import { Route, Routes } from "react-router";
 import Login from "../pages/Artist/Login";
 import SignUp from "../pages/Artist/Register";
 import Home from "../pages/Artist/Home";
+import ForgotPass from "../pages/Artist/ForgotPass";
+import ResetPass from "../pages/Artist/ResetPass";
 const Artist = () => {
   return (
     <>
       <Routes>
-        <Route path="/login" element={<Login />} />
         <Route path="/" element={<Home />} />
+        <Route path="/forgot-password" element={<ForgotPass />} />
+        <Route path="/reset-password/:token" element={<ResetPass />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<SignUp />} />
         {/* <Route path="/" element={<StudentLayout />}>
         <Route index element={<PrivateRoute element={<Home />} />} />

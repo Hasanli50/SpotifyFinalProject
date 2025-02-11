@@ -13,6 +13,7 @@ import { signUpSchema } from "../../schema/signUpSchema";
 import toast from "react-hot-toast";
 import { UserCloudinary } from "../../utils/userCloudinary";
 import axios from "axios";
+import { BASE_URL, ENDPOINT } from "../../api/endpoint";
 
 const SignUp = () => {
   // const { mutate, isLoading, error } = useRegisterArtist();
@@ -56,9 +57,13 @@ const SignUp = () => {
           // console.log("Response from mutate:", response);
 
           if (!duplicateUsername && !duplicateEmail) {
-            await axios.post("http://localhost:6060/artists/register", values, {
-              headers: { "Content-Type": "multipart/form-data" },
-            });
+            await axios.post(
+              `${BASE_URL + ENDPOINT.artists}/register`,
+              values,
+              {
+                headers: { "Content-Type": "multipart/form-data" },
+              }
+            );
             toast.success("Artist registered successfully, pending approval!");
             actions.resetForm();
             return;

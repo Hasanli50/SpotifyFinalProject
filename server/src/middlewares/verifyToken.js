@@ -30,6 +30,7 @@ const verifyTokenArtist = (req, res, next) => {
     if (err) {
       return res.status(401).json({ message: "Unauthorized!" });
     }
+    console.log("Decoded Artist Token: ", decoded);
     req.artist = decoded;
     next();
   });

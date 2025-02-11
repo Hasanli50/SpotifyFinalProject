@@ -178,7 +178,7 @@ const login = async (req, res) => {
     const { username, password } = req.body;
 
     const artist = await Artist.login(username, password);
-    console.log(artist)
+    console.log(artist);
     if (!artist) {
       return res.status(404).json({
         message: "Invalid username or password",
@@ -226,7 +226,6 @@ const login = async (req, res) => {
       message: "Artist logged in successfully",
       status: "success",
     });
-    
   } catch (error) {
     console.error("Backend Error:", error);
     res.status(500).json({
@@ -604,9 +603,7 @@ const forgotPassword = async (req, res) => {
   try {
     const { email } = req.body;
     console.log("Email received:", email);
-    const artists = await Artist.find({ isDeleted: false });
-    const artist = artists[0];
-    console.log(artists);
+    const artist = await Artist.findOne({ email: email, isDeleted: false });
 
     if (!artist) {
       return res.status(404).json({
@@ -622,7 +619,7 @@ const forgotPassword = async (req, res) => {
         from: process.env.MAIL_USER,
         to: email,
         subject: "Password Reset | Spotify",
-        html: `<h1>Click <a href="${process.env.APP_BASE_URL}/artists/reset-password/${token}">here</a> to reset your password</h1> <h3>If you did not send a request, you can ignore this email</h3>`,
+        html: `<h1>Click <a href="${process.env.APP_BASE_URL}/artist/reset-password/${token}">here</a> to reset your password</h1> <h3>If you did not send a request, you can ignore this email</h3>`,
       })
       .catch((error) => {
         console.log("error: ", error);
@@ -646,9 +643,7 @@ const resetPassword = async (req, res) => {
   try {
     const { token } = req.params;
     const { id } = req.artist;
-    console.log(req.artist.id);
     const { password, confirmPassword } = req.body;
-    console.log("Token:", token); // Log token for debugging
 
     if (password !== confirmPassword) {
       return res.status(400).json({
@@ -677,9 +672,6 @@ const resetPassword = async (req, res) => {
       });
     }
 
-    // Log artist before updating
-    console.log("Artist found:", artist);
-
     const updatedArtist = await Artist.findByIdAndUpdate(
       id,
       {
@@ -687,8 +679,6 @@ const resetPassword = async (req, res) => {
       },
       { new: true }
     ).select("-password");
-
-    console.log("Updated Artisr:", updatedArtist);
 
     return res.status(200).json({
       data: updatedArtist,
