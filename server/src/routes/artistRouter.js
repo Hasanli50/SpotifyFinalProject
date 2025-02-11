@@ -108,20 +108,4 @@ router.patch(
   updatePassword
 );
 
-// Profile Route
-router.get("/profile", (req, res) => {
-  if (!req.isAuthenticated()) {
-    return res.redirect("/");
-  }
-  res.render("/profile", { user: req.user });
-});
-
-// Logout Route
-router.get("/logout", (req, res) => {
-  req.logout((err) => {
-    if (err) return next(err);
-    res.redirect("/");
-  });
-});
-
 module.exports = router;

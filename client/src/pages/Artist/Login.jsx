@@ -2,7 +2,7 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import style from "../../assets/style/login.module.scss";
 import GoogleIcon from "../../assets/image/icon/GoogleIcon";
 import { Input } from "antd";
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import { useFormik } from "formik";
 import { loginSchema } from "../../schema/loginSchema";
 import toast from "react-hot-toast";
@@ -10,10 +10,27 @@ import { BASE_URL, ENDPOINT } from "../../api/endpoint";
 import axios from "axios";
 import { saveUserToStorage } from "../../utils/localeStorage";
 import { useAllNonDeletedArtists } from "../../hooks/useArtist";
+import { useEffect } from "react";
 
 const Login = () => {
   const { data } = useAllNonDeletedArtists();
   const navigate = useNavigate();
+  const {token} = useParams()
+
+  useEffect(() => {
+    if (token) {
+      saveUserToStorage(token); // Save token to localStorage
+      toast.success("Successfully signed in with Google!");
+
+      setTimeout(() => {
+        navigate("/artist");
+      }, 300);
+    }
+  }, []);
+
+  const handleGoogleLogin = () => {
+    window.location.href = `http://localhost:6060/auth/google`; // Redirect to Google OAuth
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -141,13 +158,14 @@ const Login = () => {
         <div className={style.orBox}>
           <p className={style.or}>Or</p>
         </div>
-
-        <button className={style.googleBtn}>
-          <GoogleIcon />
-          <span className={style.red}>Login</span>
-          <span className={style.yellow}>With</span>
-          <span className={style.blue}>Google</span>
-        </button>
+        {/* <Link to={"/auth/google"} style={{textDecoration: "none"}}> */}
+          <button className={style.googleBtn} onClick={handleGoogleLogin}>
+            <GoogleIcon />
+            <span className={style.red}>Login</span>
+            <span className={style.yellow}>With</span>
+            <span className={style.blue}>Google</span>
+          </button>
+        {/* </Link> */}
       </form>
     </div>
   );
