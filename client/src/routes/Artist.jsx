@@ -6,39 +6,36 @@ import ForgotPass from "../pages/Artist/ForgotPass";
 import ResetPass from "../pages/Artist/ResetPass";
 import NotFound from "../pages/Artist/NotFound";
 import ProtectedRoute from "./ProtectedRoute";
+import Albums from "../pages/Artist/Albums";
+import Tracks from "../pages/Artist/Tracks";
+import AddTrack from "../pages/Artist/AddTrack";
+import Profile from "../pages/Artist/Profile";
+import Setting from "../pages/Artist/Setting";
+import SideBar from "../components/artist/SideBar";
 const Artist = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<ProtectedRoute element={<Home />} />} />
-        <Route path="/forgot-password" element={<ForgotPass />} />
-        <Route path="/reset-password/:token" element={<ResetPass />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<SignUp />} />
-        {/* <Route path="/" element={<StudentLayout />}>
-        <Route index element={<PrivateRoute element={<Home />} />} />
-        <Route path="/tasks/:taskId" element={<PrivateRoute element={<Tasks />} />} />
-        <Route path="/tasks/:taskId/zego-meet" element={<PrivateRoute element={<ZegoMeet />} />} />
-        <Route path="/tasks/:taskId/:detailId" element={<PrivateRoute element={<TaskDetail />} />} />
+          <Route path="/forgot-password" element={<ForgotPass />} />
+          <Route path="/reset-password/:token" element={<ResetPass />} />
         <Route
-          path="/assignments"
-          element={<PrivateRoute element={<Assignments />} />}
-        />
-        <Route
-          path="/thedeadlinehasbeenmissed"
-          element={<PrivateRoute element={<TheDeadlineHasBeenMissed />} />}
-        />
-        <Route path="/done" element={<PrivateRoute element={<Done />} />} />
-        <Route
-          path="/materials/:id"
-          element={<PrivateRoute element={<Materials />} />}
-        />
-        <Route
-          path="/profile"
-          element={<PrivateRoute element={<Profile />} />}
-        />
-      </Route> */}
-      <Route path="*" element={<NotFound />} />
+          path="/"
+          element={
+            // <ProtectedRoute>
+              <SideBar />
+            // </ProtectedRoute>
+          }
+        >
+          <Route index element={<Home />} />
+          <Route path="albums" element={<Albums />} />
+          <Route path="tracks" element={<Tracks />} />
+          <Route path="add-track" element={<AddTrack />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="setting" element={<Setting />} />
+        </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

@@ -1,7 +1,7 @@
-import { Route, Routes } from "react-router";
 import "./App.css";
-import User from "./routes/User";
 import { Toaster } from "react-hot-toast";
+import { Route, Routes } from "react-router";
+import User from "./routes/User";
 import Artist from "./routes/Artist";
 import Admin from "./routes/Admin";
 

@@ -1,5 +1,5 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import style from "../../assets/style/adminLogin.module.scss";
+import style from "../../assets/style/admin/login.module.scss";
 import { Input } from "antd";
 import { useNavigate } from "react-router";
 import { useFormik } from "formik";

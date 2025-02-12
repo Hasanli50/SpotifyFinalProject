@@ -1,0 +1,125 @@
+@import "../../colors/color.scss";
+
+:global {
+  /* Style for selected menu item */
+  .ant-menu-dark .ant-menu-item-selected {
+    background-color: $normalPurple;
+    border-radius: 8px;
+  }
+
+  .ant-menu-dark .ant-menu-item-selected a {
+    color: white;
+  }
+}
+
+.sideBar {
+  border-right: 2px solid $normalPurple;
+  box-shadow: 8px 0 20px rgba(128, 0, 128, 0.5);
+}
+// .header {
+//   background-image: url("../../image/photo/bgHome.png");
+//   background-position: bottom;
+//   background-repeat: no-repeat;
+//   background-size: cover;
+//   width: 100%;
+//   height: 80vh;
+// }
+.box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  // padding: 15px 0 15px 0;
+}
+.list {
+  list-style-type: none;
+  display: flex;
+  gap: 40px;
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
+}
+.item {
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  font-weight: 600;
+}
+.item:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(238, 16, 176, 1) 12%,
+    rgba(14, 158, 239, 1) 100%
+  );
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.buttons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.imgBox {
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    width: 38px;
+    @media only screen and (max-width: 768px) {
+        
+    }
+}
+.img{
+    border: 1px solid $normalPurple;
+    width: 100%;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.icon {
+  padding: 11px 10px;
+  border: 1px solid $normalBlue;
+  background: transparent;
+  color: $normalBlue;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s ease-in-out;
+  text-decoration: none;
+  @media only screen and (max-width: 768px) {
+
+  }
+}
+.icon:hover {
+  background: $normalBlue;
+  border: 1px solid $normalBlue;
+  color: $whiteColor;
+}
+.text {
+//   max-width: 300px;
+  text-align: justify;
+  padding-top: 8%;
+}
+.letter {
+  font-size: 40px;
+  line-height: 50px;
+  font-family: "Vazirmatn", sans-serif;
+  cursor: pointer;
+  margin-bottom: 30px;
+  @media only screen and (max-width: 768px) {
+    margin-bottom: 10px;
+    font-size: 22px;
+    line-height: 30px;
+  }
+}
+.paragraph {
+  font-size: 18px;
+  line-height: 25px;
+  font-family: "Vazirmatn", sans-serif;
+  cursor: pointer;
+  margin-bottom: 30px;
+  @media only screen and (max-width: 768px) {
+    line-height: 18px;
+  }
+}
