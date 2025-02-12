@@ -19,10 +19,12 @@
 .heading {
   color: $whiteColor;
   font-size: 30px;
+  margin-bottom: 15px;
 }
 .sentence {
   color: $whiteColor;
   font-size: 18px;
+  margin-bottom: 20px;
 }
 .form {
   //   width: 100%;
@@ -41,6 +43,9 @@
 :global(.ant-input::placeholder) {
   color: #d4c1cf;
   font-size: 15px;
+}
+.input{
+  margin-bottom: 10px;
 }
 
 .updatePassBtn {

@@ -30,8 +30,8 @@ const imageUpload = require("../config/imageMulter.js");
 
 router.get(
   "/nonDeletedUsers",
-  verifyToken,
-  verifyRoles("admin", "user"),
+  // verifyToken,
+  // verifyRoles("admin", "user"),
   getAllNonDeletedUsers
 );
 router.get(

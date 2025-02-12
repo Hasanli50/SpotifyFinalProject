@@ -1,0 +1,19 @@
+.notFound{
+    background-image: url(../image//photo//221067-P1O4VU-734.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+    position: relative;
+}
+.btn{
+    position: absolute;
+    bottom: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 30px;
+    border: none;
+    text-transform: uppercase;
+    cursor: pointer;
+}

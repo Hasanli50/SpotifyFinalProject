@@ -6,6 +6,7 @@ const connectToDb = require("./src/config/db.js");
 const cors = require("cors");
 const path = require("path");
 const artistAuthRoutes = require("./src/routes/artistAuthRoutes.js");
+const userAuthRoutes = require("./src/routes/userAuthRoutes.js");
 const userRouter = require("./src/routes/userRouter.js");
 const artistRouter = require("./src/routes/artistRouter.js");
 const playlistRouter = require("./src/routes/playlistRouter.js");
@@ -17,12 +18,13 @@ const multerErrorHandling = require("./src/middlewares/multerErrorHendling.js");
 const passport = require("passport");
 const session = require("express-session");
 require("./src/config/artistPassport.js");
+require("./src/config/userPassport.js")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: "*", // Allow all domains (Change to your frontend URL in production)
+    origin: process.env.APP_BASE_URL || "http://localhost:5173", 
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
@@ -39,6 +41,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use("/auth", artistAuthRoutes);
+app.use("/auth-user", userAuthRoutes);
 app.use("/users", userRouter);
 app.use("/artists", artistRouter);
 app.use("/playlists", playlistRouter);

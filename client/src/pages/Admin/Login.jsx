@@ -1,36 +1,18 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import style from "../../assets/style/login.module.scss";
-import GoogleIcon from "../../assets/image/icon/GoogleIcon";
+import style from "../../assets/style/adminLogin.module.scss";
 import { Input } from "antd";
-import { Link, useNavigate, useParams } from "react-router";
+import {  useNavigate } from "react-router";
 import { useFormik } from "formik";
 import { loginSchema } from "../../schema/loginSchema";
 import toast from "react-hot-toast";
 import { BASE_URL, ENDPOINT } from "../../api/endpoint";
 import axios from "axios";
 import { saveUserToStorage } from "../../utils/localeStorage";
-import { useEffect } from "react";
 import { useAllNonDeletedUsers } from "../../hooks/useUser";
 
 const Login = () => {
   const { data } = useAllNonDeletedUsers();
   const navigate = useNavigate();
-  const {token} = useParams()
-
-  useEffect(() => {
-    if (token) {
-      saveUserToStorage(token); // Save token to localStorage
-      toast.success("Successfully signed in with Google!");
-
-      setTimeout(() => {
-        navigate("/");
-      }, 300);
-    }
-  }, []);
-
-  const handleGoogleLogin = () => {
-    window.location.href = `http://localhost:6060/auth-user/google`; // Redirect to Google OAuth
-  };
 
   const formik = useFormik({
     initialValues: {
@@ -45,7 +27,7 @@ const Login = () => {
         };
 
         const user = data.find(
-          (user) => user.username === cleanedValues.username
+          (user) => user.username === cleanedValues.username && user.role === "admin"
         );
         if (!user) {
           toast.error("Incorrect username. Please try again.");
@@ -68,7 +50,7 @@ const Login = () => {
           // console.log(response.data.token);
 
           setTimeout(() => {
-            navigate("/");
+            navigate("/admin/");
           }, 300);
         } else {
           toast.error("Login failed. Please try again.");
@@ -85,15 +67,7 @@ const Login = () => {
 
   return (
     <div className={style.card}>
-      <div className={style.top}>
-        <Link to={"/register"} className={style.letter}>
-          <p>Sign Up</p>
-        </Link>
-
-        <Link to={"/login"} className={`${style.letter} ${style.login}`}>
-          <p>Login</p>
-        </Link>
-      </div>
+      <p className={`${style.letter} ${style.login}`}>Login</p>
 
       <form className={style.form} onSubmit={formik.handleSubmit}>
         <div className={style.field} style={{ position: "relative" }}>
@@ -118,7 +92,7 @@ const Login = () => {
             prefix={<UserOutlined />}
           />
           {formik.errors.username && formik.touched.username ? (
-            <p style={{ color: "#0E9EEF" }}>{formik.errors.username}</p>
+            <p style={{ color: "#fff" }}>{formik.errors.username}</p>
           ) : null}
         </div>
 
@@ -145,27 +119,12 @@ const Login = () => {
             prefix={<LockOutlined />}
           />
           {formik.errors.password && formik.touched.password ? (
-            <p style={{ color: "#0E9EEF" }}>{formik.errors.password}</p>
+            <p style={{ color: "#fff" }}>{formik.errors.password}</p>
           ) : null}
         </div>
-        <Link to={"/forgot-password"} className={style.pass}>
-          <p>Forgot Password?</p>
-        </Link>
         <button type="submit" className={style.loginBtn}>
           Login
         </button>
-
-        <div className={style.orBox}>
-          <p className={style.or}>Or</p>
-        </div>
-        {/* <Link to={"/auth/google"} style={{textDecoration: "none"}}> */}
-          <button className={style.googleBtn} onClick={handleGoogleLogin} type="button">
-            <GoogleIcon />
-            <span className={style.red}>Login</span>
-            <span className={style.yellow}>With</span>
-            <span className={style.blue}>Google</span>
-          </button>
-        {/* </Link> */}
       </form>
     </div>
   );

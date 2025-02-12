@@ -1,6 +1,5 @@
 import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
 import style from "../../assets/style/register.module.scss";
-import GoogleIcon from "../../assets/image/icon/GoogleIcon";
 import { Link } from "react-router";
 import { Input } from "antd";
 import { useFormik } from "formik";
@@ -181,7 +180,7 @@ const SignUp = () => {
 
           <div className={style.field} style={{ position: "relative" }}>
             <label className={style.label} htmlFor="pass">
-              Image:{" "}
+              Profile image:{" "}
             </label>
             <input
               // className={style.input}
@@ -205,16 +204,6 @@ const SignUp = () => {
 
           <button type="submit" className={style.loginBtn}>
             Sign Up
-          </button>
-          <div className={style.orBox}>
-            <p className={style.or}>Or</p>
-          </div>
-          <button className={style.googleBtn}>
-            <GoogleIcon />
-            <span className={style.red}>Sign</span>
-            <span className={style.yellow}>Up</span>
-            <span className={style.green}>With</span>
-            <span className={style.blue}>Google</span>
           </button>
         </form>
       </div>

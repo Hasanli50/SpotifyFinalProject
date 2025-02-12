@@ -1,20 +1,12 @@
 import { Route, Routes } from "react-router";
-import Login from "../pages/Artist/Login";
-import SignUp from "../pages/Artist/Register";
-import Home from "../pages/Artist/Home";
-import ForgotPass from "../pages/Artist/ForgotPass";
-import ResetPass from "../pages/Artist/ResetPass";
-import NotFound from "../pages/Artist/NotFound";
-import ProtectedRoute from "./ProtectedRoute";
-const Artist = () => {
+import Login from "../pages/Admin/Login";
+import Home from "../pages/Admin/Home";
+const User = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<ProtectedRoute element={<Home />} />} />
-        <Route path="/forgot-password" element={<ForgotPass />} />
-        <Route path="/reset-password/:token" element={<ResetPass />} />
+        <Route path="/"  element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<SignUp />} />
         {/* <Route path="/" element={<StudentLayout />}>
         <Route index element={<PrivateRoute element={<Home />} />} />
         <Route path="/tasks/:taskId" element={<PrivateRoute element={<Tasks />} />} />
@@ -37,11 +29,11 @@ const Artist = () => {
           path="/profile"
           element={<PrivateRoute element={<Profile />} />}
         />
-      </Route> */}
-      <Route path="*" element={<NotFound />} />
+       </Route> */}
+      {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
     </>
   );
 };
 
-export default Artist;
+export default User;

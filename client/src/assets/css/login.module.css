@@ -12,7 +12,7 @@
   justify-content: center;
   align-items: baseline;
   gap: 16px;
-  margin-bottom: 8px;
+  margin-bottom: 25px;
   position: relative;
 }
 
@@ -37,7 +37,7 @@
   background-color: #EE10B0;
   width: 60px;
   color: #EE10B0;
-  top: 50px;
+  top: 30px;
 }
 
 .field {
@@ -64,6 +64,10 @@
   text-decoration: none;
 }
 
+.input {
+  margin-bottom: 10px;
+}
+
 .loginBtn,
 .googleBtn {
   width: 100%;
@@ -80,6 +84,7 @@
   transition: background-color 0.3s ease;
   font-size: 18px;
   font-weight: bold;
+  margin: 15px 0 20px 0;
 }
 .loginBtn:hover {
   background-color: #D60E9E;
@@ -122,6 +127,7 @@
 
 .orBox {
   position: relative;
+  margin-bottom: 20px;
 }
 
 .or::after {

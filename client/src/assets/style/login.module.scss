@@ -14,7 +14,7 @@
   justify-content: center;
   align-items: baseline;
   gap: 16px;
-  margin-bottom: 8px;
+  margin-bottom: 25px;
   position: relative;
 }
 
@@ -37,7 +37,7 @@
   background-color: $normalPurple;
   width: 60px;
   color: $normalPurple;
-  top: 50px;
+  top: 30px;
 }
 
 .field {
@@ -64,6 +64,9 @@
   cursor: pointer;
   text-decoration: none;
 }
+.input{
+  margin-bottom: 10px;
+}
 
 .loginBtn,
 .googleBtn {
@@ -81,7 +84,7 @@
   transition: background-color 0.3s ease;
   font-size: 18px;
   font-weight: bold;
-
+  margin: 15px 0  20px 0;
   &:hover {
     background-color: $normalPurpleHover;
   }
@@ -98,7 +101,6 @@
   font-weight: bold;
   gap: 4px;
   transition: 0.3s ease-in-out;
-
   &:hover {
     background-color: $lightPinkHover;
     color: $pageColor;
@@ -124,6 +126,7 @@
 }
 .orBox {
   position: relative;
+  margin-bottom: 20px;
 }
 .or::after {
   position: absolute;

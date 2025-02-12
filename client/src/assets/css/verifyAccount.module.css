@@ -1,0 +1,44 @@
+.box {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 50px 20px;
+}
+
+.imgBox {
+  background-image: url("../image/photo/green check mark.png");
+  height: 150px;
+  width: 150px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.heading {
+  text-transform: capitalize;
+  font-size: 40px;
+  margin-bottom: 15px;
+}
+
+.paragraph {
+  margin-bottom: 30px;
+}
+
+.btn {
+  padding: 10px 50px;
+  border: 1px solid #000;
+  font-size: 20px;
+  text-transform: capitalize;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  border-radius: 5px;
+}
+
+.btn:hover {
+  background-color: #000;
+  background-color: #41A145;
+}/*# sourceMappingURL=verifyAccount.module.css.map */

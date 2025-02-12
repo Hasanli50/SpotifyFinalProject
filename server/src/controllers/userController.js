@@ -111,7 +111,7 @@ const register = async (req, res) => {
         from: process.env.MAIL_USER,
         to: email,
         subject: "Account Verification | Melodies",
-        html: `<h1>Click <a href="${process.env.APP_BASE_URL}/users/verify/${token}">here</a> to verify your account</h1>`,
+        html: `<h1>Click <a href="${process.env.APP_BASE_URL}/verify/${token}">here</a> to verify your account</h1>`,
       })
       .catch((error) => {
         console.log("error: ", error);
@@ -574,7 +574,7 @@ const forgotPassword = async (req, res) => {
         from: process.env.MAIL_USER,
         to: email,
         subject: "Password Reset | Spotify",
-        html: `<h1>Click <a href="${process.env.APP_BASE_URL}/users/reset-password/${token}">here</a> to reset your password</h1> <h3>If you did not send a request, you can ignore this email</h3>`,
+        html: `<h1>Click <a href="${process.env.APP_BASE_URL}/reset-password/${token}">here</a> to reset your password</h1> <h3>If you did not send a request, you can ignore this email</h3>`,
       })
       .catch((error) => {
         console.log("error: ", error);

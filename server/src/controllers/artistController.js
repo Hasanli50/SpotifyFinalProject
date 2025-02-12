@@ -258,7 +258,22 @@ const verifyAccount = async (req, res) => {
         from: process.env.MAIL_USER,
         to: updatedArtist.email,
         subject: "Account Verification | Melodies",
-        html: `<h1>Click <a href="${process.env.APP_BASE_URL}/users/login">here</a> to login your account</h1>`,
+        html: `<div style="color: #000;">
+        <h2 style=" text-transform: capitalize; font-size: 30px; margin-bottom: 10px;">
+            Congratulations!
+        </h2>
+        <p style="margin-bottom: 20px;">Your account successfully vefied!!!</p>
+        <a href="${process.env.APP_BASE_URL}/artist/login" style="text-decoration: none;">
+            <button style="padding: 10px 50px; border: 1px solid #41A145; font-size: 20px;
+        text-transform: capitalize;
+        font-weight: 500;
+        cursor: pointer;
+        transition: 0.3s ease-in-out;   
+        background-color: #000;
+        color: #41A145;
+        border-radius: 5px;">Login</button>
+        </a>
+    </div>`,
       })
       .catch((error) => {
         console.log("error: ", error);

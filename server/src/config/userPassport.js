@@ -1,21 +1,21 @@
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const Artist = require("../models/artist"); 
+const User = require("../models/user"); 
 require("dotenv").config();
 
 passport.use(
   new GoogleStrategy(
     {
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "/auth/google/callback",
+      clientID: process.env.GOOGLE_CLIENT_ID_USER,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET_USER,
+      callbackURL: "/auth-user/google/callback",
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
-        let artist = await Artist.findOne({ email: profile.emails[0].value });
+        let user = await User.findOne({ email: profile.emails[0].value });
 
-        if (!artist) {
-          artist = await Artist.create({ 
+        if (!user) {
+            user = await User.create({ 
             googleId: profile.id,
             username: profile.displayName,
             password: "google-login",
@@ -24,7 +24,7 @@ passport.use(
           });
         }
 
-        return done(null, artist); 
+        return done(null, user); 
       } catch (error) {
         return done(error, null);
       }
@@ -32,14 +32,14 @@ passport.use(
   )
 );
 
-passport.serializeUser((artist, done) => { 
-  done(null, artist._id);
+passport.serializeUser((user, done) => { 
+  done(null, user._id);
 });
 
 passport.deserializeUser(async (id, done) => { 
   try {
-    const artist = await Artist.findById(id);
-    done(null, artist);
+    const user = await User.findById(id);
+    done(null, user);
   } catch (error) {
     done(error, null);
   }
