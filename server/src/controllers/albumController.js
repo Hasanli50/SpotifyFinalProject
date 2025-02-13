@@ -32,6 +32,7 @@ const createAlbum = async (req, res) => {
     await album.save();
 
     artist.albumIds.push(album._id);
+    artist.albums_count += 1
     await artist.save();
 
     res.status(201).json({
@@ -256,7 +257,7 @@ const addTracksToAlbum = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
-      message: error?.message || "Internal server error",
+      message: err?.message || "Internal server error",
       status: "fail",
     });
   }

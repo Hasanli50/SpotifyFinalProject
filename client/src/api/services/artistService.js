@@ -29,6 +29,17 @@ export const getAllDeletedArtists = async () => {
   }
 };
 
+export const getArtistByToken = async () => {
+  try {
+    const response = await axiosInstance.get(
+      `${BASE_URL + ENDPOINT.artists}/token`
+    );
+    return response?.data?.data || [];
+  } catch (error) {
+    console.error("Error fetching all users: ", error);
+  }
+};
+
 export const getArtistById = async (id) => {
   try {
     const response = await axiosInstance.get(

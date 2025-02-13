@@ -17,7 +17,7 @@ const trackSchema = new Schema(
       ref: "Album",
       default: null,
     },
-    durationMs: {
+    duration: {
       type: Number,
       required: true,
     },

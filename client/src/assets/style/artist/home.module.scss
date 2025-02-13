@@ -1,0 +1,109 @@
+@import "../../colors/color.scss";
+.main {
+  padding: 4% 50px;
+}
+.albums {
+  margin-bottom: 5%;
+}
+.singles {
+  margin-bottom: 5%;
+}
+.songs {
+  margin-bottom: 5%;
+}
+.trendingSngs {
+  margin-bottom: 5%;
+}
+.heading {
+  font-size: 35px;
+  text-align: left;
+  margin-bottom: 30px;
+  font-weight: 600;
+}
+.box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.place {
+  font-size: 18px;
+}
+.songsCard {
+  background-color: #1f1f1f;
+  width: 100%;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  padding-right: 20px;
+  align-items: center;
+}
+.songsCard__imgBox {
+  width: 58px;
+  height: 60px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+.songsCard__imgBox__img {
+  width: 100%;
+  object-fit: cover;
+  transition: 0.3s ease-in-out;
+  border-radius: 10px;
+}
+.songsCard:hover {
+  .songsCard__imgBox__img {
+    transform: scale(1.1);
+  }
+}
+.songsCard__letter {
+  @media only screen and (max-width: 660px) {
+    display: none;
+  }
+}
+.card {
+  background-color: #1f1f1f;
+  width: 175px;
+  height: 214;
+  border-radius: 10px;
+  padding: 4px 15px;
+  cursor: pointer;
+}
+.imgBox {
+  width: 145px;
+  height: 150px;
+  overflow: hidden;
+  border-radius: 10px;
+  margin-bottom: 8px;
+}
+.img {
+  width: 100%;
+  object-fit: cover;
+  transition: 0.3s ease-in-out;
+  border-radius: 10px;
+}
+.card:hover {
+  .img {
+    transform: scale(1.1);
+  }
+}
+.letterTop {
+  text-align: left;
+  color: $whiteColor;
+  margin-bottom: 8px;
+  font-size: 18px;
+}
+.letterBottom {
+  text-align: left;
+  color: #d2d2d2;
+  font-size: 14px;
+}
+.sentence {
+  font-size: 20px;
+  background: linear-gradient(
+    90deg,
+    rgba(238, 16, 176, 1) 12%,
+    rgba(14, 158, 239, 1) 100%
+  );
+  -webkit-background-clip: text;
+  color: transparent;
+}

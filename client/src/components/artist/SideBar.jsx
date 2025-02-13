@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -12,27 +12,59 @@ import style from "../../assets/style/artist/sideBar.module.scss";
 import AlbumIcon from "@mui/icons-material/Album";
 import AudiotrackIcon from "@mui/icons-material/Audiotrack";
 import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
-import {Link, Outlet} from "react-router"
+import { Link, Outlet, useNavigate } from "react-router";
 import Footer from "../Footer";
+import bgHome from "../../assets/image/photo/bgHome.png";
+import {
+  getUserFromStorage,
+  removeUserFromStorage,
+} from "../../utils/localeStorage";
+import { fetchArtistByToken } from "../../utils/reusableFunc";
+import PersonIcon from "@mui/icons-material/Person";
 
 const { Header, Sider, Content } = Layout;
 
 const SideBar = () => {
   const [collapsed, setCollapsed] = useState(false);
-
   const [selectedKey, setSelectedKey] = useState("1");
+  const navigate = useNavigate();
 
-  
   const backgroundImages = {
-    1: "url('../../assets/image/photo/bgHome.png')", 
-    2: "none", 
-    3: "none", 
-    4: "none", 
-    5: "none", 
-    6: "none", 
+    1: `url(${bgHome})`,
+    2: "none",
+    3: "none",
+    4: "none",
+    5: "none",
+    6: "none",
+    7: "none",
   };
 
   const headerHeight = selectedKey === "1" ? "100vh" : "";
+  const text = selectedKey === "1" ? "block" : "none";
+
+  //----------------------------------------------------------
+  //get user by token
+  const [artist, setArtist] = useState([]);
+
+  const token = getUserFromStorage();
+  useEffect(() => {
+    const getArtistByToken = async () => {
+      try {
+        const response = await fetchArtistByToken(token);
+        setArtist(response);
+      } catch (error) {
+        console.log("Error:", error);
+      }
+    };
+    getArtistByToken();
+  }, [token]);
+
+  //-----------------------------------------------------------
+  //logout
+  const handleLogout = () => {
+    removeUserFromStorage();
+    navigate("/artist/login");
+  };
 
   return (
     <Layout>
@@ -90,11 +122,16 @@ const SideBar = () => {
             },
             {
               key: "5",
+              icon: <PersonIcon />,
+              label: <Link to={"/artist/profile"}>Profile</Link>,
+            },
+            {
+              key: "6",
               icon: <SettingsSuggestIcon />,
               label: <Link to={"/artist/setting"}>Setting</Link>,
             },
             {
-              key: "6",
+              key: "7",
               icon: <LogoutOutlined />,
               label: "Logout",
             },
@@ -114,7 +151,7 @@ const SideBar = () => {
             backgroundSize: "cover",
             width: "100%",
             height: headerHeight,
-            backgroundColor: "#000"
+            backgroundColor: "#000",
           }}
         >
           <div className={style.box}>
@@ -136,25 +173,22 @@ const SideBar = () => {
 
             <div className={style.buttons}>
               <div className={style.imgBox}>
-                <img
-                  className={style.img}
-                  src="https://media.wired.com/photos/63b89b5b995aa119ba7ba7be/master/pass/Profile-Photos-Gear-1411545652.jpg"
-                  alt="profile"
-                />
+                <img className={style.img} src={artist?.image} alt="profile" />
               </div>
 
-              <div className={style.logOut}>
+              <div className={style.logOut} onClick={handleLogout}>
                 <LogoutOutlined className={style.icon} />
               </div>
             </div>
           </div>
 
-          <div className={style.text}>
+          <div className={style.text} style={{ display: text }}>
             <p className={style.letter} style={{ color: "#fff" }}>
-              Welcome back, <span style={{ color: "#EE10B0" }}>Username!</span>
+              Welcome back,{" "}
+              <span style={{ color: "#EE10B0" }}>{artist?.username}!</span>
             </p>
             <p className={style.paragraph} style={{ color: "#d1d5db" }}>
-              Followers: 12.000 <UserAddOutlined />
+              Followers: {artist?.followers} <UserAddOutlined />
             </p>
           </div>
         </Header>
@@ -164,17 +198,17 @@ const SideBar = () => {
           style={{
             margin: "0",
             // padding: 24,
+            height: "100%",
             background: "#000",
             color: "#fff",
             textAlign: "center",
           }}
         >
           {/* components!!!! */}
-          <Outlet/>
+          <Outlet />
         </Content>
 
-
-        <Footer/>
+        <Footer />
       </Layout>
     </Layout>
   );

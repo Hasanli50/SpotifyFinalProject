@@ -19,7 +19,7 @@ const Login = () => {
 
   useEffect(() => {
     if (token) {
-      saveUserToStorage(token); // Save token to localStorage
+      saveUserToStorage(token); 
       toast.success("Successfully signed in with Google!");
 
       setTimeout(() => {
@@ -29,7 +29,7 @@ const Login = () => {
   }, []);
 
   const handleGoogleLogin = () => {
-    window.location.href = `http://localhost:6060/auth/google`; // Redirect to Google OAuth
+    window.location.href = `http://localhost:6060/auth/google`; 
   };
 
   const formik = useFormik({
@@ -64,11 +64,12 @@ const Login = () => {
         if (response && response.data.token) {
           actions.resetForm();
           toast.success("Successfully signed in!");
+          localStorage.setItem("artistauth", "true")
           saveUserToStorage(response.data.token);
           // console.log(response.data.token);
 
           setTimeout(() => {
-            navigate("/artist");
+            navigate("/artist/");
           }, 300);
         } else {
           toast.error("Login failed. Please try again.");

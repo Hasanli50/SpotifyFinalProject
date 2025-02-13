@@ -12,7 +12,14 @@ const formatObj = require("../utils/formatObj.js");
 // Create a new track
 const createTrack = async (req, res) => {
   try {
-    const { name, artistId, durationMs, genreId, type, premiumOnly } = req.body;
+    const { name, artistId, duration, genreId, type, premiumOnly } = req.body;
+
+    const artist = await Artist.findById(artistId);
+    if (!artist) {
+      return res
+        .status(404)
+        .json({ message: "Artist not found", status: "fail" });
+    }
 
     const coverImage = req.files?.coverImage
       ? req.files.coverImage[0].path
@@ -32,7 +39,7 @@ const createTrack = async (req, res) => {
       name,
       artistId,
       albumId: null,
-      durationMs,
+      duration,
       genreId,
       type,
       previewUrl,
@@ -41,6 +48,9 @@ const createTrack = async (req, res) => {
       collaboratedArtistIds: [],
     });
     await track.save();
+
+    artist.trackIds.push(track._id);
+    await artist.save();
 
     return res.status(201).json({
       data: formatObj(track),
@@ -96,7 +106,7 @@ const getTrackById = async (req, res) => {
 // Get all tracks
 const getAllTracks = async (req, res) => {
   try {
-    const tracks = await Track.find({}); //.populate("artistId albumId genreId");
+    const tracks = await Track.find({}).populate("artistId albumId genreId");
 
     if (!tracks.length) {
       return res.status(404).json({
@@ -160,7 +170,7 @@ const deleteTrack = async (req, res) => {
 
     if (track.previewUrl) {
       const publicId = extractPublicIAudio(track);
-      console.log(publicId)
+      console.log(publicId);
       const result = await cloudinary.uploader.destroy(`uploads/${publicId}`);
       console.log("Cloudinary Response:", result);
       if (result.result !== "ok") {

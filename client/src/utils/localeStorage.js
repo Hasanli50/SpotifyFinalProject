@@ -6,9 +6,10 @@ export const saveUserToStorage = (token) => {
 
 export const removeUserFromStorage = () => {
   localStorage.removeItem(KEY);
+  localStorage.removeItem("artistauth")
 };
 
 export const getUserFromStorage = () => {
   const data = localStorage.getItem(KEY);
-  data ? JSON.parse(data) : null;
+  return data ? JSON.parse(data) : null;
 };

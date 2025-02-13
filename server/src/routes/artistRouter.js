@@ -11,6 +11,7 @@ const {
   deleteAccount,
   freezeAccount,
   unfreezeAccount,
+  getByToken,
   banAccount,
   unBanAccount,
   resetPassword,
@@ -47,6 +48,7 @@ router.get(
   verifyRoleArtist("admin", "artist"),
   getAllPendingStatus
 );
+router.get("/token", verifyTokenArtist, getByToken);
 router.get("/:id", verifyTokenArtist, getById);
 router.post(
   "/register",

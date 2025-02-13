@@ -10,7 +10,7 @@ const createTrackValidator = [
   body("artistId")
     .isMongoId()
     .withMessage("Artist ID must be a valid MongoDB ID"),
-  body("durationMs")
+  body("duration")
     .isInt({ min: 1 })
     .withMessage("Duration must be a positive integer"),
   body("genreId")

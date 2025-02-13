@@ -23,9 +23,9 @@ const Artist = () => {
         <Route
           path="/"
           element={
-            // <ProtectedRoute>
+            <ProtectedRoute>
               <SideBar />
-            // </ProtectedRoute>
+            </ProtectedRoute>
           }
         >
           <Route index element={<Home />} />

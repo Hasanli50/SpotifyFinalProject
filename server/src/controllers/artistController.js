@@ -107,6 +107,35 @@ const getById = async (req, res) => {
   }
 };
 
+const getByToken = async (req, res) => {
+  try {
+    const { id } = req.artist;
+
+    const artist = await Artist.findById({ _id: id, isDeleted: false }).select(
+      "-password"
+    );
+    // .populate("genreIds")
+    // .populate("trackIds")
+    // .populate("albumIds");
+    if (!artist) {
+      return res.status(404).json({
+        message: "Artist not found",
+        status: "fail",
+      });
+    }
+    res.status(200).json({
+      message: "Artist fetched successfully",
+      status: "success",
+      data: formatObj(artist),
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message || "Internal server error",
+      status: "fail",
+    });
+  }
+};
+
 const register = async (req, res) => {
   console.log("🔵 Register route hit!");
   try {
@@ -714,6 +743,7 @@ module.exports = {
   getAllDeletedArtists,
   getAllPendingStatus,
   getById,
+  getByToken,
   register,
   login,
   verifyAccount,

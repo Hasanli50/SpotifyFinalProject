@@ -15,6 +15,7 @@ import {
 //   forgotPassword,
 //   updatePassword,
   updateArtistInfo,
+  getArtistByToken,
 } from "../api/services/artistService.js";
 
 export const useAllNonDeletedArtists = () => {
@@ -32,6 +33,15 @@ export const useAllDeletedArtists = () => {
     queryKey: ["artists/deletedArtists"],
     onError: (error) =>
       console.error("Error fetching deleted artists: ", error),
+  });
+};
+
+export const useArtistByToken = () => {
+  return useQuery({
+    queryFn: getArtistByToken,
+    queryKey: ["artists/token"],
+    onError: (error) =>
+      console.error("Error fetching artist by token: ", error),
   });
 };
 
