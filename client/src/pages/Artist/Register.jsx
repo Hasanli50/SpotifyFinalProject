@@ -180,7 +180,7 @@ const SignUp = () => {
           </div>
 
           <div className={style.field} style={{ position: "relative" }}>
-            <label className={style.label} htmlFor="pass">
+            <label className={style.label} htmlFor="image">
               Profile image:{" "}
             </label>
             <input

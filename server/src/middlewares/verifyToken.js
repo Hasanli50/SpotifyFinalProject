@@ -3,7 +3,7 @@ require("dotenv").config();
 
 const verifyToken = (req, res, next) => {
   const token = req.headers["authorization"]?.split(" ")[1];
-  console.log("auth", req.headers["authorization"]);
+  // console.log("auth", req.headers["authorization"]);
 
   if (!token) {
     return res.status(403).json({ message: "No token provided!" });
@@ -20,7 +20,7 @@ const verifyToken = (req, res, next) => {
 
 const verifyTokenArtist = (req, res, next) => {
   const token = req.headers["authorization"]?.split(" ")[1];
-  console.log("auth", req.headers["authorization"]);
+  // console.log("auth", req.headers["authorization"]);
 
   if (!token) {
     return res.status(403).json({ message: "No token provided!" });
@@ -30,7 +30,7 @@ const verifyTokenArtist = (req, res, next) => {
     if (err) {
       return res.status(401).json({ message: "Unauthorized!" });
     }
-    console.log("Decoded Artist Token: ", decoded);
+    // console.log("Decoded Artist Token: ", decoded);
     req.artist = decoded;
     next();
   });

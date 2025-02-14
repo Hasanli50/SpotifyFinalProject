@@ -1,0 +1,61 @@
+@import "../../colors/color.scss";
+.field {
+  max-width: 100%;
+}
+.form {
+  // width: 100%;
+}
+.heading {
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-size: 25px;
+  background: linear-gradient(
+    90deg,
+    rgba(238, 16, 176, 1) 12%,
+    rgba(14, 158, 239, 1) 100%
+  );
+  -webkit-background-clip: text;
+  color: transparent;
+  // color: #3f3e3e;
+}
+
+.label {
+  display: block;
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: #FAB5E7;
+}
+.buttons{
+  display: flex;
+  gap: 15px;
+  justify-content: end;
+}
+.createBtn{
+  padding: 7px 15px;
+  border-radius: 5px;
+  border: 1px solid $darkBlue;
+  color: $darkBlue;
+  font-size: 15px;
+  background-color: transparent;
+  text-transform: capitalize;
+  cursor: pointer;
+}
+.createBtn:hover{
+  background-color: $darkBlue;
+  color: $whiteColor;
+}
+
+.cancelBtn{
+  padding: 7px 15px;
+  border-radius: 5px;
+  border: 1px solid $darkPurpleHover;
+  color: $darkPurpleHover;
+  font-size: 15px;
+  background-color: transparent;
+  text-transform: capitalize;
+  cursor: pointer;
+}
+.cancelBtn:hover{
+  background-color: $darkPurpleHover;
+  color: $whiteColor;
+}

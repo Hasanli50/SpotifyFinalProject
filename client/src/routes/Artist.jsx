@@ -12,6 +12,7 @@ import AddTrack from "../pages/Artist/AddTrack";
 import Profile from "../pages/Artist/Profile";
 import Setting from "../pages/Artist/Setting";
 import SideBar from "../components/artist/SideBar";
+import EditAlbum from "../components/artist/editAlbum";
 const Artist = () => {
   return (
     <>
@@ -32,6 +33,7 @@ const Artist = () => {
           <Route path="albums" element={<Albums />} />
           <Route path="tracks" element={<Tracks />} />
           <Route path="add-track" element={<AddTrack />} />
+          <Route path="edit-album/:id" element={<EditAlbum />} />
           <Route path="profile" element={<Profile />} />
           <Route path="setting" element={<Setting />} />
         </Route>

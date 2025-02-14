@@ -12,6 +12,7 @@ const mongoose = require("mongoose");
 const createAlbum = async (req, res) => {
   try {
     const { name, artistId } = req.body;
+    // console.log("req.body: ",req.body)
 
     const artist = await Artist.findById(artistId);
     if (!artist) {
@@ -28,7 +29,7 @@ const createAlbum = async (req, res) => {
       trackIds: [],
       monthlyPlayCount: 0,
     });
-
+console.log("newAlbum: ", album)
     await album.save();
 
     artist.albumIds.push(album._id);
@@ -154,7 +155,6 @@ const updateAlbum = async (req, res) => {
 const deleteAlbum = async (req, res) => {
   try {
     const { id } = req.params;
-
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({ error: "Invalid album ID format" });
     }

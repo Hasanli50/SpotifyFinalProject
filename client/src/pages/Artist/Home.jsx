@@ -65,15 +65,15 @@ const Home = () => {
       artist?.trackIds.length > 0 &&
       tracks?.length > 0
     ) {
-      const trackIds = tracks.filter((track) =>
+      const trackIds = tracks?.filter((track) =>
         artist.trackIds.includes(track.id)
       );
       const single =
         trackIds?.length > 0 &&
-        trackIds.filter((track) => track.type === "single");
+        trackIds?.filter((track) => track.type === "single");
       // console.log("singles: ", single);
       // console.log("Filtered Tracks:", trackIds);
-      if (single.length > 0) {
+      if (single?.length > 0) {
         const sortedTracks = [...single].sort(
           (a, b) => b.playCount - a.playCount
         );
@@ -121,7 +121,7 @@ const Home = () => {
           </p>
           <Grid container spacing={2}>
             {artistAlbum?.length > 0 ? (
-              artistAlbum.map((album) => (
+              artistAlbum?.map((album) => (
                 <Grid item xs={12} sm={6} md={4} lg={3} xl={3} key={album.id}>
                   <div className={style.card}>
                     <div className={style.imgBox}>
@@ -149,8 +149,8 @@ const Home = () => {
             Top <span style={{ color: "#EE10B0" }}>Singles</span> :{" "}
           </p>
           <Grid container spacing={2}>
-            {artistSongs.length > 0 ? (
-              artistSongs.map((songs) => (
+            {artistSongs?.length > 0 ? (
+              artistSongs?.map((songs) => (
                 <Grid item xs={12} sm={6} md={4} lg={3} xl={3} key={songs.id}>
                   <div className={style.card}>
                     <div className={style.imgBox}>
