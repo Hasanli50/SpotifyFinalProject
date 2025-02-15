@@ -21,6 +21,8 @@ import {
 } from "../../utils/localeStorage";
 import { fetchArtistByToken } from "../../utils/reusableFunc";
 import PersonIcon from "@mui/icons-material/Person";
+import InfoIcon from '@mui/icons-material/Info';
+import PhoneIcon from '@mui/icons-material/Phone';
 
 const { Header, Sider, Content } = Layout;
 
@@ -37,6 +39,9 @@ const SideBar = () => {
     5: "none",
     6: "none",
     7: "none",
+    8: "none",
+    9: "none",
+    10: "none"
   };
 
   const headerHeight = selectedKey === "1" ? "100vh" : "";
@@ -117,24 +122,40 @@ const SideBar = () => {
             },
             {
               key: "4",
+              icon: <AudiotrackIcon />,
+              label: <Link to={"/artist/premium-tracks"}>Premium Tracks</Link>
+            },
+            {
+              key: "5",
               icon: <PlusOutlined />,
               label: <Link to={"/artist/add-track"}>Add Track</Link>,
             },
             {
-              key: "5",
+              key: "6",
               icon: <PersonIcon />,
               label: <Link to={"/artist/profile"}>Profile</Link>,
             },
             {
-              key: "6",
+              key: "7",
+              icon: <InfoIcon />,
+              label: <Link to={"/artist/about-us"}>About Us</Link>,
+            },
+            {
+              key: "8",
+              icon: <PhoneIcon />,
+              label: <Link to={"/artist/contact"}>Contact</Link>,
+            },
+            {
+              key: "9",
               icon: <SettingsSuggestIcon />,
               label: <Link to={"/artist/setting"}>Setting</Link>,
             },
             {
-              key: "7",
+              key: "10",
               icon: <LogoutOutlined />,
-              label: "Logout",
+              label: <p onClick={handleLogout}>Logout</p>,
             },
+            
           ]}
         />
       </Sider>
@@ -164,13 +185,6 @@ const SideBar = () => {
                 color: "#fff",
               }}
             />
-
-            <ul className={style.list}>
-              <li className={style.item}>About Us</li>
-              <li className={style.item}>Contact</li>
-              <li className={style.item}>Premium Tracks</li>
-            </ul>
-
             <div className={style.buttons}>
               <div className={style.imgBox}>
                 <img className={style.img} src={artist?.image} alt="profile" />

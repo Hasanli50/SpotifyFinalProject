@@ -29,11 +29,11 @@ const createAlbum = async (req, res) => {
       trackIds: [],
       monthlyPlayCount: 0,
     });
-console.log("newAlbum: ", album)
+    console.log("newAlbum: ", album);
     await album.save();
 
     artist.albumIds.push(album._id);
-    artist.albums_count += 1
+    artist.albums_count += 1;
     await artist.save();
 
     res.status(201).json({
@@ -173,12 +173,12 @@ const deleteAlbum = async (req, res) => {
     }
 
     // Step 1: Delete all tracks from the Track model that were associated with the album
-    await Track.deleteMany({ _id: { $in: album.trackIds } });
+    await Track.deleteMany({ _id: { $in: album.trackIds } },  { new: true });
 
     // Step 2: Remove the trackIds from all playlists that contain any of the deleted tracks
     await Playlist.updateMany(
       { "trackIds.trackId": { $in: album.trackIds } },
-      { $pull: { trackIds: { trackId: { $in: album.trackIds } } } }
+      { $pull: { trackIds: { trackId: { $in: album.trackIds } } } },  { new: true }
     );
 
     // Step 3: Remove the trackIds from the Artist model
@@ -186,14 +186,14 @@ const deleteAlbum = async (req, res) => {
       { trackIds: { $in: album.trackIds } },
       {
         $pull: { trackIds: { $in: album.trackIds } },
-        $inc: { albumsCount: -1 },
-      }
+      },
+      { new: true }
     );
 
     // Step 4: Update artist album list by removing the deleted albumId
     await Artist.findByIdAndUpdate(
       album.artistId,
-      { $pull: { albumIds: album._id } },
+      { $pull: { albumIds: album._id }, $inc: { albums_count: -1 } },
       { new: true }
     );
 
@@ -291,7 +291,7 @@ const removeTrackFromAlbum = async (req, res) => {
         const publicId = extractPublicIdImage(album);
         await cloudinary.uploader.destroy(`uploads/${publicId}`);
       }
-      
+
       // Step 1: Delete the track from the Track model
       await Track.findByIdAndDelete(trackObjectId);
 

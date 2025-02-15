@@ -1,0 +1,37 @@
+.main {
+  padding: 2% 50px 4%;
+  text-align: left;
+}
+.aboutUs {
+  margin-bottom: 30px;
+}
+.ourMission{
+    margin-bottom: 30px;
+}
+.whatWeOffer{
+    margin-bottom: 30px;
+}
+.ourVision{
+    margin-bottom: 30px;
+}
+.heading {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+.paragraph{
+    font-size: 17px;
+}
+.item{
+    font-size: 17px;
+    margin-bottom: 15px;
+}
+.logo {
+  background: linear-gradient(
+    90deg,
+    rgba(238, 16, 176, 1) 12%,
+    rgba(14, 158, 239, 1) 100%
+  );
+  -webkit-background-clip: text;
+  color: transparent;
+}

@@ -111,10 +111,9 @@ const getByToken = async (req, res) => {
   try {
     const { id } = req.artist;
 
-    const artist = await Artist.findById({ _id: id, isDeleted: false }).select(
-      "-password"
-    );
-    // .populate("genreIds")
+    const artist = await Artist.findById({ _id: id, isDeleted: false })
+      .select("-password")
+      .populate("genreIds");
     // .populate("trackIds")
     // .populate("albumIds");
     if (!artist) {
@@ -137,7 +136,7 @@ const getByToken = async (req, res) => {
 };
 
 const register = async (req, res) => {
-  console.log("🔵 Register route hit!");
+  // console.log("🔵 Register route hit!");
   try {
     const { username, email, password } = req.body;
 
@@ -207,7 +206,7 @@ const login = async (req, res) => {
     const { username, password } = req.body;
 
     const artist = await Artist.login(username, password);
-    console.log(artist);
+    // console.log(artist);
     if (!artist) {
       return res.status(404).json({
         message: "Invalid username or password",
@@ -516,6 +515,8 @@ const updateArtistInfo = async (req, res) => {
     const { id } = req.params;
     const { id: artistId } = req.artist;
     const { username, email, genreIds, description } = req.body;
+    // console.log("req.body", req.body)
+    // console.log("req file", req.file)
 
     if (id !== artistId) {
       return res.status(401).json({
@@ -524,16 +525,16 @@ const updateArtistInfo = async (req, res) => {
       });
     }
 
-    const duplicate = await Artist.find({
-      $or: [{ username }, { email }],
-    });
+    // const duplicate = await Artist.find({
+    //   $or: [{ username }, { email }],
+    // });
 
-    if (duplicate.length > 0) {
-      return res.status(400).json({
-        message: "Username or email already exists!",
-        status: "fail",
-      });
-    }
+    // if (duplicate.length > 0) {
+    //   return res.status(400).json({
+    //     message: "Username or email already exists!",
+    //     status: "fail",
+    //   });
+    // }
 
     const sentArtist = {
       ...req.body,
@@ -646,7 +647,7 @@ const updatePassword = async (req, res) => {
 const forgotPassword = async (req, res) => {
   try {
     const { email } = req.body;
-    console.log("Email received:", email);
+    // console.log("Email received:", email);
     const artist = await Artist.findOne({ email: email, isDeleted: false });
 
     if (!artist) {

@@ -6,6 +6,7 @@ const {
   getTrackById,
   getAllTracks,
   deleteTrack,
+  changePremium,
   incrementPlayCount,
 } = require("../controllers/trackController.js");
 const createTrackValidator = require("../middlewares/trackMiddlewares/createTrackValidator.js");
@@ -30,5 +31,6 @@ router.delete(
   deleteTrack
 );
 router.patch("/:id/increment-play", incrementPlayCount) //+
+router.patch("/:id/premium-only", changePremium) 
 
 module.exports = router;

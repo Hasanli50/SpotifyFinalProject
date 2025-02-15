@@ -1,0 +1,57 @@
+@import "../../colors/color.scss";
+.field {
+  max-width: 100%;
+}
+.card{
+    max-width: 450px;
+    text-align: justify;
+    margin: 20px auto;
+    background-color: #1f1f1f;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: -1px 2px 8px 10px rgba(128, 0, 128, 0.5)
+}
+.form {
+    width: 100%;
+}
+.heading {
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-size: 25px;
+  background: linear-gradient(
+    90deg,
+    rgba(238, 16, 176, 1) 12%,
+    rgba(14, 158, 239, 1) 100%
+  );
+  -webkit-background-clip: text;
+  color: transparent;
+  // color: #3f3e3e;
+}
+
+.label {
+  display: block;
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: #fab5e7;
+}
+.buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: end;
+}
+.saveBtn {
+  margin-top: 20px;
+  padding: 7px 15px;
+  border-radius: 5px;
+  border: 1px solid $darkBlue;
+  color: $darkBlue;
+  font-size: 15px;
+  background-color: transparent;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+.saveBtn:hover {
+  background-color: $darkBlue;
+  color: $whiteColor;
+}

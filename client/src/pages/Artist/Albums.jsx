@@ -169,7 +169,7 @@ const Albums = () => {
                         <p className={style.letterBottom}>
                           Songs: {album.trackCount}
                         </p>
-                        <div style={{ display: "flex" }}>
+                        <div style={{ display: "flex", gap:"10px" }}>
                           <div
                             style={{ color: "#fff" }}
                             onClick={() => handleDelete(album.id)}
@@ -177,9 +177,10 @@ const Albums = () => {
                             <DeleteIcon />
                           </div>
                           <div>
-                            {/* <Link to={`/artist/edit-album/${album.id}`}>
-                            </Link> */}
-                              <EditAlbum style={{ color: "#fff" }} id={album.id}/>
+                            <EditAlbum
+                              style={{ color: "#fff" }}
+                              id={album.id}
+                            />
                           </div>
                         </div>
                       </div>

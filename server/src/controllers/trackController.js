@@ -13,6 +13,7 @@ const formatObj = require("../utils/formatObj.js");
 const createTrack = async (req, res) => {
   try {
     const { name, artistId, duration, genreId, type, premiumOnly } = req.body;
+    console.log("req body: ", req.body);
 
     const artist = await Artist.findById(artistId);
     if (!artist) {
@@ -222,10 +223,40 @@ const incrementPlayCount = async (req, res) => {
   }
 };
 
+const changePremium = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const updatedTrack = await Track.findByIdAndUpdate(
+      id,
+      { premiumOnly: false },
+      { new: true }
+    );
+    if (!updatedTrack) {
+      return res.status(404).json({
+        message: "Track not found",
+        status: "fail",
+      });
+    }
+
+    res.status(200).json({
+      data: formatObj(updatedTrack),
+      message: "Premium changed",
+      status: "success",
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error?.message || "Internal server error",
+      status: "fail",
+    });
+  }
+};
+
 module.exports = {
   createTrack,
   getTrackById,
   getAllTracks,
   deleteTrack,
   incrementPlayCount,
+  changePremium,
 };

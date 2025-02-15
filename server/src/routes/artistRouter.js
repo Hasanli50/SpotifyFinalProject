@@ -69,7 +69,7 @@ router.patch(
   "/update-info/:id",
   verifyTokenArtist,
   imageUpload.single("image"),
-  updateArtistInfoValidator,
+  // updateArtistInfoValidator,
   updateArtistInfo
 );
 router.delete("/delete-account/:id", verifyTokenArtist, deleteAccount);

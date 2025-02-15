@@ -29,6 +29,7 @@ const EditAlbum = ({ id }) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [editAlbum, setEditAlbum] = useState({ name: "", coverImage: null });
+  // console.log(id)
 
   useEffect(() => {
     const fetchAlbumById = async () => {
@@ -101,6 +102,7 @@ const EditAlbum = ({ id }) => {
                 name="name"
                 className={style.input}
                 id="outlined-basic"
+                color= "#FAB5E7"
                 sx={{
                     marginBottom: "10px",
                     width: "100%",

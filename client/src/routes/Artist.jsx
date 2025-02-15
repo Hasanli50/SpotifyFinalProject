@@ -13,6 +13,9 @@ import Profile from "../pages/Artist/Profile";
 import Setting from "../pages/Artist/Setting";
 import SideBar from "../components/artist/SideBar";
 import EditAlbum from "../components/artist/editAlbum";
+import PremiumTracks from "../pages/Artist/PremiumTracks";
+import AboutUs from "../components/AboutUs";
+import Contact from "../components/Contact";
 const Artist = () => {
   return (
     <>
@@ -36,6 +39,9 @@ const Artist = () => {
           <Route path="edit-album/:id" element={<EditAlbum />} />
           <Route path="profile" element={<Profile />} />
           <Route path="setting" element={<Setting />} />
+          <Route path="premium-tracks" element={<PremiumTracks/>}/>
+          <Route path="about-us" element={<AboutUs/>}/>
+          <Route path="contact" element={<Contact/>}/>
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
