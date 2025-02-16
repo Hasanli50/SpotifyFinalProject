@@ -16,17 +16,17 @@ const Tracks = () => {
   const [filteredData, setFilteredData] = useState(tracks);
   const { data } = useAllTracks();
 
-  const [anchorEl, setAnchorEl] = useState(null); // Updated to manage a single menu state
-  const [currentSongId, setCurrentSongId] = useState(null); // Track which song's menu is open
+  const [anchorEl, setAnchorEl] = useState(null); 
+  const [currentSongId, setCurrentSongId] = useState(null); 
 
   const handleMenuClick = (event, songId) => {
-    setAnchorEl(event.currentTarget); // Set the current element as anchor
-    setCurrentSongId(songId); // Set the song ID for the open menu
+    setAnchorEl(event.currentTarget); 
+    setCurrentSongId(songId); 
   };
 
   const handleMenuClose = () => {
-    setAnchorEl(null); // Reset the anchor element
-    setCurrentSongId(null); // Reset the current song ID
+    setAnchorEl(null); 
+    setCurrentSongId(null); 
   };
 
   const token = getUserFromStorage();

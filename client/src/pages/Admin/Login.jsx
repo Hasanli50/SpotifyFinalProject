@@ -48,6 +48,7 @@ const Login = () => {
           actions.resetForm();
           toast.success("Successfully signed in!");
           saveUserToStorage(response.data.token);
+          localStorage.setItem("adminauth", "true")
           // console.log(response.data.token);
 
           setTimeout(() => {

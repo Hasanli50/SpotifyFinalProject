@@ -1,36 +1,43 @@
 import { Route, Routes } from "react-router";
 import Login from "../pages/Admin/Login";
 import Home from "../pages/Admin/Home";
+import { ProtectedRouteAdmin } from "../routes/ProtectedRoute";
+import SideBar from "../components/admin/SideBar";
+import NotFound from "../pages/Admin/NotFound";
+import Arists from "../pages/Admin/Arists";
+import Users from "../pages/Admin/Users";
+import Messages from "../pages/Admin/Messages";
+import Profile from "../pages/Admin/Profile";
 const User = () => {
   return (
     <>
       <Routes>
-        <Route path="/"  element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        {/* <Route path="/" element={<StudentLayout />}>
-        <Route index element={<PrivateRoute element={<Home />} />} />
-        <Route path="/tasks/:taskId" element={<PrivateRoute element={<Tasks />} />} />
-        <Route path="/tasks/:taskId/zego-meet" element={<PrivateRoute element={<ZegoMeet />} />} />
-        <Route path="/tasks/:taskId/:detailId" element={<PrivateRoute element={<TaskDetail />} />} />
+
         <Route
-          path="/assignments"
-          element={<PrivateRoute element={<Assignments />} />}
-        />
-        <Route
-          path="/thedeadlinehasbeenmissed"
-          element={<PrivateRoute element={<TheDeadlineHasBeenMissed />} />}
-        />
-        <Route path="/done" element={<PrivateRoute element={<Done />} />} />
-        <Route
-          path="/materials/:id"
-          element={<PrivateRoute element={<Materials />} />}
-        />
-        <Route
-          path="/profile"
-          element={<PrivateRoute element={<Profile />} />}
-        />
-       </Route> */}
-      {/* <Route path="*" element={<NotFound />} /> */}
+          path="/"
+          element={
+            <ProtectedRouteAdmin>
+              <SideBar />
+            </ProtectedRouteAdmin>
+          }
+        >
+          <Route index element={<Home />} />
+          <Route path="artists" element={<Arists />} />
+          <Route path="users" element={<Users />} />
+          <Route path="messages" element={<Messages />} />
+          <Route path="profile" element={<Profile />} />
+          {/* <Route path="tracks" element={<Tracks />} />
+          <Route path="add-track" element={<AddTrack />} />
+          <Route path="edit-album/:id" element={<EditAlbum />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="setting" element={<Setting />} />
+          <Route path="premium-tracks" element={<PremiumTracks />} />
+          <Route path="about-us" element={<AboutUs />} />
+          <Route path="contact" element={<Contact />} /> */}
+        </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

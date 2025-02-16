@@ -52,14 +52,12 @@ const PremiumTracks = () => {
 
   const handleChangePremiumToFree = async (id) => {
     try {
-      // Find the track that was clicked
       const track = tracks.find((track) => track.id === id);
   
       if (!track) {
         return;
       }
   
-      // Set premiumOnly to false
       const updatedTrack = { ...track, premiumOnly: false };
   
       Swal.fire({
@@ -72,15 +70,12 @@ const PremiumTracks = () => {
         confirmButtonText: "Yes, change it!",
       }).then(async (result) => {
         if (result.isConfirmed) {
-          // Make the patch request to update the track
           const response = await axios.patch(
             `${BASE_URL + ENDPOINT.tracks}/${id}/premium-only`,
             { premiumOnly: false }
           );
   
-          // After the patch request succeeds, update the local state
           if (response.status === 200) {
-            // Update the tracks state to reflect the change
             setTracks((prevTracks) =>
               prevTracks.map((track) =>
                 track.id === id ? updatedTrack : track

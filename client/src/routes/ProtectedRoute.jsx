@@ -18,6 +18,20 @@ const ProtectedRoute = ({ children }) => {
   return candition;
 };
 
-//for user
+//for admin
+export const isAuthAdmin = () => {
+  return localStorage.getItem("adminauth") === "true";
+};
 
-export default ProtectedRoute;
+const ProtectedRouteAdmin = ({ children }) => {
+  const user = getUserFromStorage();
+  const candition =
+  isAuthAdmin() && user ? (
+      children
+    ) : (
+      <Navigate to={"/admin/login"} replace />
+    );
+  return candition;
+};
+
+export { ProtectedRoute, ProtectedRouteAdmin };

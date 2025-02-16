@@ -1,0 +1,31 @@
+.table {
+  padding: 2% 50px;
+  text-align: left;
+}
+.btn {
+  color: #fff;
+  padding: 7px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.btnApproved {
+  background-color: #2D336B;
+  transition: 0.3s ease-in-out;
+}
+.btnApproved:hover{
+  background-color: #1f244d;
+}
+.users {
+  font-size: 30px;
+  font-weight: 600;
+  text-align: left;
+  margin-bottom: 20px;
+  background: linear-gradient(
+    90deg,
+    rgba(238, 16, 176, 1) 12%,
+    rgba(14, 158, 239, 1) 100%
+  );
+  -webkit-background-clip: text;
+  color: transparent;
+}

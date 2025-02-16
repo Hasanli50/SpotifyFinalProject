@@ -3,7 +3,7 @@ const router = express.Router();
 const {
   getAllNonDeletedArtists,
   getAllDeletedArtists,
-  getAllPendingStatus,
+  // updateStatus,
   getById,
   register,
   login,
@@ -20,8 +20,8 @@ const {
   updatePassword,
 } = require("../controllers/artistController.js");
 const validateRegistration = require("../middlewares/artistMiddlewares/registerValidator.js");
-const {verifyTokenArtist} = require("../middlewares/verifyToken.js");
-const {verifyRoleArtist} = require("../middlewares/verifyRoles.js");
+const { verifyTokenArtist } = require("../middlewares/verifyToken.js");
+const { verifyRoleArtist } = require("../middlewares/verifyRoles.js");
 const validateLogin = require("../middlewares/artistMiddlewares/loginValidator.js");
 const banAccountValidation = require("../middlewares/artistMiddlewares/banAccountValidator.js");
 const updatePasswordValidator = require("../middlewares/artistMiddlewares/updatePassValidator.js");
@@ -34,7 +34,7 @@ router.get(
   "/nonDeletedArtists",
   // verifyTokenArtist,
   // verifyRoleArtist("admin", "artist"),
-  getAllNonDeletedArtists 
+  getAllNonDeletedArtists
 );
 router.get(
   "/deletedArtists",
@@ -42,13 +42,13 @@ router.get(
   verifyRoleArtist("admin", "artist"),
   getAllDeletedArtists
 );
-router.get(
-  "/pendingStatus",
-  verifyTokenArtist,
-  verifyRoleArtist("admin", "artist"),
-  getAllPendingStatus
-);
-router.get("/token", verifyTokenArtist, getByToken);
+// router.patch(
+//   "/pending-status/:id",
+//   verifyTokenArtist,
+//   verifyRoleArtist("admin"),
+//   updateStatus
+// );
+router.get("/:token", verifyTokenArtist, getByToken);
 router.get("/:id", verifyTokenArtist, getById);
 router.post(
   "/register",
@@ -56,7 +56,12 @@ router.post(
   validateRegistration,
   register
 );
-router.get("/verify/:id", verifyAccount);
+router.patch(
+  "/verify/:id",
+  verifyTokenArtist,
+  verifyRoleArtist("admin"),
+  verifyAccount
+);
 router.post("/login", validateLogin, login);
 router.post("/forgot-password", validateForgotPassword, forgotPassword);
 router.post(

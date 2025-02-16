@@ -57,27 +57,50 @@ const getAllDeletedArtists = async (_, res) => {
   }
 };
 
-const getAllPendingStatus = async (_, res) => {
-  try {
-    const artists = await Artist.find({ status: "pending" }, { password: 0 });
-    if (artists.length === 0) {
-      return res.status(404).json({
-        message: "Pending status artists not found",
-        status: "fail",
-      });
-    }
-    res.status(200).json({
-      message: "Pending artists fetched successfully",
-      status: "success",
-      data: artists,
-    });
-  } catch (error) {
-    res.status(500).json({
-      message: error.message || "Internal server error",
-      status: "fail",
-    });
-  }
-};
+// const updateStatus = async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const artist = await Artist.findById(id);
+
+//     if (!artist) {
+//       return res.status(404).json({
+//         message: "Artist not found",
+//         status: "fail",
+//       });
+//     }
+
+//     const updated = await Artist.findByIdAndUpdate(
+//       id,
+//       {
+//         status: "approved",
+//       },
+//       { new: true }
+//     );
+//     const email = artist.email;
+
+//     await transporter
+//       .sendMail({
+//         from: process.env.MAIL_USER,
+//         to: email,
+//         subject: "Account Verification | Melodies",
+//         html: `<h1>Click <a href="${process.env.APP_BASE_URL}/verify">here</a> to verify your account</h1>`,
+//       })
+//       .catch((error) => {
+//         console.log("error: ", error);
+//       });
+
+//     res.status(200).json({
+//       message: "Pending artist fetched successfully",
+//       status: "success",
+//       data: updated,
+//     });
+//   } catch (error) {
+//     res.status(500).json({
+//       message: error.message || "Internal server error",
+//       status: "fail",
+//     });
+//   }
+// };
 
 const getById = async (req, res) => {
   try {
@@ -327,16 +350,8 @@ const verifyAccount = async (req, res) => {
 
 const deleteAccount = async (req, res) => {
   const { id } = req.params;
-  const { id: artistId } = req.artist;
 
   try {
-    if (id !== artistId) {
-      return res.status(401).json({
-        message: "Unauthorized",
-        status: "fail",
-      });
-    }
-
     const artist = await Artist.findById(id);
 
     if (!artist) {
@@ -515,7 +530,7 @@ const updateArtistInfo = async (req, res) => {
     const { id } = req.params;
     const { id: artistId } = req.artist;
     const { username, email, genreIds, description } = req.body;
-    // console.log("req.body", req.body)
+    console.log("req.body", req.body);
     // console.log("req file", req.file)
 
     if (id !== artistId) {
@@ -742,7 +757,7 @@ const resetPassword = async (req, res) => {
 module.exports = {
   getAllNonDeletedArtists,
   getAllDeletedArtists,
-  getAllPendingStatus,
+  // updateStatus,
   getById,
   getByToken,
   register,

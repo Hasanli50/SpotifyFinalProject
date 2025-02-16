@@ -1,6 +1,7 @@
 const {
   createPlaylist,
-  getPlaylists,
+  getAllPlaylists,
+  getPlaylistsOfUser,
   getPlaylistById,
   addTracksToPlaylist,
   removeTrackFromPlaylist,
@@ -16,7 +17,8 @@ const { verifyToken } = require("../middlewares/verifyToken.js");
 const createPlaylistValidation = require("../middlewares/playlistMiddlewares/createPlaylistValidator.js");
 const createPlaylistWithCollaboratorsValidation = require("../middlewares/playlistMiddlewares/createPlaylistWithCollaboratorsValidator.js");
 
-router.get("/", verifyToken, getPlaylists); //+
+router.get("/", verifyToken, getPlaylistsOfUser); //+
+router.get("/all-playlists", verifyToken, getAllPlaylists); //+
 router.post("/", verifyToken, createPlaylistValidation, createPlaylist); //+
 router.post("/create", verifyToken, createPlaylistWithCollaboratorsValidation, createPlaylistWithCollaborators); //+
 router.delete(

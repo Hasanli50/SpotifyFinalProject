@@ -6,27 +6,27 @@ const bcrypt = require("bcrypt");
 const extractPublicId = require("../utils/extractPublicId.js");
 const { cloudinary } = require("../config/imageCloudinary.js");
 
-  const getAllNonDeletedUsers = async (_, res) => {
-    try {
-      const users = await User.find({ isDeleted: false }, { password: 0 });
-      if (users.length === 0) {
-        return res.status(404).json({
-          message: "Users not found",
-          status: "fail",
-        });
-      }
-      res.status(200).json({
-        message: "Users successfully found",
-        status: "success",
-        data: users.map(formatObj),
-      });
-    } catch (error) {
-      res.status(500).json({
-        message: error?.message || "Internal server error",
+const getAllNonDeletedUsers = async (_, res) => {
+  try {
+    const users = await User.find({ isDeleted: false }, { password: 0 });
+    if (users.length === 0) {
+      return res.status(404).json({
+        message: "Users not found",
         status: "fail",
       });
     }
-  };
+    res.status(200).json({
+      message: "Users successfully found",
+      status: "success",
+      data: users.map(formatObj),
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error?.message || "Internal server error",
+      status: "fail",
+    });
+  }
+};
 
 const getAllDeletedUsers = async (_, res) => {
   try {
@@ -70,6 +70,34 @@ const getById = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       message: error?.message || "Internal server error",
+      status: "fail",
+    });
+  }
+};
+
+const getByToken = async (req, res) => {
+  try {
+    const { id } = req.user;
+
+    const user = await User.findById({ _id: id, isDeleted: false });
+    // .select("-password")
+    // .populate("genreIds");
+    // .populate("trackIds")
+    // .populate("albumIds");
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+        status: "fail",
+      });
+    }
+    res.status(200).json({
+      message: "User fetched successfully",
+      status: "success",
+      data: formatObj(user),
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message || "Internal server error",
       status: "fail",
     });
   }
@@ -244,16 +272,8 @@ const verifyAccount = async (req, res) => {
 
 const deleteAccount = async (req, res) => {
   const { id } = req.params;
-  const { id: userId } = req.user;
 
   try {
-    if (id !== userId) {
-      return res.status(401).json({
-        message: "Unauthorized",
-        status: "fail",
-      });
-    }
-
     const user = await User.findById(id);
 
     if (!user) {
@@ -423,26 +443,7 @@ const unBanAccount = async (req, res) => {
 const updateUserInfo = async (req, res) => {
   try {
     const { id } = req.params;
-    const { id: userId } = req.user;
     const { username, email } = req.body;
-
-    if (id !== userId) {
-      return res.status(401).json({
-        message: "Unauthorized",
-        status: "fail",
-      });
-    }
-
-    const duplicate = await User.find({
-      $or: [{ username }, { email }],
-    });
-
-    if (duplicate.length > 0) {
-      return res.status(400).json({
-        message: "Username or email already exists!",
-        status: "fail",
-      });
-    }
 
     const sentUser = {
       ...req.body,
@@ -655,19 +656,20 @@ const resetPassword = async (req, res) => {
 };
 
 module.exports = {
-  getAllNonDeletedUsers, 
-  getAllDeletedUsers,  
-  getById,  
-  register,  
-  login,  
-  verifyAccount,  
-  deleteAccount,  
-  freezeAccount,  
-  unfreezeAccount,  
-  banAccount,  
-  unBanAccount,  
-  resetPassword,  
-  forgotPassword,  
+  getAllNonDeletedUsers,
+  getAllDeletedUsers,
+  getById,
+  getByToken,
+  register,
+  login,
+  verifyAccount,
+  deleteAccount,
+  freezeAccount,
+  unfreezeAccount,
+  banAccount,
+  unBanAccount,
+  resetPassword,
+  forgotPassword,
   updatePassword,
-  updateUserInfo,  
+  updateUserInfo,
 };

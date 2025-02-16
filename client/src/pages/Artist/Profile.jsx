@@ -8,7 +8,6 @@ import axios from "axios";
 import { BASE_URL, ENDPOINT } from "../../api/endpoint";
 import toast from "react-hot-toast";
 import { useGenres } from "../../hooks/useGenre";
-import Textarea from "@mui/joy/Textarea";
 
 const Profile = () => {
   const [artist, setArtist] = useState({
@@ -22,7 +21,12 @@ const Profile = () => {
   const { data } = useGenres();
   const token = getUserFromStorage();
 
-  console.log("artist genres: ", artist.genreIds);
+  // const formData = artist?.genreIds?.map((genre) => {
+  //   return data?.find((g) => g?.id === genre?._id);
+  // });
+
+  // console.log(formData.map((data) => data?.id));
+
 
   // Fetch artist details
   useEffect(() => {
@@ -40,17 +44,17 @@ const Profile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("username", artist.username);
-    formData.append("email", artist.email);
-    formData.append("description", artist.description);
-    artist.genreIds?.forEach((id) => formData.append("genreIds[]", id));
+    formData.append("username", artist?.username);
+    formData.append("email", artist?.email);
+    formData.append("description", artist?.description);
+    artist?.genreIds?.forEach((id) => formData.append("genreIds[]", id));
     if (artist.image) {
       formData.append("image", artist.image);
     }
 
     try {
       await axios.patch(
-        `${BASE_URL + ENDPOINT.artists}/update-info/${artist.id}`,
+        `${BASE_URL + ENDPOINT.artists}/update-info/${artist?.id}`,
         formData,
         {
           headers: {
@@ -187,11 +191,7 @@ const Profile = () => {
           <label className={style.label} htmlFor="description">
             Description:
           </label>
-          <Textarea
-            sx={{
-              overflow: "auto",
-              height: "200px",
-            }}
+          <textarea
             value={artist.description || ""}
             onChange={(e) =>
               setArtist((prev) => ({ ...prev, description: e.target.value }))
@@ -199,15 +199,26 @@ const Profile = () => {
             size="lg"
             name="Size"
             placeholder="Large"
+            style={{
+              height: "200px",
+              width: "100%",
+              overflowY: "auto",
+              resize: "vertical",
+              padding: "10px 10px",
+              fontSize: "16px",
+              border: "none",
+              borderRadius: "5px",
+            }}
           />
         </div>
+
         {/* select genres have bug */}
         <div className={style.field}>
           <label className={style.label}>Genres:</label>
           <Select
             isMulti
             value={artist?.genreIds?.map((genre) => {
-              const genreFromData = data?.find((g) => g?.id == genre?._id);
+              const genreFromData = data?.find((g) => g?.id === genre?._id);
               if (genreFromData) {
                 return {
                   value: genreFromData?.id,
@@ -218,18 +229,48 @@ const Profile = () => {
             })}
             options={
               data
-                ? data.map((genre) => ({
-                    value: genre.id,
-                    label: genre.name,
+                ? data?.map((genre) => ({
+                    value: genre?.id,
+                    label: genre?.name,
                   }))
                 : []
             }
             onChange={(selectedOptions) =>
               setArtist((prev) => ({
                 ...prev,
-                genreIds: selectedOptions.map((option) => option.value), // Use id as the value
+                genreIds: selectedOptions?.map((option) => option?.value),
               }))
             }
+            styles={{
+              option: (provided, state) => {
+                return {
+                  ...provided,
+                  backgroundColor: state.isSelected
+                    ? "#4CAF50"
+                    : state.isFocused
+                    ? "#F0F0F0"
+                    : "white",
+                  color: state.isSelected ? "white" : "black",
+                  padding: "10px",
+                };
+              },
+              multiValue: (provided) => ({
+                ...provided,
+                backgroundColor: "#6A666E",
+                color: "white",
+              }),
+              multiValueLabel: (provided) => ({
+                ...provided,
+                color: "white",
+              }),
+              multiValueRemove: (provided) => ({
+                ...provided,
+                color: "white",
+                ":hover": {
+                  backgroundColor: "#FF4081",
+                },
+              }),
+            }}
           />
         </div>
 

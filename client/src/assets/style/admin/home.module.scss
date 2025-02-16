@@ -1,0 +1,25 @@
+.home{
+    padding: 4% 50px;
+    text-align: left;
+}
+.heading{
+    font-size: 45px;
+    margin-bottom: 30px;
+}
+.item{
+    margin-bottom: 30px;
+    font-size: 22px;
+}
+.count{
+    color: #7886C7;
+}
+.paragraph{
+    margin-bottom: 60px;
+    font-size: 16px;
+}
+.box{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}

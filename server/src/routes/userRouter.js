@@ -4,6 +4,7 @@ const {
   getAllNonDeletedUsers,
   getAllDeletedUsers,
   getById,
+  getByToken,
   register,
   login,
   verifyAccount,
@@ -40,6 +41,7 @@ router.get(
   verifyRoles("admin", "user"),
   getAllDeletedUsers
 );
+router.get("/:token", verifyToken, getByToken);
 router.get("/:id", verifyToken, getById);
 router.post(
   "/register",

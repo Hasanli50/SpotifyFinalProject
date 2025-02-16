@@ -1,9 +1,19 @@
+import { getUserFromStorage } from "../../utils/localeStorage.js";
 import axiosInstance from "../axiosInstance.js";
 import { BASE_URL, ENDPOINT } from "../endpoint.js";
 
-export const fetchPlaylists = async () => {
+const token = getUserFromStorage();
+
+export const fetchALlPlaylists = async () => {
   try {
-    const response = await axiosInstance.get(BASE_URL + ENDPOINT.playlists);
+    const response = await axiosInstance.get(
+      `${BASE_URL + ENDPOINT.playlists}/all-playlists`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return response.data.data;
   } catch (error) {
     console.error("Error fetching all playlists: ", error);
