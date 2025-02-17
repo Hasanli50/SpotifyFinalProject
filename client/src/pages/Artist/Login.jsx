@@ -15,21 +15,21 @@ import { useEffect } from "react";
 const Login = () => {
   const { data } = useAllNonDeletedArtists();
   const navigate = useNavigate();
-  const {token} = useParams()
+  const { token } = useParams();
 
   useEffect(() => {
     if (token) {
-      saveUserToStorage(token); 
+      saveUserToStorage(token);
       toast.success("Successfully signed in with Google!");
 
       setTimeout(() => {
         navigate("/artist");
       }, 300);
     }
-  }, []);
+  }, [token, navigate]);
 
   const handleGoogleLogin = () => {
-    window.location.href = `http://localhost:6060/auth/google`; 
+    window.location.href = `http://localhost:6060/auth/google`;
   };
 
   const formik = useFormik({
@@ -57,6 +57,31 @@ const Login = () => {
           return;
         }
 
+        if (artist.isBanned === true) {
+          const banExpiresAt = new Date(artist.banExpiresAt).getTime();
+
+          if (isNaN(banExpiresAt)) {
+            console.error("Invalid ban expiration time:", artist.banExpiresAt);
+            return toast.error("Invalid ban expiration time.");
+          }
+          const remainingMilliseconds = banExpiresAt - Date.now();
+
+          if (remainingMilliseconds <= 0) {
+            return toast.error("Your account is no longer banned.");
+          }
+
+          const remainingMinutes = Math.floor(
+            remainingMilliseconds / (1000 * 60)
+          );
+          const remainingSeconds = Math.floor(
+            (remainingMilliseconds % (1000 * 60)) / 1000
+          );
+
+          return toast.error(
+            `Your account is banned. Come back after ${remainingMinutes} minutes and ${remainingSeconds} seconds.`
+          );
+        }
+
         const response = await axios.post(
           `${BASE_URL + ENDPOINT.artists}/login`,
           cleanedValues
@@ -64,7 +89,7 @@ const Login = () => {
         if (response && response.data.token) {
           actions.resetForm();
           toast.success("Successfully signed in!");
-          localStorage.setItem("artistauth", "true")
+          localStorage.setItem("artistauth", "true");
           saveUserToStorage(response.data.token);
           // console.log(response.data.token);
 
@@ -160,12 +185,12 @@ const Login = () => {
           <p className={style.or}>Or</p>
         </div>
         {/* <Link to={"/auth/google"} style={{textDecoration: "none"}}> */}
-          <button className={style.googleBtn} onClick={handleGoogleLogin}>
-            <GoogleIcon />
-            <span className={style.red}>Login</span>
-            <span className={style.yellow}>With</span>
-            <span className={style.blue}>Google</span>
-          </button>
+        <button className={style.googleBtn} onClick={handleGoogleLogin}>
+          <GoogleIcon />
+          <span className={style.red}>Login</span>
+          <span className={style.yellow}>With</span>
+          <span className={style.blue}>Google</span>
+        </button>
         {/* </Link> */}
       </form>
     </div>

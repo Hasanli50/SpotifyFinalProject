@@ -39,6 +39,7 @@
   background-color: transparent;
   text-transform: capitalize;
   cursor: pointer;
+  transition: 0.3s ease-in-out;
 }
 .createBtn:hover{
   background-color: $darkBlue;
@@ -54,6 +55,7 @@
   background-color: transparent;
   text-transform: capitalize;
   cursor: pointer;
+  transition: 0.3s ease-in-out;
 }
 .cancelBtn:hover{
   background-color: $darkPurpleHover;

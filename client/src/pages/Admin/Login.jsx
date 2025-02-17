@@ -52,7 +52,7 @@ const Login = () => {
           // console.log(response.data.token);
 
           setTimeout(() => {
-            navigate("/admin/");
+            navigate("/admin");
           }, 300);
         } else {
           toast.error("Login failed. Please try again.");

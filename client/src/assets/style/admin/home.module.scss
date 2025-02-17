@@ -1,25 +1,35 @@
-.home{
-    padding: 4% 50px;
-    text-align: left;
+.home {
+  padding: 4% 50px;
+  text-align: left;
+  @media only screen and (max-width: 520px) {
+    padding: 10px;
+  }
 }
-.heading{
-    font-size: 45px;
-    margin-bottom: 30px;
+.heading {
+  font-size: 45px;
+  margin-bottom: 30px;
 }
-.item{
-    margin-bottom: 30px;
-    font-size: 22px;
+.item {
+  margin-bottom: 30px;
+  font-size: 22px;
 }
-.count{
-    color: #7886C7;
+.count {
+  color: #7886c7;
 }
-.paragraph{
-    margin-bottom: 60px;
-    font-size: 16px;
+.paragraph {
+  margin-bottom: 60px;
+  font-size: 16px;
 }
-.box{
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
+.box {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+}
+.chart {
+    width: 520px;
+  @media only screen and (max-width: 520px) {
+    max-width: 250px;
+    padding: 10px 0;
+  }
 }

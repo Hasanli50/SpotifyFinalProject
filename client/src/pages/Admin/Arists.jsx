@@ -315,7 +315,7 @@ const Arists = () => {
             }}
             className={style.btn}
             key={record.id}
-            onClick={() => handleBan(record.id, 1)}
+            onClick={() => handleBan(record.id, 30)}
             disabled={record.isBanned}
           >
             Ban

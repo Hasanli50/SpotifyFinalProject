@@ -4,14 +4,19 @@ export const saveUserToStorage = (token) => {
   localStorage.setItem(KEY, JSON.stringify(token));
 };
 
-export const removeUserFromStorage = () => {
+export const removeArtistFromStorage = () => {
   localStorage.removeItem(KEY);
-  localStorage.removeItem("artistauth")
+  localStorage.removeItem("artistauth");
 };
 
 export const removeAdminFromStorage = () => {
   localStorage.removeItem(KEY);
-  localStorage.removeItem("adminauth")
+  localStorage.removeItem("adminauth");
+};
+
+export const removeUserFromStorage = () => {
+  localStorage.removeItem(KEY);
+  localStorage.removeItem("userauth");
 };
 
 export const getUserFromStorage = () => {

@@ -101,7 +101,7 @@ const Profile = () => {
             }}
             name="username"
             className={style.input}
-            label="Enter Username"
+            label="Username"
             variant="outlined"
           />
         </div>
@@ -150,7 +150,7 @@ const Profile = () => {
             }}
             name="email"
             className={style.input}
-            label="Enter Email"
+            label="Email"
             variant="outlined"
           />
         </div>

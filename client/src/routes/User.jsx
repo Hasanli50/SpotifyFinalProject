@@ -6,16 +6,27 @@ import Home from "../pages/User/Home";
 import ForgotPass from "../pages/User/ForgotPass";
 import ResetPass from "../pages/User/ResetPass";
 import VerifyAccount from "../pages/User/VerifyAccount";
+import SideBar from "../components/user/SideBar";
+import AboutUs from "../components/AboutUs";
+import Contact from "../components/Contact";
+import Profile from "../pages/User/Profile";
 const User = () => {
   return (
     <>
       <Routes>
-        <Route path="/"  element={<Home />} />
         <Route path="/forgot-password" element={<ForgotPass />} />
         <Route path="/verify/:token" element={<VerifyAccount />} />
         <Route path="/reset-password/:token" element={<ResetPass />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<SignUp />} />
+
+        <Route path="/" element={<SideBar />}>
+          <Route index element={<Home />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="about-us" element={<AboutUs />} />
+          <Route path="contact" element={<Contact />} />
+        </Route>
+
         {/* <Route path="/" element={<StudentLayout />}>
         <Route index element={<PrivateRoute element={<Home />} />} />
         <Route path="/tasks/:taskId" element={<PrivateRoute element={<Tasks />} />} />
@@ -39,7 +50,7 @@ const User = () => {
           element={<PrivateRoute element={<Profile />} />}
         />
        </Route> */}
-      <Route path="*" element={<NotFound />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

@@ -103,7 +103,7 @@ const Home = () => {
             </li>
           </ul>
 
-          <Box sx={{ maxWidth: "500px", margin: "0 auto" }}>
+          <Box className={style.chart} >
             <Typography variant="h6" gutterBottom>
               Artist Followers
             </Typography>

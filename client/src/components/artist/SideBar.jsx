@@ -17,7 +17,7 @@ import Footer from "../Footer";
 import bgHome from "../../assets/image/photo/bgHome.png";
 import {
   getUserFromStorage,
-  removeUserFromStorage,
+  removeArtistFromStorage,
 } from "../../utils/localeStorage";
 import { fetchArtistByToken } from "../../utils/reusableFunc";
 import PersonIcon from "@mui/icons-material/Person";
@@ -67,7 +67,7 @@ const SideBar = () => {
   //-----------------------------------------------------------
   //logout
   const handleLogout = () => {
-    removeUserFromStorage();
+    removeArtistFromStorage();
     navigate("/artist/login");
   };
 

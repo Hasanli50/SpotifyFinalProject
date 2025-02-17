@@ -15,7 +15,7 @@ import { useAllNonDeletedUsers } from "../../hooks/useUser";
 const Login = () => {
   const { data } = useAllNonDeletedUsers();
   const navigate = useNavigate();
-  const {token} = useParams()
+  const { token } = useParams();
 
   useEffect(() => {
     if (token) {
@@ -26,7 +26,7 @@ const Login = () => {
         navigate("/");
       }, 300);
     }
-  }, []);
+  }, [token, navigate]);
 
   const handleGoogleLogin = () => {
     window.location.href = `http://localhost:6060/auth-user/google`; // Redirect to Google OAuth
@@ -55,6 +55,27 @@ const Login = () => {
         if (user.isVerified !== true) {
           toast.error("Please check your email and verify your account");
           return;
+        }
+
+        if (user.isBanned === true) {
+          const banExpiresAt = new Date(user.banExpiresAt).getTime();
+
+          if (isNaN(banExpiresAt)) {
+            console.error("Invalid ban expiration time:", user.banExpiresAt);
+            return toast.error("Invalid ban expiration time.");
+          }
+          const remainingMilliseconds = banExpiresAt - Date.now();
+
+          const remainingMinutes = Math.floor(
+            remainingMilliseconds / (1000 * 60)
+          );
+          const remainingSeconds = Math.floor(
+            (remainingMilliseconds % (1000 * 60)) / 1000
+          );
+
+          return toast.error(
+            `Your account is banned. Come back after ${remainingMinutes} minutes and ${remainingSeconds} seconds.`
+          );
         }
 
         const response = await axios.post(
@@ -159,12 +180,16 @@ const Login = () => {
           <p className={style.or}>Or</p>
         </div>
         {/* <Link to={"/auth/google"} style={{textDecoration: "none"}}> */}
-          <button className={style.googleBtn} onClick={handleGoogleLogin} type="button">
-            <GoogleIcon />
-            <span className={style.red}>Login</span>
-            <span className={style.yellow}>With</span>
-            <span className={style.blue}>Google</span>
-          </button>
+        <button
+          className={style.googleBtn}
+          onClick={handleGoogleLogin}
+          type="button"
+        >
+          <GoogleIcon />
+          <span className={style.red}>Login</span>
+          <span className={style.yellow}>With</span>
+          <span className={style.blue}>Google</span>
+        </button>
         {/* </Link> */}
       </form>
     </div>

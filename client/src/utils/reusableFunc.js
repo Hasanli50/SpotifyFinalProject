@@ -15,7 +15,6 @@ export const fetchArtistByToken = async (token) => {
   }
 };
 
-
 export const fetcAdminByToken = async (token) => {
   try {
     const response = await axios.get(`${BASE_URL + ENDPOINT.users}/token`, {
@@ -23,14 +22,28 @@ export const fetcAdminByToken = async (token) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(response.data)
-    return response.data.data;
+    if (response.data.data.role === "admin") {
+      return response.data.data;
+    }
   } catch (error) {
     console.log("Error:", error);
     throw error;
   }
 };
 
+export const fetchUserByToken = async (token) => {
+  try {
+    const response = await axios.get(`${BASE_URL + ENDPOINT.users}/token`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.data;
+  } catch (error) {
+    console.log("Error:", error);
+    throw error;
+  }
+};
 
 export function formatDuration(durationInSeconds) {
   const minutes = Math.floor(durationInSeconds / 60);

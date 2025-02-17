@@ -202,7 +202,11 @@ const login = async (req, res) => {
     }
     //check if frozen - unfreeze in login
     if (user.isFrozen === true) {
-      await User.findByIdAndUpdate(user._id, { isFrozen: false });
+      await User.findByIdAndUpdate(
+        user._id,
+        { isFrozen: false },
+        { new: true }
+      );
     }
 
     res.status(200).json({
@@ -493,15 +497,8 @@ const updateUserInfo = async (req, res) => {
 const updatePassword = async (req, res) => {
   try {
     const { id } = req.params;
-    const { id: userId } = req.user;
     const { password, confirmPassword } = req.body;
-
-    if (id !== userId) {
-      return res.status(401).json({
-        message: "Unauthorized",
-        status: "fail",
-      });
-    }
+    // console.log(req.body)
 
     if (password !== confirmPassword) {
       return res.status(400).json({
@@ -511,6 +508,7 @@ const updatePassword = async (req, res) => {
     }
 
     const user = await User.findById(id);
+    // console.log(user)
 
     if (!user) {
       return res.status(404).json({
