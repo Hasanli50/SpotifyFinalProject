@@ -1,0 +1,100 @@
+.card {
+  background-color: #1f1f1f;
+  width: 175px;
+  height: 214;
+  border-radius: 10px;
+  padding: 4px 15px;
+  cursor: pointer;
+}
+
+.imgBox {
+  width: 145px;
+  height: 150px;
+  overflow: hidden;
+  border-radius: 10px;
+  margin-bottom: 8px;
+}
+
+.img {
+  width: 100%;
+  object-fit: cover;
+  transition: 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+.letterTop {
+  text-align: left;
+  color: #fff;
+  margin-bottom: 8px;
+  font-size: 18px;
+}
+
+.letterBottom {
+  text-align: left;
+  color: #d2d2d2;
+  font-size: 14px;
+}
+
+.inputBox {
+  max-width: 335px;
+  position: relative;
+}
+
+.input {
+  padding: 10px 10px;
+  border-radius: 15px;
+  width: 100%;
+  background-color: #1f1f1f;
+  border: 1px solid #aaa;
+  color: #fff;
+}
+
+.searchIcon {
+  position: absolute;
+  right: 10px;
+  top: 6px;
+}
+
+.select {
+  padding: 9px 10px;
+  border-radius: 15px;
+  background-color: #1f1f1f;
+  border: 1px solid #aaa;
+  color: #fff;
+  cursor: pointer;
+}
+
+.main {
+  padding: 4% 50px;
+}
+
+.albums {
+  margin-bottom: 2%;
+}
+
+.card:hover .img {
+  transform: scale(1.1);
+}
+
+.sentence {
+  font-size: 20px;
+  background: linear-gradient(90deg, rgb(238, 16, 176) 12%, rgb(14, 158, 239) 100%);
+  background-clip: text;
+  color: transparent;
+}
+
+.box {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.btn {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}/*# sourceMappingURL=albums.module.css.map */

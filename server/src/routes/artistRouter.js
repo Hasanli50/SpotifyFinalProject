@@ -49,7 +49,7 @@ router.get(
 //   updateStatus
 // );
 router.get("/:token", verifyTokenArtist, getByToken);
-router.get("/:id", verifyTokenArtist, getById);
+router.get("/artistDetail/:id", verifyTokenArtist, getById);
 router.post(
   "/register",
   imageUpload.single("image"),

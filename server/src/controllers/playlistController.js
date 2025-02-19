@@ -124,7 +124,7 @@ const getPlaylistById = async (req, res) => {
 const addTracksToPlaylist = async (req, res) => {
   try {
     const { id } = req.params;
-    const { tracks } = req.body; // tracks is an array of { trackId, type }
+    const { trackIds } = req.body;
 
     const playlist = await Playlist.findById(id);
 
@@ -135,25 +135,25 @@ const addTracksToPlaylist = async (req, res) => {
       });
     }
 
-    for (const track of tracks) {
+    for (const trackId of trackIds) {
       const trackExists = playlist.trackIds.some(
-        (existingTrack) =>
-          existingTrack.trackId.toString() === track.trackId.toString()
+        (existingTrackId) => existingTrackId.toString() === trackId.toString()
       );
 
       if (trackExists) {
         return res.status(400).json({
-          message: `Track with ID ${track.trackId} is already in the playlist`,
+          message: `Track with ID ${trackId} is already in the playlist`,
           status: "fail",
         });
       }
-      playlist.trackIds.push(track);
+
+      playlist.trackIds.push(trackId);
     }
 
     await playlist.save();
 
     return res.status(200).json({
-      data: playlist,
+      data: formatObj(playlist),
       message: "Tracks added successfully",
       status: "success",
     });
@@ -353,6 +353,7 @@ const createPlaylistWithCollaborators = async (req, res) => {
 
     const newPlaylist = new Playlist({
       name,
+      collaborators,
       userId,
       trackCount: 0,
       isMix: false,

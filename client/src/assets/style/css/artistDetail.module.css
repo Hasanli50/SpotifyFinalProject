@@ -1,0 +1,208 @@
+@charset "UTF-8";
+.card {
+  background-color: #1f1f1f;
+  width: 175px;
+  height: 214;
+  border-radius: 10px;
+  padding: 4px 15px;
+  cursor: pointer;
+}
+
+.imgBox {
+  width: 145px;
+  height: 150px;
+  overflow: hidden;
+  border-radius: 10px;
+  margin-bottom: 8px;
+}
+
+.img, .songsCard__imgBox__img {
+  width: 100%;
+  object-fit: cover;
+  transition: 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+.letterTop {
+  text-align: left;
+  color: #fff;
+  margin-bottom: 8px;
+  font-size: 18px;
+}
+
+.letterBottom {
+  text-align: left;
+  color: #d2d2d2;
+  font-size: 14px;
+}
+
+.heading {
+  font-size: 35px;
+  text-align: left;
+  margin-bottom: 30px;
+  font-weight: 600;
+}
+
+.songsCard {
+  background-color: #1f1f1f;
+  width: 100%;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  padding-right: 20px;
+  align-items: center;
+}
+
+.songsCard__imgBox {
+  width: 58px;
+  height: 60px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.place {
+  font-size: 18px;
+}
+
+.songsCard:hover .songsCard__imgBox__img {
+  transform: scale(1.1);
+}
+
+@media only screen and (max-width: 660px) {
+  .songsCard__letter {
+    display: none;
+  }
+}
+
+.aboutArtist {
+  margin: 50px 0;
+  padding: 0 50px;
+}
+@media only screen and (max-width: 520px) {
+  .aboutArtist {
+    padding: 10px;
+  }
+}
+
+.popular {
+  padding: 0 50px;
+  margin-bottom: 30px;
+}
+@media only screen and (max-width: 520px) {
+  .popular {
+    padding: 10px;
+  }
+}
+
+.profileImgBox {
+  width: 100%;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+  cursor: pointer;
+  height: 100%;
+}
+
+.profileImg {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.text {
+  text-align: left;
+}
+
+.username {
+  font-size: 35px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  background: linear-gradient(90deg, rgb(238, 16, 176) 12%, rgb(14, 158, 239) 100%);
+  background-clip: text;
+  color: transparent;
+}
+
+.icons {
+  display: flex;
+  gap: 5px;
+}
+
+.viewAll {
+  cursor: pointer;
+  text-decoration: none;
+  color: #fff;
+}
+
+.rectangleМiewAll {
+  gap: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  color: #fff;
+  background-color: #1e1e1e;
+  border-radius: 5px;
+  width: 140px;
+  padding: 10px 20px;
+  display: flex;
+  margin: 4% auto;
+}
+
+.circle {
+  display: block;
+  background-color: #1e1e1e;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  position: relative;
+  margin: auto;
+  margin-bottom: 10px;
+}
+
+.allAlbums {
+  padding: 0 50px;
+  margin-bottom: 50px;
+}
+@media only screen and (max-width: 520px) {
+  .allAlbums {
+    padding: 10px;
+  }
+}
+
+.albums {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.card:hover .img {
+  transform: scale(1.1);
+}
+
+.sentence {
+  text-align: left;
+  font-size: 20px;
+  background: linear-gradient(90deg, rgb(238, 16, 176) 12%, rgb(14, 158, 239) 100%);
+  background-clip: text;
+  color: transparent;
+}
+
+.allSingleSongs {
+  padding: 0 50px;
+  margin-bottom: 50px;
+}
+@media only screen and (max-width: 520px) {
+  .allSingleSongs {
+    padding: 10px;
+  }
+}
+
+.songs {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  flex-wrap: wrap;
+}/*# sourceMappingURL=artistDetail.module.css.map */

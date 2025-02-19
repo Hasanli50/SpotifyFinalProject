@@ -78,6 +78,11 @@ const Login = () => {
           );
         }
 
+        if (user.role !== "user") {
+          toast.error("Only users can login!");
+          return;
+        }
+
         const response = await axios.post(
           `${BASE_URL + ENDPOINT.users}/login`,
           cleanedValues

@@ -10,7 +10,7 @@ import moment from "moment";
 const Home = () => {
   const [artist, setArtist] = useState([]);
   const [artistAlbum, setArtistAlbums] = useState([]);
-  const [artistSongs, setSrtistSongs] = useState([]);
+  const [artistSongs, setArtistSongs] = useState([]);
   const [newSongs, setNewSongs] = useState([]);
   const [trendingSongs, setTrendingSongs] = useState([]);
 
@@ -81,7 +81,7 @@ const Home = () => {
         const lastFiveTracks = sortedTracks.slice(0, 5);
 
         // console.log("Last 5 Albums:", lastFiveTracks);
-        setSrtistSongs(lastFiveTracks);
+        setArtistSongs(lastFiveTracks);
       }
     }
   }, [artist, tracks]);
@@ -96,8 +96,7 @@ const Home = () => {
       const lastFiveTracks = sortedTracks.slice(0, 5);
       setNewSongs(lastFiveTracks);
     }
-  }, [artist, tracks]);
-
+  }, [tracks]);
 
   //trending songs
   useEffect(() => {
@@ -110,7 +109,7 @@ const Home = () => {
       setTrendingSongs(lastFiveTracks);
       console.log(tracks);
     }
-  }, [artist, tracks]);
+  }, [tracks]);
 
   return (
     <>
@@ -166,7 +165,7 @@ const Home = () => {
                 </Grid>
               ))
             ) : (
-              <p className={style.sentence}>You don`t have any albums</p>
+              <p className={style.sentence}>You don`t have any singles</p>
             )}
           </Grid>
         </section>

@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
+import style from "../../assets/style/artist/albumModal.module.scss";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 // import Typography from '@mui/material/Typography';
 import PlaylistAddCircleIcon from "@mui/icons-material/PlaylistAddCircle";
-import style from "../../assets/style/artist/albumModal.module.scss";
 import { TextField } from "@mui/material";
+import toast from "react-hot-toast";
 import { useFormik } from "formik";
 import { fetchArtistByToken } from "../../utils/reusableFunc";
-import toast from "react-hot-toast";
 import { albumSchema } from "../../schema/albumModalSchema";
 import { getUserFromStorage } from "../../utils/localeStorage";
 import axios from "axios";

@@ -1,0 +1,89 @@
+@import "./variables";
+%section-margin {
+  margin-bottom: 7%;
+}
+%card {
+  background-color: #1f1f1f;
+  width: 175px;
+  height: 214;
+  border-radius: 10px;
+  padding: 4px 15px;
+  cursor: pointer;
+}
+%img-box {
+  width: 145px;
+  height: 150px;
+  overflow: hidden;
+  border-radius: 10px;
+  margin-bottom: 8px;
+}
+%img {
+  width: 100%;
+  object-fit: cover;
+  transition: 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+%letter-top {
+  text-align: left;
+  color: $whiteColor;
+  margin-bottom: 8px;
+  font-size: 18px;
+}
+%letter-bottom {
+  text-align: left;
+  color: #d2d2d2;
+  font-size: 14px;
+}
+%heading {
+  font-size: 35px;
+  text-align: left;
+  margin-bottom: 30px;
+  font-weight: 600;
+}
+
+%songs-card {
+  background-color: #1f1f1f;
+  width: 100%;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  padding-right: 20px;
+  align-items: center;
+}
+%songsCard-imgBox {
+  width: 58px;
+  height: 60px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+//input
+%input-box {
+  max-width: 335px;
+  position: relative;
+}
+%input {
+  padding: 10px 10px;
+  border-radius: 15px;
+  width: 100%;
+  background-color: #1f1f1f;
+  border: 1px solid #aaa;
+  color: $whiteColor;
+}
+%search-icon {
+  position: absolute;
+  right: 10px;
+  top: 6px;
+}
+
+//select
+%select {
+  padding: 9px 10px;
+  border-radius: 15px;
+  background-color: #1f1f1f;
+  border: 1px solid #aaa;
+  color: $whiteColor;
+  cursor: pointer;
+}

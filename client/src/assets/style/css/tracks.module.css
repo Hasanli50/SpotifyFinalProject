@@ -1,0 +1,101 @@
+.main {
+  padding: 4% 50px;
+}
+
+.tracks {
+  margin-bottom: 2%;
+}
+
+.box {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.inputBox {
+  width: 335px;
+  position: relative;
+}
+
+.input {
+  padding: 10px 10px;
+  border-radius: 15px;
+  width: 100%;
+  background-color: #1f1f1f;
+  border: 1px solid #aaa;
+  color: #fff;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.searchIcon {
+  position: absolute;
+  right: 10px;
+  top: 6px;
+}
+
+.select {
+  padding: 9px 10px;
+  border-radius: 15px;
+  background-color: #1f1f1f;
+  border: 1px solid #aaa;
+  color: #fff;
+  cursor: pointer;
+}
+
+.btn {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.songBox {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.place {
+  font-size: 18px;
+}
+
+.songsCard {
+  background-color: #1f1f1f;
+  width: 100%;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  padding-right: 20px;
+  align-items: center;
+}
+
+.songsCard__imgBox {
+  width: 58px;
+  height: 60px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.songsCard__imgBox__img {
+  width: 100%;
+  object-fit: cover;
+  transition: 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+.songsCard:hover .songsCard__imgBox__img {
+  transform: scale(1.1);
+}
+
+@media only screen and (max-width: 660px) {
+  .songsCard__letter {
+    display: none;
+  }
+}
+
+.blackAudioPlayer {
+  padding: 7px 0;
+}/*# sourceMappingURL=tracks.module.css.map */

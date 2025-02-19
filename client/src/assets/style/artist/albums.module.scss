@@ -1,4 +1,6 @@
-@import "../../colors/color.scss";
+@import "../../scss/variables";
+@import "../../scss/extends";
+
 .main {
   padding: 4% 50px;
 }
@@ -6,25 +8,13 @@
   margin-bottom: 2%;
 }
 .card {
-  background-color: #1f1f1f;
-  width: 175px;
-  height: 214;
-  border-radius: 10px;
-  padding: 4px 15px;
-  cursor: pointer;
+  @extend %card;
 }
 .imgBox {
-  width: 145px;
-  height: 150px;
-  overflow: hidden;
-  border-radius: 10px;
-  margin-bottom: 8px;
+  @extend %img-box;
 }
 .img {
-  width: 100%;
-  object-fit: cover;
-  transition: 0.3s ease-in-out;
-  border-radius: 10px;
+  @extend %img;
 }
 .card:hover {
   .img {
@@ -32,15 +22,10 @@
   }
 }
 .letterTop {
-  text-align: left;
-  color: $whiteColor;
-  margin-bottom: 8px;
-  font-size: 18px;
+  @extend %letter-top;
 }
 .letterBottom {
-  text-align: left;
-  color: #d2d2d2;
-  font-size: 14px;
+  @extend %letter-bottom;
 }
 .sentence {
   font-size: 20px;
@@ -49,7 +34,7 @@
     rgba(238, 16, 176, 1) 12%,
     rgba(14, 158, 239, 1) 100%
   );
-  -webkit-background-clip: text;
+  background-clip: text;
   color: transparent;
 }
 
@@ -59,36 +44,22 @@
   margin-bottom: 40px;
 }
 .inputBox {
-  width: 335px;
-  position: relative;
+  @extend %input-box;
 }
 .input {
-  padding: 10px 10px;
-  border-radius: 15px;
-  width: 100%;
-  background-color: #1f1f1f;
-  border: 1px solid #aaa;
-  color: $whiteColor;
+  @extend %input;
 }
 .input:focus {
   outline: none;
 }
 .searchIcon {
-  position: absolute;
-  right: 10px;
-  top: 6px;
+  @extend %search-icon;
 }
 .select {
-  padding: 9px 10px;
-  border-radius: 15px;
-  background-color: #1f1f1f;
-  border: 1px solid #aaa;
-  color: $whiteColor;
-  cursor: pointer;
+  @extend %select;
 }
 .btn {
   cursor: pointer;
   display: flex;
   align-items: center;
 }
-

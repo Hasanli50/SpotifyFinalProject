@@ -1,6 +1,6 @@
 .card {
   max-width: 476.5px;
-  background-color: #2D336B;
+  background-color: #2d336b;
   padding: 16px 25px;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -38,7 +38,7 @@
 }
 
 .loginBtn {
-  background-color: #7886C7;
+  background-color: #7886c7;
   color: #fff;
   transition: background-color 0.3s ease;
   font-size: 18px;

@@ -1,9 +1,9 @@
-@import "../../colors/color.scss";
+@import "../../scss/variables";
 
 :global {
   /* Style for selected menu item */
   .ant-menu-dark .ant-menu-item-selected {
-    background-color: rgb(45, 51, 107);
+    background-color: rgb(45, 51, 107) ;
     border-radius: 8px;
   }
 

@@ -2,7 +2,6 @@ import { Route, Routes } from "react-router";
 import Login from "../pages/User/Login";
 import SignUp from "../pages/User/SignUp";
 import NotFound from "../pages/User/NotFound";
-import Home from "../pages/User/Home";
 import ForgotPass from "../pages/User/ForgotPass";
 import ResetPass from "../pages/User/ResetPass";
 import VerifyAccount from "../pages/User/VerifyAccount";
@@ -10,6 +9,10 @@ import SideBar from "../components/user/SideBar";
 import AboutUs from "../components/AboutUs";
 import Contact from "../components/Contact";
 import Profile from "../pages/User/Profile";
+import Home from "../pages/User/Home";
+import Artists from "../pages/User/Artists";
+import ArtistDetail from "../pages/User/ArtistDetail";
+import Favorites from "../pages/User/Favorites";
 const User = () => {
   return (
     <>
@@ -25,6 +28,9 @@ const User = () => {
           <Route path="profile" element={<Profile />} />
           <Route path="about-us" element={<AboutUs />} />
           <Route path="contact" element={<Contact />} />
+          <Route path="artists" element={<Artists />} />
+          <Route path="artists/:id" element={<ArtistDetail />} />
+          <Route path="favorites" element={<Favorites />} />
         </Route>
 
         {/* <Route path="/" element={<StudentLayout />}>

@@ -164,292 +164,294 @@ const Profile = () => {
 
   return (
     <>
-      <div className={style.card}>
-        <form onSubmit={handleUpdateUserInfo}>
-          <div className={style.field}>
-            <label className={style.label} htmlFor="username">
-              Username:
-            </label>
-            <TextField
-              value={user.username || ""}
-              onChange={(e) =>
-                setUser((prev) => ({ ...prev, username: e.target.value }))
-              }
-              sx={{
-                marginBottom: "10px",
-                width: "100%",
-                "& .MuiOutlinedInput-root": {
-                  color: "#FAB5E7",
-                  "&:hover .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "rgba(238, 16, 176, 1)",
-                  },
-                  "& .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "rgba(238, 16, 176, 1)",
-                    borderWidth: "2px",
-                  },
-                  "&.Mui-focused": {
+      <section className={style.box}>
+        <div className={style.card}>
+          <form onSubmit={handleUpdateUserInfo}>
+            <div className={style.field}>
+              <label className={style.label} htmlFor="username">
+                Username:
+              </label>
+              <TextField
+                value={user.username || ""}
+                onChange={(e) =>
+                  setUser((prev) => ({ ...prev, username: e.target.value }))
+                }
+                sx={{
+                  marginBottom: "10px",
+                  width: "100%",
+                  "& .MuiOutlinedInput-root": {
+                    color: "#FAB5E7",
+                    "&:hover .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "rgba(238, 16, 176, 1)",
+                    },
                     "& .MuiOutlinedInput-notchedOutline": {
-                      borderColor: "#FAB5E7",
+                      borderColor: "rgba(238, 16, 176, 1)",
                       borderWidth: "2px",
                     },
-                    "& input": {
-                      color: "#FAB5E7",
-                      background: "transparant",
-                    },
-                    "& .MuiInputLabel-root": {
-                      color: "#FAB5E7",
+                    "&.Mui-focused": {
+                      "& .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#FAB5E7",
+                        borderWidth: "2px",
+                      },
+                      "& input": {
+                        color: "#FAB5E7",
+                        background: "transparant",
+                      },
+                      "& .MuiInputLabel-root": {
+                        color: "#FAB5E7",
+                      },
                     },
                   },
-                },
-                "& .MuiInputLabel-root": {
-                  color: "#FAB5E7",
-                },
-                "& input::placeholder": {
-                  color: "#FAB5E7",
-                },
-              }}
-              name="username"
-              className={style.input}
-              label="Enter Username"
-              variant="outlined"
-            />
-          </div>
+                  "& .MuiInputLabel-root": {
+                    color: "#FAB5E7",
+                  },
+                  "& input::placeholder": {
+                    color: "#FAB5E7",
+                  },
+                }}
+                name="username"
+                className={style.input}
+                label="Enter Username"
+                variant="outlined"
+              />
+            </div>
 
-          <div className={style.field}>
-            <label className={style.label} htmlFor="email">
-              Email:
-            </label>
-            <TextField
-              value={user.email || ""}
-              onChange={(e) =>
-                setUser((prev) => ({ ...prev, email: e.target.value }))
-              }
-              sx={{
-                marginBottom: "10px",
-                width: "100%",
-                "& .MuiOutlinedInput-root": {
-                  color: "#FAB5E7",
-                  "&:hover .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "rgba(238, 16, 176, 1)",
-                  },
-                  "& .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "rgba(238, 16, 176, 1)",
-                    borderWidth: "2px",
-                  },
-                  "&.Mui-focused": {
+            <div className={style.field}>
+              <label className={style.label} htmlFor="email">
+                Email:
+              </label>
+              <TextField
+                value={user.email || ""}
+                onChange={(e) =>
+                  setUser((prev) => ({ ...prev, email: e.target.value }))
+                }
+                sx={{
+                  marginBottom: "10px",
+                  width: "100%",
+                  "& .MuiOutlinedInput-root": {
+                    color: "#FAB5E7",
+                    "&:hover .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "rgba(238, 16, 176, 1)",
+                    },
                     "& .MuiOutlinedInput-notchedOutline": {
-                      borderColor: "#FAB5E7",
+                      borderColor: "rgba(238, 16, 176, 1)",
                       borderWidth: "2px",
                     },
-                    "& input": {
-                      color: "#FAB5E7",
-                      background: "transparant",
-                    },
-                    "& .MuiInputLabel-root": {
-                      color: "#FAB5E7",
+                    "&.Mui-focused": {
+                      "& .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#FAB5E7",
+                        borderWidth: "2px",
+                      },
+                      "& input": {
+                        color: "#FAB5E7",
+                        background: "transparant",
+                      },
+                      "& .MuiInputLabel-root": {
+                        color: "#FAB5E7",
+                      },
                     },
                   },
-                },
-                "& .MuiInputLabel-root": {
-                  color: "#FAB5E7",
-                },
-                "& input::placeholder": {
-                  color: "#FAB5E7",
-                },
-              }}
-              name="email"
-              className={style.input}
-              label="Enter Email"
-              variant="outlined"
-            />
-          </div>
+                  "& .MuiInputLabel-root": {
+                    color: "#FAB5E7",
+                  },
+                  "& input::placeholder": {
+                    color: "#FAB5E7",
+                  },
+                }}
+                name="email"
+                className={style.input}
+                label="Enter Email"
+                variant="outlined"
+              />
+            </div>
 
-          <div className={style.field}>
-            <label className={style.label} htmlFor="image">
-              Profile Image:
-            </label>
-            <input
-              onChange={(e) =>
-                setUser((prev) => ({
-                  ...prev,
-                  image: e.target.files[0],
-                }))
-              }
-              name="image"
-              type="file"
-              style={{ marginBottom: "10px" }}
-            />
-          </div>
+            <div className={style.field}>
+              <label className={style.label} htmlFor="image">
+                Profile Image:
+              </label>
+              <input
+                onChange={(e) =>
+                  setUser((prev) => ({
+                    ...prev,
+                    image: e.target.files[0],
+                  }))
+                }
+                name="image"
+                type="file"
+                style={{ marginBottom: "10px" }}
+              />
+            </div>
 
-          <div className={style.buttons}>
-            <button type="submit" className={style.saveBtn}>
-              Save Changes
-            </button>
-          </div>
-        </form>
-      </div>
-      <div>
+            <div className={style.buttons}>
+              <button type="submit" className={style.saveBtn}>
+                Save Changes
+              </button>
+            </div>
+          </form>
+        </div>
+        <div>
+          <p className={style.sentence}>
+            To change your password, click{" "}
+            <span
+              onClick={handleOpen}
+              style={{ color: "#EE10B0", cursor: "pointer" }}
+            >
+              here
+            </span>
+            .
+          </p>
+
+          <Modal
+            aria-labelledby="transition-modal-title"
+            aria-describedby="transition-modal-description"
+            open={open}
+            closeAfterTransition
+          >
+            <Fade in={open}>
+              <Box sx={styles} component="form" onSubmit={formik.handleSubmit}>
+                <p className={style.heading}>Edit Password</p>
+
+                <div className={style.field}>
+                  <label className={style.label} htmlFor="password">
+                    PassWord:
+                  </label>
+                  <TextField
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    name="password"
+                    type="password"
+                    className={style.input}
+                    id="password"
+                    color="#FAB5E7"
+                    sx={{
+                      marginBottom: "10px",
+                      width: "100%",
+                      "& .MuiOutlinedInput-root": {
+                        color: "#FAB5E7",
+                        "&:hover .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "rgba(238, 16, 176, 1)",
+                        },
+                        "& .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "rgba(238, 16, 176, 1)",
+                          borderWidth: "2px",
+                        },
+                        "&.Mui-focused": {
+                          "& .MuiOutlinedInput-notchedOutline": {
+                            borderColor: "#FAB5E7",
+                            borderWidth: "2px",
+                          },
+                          "& input": {
+                            color: "#FAB5E7",
+                            background: "transparant",
+                          },
+                          "& .MuiInputLabel-root": {
+                            color: "#FAB5E7",
+                          },
+                        },
+                      },
+                      "& .MuiInputLabel-root": {
+                        color: "#FAB5E7",
+                      },
+                      "& input::placeholder": {
+                        color: "#FAB5E7",
+                      },
+                    }}
+                    label="Enter Password"
+                    variant="outlined"
+                  />
+                  {formik.errors.password && formik.touched.password ? (
+                    <p style={{ color: "#0E9EEF", marginBottom: "20px" }}>
+                      {formik.errors.password}
+                    </p>
+                  ) : null}
+                </div>
+
+                <div className={style.field}>
+                  <label className={style.label} htmlFor="confirmPassword">
+                    Confirm password:
+                  </label>
+                  <TextField
+                    value={formik.values.confirmPassword}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    name="confirmPassword"
+                    className={style.input}
+                    id="confirmPassword"
+                    color="#FAB5E7"
+                    type="password"
+                    sx={{
+                      marginBottom: "10px",
+                      width: "100%",
+                      "& .MuiOutlinedInput-root": {
+                        color: "#FAB5E7",
+                        "&:hover .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "rgba(238, 16, 176, 1)",
+                        },
+                        "& .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "rgba(238, 16, 176, 1)",
+                          borderWidth: "2px",
+                        },
+                        "&.Mui-focused": {
+                          "& .MuiOutlinedInput-notchedOutline": {
+                            borderColor: "#FAB5E7",
+                            borderWidth: "2px",
+                          },
+                          "& input": {
+                            color: "#FAB5E7",
+                            background: "transparant",
+                          },
+                          "& .MuiInputLabel-root": {
+                            color: "#FAB5E7",
+                          },
+                        },
+                      },
+                      "& .MuiInputLabel-root": {
+                        color: "#FAB5E7",
+                      },
+                      "& input::placeholder": {
+                        color: "#FAB5E7",
+                      },
+                    }}
+                    label="Enter Confirm Password"
+                    variant="outlined"
+                  />
+                  {formik.errors.confirmPassword &&
+                  formik.touched.confirmPassword ? (
+                    <p style={{ color: "#0E9EEF", marginBottom: "20px" }}>
+                      {formik.errors.confirmPassword}
+                    </p>
+                  ) : null}
+                </div>
+
+                <div className={style.buttons}>
+                  <button type="submit" className={style.createBtn}>
+                    Save Changes
+                  </button>
+                  <button
+                    type="button"
+                    className={style.cancelBtn}
+                    onClick={handleClose}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </Box>
+            </Fade>
+          </Modal>
+        </div>
+
         <p className={style.sentence}>
-          To change your password, click{" "}
+          If you need to freeze your account, please click{" "}
           <span
-            onClick={handleOpen}
+            onClick={handleFreeze}
             style={{ color: "#EE10B0", cursor: "pointer" }}
           >
             here
           </span>
           .
         </p>
-
-        <Modal
-          aria-labelledby="transition-modal-title"
-          aria-describedby="transition-modal-description"
-          open={open}
-          closeAfterTransition
-        >
-          <Fade in={open}>
-            <Box sx={styles} component="form" onSubmit={formik.handleSubmit}>
-              <p className={style.heading}>Edit Password</p>
-
-              <div className={style.field}>
-                <label className={style.label} htmlFor="password">
-                  PassWord:
-                </label>
-                <TextField
-                  value={formik.values.password}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  name="password"
-                  type="password"
-                  className={style.input}
-                  id="password"
-                  color="#FAB5E7"
-                  sx={{
-                    marginBottom: "10px",
-                    width: "100%",
-                    "& .MuiOutlinedInput-root": {
-                      color: "#FAB5E7",
-                      "&:hover .MuiOutlinedInput-notchedOutline": {
-                        borderColor: "rgba(238, 16, 176, 1)",
-                      },
-                      "& .MuiOutlinedInput-notchedOutline": {
-                        borderColor: "rgba(238, 16, 176, 1)",
-                        borderWidth: "2px",
-                      },
-                      "&.Mui-focused": {
-                        "& .MuiOutlinedInput-notchedOutline": {
-                          borderColor: "#FAB5E7",
-                          borderWidth: "2px",
-                        },
-                        "& input": {
-                          color: "#FAB5E7",
-                          background: "transparant",
-                        },
-                        "& .MuiInputLabel-root": {
-                          color: "#FAB5E7",
-                        },
-                      },
-                    },
-                    "& .MuiInputLabel-root": {
-                      color: "#FAB5E7",
-                    },
-                    "& input::placeholder": {
-                      color: "#FAB5E7",
-                    },
-                  }}
-                  label="Enter Password"
-                  variant="outlined"
-                />
-                {formik.errors.password && formik.touched.password ? (
-                  <p style={{ color: "#0E9EEF", marginBottom: "20px" }}>
-                    {formik.errors.password}
-                  </p>
-                ) : null}
-              </div>
-
-              <div className={style.field}>
-                <label className={style.label} htmlFor="confirmPassword">
-                  Confirm password:
-                </label>
-                <TextField
-                  value={formik.values.confirmPassword}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  name="confirmPassword"
-                  className={style.input}
-                  id="confirmPassword"
-                  color="#FAB5E7"
-                  type="password"
-                  sx={{
-                    marginBottom: "10px",
-                    width: "100%",
-                    "& .MuiOutlinedInput-root": {
-                      color: "#FAB5E7",
-                      "&:hover .MuiOutlinedInput-notchedOutline": {
-                        borderColor: "rgba(238, 16, 176, 1)",
-                      },
-                      "& .MuiOutlinedInput-notchedOutline": {
-                        borderColor: "rgba(238, 16, 176, 1)",
-                        borderWidth: "2px",
-                      },
-                      "&.Mui-focused": {
-                        "& .MuiOutlinedInput-notchedOutline": {
-                          borderColor: "#FAB5E7",
-                          borderWidth: "2px",
-                        },
-                        "& input": {
-                          color: "#FAB5E7",
-                          background: "transparant",
-                        },
-                        "& .MuiInputLabel-root": {
-                          color: "#FAB5E7",
-                        },
-                      },
-                    },
-                    "& .MuiInputLabel-root": {
-                      color: "#FAB5E7",
-                    },
-                    "& input::placeholder": {
-                      color: "#FAB5E7",
-                    },
-                  }}
-                  label="Enter Confirm Password"
-                  variant="outlined"
-                />
-                {formik.errors.confirmPassword &&
-                formik.touched.confirmPassword ? (
-                  <p style={{ color: "#0E9EEF", marginBottom: "20px" }}>
-                    {formik.errors.confirmPassword}
-                  </p>
-                ) : null}
-              </div>
-
-              <div className={style.buttons}>
-                <button type="submit" className={style.createBtn}>
-                  Save Changes
-                </button>
-                <button
-                  type="button"
-                  className={style.cancelBtn}
-                  onClick={handleClose}
-                >
-                  Cancel
-                </button>
-              </div>
-            </Box>
-          </Fade>
-        </Modal>
-      </div>
-
-      <p className={style.sentence}>
-        If you need to freeze your account, please click{" "}
-        <span
-          onClick={handleFreeze}
-          style={{ color: "#EE10B0", cursor: "pointer" }}
-        >
-          here
-        </span>
-        .
-      </p>
+      </section>
     </>
   );
 };

@@ -5,7 +5,6 @@ import {
   HomeOutlined,
   SearchOutlined,
   HeartOutlined,
-  PlusOutlined,
   LogoutOutlined,
   UserAddOutlined,
 } from "@ant-design/icons";
@@ -22,6 +21,7 @@ import { fetchUserByToken } from "../../utils/reusableFunc";
 import PersonIcon from "@mui/icons-material/Person";
 import InfoIcon from "@mui/icons-material/Info";
 import PhoneIcon from "@mui/icons-material/Phone";
+import FeaturedPlayListIcon from '@mui/icons-material/FeaturedPlayList';
 
 const { Header, Sider, Content } = Layout;
 
@@ -116,30 +116,40 @@ const SideBar = () => {
             },
             {
               key: "3",
-              icon: <HeartOutlined />,
-              label: "Your Favorites",
+              icon: <SearchOutlined />,
+              label: "Albums",
             },
             {
               key: "4",
-              icon: <PlusOutlined />,
-              label: "Add Playlist",
+              icon: <PersonIcon />,
+              label: <Link to={"/artists"}>Artists</Link>,
+            },
+            {
+              key: "5",
+              icon: <HeartOutlined />,
+              label: <Link to={"/favorites"}>Favorites</Link>,
+            },
+            {
+              key: "6",
+              icon: <FeaturedPlayListIcon />,
+              label: "Playlists",
             },
             ...(user && Object.keys(user).length > 0
-            ? [
-                {
-                  key: "5",
-                  icon: <PersonIcon />,
-                  label: <Link to={"/profile"}>Profile</Link>,
-                },
-              ]
-            : []),
+              ? [
+                  {
+                    key: "7",
+                    icon: <PersonIcon />,
+                    label: <Link to={"/profile"}>Profile</Link>,
+                  },
+                ]
+              : []),
             {
-              key: "7",
+              key: "8",
               icon: <InfoIcon />,
               label: <Link to={"/about-us"}>About Us</Link>,
             },
             {
-              key: "8",
+              key: "9",
               icon: <PhoneIcon />,
               label: <Link to={"/contact"}>Contact</Link>,
             },
@@ -165,6 +175,7 @@ const SideBar = () => {
             backgroundSize: "cover",
             width: "100%",
             backgroundColor: "#000",
+            position: "relative",
           }}
         >
           <div className={style.box}>
@@ -190,11 +201,7 @@ const SideBar = () => {
             ) : (
               <div className={style.buttons}>
                 <div className={style.imgBox}>
-                  <img
-                    className={style.img}
-                    src={user?.image}
-                    alt="profile"
-                  />
+                  <img className={style.img} src={user?.image} alt="profile" />
                 </div>
 
                 <div className={style.logOut} onClick={handleLogout}>
@@ -244,7 +251,7 @@ const SideBar = () => {
         <Content
           style={{
             margin: "0",
-            padding: "0 50px",
+            // padding: "0 50px",
             height: "100%",
             background: "#000",
             color: "#fff",
