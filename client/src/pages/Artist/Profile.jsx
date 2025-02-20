@@ -21,13 +21,6 @@ const Profile = () => {
   const { data } = useGenres();
   const token = getUserFromStorage();
 
-  // const formData = artist?.genreIds?.map((genre) => {
-  //   return data?.find((g) => g?.id === genre?._id);
-  // });
-
-  // console.log(formData.map((data) => data?.id));
-
-
   // Fetch artist details
   useEffect(() => {
     const getArtistByToken = async () => {

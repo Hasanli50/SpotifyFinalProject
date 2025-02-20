@@ -22,7 +22,6 @@ const Home = () => {
 
   const [trendingSongs, setTrendingSongs] = useState([]);
 
-  // const { data } = useAllAlbums();
   const { data: tracks } = useAllTracks();
   const { data } = useAllNonDeletedArtists();
 

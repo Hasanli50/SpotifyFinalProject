@@ -1,0 +1,77 @@
+.profileImg {
+  width: 100%;
+  object-fit: cover;
+  transition: 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+.heading {
+  font-size: 35px;
+  text-align: left;
+  margin-bottom: 30px;
+  font-weight: 600;
+}
+
+.allArtists {
+  margin-bottom: 6%;
+  padding: 0 50px;
+}
+@media only screen and (max-width: 520px) {
+  .allArtists {
+    padding: 10px;
+  }
+}
+
+.profileImgBox {
+  width: 132px;
+  height: 130px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+.profileImg {
+  cursor: pointer;
+}
+
+.viewAll {
+  cursor: pointer;
+  text-decoration: none;
+  color: #fff;
+}
+
+.circle {
+  display: block;
+  background-color: #1e1e1e;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  position: relative;
+  margin: auto;
+  margin-bottom: 10px;
+}
+
+.genres {
+  margin-bottom: 6%;
+  padding: 0 50px;
+}
+@media only screen and (max-width: 520px) {
+  .genres {
+    padding: 10px;
+  }
+}
+
+.box {
+  height: 130px;
+  cursor: pointer;
+  text-align: left;
+  border-radius: 10px;
+  padding: 10px 15px;
+}
+
+.genreName {
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+}/*# sourceMappingURL=discover.module.css.map */

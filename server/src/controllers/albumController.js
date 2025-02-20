@@ -52,8 +52,7 @@ const createAlbum = async (req, res) => {
 // Get all albums ++
 const getAllAlbums = async (req, res) => {
   try {
-    const albums = await Album.find();
-    //   .populate("artistId", "username")
+    const albums = await Album.find().populate("artistId", "username");
     //   .populate("trackIds", "name");
 
     if (albums.length === 0) {
@@ -173,12 +172,13 @@ const deleteAlbum = async (req, res) => {
     }
 
     // Step 1: Delete all tracks from the Track model that were associated with the album
-    await Track.deleteMany({ _id: { $in: album.trackIds } },  { new: true });
+    await Track.deleteMany({ _id: { $in: album.trackIds } }, { new: true });
 
     // Step 2: Remove the trackIds from all playlists that contain any of the deleted tracks
     await Playlist.updateMany(
       { "trackIds.trackId": { $in: album.trackIds } },
-      { $pull: { trackIds: { trackId: { $in: album.trackIds } } } },  { new: true }
+      { $pull: { trackIds: { trackId: { $in: album.trackIds } } } },
+      { new: true }
     );
 
     // Step 3: Remove the trackIds from the Artist model

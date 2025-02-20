@@ -13,6 +13,17 @@ import Home from "../pages/User/Home";
 import Artists from "../pages/User/Artists";
 import ArtistDetail from "../pages/User/ArtistDetail";
 import Favorites from "../pages/User/Favorites";
+import Playlists from "../pages/User/Playlists";
+import PlaylistDetail from "../pages/User/PlaylistDetail";
+import TrendingSongs from "../pages/User/TrendingSongs";
+import NewReleaseSongs from "../pages/User/NewReleaseSongs";
+import WeeklySongs from "../pages/User/WeeklySongs";
+import ArtistSingleSongs from "../pages/User/ArtistSingleSongs";
+import ArtistAlbum from "../pages/User/ArtistAlbum";
+import AlbumDetail from "../pages/User/AlbumDetail";
+import Albums from "../pages/User/Albums";
+import Discover from "../pages/User/Discover";
+import GenreDetail from "../pages/User/GenreDetail";
 const User = () => {
   return (
     <>
@@ -31,31 +42,18 @@ const User = () => {
           <Route path="artists" element={<Artists />} />
           <Route path="artists/:id" element={<ArtistDetail />} />
           <Route path="favorites" element={<Favorites />} />
+          <Route path="playlists" element={<Playlists />} />
+          <Route path="playlist/:id" element={<PlaylistDetail />} />
+          <Route path="trending-songs" element={<TrendingSongs />} />
+          <Route path="new-songs" element={<NewReleaseSongs />} />
+          <Route path="top-songs" element={<WeeklySongs />} />
+          <Route path="artist-all-albums/:id" element={<ArtistAlbum />} />
+          <Route path="album/:id" element={<AlbumDetail />} />
+          <Route path="all-single-songs/:id" element={<ArtistSingleSongs />} />
+          <Route path="albums" element={<Albums />} />
+          <Route path="discover" element={<Discover />} />
+          <Route path="genre/:id" element={<GenreDetail />} />
         </Route>
-
-        {/* <Route path="/" element={<StudentLayout />}>
-        <Route index element={<PrivateRoute element={<Home />} />} />
-        <Route path="/tasks/:taskId" element={<PrivateRoute element={<Tasks />} />} />
-        <Route path="/tasks/:taskId/zego-meet" element={<PrivateRoute element={<ZegoMeet />} />} />
-        <Route path="/tasks/:taskId/:detailId" element={<PrivateRoute element={<TaskDetail />} />} />
-        <Route
-          path="/assignments"
-          element={<PrivateRoute element={<Assignments />} />}
-        />
-        <Route
-          path="/thedeadlinehasbeenmissed"
-          element={<PrivateRoute element={<TheDeadlineHasBeenMissed />} />}
-        />
-        <Route path="/done" element={<PrivateRoute element={<Done />} />} />
-        <Route
-          path="/materials/:id"
-          element={<PrivateRoute element={<Materials />} />}
-        />
-        <Route
-          path="/profile"
-          element={<PrivateRoute element={<Profile />} />}
-        />
-       </Route> */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

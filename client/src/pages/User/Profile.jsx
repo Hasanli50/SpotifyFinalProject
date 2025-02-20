@@ -135,30 +135,42 @@ const Profile = () => {
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, freeze it!",
       }).then(async (result) => {
-        const response = axios.patch(
-          `${BASE_URL + ENDPOINT.users}/freeze-account/${user?.id}`,
-          { isFrozen: true },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
         if (result.isConfirmed) {
+          try {
+            const response = await axios.patch(
+              `${BASE_URL + ENDPOINT.users}/freeze-account/${user?.id}`,
+              { isFrozen: true },
+              {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              }
+            );
+
+            if (response) {
+              toast.success("Your account has been successfully frozen!");
+              Swal.fire({
+                title: "Frozen!",
+                text: "Your account has been frozen.",
+                icon: "success",
+              });
+              navigate("/login");
+            }
+          } catch (error) {
+            console.error("Error:", error.response?.data);
+            toast.error("Failed to freeze account, please try again.");
+          }
+        } else {
           Swal.fire({
-            title: "Freeze!",
-            text: "Your account has been freeze.",
-            icon: "success",
+            title: "Cancelled",
+            text: "Your account has not been frozen.",
+            icon: "info",
           });
-        }
-        if (response) {
-          toast.success("Your account successfuully freeze!");
-          navigate("/login");
         }
       });
     } catch (error) {
-      console.error("Error:", error.response?.data);
-      toast.error("Fail in freeze account, Please try again.");
+      console.error("Error:", error);
+      toast.error("Failed to process the freeze action, please try again.");
     }
   };
 

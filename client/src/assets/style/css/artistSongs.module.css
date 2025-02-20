@@ -1,0 +1,132 @@
+.card {
+  background-color: #1f1f1f;
+  width: 175px;
+  height: 214;
+  border-radius: 10px;
+  padding: 4px 15px;
+  cursor: pointer;
+}
+
+.imgBox {
+  width: 145px;
+  height: 150px;
+  overflow: hidden;
+  border-radius: 10px;
+  margin-bottom: 8px;
+}
+
+.img {
+  width: 100%;
+  object-fit: cover;
+  transition: 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+.letterTop {
+  text-align: left;
+  color: #fff;
+  margin-bottom: 8px;
+  font-size: 18px;
+}
+
+.letterBottom {
+  text-align: left;
+  color: #d2d2d2;
+  font-size: 14px;
+}
+
+.heading {
+  font-size: 35px;
+  text-align: left;
+  margin-bottom: 30px;
+  font-weight: 600;
+}
+
+.inputBox {
+  max-width: 335px;
+  position: relative;
+}
+
+.input {
+  padding: 10px 10px;
+  border-radius: 15px;
+  width: 100%;
+  background-color: #1f1f1f;
+  border: 1px solid #aaa;
+  color: #fff;
+}
+
+.searchIcon {
+  position: absolute;
+  right: 10px;
+  top: 6px;
+}
+
+.inputBox {
+  margin-bottom: 30px;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.imgBox {
+  position: relative;
+}
+
+.icons {
+  display: flex;
+  gap: 0px;
+  position: absolute;
+  right: 0px;
+  top: 5px;
+}
+
+.card:hover .img {
+  transform: scale(1.1);
+}
+
+.sentence {
+  text-align: left;
+  font-size: 20px;
+  background: linear-gradient(90deg, rgb(238, 16, 176) 12%, rgb(14, 158, 239) 100%);
+  background-clip: text;
+  color: transparent;
+}
+
+.allSingleSongs {
+  padding: 0 50px;
+  margin-bottom: 50px;
+}
+@media only screen and (max-width: 520px) {
+  .allSingleSongs {
+    padding: 10px;
+  }
+}
+
+.songs {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.playlistInput {
+  width: 100%;
+  padding: 10px 10px;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+}
+
+.back {
+  color: #fff;
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.back:hover {
+  background-color: rgba(82, 81, 81, 0.9);
+  border-radius: 50%;
+  padding: 0 9px;
+}/*# sourceMappingURL=artistSongs.module.css.map */

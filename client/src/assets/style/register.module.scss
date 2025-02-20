@@ -141,3 +141,13 @@
   left: 0;
   top: 50%;
 }
+input[type=file]::file-selector-button {
+  border: 2px solid rgba(238, 16, 176, 1);
+  padding: 7px 7px;
+  border-radius: 5px;
+  background-color: transparent;
+  color: #FAB5E7;
+  font-size: 16px;
+  width: 150px;
+  cursor: pointer;
+}

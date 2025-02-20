@@ -18,6 +18,8 @@ import { useAllAlbums } from "../../hooks/useAlbum";
 import { Menu, MenuItem } from "@mui/material";
 import NewPlaylist from "../../components/user/NewPlaylist";
 import { useFetchALlPlaylistsByUser } from "../../hooks/usePlaylist";
+import NewPlaylistwithCollab from "../../components/user/NewPlaylistwithCollab";
+import toast from "react-hot-toast";
 
 const ArtistDetail = () => {
   const { id } = useParams();
@@ -147,7 +149,6 @@ const ArtistDetail = () => {
     }
   };
 
-  //----------------------------------------------------
   //increment playcount
   const handlePlayCount = async (id) => {
     try {
@@ -226,6 +227,30 @@ const ArtistDetail = () => {
     );
     setFilteredData(data);
   }, [playlists, searchQuery]);
+
+  //----------------------------------------------------
+  const handleAddTrack = async (playlistId, songId, songType) => {
+    console.log("playlistId:", playlistId);
+    console.log("songId:", songId);
+    try {
+      await axios.patch(
+        `${BASE_URL + ENDPOINT.playlists}/${playlistId}/addTracks`,
+        {
+          trackId: songId,
+          type: songType,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      toast.success("Song successfully added to playlist!");
+    } catch (error) {
+      console.log("Error:", error.response?.data?.message || error.message);
+      toast.error("Song already have in playlist!");
+    }
+  };
 
   return (
     <>
@@ -306,46 +331,41 @@ const ArtistDetail = () => {
                   </div>
 
                   <Menu
+                    className={style.menu}
                     anchorEl={anchorEl}
                     open={currentSongId === songs.id}
                     onClose={handleMenuClose}
                   >
                     <MenuItem>
                       <input
+                        className={style.playlistInput}
                         type="text"
                         placeholder="Find playlist"
                         onChange={(e) => setSearchQuery(e.target.value)}
                       />
                     </MenuItem>
-                    {filteredData.length > 0 &&
-                      filteredData.map((playlist) => (
-                        <MenuItem key={playlist.id}>{playlist.name}</MenuItem>
+                    {filteredData?.length > 0 &&
+                      filteredData?.map((playlist) => (
+                        <MenuItem
+                          onClick={() =>
+                            handleAddTrack(playlist?.id, songs?.id, songs?.type)
+                          }
+                          key={playlist.id}
+                        >
+                          {playlist.name}
+                        </MenuItem>
                       ))}
                     <MenuItem>
                       <NewPlaylist />
                     </MenuItem>
-                    <MenuItem onClick={handleMenuClose}>
-                      + New Playlist With Collaborator
+                    <MenuItem>
+                      <NewPlaylistwithCollab />
                     </MenuItem>
                   </Menu>
                 </div>
               </div>
             </div>
           ))}
-
-        <Link to={`/artist-all-songs/${artist.id}`}>
-          <div className={style.rectangleМiewAll}>
-            <div className={style.rectangle}>
-              <AddIcon
-                style={{
-                  color: "#fff",
-                  fontSize: "25px",
-                }}
-              />
-            </div>
-            <p style={{ fontSize: "16px" }}>View All</p>
-          </div>
-        </Link>
       </section>
 
       <section className={style.allAlbums}>
@@ -355,7 +375,7 @@ const ArtistDetail = () => {
         <div className={style.albums}>
           {artistAlbum?.length > 0 ? (
             artistAlbum.map((album) => (
-              <Link to={`/artist-album/${artist.id}`} key={album.id}>
+              <Link to={`/album/${album.id}`} key={album.id}>
                 <div className={style.card}>
                   <div className={style.imgBox}>
                     <img
@@ -446,7 +466,7 @@ const ArtistDetail = () => {
           ) : (
             <p className={style.sentence}>You don`t have any albums</p>
           )}
-          <Link to={`/artist-all-albums/${artist.id}`}>
+          <Link to={`/all-single-songs/${artist.id}`}>
             <div className={style.viewAll}>
               <div className={style.circle}>
                 <AddIcon

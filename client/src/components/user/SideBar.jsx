@@ -22,6 +22,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import InfoIcon from "@mui/icons-material/Info";
 import PhoneIcon from "@mui/icons-material/Phone";
 import FeaturedPlayListIcon from '@mui/icons-material/FeaturedPlayList';
+import AlbumIcon from '@mui/icons-material/Album';
 
 const { Header, Sider, Content } = Layout;
 
@@ -112,12 +113,12 @@ const SideBar = () => {
             {
               key: "2",
               icon: <SearchOutlined />,
-              label: "Discover",
+              label: <Link to={"/discover"}>Discover</Link>,
             },
             {
               key: "3",
-              icon: <SearchOutlined />,
-              label: "Albums",
+              icon: <AlbumIcon />,
+              label: <Link to={"/albums"}>Albums</Link>,
             },
             {
               key: "4",
@@ -132,7 +133,7 @@ const SideBar = () => {
             {
               key: "6",
               icon: <FeaturedPlayListIcon />,
-              label: "Playlists",
+              label: <Link to={"/playlists"}>Playlists</Link>,
             },
             ...(user && Object.keys(user).length > 0
               ? [

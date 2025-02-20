@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import style from "../../assets/style/artist/albumModal.module.scss";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
@@ -10,7 +10,10 @@ import toast from "react-hot-toast";
 import { useFormik } from "formik";
 import { BASE_URL, ENDPOINT } from "../../api/endpoint";
 import axios from "axios";
-import { createPlaylistSchema } from "../../schema/createPlaylistSchema";
+import Select from "react-select";
+import { useAllNonDeletedUsers } from "../../hooks/useUser";
+import { createPlaylistWithCollabSchema } from "../../schema/playlistWithCollab";
+import { fetchUserByToken } from "../../utils/reusableFunc";
 
 const styles = {
   position: "absolute",
@@ -25,24 +28,47 @@ const styles = {
   p: 4,
 };
 
-const NewPlaylist = () => {
+const NewPlaylistwithCollab = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const token = getUserFromStorage();
+  const { data } = useAllNonDeletedUsers();
+  const [currentUser, setCurentUser] = useState([]);
+
+  useEffect(() => {
+    const getUserByToken = async () => {
+      try {
+        const response = await fetchUserByToken(token);
+        setCurentUser(response);
+      } catch (error) {
+        console.log("Error:", error);
+      }
+    };
+    getUserByToken();
+  }, [token]);
 
   const formik = useFormik({
     initialValues: {
       name: "",
+      collaborators: [],
     },
     onSubmit: async (values, actions) => {
+      console.log("Submitting form data:", {
+        name: values.name,
+        collaborators: values.collaborators,
+      });
+
       try {
         const response = await axios.post(
-          `${BASE_URL + ENDPOINT.playlists}`,
-          { name: values.name },
+          `${BASE_URL + ENDPOINT.playlists}/create`,
+          {
+            name: values.name,
+            collaborators: values.collaborators,
+          },
           {
             headers: {
-              Authorization: `Bearer ${token}`, 
+              Authorization: `Bearer ${token}`,
             },
           }
         );
@@ -64,12 +90,11 @@ const NewPlaylist = () => {
         }
       }
     },
-    validationSchema: createPlaylistSchema, 
+    validationSchema: createPlaylistWithCollabSchema,
   });
-
   return (
     <>
-      <div onClick={handleOpen}>+ New Playlist</div>
+      <div onClick={handleOpen}>+ New Playlist With Collaborator</div>
       <div style={{ padding: "0 20px" }}>
         <Modal
           aria-labelledby="transition-modal-title"
@@ -86,7 +111,7 @@ const NewPlaylist = () => {
         >
           <Fade in={open}>
             <Box sx={styles} component="form" onSubmit={formik.handleSubmit}>
-              <p className={style.heading}>Create Your Playlist</p>
+              <p className={style.heading}>Create Playlist With Collaborator</p>
               <div className={style.field} style={{ position: "relative" }}>
                 <label className={style.label} htmlFor="name">
                   Playlist Name:
@@ -102,7 +127,6 @@ const NewPlaylist = () => {
                     marginBottom: "10px",
                     width: "100%",
                     "& .MuiOutlinedInput-root": {
-                        color: "#FAB5E7",
                       "&:hover .MuiOutlinedInput-notchedOutline": {
                         borderColor: "rgba(238, 16, 176, 1)",
                       },
@@ -137,6 +161,56 @@ const NewPlaylist = () => {
                 ) : null}
               </div>
 
+              <div className={style.field} style={{ position: "relative" }}>
+                <label
+                  className={style.label}
+                  htmlFor="collaborators"
+                  name="collaborators"
+                >
+                  Coloborate User:
+                </label>
+                <Select
+                  className={style.select}
+                  name="collaborators"
+                  value={
+                    data
+                      ?.filter((user) =>
+                        formik.values.collaborators.includes(user.id)
+                      )
+                      .map((user) => ({
+                        label: user.username,
+                        value: user.id,
+                      })) || []
+                  }
+                  onChange={(selected) => {
+                    formik.setFieldValue(
+                      "collaborators",
+                      selected.map((s) => s.value)
+                    );
+                  }}
+                  options={
+                    data
+                    ?.filter(
+                      (user) =>
+                        user.role === "user" && 
+                        user.id !== currentUser.id && 
+                        !formik.values.collaborators.includes(user.id) 
+                    )
+                      .map((user) => ({
+                        label: user.username,
+                        value: user.id,
+                      })) || []
+                  }
+                  isMulti
+                  placeholder="Choose Collaborated Users"
+                />
+                {formik.errors.collaborators && formik.touched.collaborators ? (
+                  <p style={{ color: "#0E9EEF", marginBottom: "20px" }}>
+                    {formik.errors.collaborators}
+                  </p>
+                ) : null}
+              </div>
+
               <div className={style.buttons}>
                 <button type="submit" className={style.createBtn}>
                   Create
@@ -157,4 +231,4 @@ const NewPlaylist = () => {
   );
 };
 
-export default NewPlaylist;
+export default NewPlaylistwithCollab;

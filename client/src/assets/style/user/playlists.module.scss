@@ -1,0 +1,40 @@
+@import "../../scss/variables";
+@import "../../scss/extends";
+
+.playlists {
+  padding: 0 50px;
+  margin-bottom: 30px;
+  @media only screen and (max-width: 520px) {
+    padding: 10px;
+  }
+}
+.heading {
+  @extend %heading;
+  margin-bottom: 80px;
+}
+.box {
+  padding: 10px 20px;
+  text-align: left;
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  border-radius: 5px;
+  transition: 0.3s ease-in-out;
+  margin-bottom: 20px;
+  height: 70px;
+  background-color: transparent;
+}
+.box:hover {
+  box-shadow: rgb(38, 57, 77) 0px 2px 30px 8px;;
+}
+.sentence {
+  font-size: 20px;
+  background: linear-gradient(
+    90deg,
+    rgba(238, 16, 176, 1) 12%,
+    rgba(14, 158, 239, 1) 100%
+  );
+  background-clip: text;
+  color: transparent;
+  padding: 0 50px;
+}

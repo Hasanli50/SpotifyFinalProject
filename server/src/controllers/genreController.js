@@ -78,7 +78,7 @@ const getGenreById = async (req, res) => {
     res.status(200).json({
       message: "Genre successfully found",
       status: "success",
-      data: genres.map(formatObj),
+      data: formatObj(genre),
     });
   } catch (error) {
     res.status(500).json({

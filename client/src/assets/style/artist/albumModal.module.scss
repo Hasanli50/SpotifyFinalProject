@@ -15,7 +15,7 @@
     rgba(238, 16, 176, 1) 12%,
     rgba(14, 158, 239, 1) 100%
   );
-  -webkit-background-clip: text;
+  background-clip: text;
   color: transparent;
   // color: #3f3e3e;
 }
@@ -61,4 +61,8 @@
 .cancelBtn:hover{
   background-color: $darkPurpleHover;
   color: $whiteColor;
+}
+
+.select{
+  margin-bottom: 15px;
 }

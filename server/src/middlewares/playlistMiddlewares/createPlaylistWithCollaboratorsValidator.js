@@ -9,9 +9,9 @@ const createPlaylistWithCollaboratorsValidation = [
     .withMessage("Name is required"),
 
   body("collaborators")
-    .optional()
     .isArray()
     .withMessage("Collaborators must be an array")
+    .notEmpty()
     .custom(async (value) => {
       for (const collaboratorId of value) {
         if (!collaboratorId.match(/^[0-9a-fA-F]{24}$/)) {

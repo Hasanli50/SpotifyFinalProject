@@ -27,10 +27,10 @@ router.delete(
   removeCollaboratorFromPlaylist
 ); //+
 router.delete("/:playlistId", verifyToken, deletePlaylist); //+
-router.get("/:id", verifyToken, getPlaylistById); //+
+router.get("/:id/playlist", verifyToken, getPlaylistById); //+
 router.get("/:id/tracks", verifyToken, getPlaylistTracks);
 router.patch("/:id", verifyToken, updatePlaylist); //+
-router.patch("/:id/addTracks", verifyToken, addTracksToPlaylist);
+router.patch("/:id/addTracks", verifyToken, addTracksToPlaylist); //+
 router.delete(
   "/:playlistId/removeTrack/:trackId",
   verifyToken,

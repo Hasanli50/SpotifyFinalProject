@@ -7,7 +7,7 @@
   font-weight: 600;
   font-size: 25px;
   background: linear-gradient(90deg, rgb(238, 16, 176) 12%, rgb(14, 158, 239) 100%);
-  -webkit-background-clip: text;
+  background-clip: text;
   color: transparent;
 }
 
@@ -56,4 +56,8 @@
 .cancelBtn:hover {
   background-color: #8F0A6A;
   color: #fff;
+}
+
+.select {
+  margin-bottom: 15px;
 }/*# sourceMappingURL=albumModal.module.css.map */
