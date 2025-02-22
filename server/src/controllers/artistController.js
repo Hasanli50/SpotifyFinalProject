@@ -525,14 +525,14 @@ const unBanAccount = async (req, res) => {
     });
   }
 };
-
+const mongoose = require("mongoose");
 const updateArtistInfo = async (req, res) => {
   try {
     const { id } = req.params;
     const { id: artistId } = req.artist;
     const { username, email, genreIds, description } = req.body;
     console.log("req.body", req.body);
-    // console.log("req file", req.file)
+    console.log("Received genreIds:", genreIds);
 
     if (id !== artistId) {
       return res.status(401).json({
@@ -541,19 +541,17 @@ const updateArtistInfo = async (req, res) => {
       });
     }
 
-    // const duplicate = await Artist.find({
-    //   $or: [{ username }, { email }],
-    // });
-
-    // if (duplicate.length > 0) {
-    //   return res.status(400).json({
-    //     message: "Username or email already exists!",
-    //     status: "fail",
-    //   });
-    // }
+    const genre = genreIds.map((id) => {
+      if (mongoose.isValidObjectId(id)) {
+        return new mongoose.Types.ObjectId(id); 
+      } else {
+        throw new Error(`Invalid ObjectId: ${id}`); 
+      }
+    });
 
     const sentArtist = {
       ...req.body,
+      genreIds: genre, 
     };
 
     if (req.file) {
@@ -572,7 +570,9 @@ const updateArtistInfo = async (req, res) => {
     const updatedArtist = await Artist.findByIdAndUpdate(id, sentArtist, {
       new: true,
       runValidators: true,
-    });
+    }).lean();
+
+    console.log("Updated Artist:", updatedArtist);
 
     if (req.file) {
       const publicId = extractPublicId(prevArtist);

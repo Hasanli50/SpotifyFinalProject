@@ -40,7 +40,14 @@ const Profile = () => {
     formData.append("username", artist?.username);
     formData.append("email", artist?.email);
     formData.append("description", artist?.description);
-    artist?.genreIds?.forEach((id) => formData.append("genreIds[]", id));
+    artist?.genreIds?.forEach((id) => {
+      if (id?._id) {
+        formData.append("genreIds[]", id._id); 
+      } else {
+        console.error("Invalid genre id:", id);
+      }
+    });
+    
     if (artist.image) {
       formData.append("image", artist.image);
     }
@@ -180,6 +187,7 @@ const Profile = () => {
             style={{ marginBottom: "10px" }}
           />
         </div>
+
         <div className={style.field}>
           <label className={style.label} htmlFor="description">
             Description:
@@ -205,35 +213,43 @@ const Profile = () => {
           />
         </div>
 
-        {/* select genres have bug */}
         <div className={style.field}>
           <label className={style.label}>Genres:</label>
           <Select
             isMulti
-            value={artist?.genreIds?.map((genre) => {
-              const genreFromData = data?.find((g) => g?.id === genre?._id);
-              if (genreFromData) {
-                return {
-                  value: genreFromData?.id,
-                  label: genreFromData?.name,
-                };
-              }
-              return null;
-            })}
+            value={
+              artist?.genreIds
+                ?.map((genre) => {
+                  const genreFromData = data?.find((g) => g?.id === genre?._id);
+                  return genreFromData
+                    ? { value: genreFromData?.id, label: genreFromData?.name }
+                    : null;
+                })
+                .filter(Boolean) 
+            }
             options={
               data
-                ? data?.map((genre) => ({
-                    value: genre?.id,
-                    label: genre?.name,
-                  }))
+                ? data
+                    .filter(
+                      (genre) =>
+                        !artist?.genreIds?.some((g) => g?._id === genre.id)
+                    ) 
+                    .map((genre) => ({
+                      value: genre.id,
+                      label: genre.name,
+                    }))
                 : []
             }
-            onChange={(selectedOptions) =>
+            onChange={(selectedOptions) => {
+              console.log("Selected genres:", selectedOptions);
               setArtist((prev) => ({
                 ...prev,
-                genreIds: selectedOptions?.map((option) => option?.value),
-              }))
-            }
+                genreIds: selectedOptions.map((option) => ({
+                  _id: option.value, 
+                })),
+              }));
+            }}
+            
             styles={{
               option: (provided, state) => {
                 return {

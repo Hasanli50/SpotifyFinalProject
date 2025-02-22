@@ -29,6 +29,7 @@
 }
 .songsCard {
   @extend %songs-card;
+  margin-bottom: 30px
 }
 .songsCard__imgBox {
   @extend %songsCard-imgBox;

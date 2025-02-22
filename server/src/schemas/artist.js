@@ -28,12 +28,11 @@ const artistSchema = new Schema(
       default: "artist",
       enum: ["artist"],
     },
-    genreIds: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Genre",
-      },
-    ],
+    genreIds: {
+      type: [Schema.Types.ObjectId],
+      ref: "Genre",
+    },
+
     followers: {
       type: Number,
       default: 0,
