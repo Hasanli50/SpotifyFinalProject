@@ -7,10 +7,12 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import AddIcon from "@mui/icons-material/Add";
 import { Link } from "react-router";
 import moment from "moment";
-import { formatDuration } from "../../utils/reusableFunc";
+import { fetchUserByToken, formatDuration } from "../../utils/reusableFunc";
 import axios from "axios";
 import { BASE_URL, ENDPOINT } from "../../api/endpoint";
 import { useAllNonDeletedArtists } from "../../hooks/useArtist";
+import { getUserFromStorage } from "../../utils/localeStorage";
+import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 
 const Home = () => {
   const [artists, setArtists] = useState([]);
@@ -21,9 +23,24 @@ const Home = () => {
   const audioRef = useRef(null);
 
   const [trendingSongs, setTrendingSongs] = useState([]);
-
   const { data: tracks } = useAllTracks();
   const { data } = useAllNonDeletedArtists();
+
+  //get user by token
+  const [user, setUser] = useState([]);
+
+  const token = getUserFromStorage();
+  useEffect(() => {
+    const getUserByToken = async () => {
+      try {
+        const response = await fetchUserByToken(token);
+        setUser(response);
+      } catch (error) {
+        console.log("Error:", error);
+      }
+    };
+    getUserByToken();
+  }, [token]);
 
   // new releas songs
   useEffect(() => {
@@ -127,12 +144,23 @@ const Home = () => {
         >
           {topSongs?.length > 0 ? (
             topSongs.map((song) => (
-              <div className={style.card} key={song.id}>
+              <div
+                className={`${style.card} ${
+                  user?.isPremium === false && song.premiumOnly === true
+                    ? style.disabledCard
+                    : ""
+                }`}
+                key={song.id}
+              >
                 <div className={style.imgBox}>
                   <img
                     className={style.img}
                     src={song.coverImage}
-                    alt="coverImage"
+                    alt={`${song.name} cover`}
+                  />
+                  <WorkspacePremiumIcon
+                    className={style.premium}
+                    style={{ display: song.premiumOnly ? "block" : "none" }}
                   />
                 </div>
                 <div
@@ -199,12 +227,23 @@ const Home = () => {
         >
           {newSongs?.length > 0 &&
             newSongs.map((song) => (
-              <div className={style.card} key={song.id}>
+              <div
+                className={`${style.card} ${
+                  user?.isPremium === false && song.premiumOnly === true
+                    ? style.disabledCard
+                    : ""
+                }`}
+                key={song.id}
+              >
                 <div className={style.imgBox}>
                   <img
                     className={style.img}
                     src={song.coverImage}
-                    alt="coverImage"
+                    alt={`${song.name} cover`}
+                  />
+                  <WorkspacePremiumIcon
+                    className={style.premium}
+                    style={{ display: song.premiumOnly ? "block" : "none" }}
                   />
                 </div>
                 <div
@@ -258,7 +297,14 @@ const Home = () => {
         </p>
         {trendingSongs?.length > 0 &&
           trendingSongs.map((songs, index) => (
-            <div className={style.box} key={songs.id}>
+            <div
+              className={`${style.box} ${
+                user?.isPremium === false && songs.premiumOnly === true
+                  ? style.disabledCard
+                  : ""
+              }`}
+              key={songs.id}
+            >
               <p className={style.place}>#{index + 1}</p>
               <div className={style.songsCard}>
                 <div
@@ -273,6 +319,13 @@ const Home = () => {
                       className={style.songsCard__imgBox__img}
                       src={songs.coverImage}
                       alt="coverImage"
+                    />
+                    <WorkspacePremiumIcon
+                      className={style.premiumMini}
+                      style={{
+                        display: songs.premiumOnly ? "block" : "none",
+                        fontSize: "18px",
+                      }}
                     />
                   </div>
                   <div>
@@ -292,9 +345,14 @@ const Home = () => {
 
                 <div style={{ display: "flex", gap: "10px" }}>
                   <p>{formatDuration(songs.duration)}</p>
+
                   <div
                     className={style.icon}
-                    onClick={() => handlePlayMusic(songs)}
+                    onClick={() => {
+                      if (!songs.premiumOnly) {
+                        handlePlayMusic(songs);
+                      }
+                    }}
                   >
                     {currentSong?.id === songs.id && isPlaying ? (
                       <PauseIcon style={{ color: "#fff" }} />
@@ -337,7 +395,10 @@ const Home = () => {
         >
           {artists.length > 0 &&
             artists.map((artist) => (
-              <Link to={`/artists/${artist.id}`} key={artist.id}>
+              <Link
+                to={user?.length === 0 ? "/login" : `/artists/${artist?.id}`}
+                key={artist?.id}
+              >
                 <div className={style.artists}>
                   <div className={style.profileImgBox}>
                     <img

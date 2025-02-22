@@ -5,11 +5,29 @@ import { Link } from "react-router";
 import AddIcon from "@mui/icons-material/Add";
 import Grid from "@mui/material/Grid";
 import { useGenres } from "../../hooks/useGenre";
+import { getUserFromStorage } from "../../utils/localeStorage";
+import { fetchUserByToken } from "../../utils/reusableFunc";
 
 const Discover = () => {
   const { data } = useAllNonDeletedArtists();
   const { data: genres } = useGenres();
   const [artists, setArtists] = useState([]);
+
+  //get user by token
+  const [user, setUser] = useState([]);
+
+  const token = getUserFromStorage();
+  useEffect(() => {
+    const getUserByToken = async () => {
+      try {
+        const response = await fetchUserByToken(token);
+        setUser(response);
+      } catch (error) {
+        console.log("Error:", error);
+      }
+    };
+    getUserByToken();
+  }, [token]);
 
   useEffect(() => {
     if (data?.length > 0) {
@@ -38,7 +56,7 @@ const Discover = () => {
           {genres?.length > 0 &&
             genres?.map((genre) => (
               <Grid item xs={12} sm={12} md={6} lg={4} xl={4} key={genre.id}>
-                <Link to={`/genre/${genre.id}`}>
+                <Link to={user.length === 0 ? "/login" : `/genre/${genre.id}`}>
                   <div
                     className={style.box}
                     style={{
@@ -68,7 +86,10 @@ const Discover = () => {
         >
           {artists.length > 0 &&
             artists.map((artist) => (
-              <Link to={`/artists/${artist.id}`} key={artist.id}>
+              <Link
+                to={user?.length === 0 ? "/login" : `/artists/${artist?.id}`}
+                key={artist?.id}
+              >
                 <div className={style.artists}>
                   <div className={style.profileImgBox}>
                     <img

@@ -4,11 +4,12 @@ const Artist = require("../models/artist");
 require("dotenv").config();
 
 passport.use(
+  'artist-google',
   new GoogleStrategy(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "/auth/google/callback",
+      callbackURL: "/auth-artist/google/callback",
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
@@ -31,6 +32,7 @@ passport.use(
     }
   )
 );
+
 
 passport.serializeUser((artist, done) => { 
   done(null, artist._id);

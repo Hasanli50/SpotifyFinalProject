@@ -3,11 +3,29 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { useAllAlbums } from "../../hooks/useAlbum";
 import SearchIcon from "@mui/icons-material/Search";
+import { getUserFromStorage } from "../../utils/localeStorage";
+import { fetchUserByToken } from "../../utils/reusableFunc";
 
 const Albums = () => {
   const { data: albums } = useAllAlbums();
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredData, setFilteredData] = useState(albums);
+
+  //get user by token
+  const [user, setUser] = useState([]);
+
+  const token = getUserFromStorage();
+  useEffect(() => {
+    const getUserByToken = async () => {
+      try {
+        const response = await fetchUserByToken(token);
+        setUser(response);
+      } catch (error) {
+        console.log("Error:", error);
+      }
+    };
+    getUserByToken();
+  }, [token]);
 
   useEffect(() => {
     const data = albums?.filter(
@@ -42,8 +60,8 @@ const Albums = () => {
 
         <div className={style.albums}>
           {filteredData?.length > 0 ? (
-            filteredData.map((album) => (
-              <Link to={`/album/${album.id}`} key={album.id}>
+            filteredData?.map((album) => (
+              <Link to={ user?.length === 0 ? "/login" : `/album/${album?.id}`} key={album?.id}>
                 <div className={style.card}>
                   <div className={style.imgBox}>
                     <img
@@ -52,7 +70,7 @@ const Albums = () => {
                       alt="coverImage"
                     />
                   </div>
-                  <p className={style.letterTop}>{album.name}</p>
+                  <p className={style.letterTop}>{album?.name}</p>
                   <p className={style.letterTop}>{album?.artistId?.username}</p>
 
                   <div

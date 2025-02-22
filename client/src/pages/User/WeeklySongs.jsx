@@ -9,14 +9,32 @@ import axios from "axios";
 import { BASE_URL, ENDPOINT } from "../../api/endpoint";
 import { Link } from "react-router";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import { getUserFromStorage } from "../../utils/localeStorage";
+import { fetchUserByToken } from "../../utils/reusableFunc";
+import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 
 const WeeklySongs = () => {
   const [topSongs, setTopSongs] = useState([]);
   const [currentSong, setCurrentSong] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
-
   const { data: tracks } = useAllTracks();
+
+  //get user by token
+  const [user, setUser] = useState([]);
+
+  const token = getUserFromStorage();
+  useEffect(() => {
+    const getUserByToken = async () => {
+      try {
+        const response = await fetchUserByToken(token);
+        setUser(response);
+      } catch (error) {
+        console.log("Error:", error);
+      }
+    };
+    getUserByToken();
+  }, [token]);
 
   const handlePlayMusic = (song) => {
     if (currentSong && currentSong.id === song.id) {
@@ -90,12 +108,23 @@ const WeeklySongs = () => {
         >
           {topSongs?.length > 0 ? (
             topSongs.map((song) => (
-              <div className={style.card} key={song.id}>
+              <div
+                className={`${style.card} ${
+                  user?.isPremium === false && song.premiumOnly === true
+                    ? style.disabledCard
+                    : ""
+                }`}
+                key={song.id}
+              >
                 <div className={style.imgBox}>
                   <img
                     className={style.img}
                     src={song.coverImage}
                     alt="coverImage"
+                  />
+                  <WorkspacePremiumIcon
+                    className={style.premium}
+                    style={{ display: song.premiumOnly ? "block" : "none" }}
                   />
                 </div>
                 <div

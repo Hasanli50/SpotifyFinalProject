@@ -20,6 +20,7 @@ import NewPlaylist from "../../components/user/NewPlaylist";
 import { useFetchALlPlaylistsByUser } from "../../hooks/usePlaylist";
 import NewPlaylistwithCollab from "../../components/user/NewPlaylistwithCollab";
 import toast from "react-hot-toast";
+import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 
 const ArtistDetail = () => {
   const { id } = useParams();
@@ -278,7 +279,14 @@ const ArtistDetail = () => {
         <p className={style.heading}>Popular:</p>
         {artistSongs?.length > 0 &&
           artistSongs.map((songs, index) => (
-            <div className={style.box} key={songs.id}>
+            <div
+              className={`${style.box} ${
+                user?.isPremium === false && songs.premiumOnly === true
+                  ? style.disabledCard
+                  : ""
+              }`}
+              key={songs.id}
+            >
               <p className={style.place}>#{index + 1}</p>
               <div className={style.songsCard}>
                 <div
@@ -293,6 +301,13 @@ const ArtistDetail = () => {
                       className={style.songsCard__imgBox__img}
                       src={songs.coverImage}
                       alt="coverImage"
+                    />
+                    <WorkspacePremiumIcon
+                      className={style.premiumMini}
+                      style={{
+                        display: songs.premiumOnly ? "block" : "none",
+                        fontSize: "18px",
+                      }}
                     />
                   </div>
                   <div>
@@ -358,9 +373,13 @@ const ArtistDetail = () => {
                     <MenuItem>
                       <NewPlaylist />
                     </MenuItem>
-                    <MenuItem>
-                      <NewPlaylistwithCollab />
-                    </MenuItem>
+                    {user?.isPremium === false || songs.premiumOnly === true ? (
+                      ""
+                    ) : (
+                      <MenuItem>
+                        <NewPlaylistwithCollab />
+                      </MenuItem>
+                    )}
                   </Menu>
                 </div>
               </div>
@@ -428,12 +447,23 @@ const ArtistDetail = () => {
         <div className={style.songs}>
           {singleSongs?.length > 0 ? (
             singleSongs.map((songs) => (
-              <div className={style.card} key={songs.id}>
+              <div
+                className={`${style.card} ${
+                  user?.isPremium === false && songs.premiumOnly === true
+                    ? style.disabledCard
+                    : ""
+                }`}
+                key={songs.id}
+              >
                 <div className={style.imgBox}>
                   <img
                     className={style.img}
                     src={songs.coverImage}
                     alt="coverImage"
+                  />
+                  <WorkspacePremiumIcon
+                    className={style.premium}
+                    style={{ display: songs.premiumOnly ? "block" : "none" }}
                   />
                 </div>
 

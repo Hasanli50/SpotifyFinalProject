@@ -9,11 +9,9 @@ import toast from "react-hot-toast";
 import { BASE_URL, ENDPOINT } from "../../api/endpoint";
 import axios from "axios";
 import { saveUserToStorage } from "../../utils/localeStorage";
-import { useAllNonDeletedArtists } from "../../hooks/useArtist";
 import { useEffect } from "react";
 
 const Login = () => {
-  const { data } = useAllNonDeletedArtists();
   const navigate = useNavigate();
   const { token } = useParams();
 
@@ -29,7 +27,7 @@ const Login = () => {
   }, [token, navigate]);
 
   const handleGoogleLogin = () => {
-    window.location.href = `http://localhost:6060/auth/google`;
+    window.location.href = `http://localhost:6060/auth-artist/google`;
   };
 
   const formik = useFormik({
@@ -44,55 +42,16 @@ const Login = () => {
           password: values.password.trim(),
         };
 
-        const artist = data.find(
-          (artist) => artist.username === cleanedValues.username
-        );
-        if (!artist) {
-          toast.error("Incorrect username. Please try again.");
-          return;
-        }
-
-        if (artist.status !== "approved") {
-          toast.error("Your status is not approved!");
-          return;
-        }
-
-        if (artist.isBanned === true) {
-          const banExpiresAt = new Date(artist.banExpiresAt).getTime();
-
-          if (isNaN(banExpiresAt)) {
-            console.error("Invalid ban expiration time:", artist.banExpiresAt);
-            return toast.error("Invalid ban expiration time.");
-          }
-          const remainingMilliseconds = banExpiresAt - Date.now();
-
-          if (remainingMilliseconds <= 0) {
-            return toast.error("Your account is no longer banned.");
-          }
-
-          const remainingMinutes = Math.floor(
-            remainingMilliseconds / (1000 * 60)
-          );
-          const remainingSeconds = Math.floor(
-            (remainingMilliseconds % (1000 * 60)) / 1000
-          );
-
-          return toast.error(
-            `Your account is banned. Come back after ${remainingMinutes} minutes and ${remainingSeconds} seconds.`
-          );
-        }
-
         const response = await axios.post(
           `${BASE_URL + ENDPOINT.artists}/login`,
           cleanedValues
         );
-        if (response && response.data.token) {
+
+        if (response?.data?.token) {
           actions.resetForm();
           toast.success("Successfully signed in!");
           localStorage.setItem("artistauth", "true");
           saveUserToStorage(response.data.token);
-          // console.log(response.data.token);
-
           setTimeout(() => {
             navigate("/artist/");
           }, 300);
@@ -101,9 +60,7 @@ const Login = () => {
         }
       } catch (error) {
         console.log("Error: ", error);
-        toast.error(
-          "Incorrect password. Please try again or click to `Forgot Password`."
-        );
+        toast.error(error.response?.data?.message || "Login failed.");
       }
     },
     validationSchema: loginSchema,

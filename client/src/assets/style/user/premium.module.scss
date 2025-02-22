@@ -1,0 +1,102 @@
+@import "../../scss/extends";
+@import "../../scss/variables";
+
+.main {
+  padding: 2% 50px 4%;
+  text-align: left;
+}
+.features {
+  margin-bottom: 30px;
+}
+.whatWeOffer {
+  margin-bottom: 30px;
+}
+.heading {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+.paragraph {
+  font-size: 17px;
+}
+.item {
+  font-size: 17px;
+  margin-bottom: 15px;
+}
+.logo {
+  background: linear-gradient(
+    90deg,
+    rgba(238, 16, 176, 1) 12%,
+    rgba(14, 158, 239, 1) 100%
+  );
+  background-clip: text;
+  color: transparent;
+}
+
+.cardHeading {
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-size: 25px;
+  background: linear-gradient(
+    90deg,
+    rgba(238, 16, 176, 1) 12%,
+    rgba(14, 158, 239, 1) 100%
+  );
+  background-clip: text;
+  color: transparent;
+  // color: #3f3e3e;
+}
+
+.buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: end;
+}
+.payNow {
+  padding: 7px 15px;
+  border-radius: 5px;
+  border: 1px solid $darkBlue;
+  color: $darkBlue;
+  font-size: 15px;
+  background-color: transparent;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+.payNow:hover {
+  background-color: $darkBlue;
+  color: $whiteColor;
+}
+.cancelBtn {
+  padding: 7px 15px;
+  border-radius: 5px;
+  border: 1px solid $darkPurpleHover;
+  color: $darkPurpleHover;
+  font-size: 15px;
+  background-color: transparent;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+.cancelBtn:hover {
+  background-color: $darkPurpleHover;
+  color: $whiteColor;
+}
+
+.premiumBtn {
+  margin: 40px 0;
+  padding: 7px 15px;
+  border-radius: 5px;
+  border: 1px solid $lightPinkActive;
+  color: $normalPurple;
+  font-size: 15px;
+  background-color: $lightPinkActive;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+.premiumBtn:hover {
+  background-color: $normalBlue;
+  color: $whiteColor;
+  border: 1px solid $normalBlue;
+}

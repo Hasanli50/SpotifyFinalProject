@@ -3,16 +3,16 @@ const passport = require("passport");
 const router = express.Router();
 require("dotenv").config();
 
-// Google Auth Route
+// Google Auth Route for artist
 router.get(
   "/google",
-  passport.authenticate("google", { scope: ["profile", "email"] })
+  passport.authenticate("artist-google", { scope: ["profile", "email"] })
 );
 
-// Google Auth Callback Route
+// Google Auth Callback Route for artist
 router.get(
   "/google/callback",
-  passport.authenticate("google", {
+  passport.authenticate("artist-google", {
     failureRedirect: "/artist/login",
     session: true, 
   }),

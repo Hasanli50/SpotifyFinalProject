@@ -243,8 +243,9 @@ const login = async (req, res) => {
       });
     }
 
-    //check if ban is expired
-    if (artist.banExpiresAt < Date.now()) {
+    const remainingMilliseconds = artist.banExpiresAt - Date.now();
+    if (remainingMilliseconds <= 0) {
+      // Unban the artist if the ban has expired
       await Artist.findByIdAndUpdate(artist._id, {
         isBanned: false,
         banExpiresAt: null,

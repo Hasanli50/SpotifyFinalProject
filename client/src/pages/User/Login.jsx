@@ -2,7 +2,7 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import style from "../../assets/style/login.module.scss";
 import GoogleIcon from "../../assets/image/icon/GoogleIcon";
 import { Input } from "antd";
-import { Link, useNavigate, useParams } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { useFormik } from "formik";
 import { loginSchema } from "../../schema/loginSchema";
 import toast from "react-hot-toast";
@@ -15,21 +15,28 @@ import { useAllNonDeletedUsers } from "../../hooks/useUser";
 const Login = () => {
   const { data } = useAllNonDeletedUsers();
   const navigate = useNavigate();
-  const { token } = useParams();
+  const location = useLocation();
+
+  const getTokenFromQuery = () => {
+    const queryParams = new URLSearchParams(location.search);
+    return queryParams.get("token");
+  };
 
   useEffect(() => {
+    const token = getTokenFromQuery();
     if (token) {
-      saveUserToStorage(token); // Save token to localStorage
-      toast.success("Successfully signed in with Google!");
+      saveUserToStorage(token);
+      localStorage.setItem("userauth", "true");
 
+      toast.success("Successfully signed in with Google!");
       setTimeout(() => {
         navigate("/");
       }, 300);
     }
-  }, [token, navigate]);
+  }, [location.search, navigate]);
 
   const handleGoogleLogin = () => {
-    window.location.href = `http://localhost:6060/auth-user/google`; // Redirect to Google OAuth
+    window.location.href = "http://localhost:6060/auth-user/google";
   };
 
   const formik = useFormik({
@@ -44,55 +51,34 @@ const Login = () => {
           password: values.password.trim(),
         };
 
-        const user = data.find(
-          (user) => user.username === cleanedValues.username
+        const user = data?.find(
+          (user) => user?.username === cleanedValues.username
         );
         if (!user) {
           toast.error("Incorrect username. Please try again.");
           return;
         }
-
+  
         if (user.isVerified !== true) {
           toast.error("Please check your email and verify your account");
           return;
         }
-
-        if (user.isBanned === true) {
-          const banExpiresAt = new Date(user.banExpiresAt).getTime();
-
-          if (isNaN(banExpiresAt)) {
-            console.error("Invalid ban expiration time:", user.banExpiresAt);
-            return toast.error("Invalid ban expiration time.");
-          }
-          const remainingMilliseconds = banExpiresAt - Date.now();
-
-          const remainingMinutes = Math.floor(
-            remainingMilliseconds / (1000 * 60)
-          );
-          const remainingSeconds = Math.floor(
-            (remainingMilliseconds % (1000 * 60)) / 1000
-          );
-
-          return toast.error(
-            `Your account is banned. Come back after ${remainingMinutes} minutes and ${remainingSeconds} seconds.`
-          );
-        }
-
+        
         if (user.role !== "user") {
           toast.error("Only users can login!");
           return;
         }
-
+  
         const response = await axios.post(
           `${BASE_URL + ENDPOINT.users}/login`,
           cleanedValues
         );
-        if (response && response.data.token) {
+  
+        if (response?.data?.token) {
           actions.resetForm();
           toast.success("Successfully signed in!");
+          localStorage.setItem("userauth", "true");
           saveUserToStorage(response.data.token);
-          // console.log(response.data.token);
-
           setTimeout(() => {
             navigate("/");
           }, 300);
@@ -102,12 +88,14 @@ const Login = () => {
       } catch (error) {
         console.log("Error: ", error);
         toast.error(
-          "Incorrect password. Please try again or click to `Forgot Password`."
+          error.response?.data?.message ||
+            "Incorrect password. Please try again or click `Forgot Password`."
         );
       }
     },
     validationSchema: loginSchema,
   });
+  
 
   return (
     <div className={style.card}>

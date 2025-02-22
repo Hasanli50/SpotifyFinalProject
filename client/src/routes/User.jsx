@@ -1,5 +1,4 @@
 import { Route, Routes } from "react-router";
-import Login from "../pages/User/Login";
 import SignUp from "../pages/User/SignUp";
 import NotFound from "../pages/User/NotFound";
 import ForgotPass from "../pages/User/ForgotPass";
@@ -24,6 +23,11 @@ import AlbumDetail from "../pages/User/AlbumDetail";
 import Albums from "../pages/User/Albums";
 import Discover from "../pages/User/Discover";
 import GenreDetail from "../pages/User/GenreDetail";
+import CheckoutForm from "../pages/User/CheckoutForm";
+import Premium from "../pages/User/Premium";
+import {UserLoginRedirect} from "./ProtectedRoute";
+import PremiumTracks from "../pages/User/PremiumTracks";
+
 const User = () => {
   return (
     <>
@@ -31,7 +35,7 @@ const User = () => {
         <Route path="/forgot-password" element={<ForgotPass />} />
         <Route path="/verify/:token" element={<VerifyAccount />} />
         <Route path="/reset-password/:token" element={<ResetPass />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<UserLoginRedirect />} />
         <Route path="/register" element={<SignUp />} />
 
         <Route path="/" element={<SideBar />}>
@@ -53,6 +57,9 @@ const User = () => {
           <Route path="albums" element={<Albums />} />
           <Route path="discover" element={<Discover />} />
           <Route path="genre/:id" element={<GenreDetail />} />
+          <Route path="premium" element={<Premium />} />
+          <Route path="checkout" element={<CheckoutForm />} />
+          <Route path="premium-songs" element={<PremiumTracks />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

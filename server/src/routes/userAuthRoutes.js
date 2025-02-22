@@ -13,12 +13,15 @@ router.get(
 router.get(
   "/google/callback",
   passport.authenticate("google", {
-    failureRedirect: `${process.env.APP_BASE_URL}/login`,
-    session: true, 
+    failureRedirect: "/login",
+    session: false,
   }),
   (req, res) => {
-    res.redirect(`${process.env.APP_BASE_URL}/`);
+    const token = req.user.generateToken();
+
+    res.redirect(`http://localhost:5174/login?token=${token}`);
   }
 );
+
 
 module.exports = router;

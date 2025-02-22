@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Navigate } from "react-router";
 import { getUserFromStorage } from "../utils/localeStorage";
+import Login from "../pages/User/Login";
 
 //for artist
 export const isAuthArtist = () => {
@@ -18,6 +19,7 @@ const ProtectedRoute = ({ children }) => {
   return candition;
 };
 
+//-----------------------------------------------------------
 //for admin
 export const isAuthAdmin = () => {
   return localStorage.getItem("adminauth") === "true";
@@ -26,12 +28,22 @@ export const isAuthAdmin = () => {
 const ProtectedRouteAdmin = ({ children }) => {
   const user = getUserFromStorage();
   const candition =
-  isAuthAdmin() && user ? (
-      children
-    ) : (
-      <Navigate to={"/admin/login"} replace />
-    );
+    isAuthAdmin() && user ? children : <Navigate to={"/admin/login"} replace />;
   return candition;
 };
 
-export { ProtectedRoute, ProtectedRouteAdmin };
+//------------------------------------------------------------
+// for user
+export const isAuthUser = () => {
+  return localStorage.getItem("userauth") === "true";
+};
+
+const UserLoginRedirect = () => {
+  if (isAuthUser()) {
+    return <Navigate to="/" replace />;
+  }
+
+  return <Login />;
+};
+
+export { ProtectedRoute, ProtectedRouteAdmin, UserLoginRedirect };

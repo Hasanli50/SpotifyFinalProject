@@ -1,6 +1,19 @@
 @import "../../scss/variables";
 @import "../../scss/extends";
 
+.inputBox {
+  @extend %input-box;
+  margin-bottom: 30px;
+}
+.input {
+  @extend %input;
+}
+.input:focus {
+  outline: none;
+}
+.searchIcon {
+  @extend %search-icon;
+}
 .heading {
   @extend %heading;
 }
@@ -10,6 +23,10 @@
   gap: 12px;
   margin-bottom: 30px;
 }
+.disabledCard {
+  pointer-events: none;
+  opacity: 0.7;
+}
 .place {
   font-size: 18px;
 }
@@ -18,6 +35,13 @@
 }
 .songsCard__imgBox {
   @extend %songsCard-imgBox;
+  position: relative;
+}
+.premiumMini {
+  position: absolute;
+  color: $normalBlue;
+  top: 2px;
+  left: 0px;
 }
 .songsCard__imgBox__img {
   @extend %img;
@@ -132,6 +156,13 @@
 }
 .imgBox {
   @extend %img-box;
+  position: relative;
+}
+.premium {
+  position: absolute;
+  color: $normalBlue;
+  top: 5px;
+  left: 2px;
 }
 .img {
   @extend %img;
@@ -171,7 +202,7 @@
   align-items: center;
   flex-wrap: wrap;
 }
-.playlistInput{
+.playlistInput {
   width: 100%;
   padding: 10px 10px;
   border-radius: 5px;

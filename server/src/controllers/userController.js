@@ -5,6 +5,8 @@ const path = require("path");
 const bcrypt = require("bcrypt");
 const extractPublicId = require("../utils/extractPublicId.js");
 const { cloudinary } = require("../config/imageCloudinary.js");
+const Stripe = require("stripe");
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
 const getAllNonDeletedUsers = async (_, res) => {
   try {
@@ -572,7 +574,7 @@ const forgotPassword = async (req, res) => {
       .sendMail({
         from: process.env.MAIL_USER,
         to: email,
-        subject: "Password Reset | Spotify",
+        subject: "Password Reset | Melodies",
         html: `<h1>Click <a href="${process.env.APP_BASE_URL}/reset-password/${token}">here</a> to reset your password</h1> <h3>If you did not send a request, you can ignore this email</h3>`,
       })
       .catch((error) => {
@@ -653,6 +655,87 @@ const resetPassword = async (req, res) => {
   }
 };
 
+const payment = async (req, res) => {
+  try {
+    const { id } = req.user;
+    const user = await User.findById({ _id: id, isDeleted: false });
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+        status: "fail",
+      });
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      {
+        isPremium: true,
+        premiumSince: new Date(),
+      },
+      { new: true }
+    );
+
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: 500, 
+      currency: "usd",
+    });
+
+    await transporter
+      .sendMail({
+        from: process.env.MAIL_USER,
+        to: updatedUser.email,
+        subject: "Payment | Melodies",
+        html: `<h1>You paid $5</h1><h3>If you did not send this request, you can ignore this email.</h3>`,
+      })
+      .catch((error) => {
+        console.log("Error sending email:", error);
+      });
+
+    res.send({
+      clientSecret: paymentIntent.client_secret,
+    });
+  } catch (error) {
+    console.error("Error creating payment intent:", error);
+    res.status(500).send({ error: error.message });
+  }
+};
+
+const updatePremiumStatus = async (req, res) => {
+  try {
+    const { id } = req.user;
+    const user = await User.findById({ _id: id, isDeleted: false });
+
+    if (user && user.isPremium && user.premiumSince) {
+      const currentDate = new Date();
+      const premiumExpirationDate = new Date(user.premiumSince);
+      premiumExpirationDate.setMinutes(premiumExpirationDate.getMinutes() + 1);
+
+      if (currentDate > premiumExpirationDate) {
+        const updatedUser = await User.findByIdAndUpdate(
+          id,
+          { isPremium: false, premiumSince: null },
+          { new: true }
+        );
+        return res.status(200).json({
+          message: "Premium subscription expired. Updated user status.",
+          data: updatedUser,
+          premiumExpired: true,
+        });
+      }
+    }
+
+    res.status(200).json({
+      message: "Premium subscription active.",
+      data: user,
+      premiumExpired: false,
+    });
+  } catch (error) {
+    console.error("Error updating premium status:", error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   getAllNonDeletedUsers,
   getAllDeletedUsers,
@@ -670,4 +753,6 @@ module.exports = {
   forgotPassword,
   updatePassword,
   updateUserInfo,
+  payment,
+  updatePremiumStatus,
 };

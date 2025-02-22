@@ -24,7 +24,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: process.env.APP_BASE_URL || "http://localhost:5173", 
+    origin: process.env.APP_BASE_URL || "http://localhost:5174", 
     methods: ["GET", "POST", "PATCH", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
@@ -40,7 +40,7 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use("/auth", artistAuthRoutes);
+app.use("/auth-artist", artistAuthRoutes);
 app.use("/auth-user", userAuthRoutes);
 app.use("/users", userRouter);
 app.use("/artists", artistRouter);

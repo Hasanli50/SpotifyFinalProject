@@ -21,8 +21,10 @@ import { fetchUserByToken } from "../../utils/reusableFunc";
 import PersonIcon from "@mui/icons-material/Person";
 import InfoIcon from "@mui/icons-material/Info";
 import PhoneIcon from "@mui/icons-material/Phone";
-import FeaturedPlayListIcon from '@mui/icons-material/FeaturedPlayList';
-import AlbumIcon from '@mui/icons-material/Album';
+import FeaturedPlayListIcon from "@mui/icons-material/FeaturedPlayList";
+import AlbumIcon from "@mui/icons-material/Album";
+import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
+import AudiotrackIcon from '@mui/icons-material/Audiotrack';
 
 const { Header, Sider, Content } = Layout;
 
@@ -42,6 +44,8 @@ const SideBar = () => {
     8: "none",
     9: "none",
     10: "none",
+    11: "none",
+    12: "none",
   };
 
   const headerHeight = selectedKey === "1" ? "100vh" : "";
@@ -88,7 +92,7 @@ const SideBar = () => {
           style={{
             background:
               "linear-gradient( 90deg, rgba(238, 16, 176, 1) 12%,rgba(14, 158, 239, 1) 100%)",
-            webkitBackgroundClip: "text",
+            WebkitBackgroundClip: "text",
             color: "transparent",
             textAlign: "center",
             margin: "16px 0",
@@ -125,18 +129,18 @@ const SideBar = () => {
               icon: <PersonIcon />,
               label: <Link to={"/artists"}>Artists</Link>,
             },
-            {
-              key: "5",
-              icon: <HeartOutlined />,
-              label: <Link to={"/favorites"}>Favorites</Link>,
-            },
-            {
-              key: "6",
-              icon: <FeaturedPlayListIcon />,
-              label: <Link to={"/playlists"}>Playlists</Link>,
-            },
             ...(user && Object.keys(user).length > 0
               ? [
+                  {
+                    key: "5",
+                    icon: <HeartOutlined />,
+                    label: <Link to={"/favorites"}>Favorites</Link>,
+                  },
+                  {
+                    key: "6",
+                    icon: <FeaturedPlayListIcon />,
+                    label: <Link to={"/playlists"}>Playlists</Link>,
+                  },
                   {
                     key: "7",
                     icon: <PersonIcon />,
@@ -144,18 +148,35 @@ const SideBar = () => {
                   },
                 ]
               : []),
+
+            ...(user &&
+            Object.keys(user).length > 0 &&
+            user.isPremium === true
+              ? [
+                  {
+                    key: "8",
+                    icon: <AudiotrackIcon />,
+                    label: <Link to={"/premium-songs"}>Premium Songs</Link>,
+                  },
+                ]
+              : []),
             {
-              key: "8",
+              key: "9",
+              icon: <WorkspacePremiumIcon />,
+              label: <Link to={"/premium"}>Premium</Link>,
+            },
+            {
+              key: "10",
               icon: <InfoIcon />,
               label: <Link to={"/about-us"}>About Us</Link>,
             },
             {
-              key: "9",
+              key: "11",
               icon: <PhoneIcon />,
               label: <Link to={"/contact"}>Contact</Link>,
             },
             {
-              key: "10",
+              key: "12",
               icon: <LogoutOutlined />,
               label: <p onClick={handleLogout}>Logout</p>,
             },

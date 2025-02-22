@@ -17,10 +17,12 @@ const {
   forgotPassword,
   updateUserInfo,
   updatePassword,
+  payment,
+  updatePremiumStatus,
 } = require("../controllers/userController.js");
 const validateRegistration = require("../middlewares/userMiddlewares/registerValidator.js");
-const {verifyToken} = require("../middlewares/verifyToken.js");
-const {verifyRoles} = require("../middlewares/verifyRoles.js");
+const { verifyToken } = require("../middlewares/verifyToken.js");
+const { verifyRoles } = require("../middlewares/verifyRoles.js");
 const validateLogin = require("../middlewares/userMiddlewares/loginValidator.js");
 const banAccountValidation = require("../middlewares/userMiddlewares/banAccountValidator.js");
 const updatePasswordValidator = require("../middlewares/userMiddlewares/updatePassValidator.js");
@@ -28,6 +30,7 @@ const resetPasswordValidator = require("../middlewares/userMiddlewares/resetPass
 const updateUserInfoValidator = require("../middlewares/userMiddlewares/updateUserInfo.js");
 const validateForgotPassword = require("../middlewares/userMiddlewares/forgotPassValidator.js");
 const imageUpload = require("../config/imageMulter.js");
+const checkPremiumStatus = require("../middlewares/userMiddlewares/checkPremium.js");
 
 router.get(
   "/nonDeletedUsers",
@@ -118,5 +121,8 @@ router.get("/logout", (req, res) => {
     res.redirect("/");
   });
 });
+
+router.post("/create-payment-intent", verifyToken, checkPremiumStatus, payment);
+router.get('/update-status', updatePremiumStatus);
 
 module.exports = router;

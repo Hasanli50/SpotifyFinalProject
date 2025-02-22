@@ -1,77 +1,60 @@
 import axios from "axios";
-import style from "../../assets/style/user/albumDetail.module.scss";
+import style from "../../assets/style/user/artistDetail.module.scss";
 import { useEffect, useRef, useState } from "react";
 import { BASE_URL, ENDPOINT } from "../../api/endpoint";
 import { getUserFromStorage } from "../../utils/localeStorage";
-import { useAllTracks } from "../../hooks/useTrack";
 import moment from "moment";
 import { fetchUserByToken, formatDuration } from "../../utils/reusableFunc";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { useAllAlbums } from "../../hooks/useAlbum";
 import { Menu, MenuItem } from "@mui/material";
 import NewPlaylist from "../../components/user/NewPlaylist";
 import { useFetchALlPlaylistsByUser } from "../../hooks/usePlaylist";
-import NewPlaylistwithCollab from "../../components/user/NewPlaylistwithCollab";
+import { useAllTracks } from "../../hooks/useTrack";
 import toast from "react-hot-toast";
-import { useAllNonDeletedArtists } from "../../hooks/useArtist";
-import { Link, useParams } from "react-router";
-import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import SearchIcon from "@mui/icons-material/Search";
 
-const AlbumDetail = () => {
-  const { id } = useParams();
-  const [album, setAlbum] = useState([]);
-  const [artist, setArtist] = useState([]);
-  const [songs, setSongs] = useState([]);
-  const { data: albums } = useAllAlbums();
+const PremiumTracks = () => {
+  //get user by token
+  const [user, setUser] = useState([]);
+  const [premiumTracks, setPremiumTracks] = useState([]);
   const { data: tracks } = useAllTracks();
-  const { data: artists } = useAllNonDeletedArtists();
   const [favorites, setFavorites] = useState([]);
-  const token = getUserFromStorage();
   const { data: playlists } = useFetchALlPlaylistsByUser();
   const [searchQuery, setSearchQuery] = useState("");
+  const [searchSong, setSearchSong] = useState("");
   const [filteredData, setFilteredData] = useState(playlists);
+  const [filterPremiumSong, setFilterPremiumSong] = useState(premiumTracks);
 
   const [currentSong, setCurrentSong] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
 
-  // album
+  const token = getUserFromStorage();
   useEffect(() => {
-    if (albums?.length > 0) {
-      const albumId = albums?.find((a) => a?.id === id);
-      setAlbum(albumId);
-    }
-  }, [albums, id]);
+    const getUserByToken = async () => {
+      try {
+        const response = await fetchUserByToken(token);
+        setUser(response);
+      } catch (error) {
+        console.log("Error:", error);
+      }
+    };
+    getUserByToken();
+  }, [token]);
 
-  // find artist
   useEffect(() => {
-    if (album?.artistId && artists?.length > 0) {
-      const artistObj = artists?.find((user) => user?.id === album?.artistId);
-      setArtist(artistObj);
-      console.log(artistObj);
+    try {
+      const filteredSongs = tracks.filter((song) => song.premiumOnly === true);
+      setPremiumTracks(filteredSongs);
+      console.log("premium: ", filteredSongs);
+    } catch (error) {
+      console.log("Error: ", error);
     }
-  }, [album, artists]);
-
-  //----------------------------------------------------
-  //single songs
-  useEffect(() => {
-    if (
-      album &&
-      album?.trackIds &&
-      album?.trackIds.length > 0 &&
-      tracks?.length > 0
-    ) {
-      const trackIds = tracks?.filter((track) =>
-        album.trackIds.includes(track.id)
-      );
-      setSongs(trackIds);
-    }
-  }, [album, tracks]);
+  }, [tracks]);
 
   //----------------------------------------------------
   const handlePlayMusic = (song) => {
@@ -106,22 +89,6 @@ const AlbumDetail = () => {
       console.log("Error: ", error);
     }
   };
-
-  //---------------------------------------------------
-  //get user by token
-  const [user, setUser] = useState([]);
-
-  useEffect(() => {
-    const getUserByToken = async () => {
-      try {
-        const response = await fetchUserByToken(token);
-        setUser(response);
-      } catch (error) {
-        console.log("Error:", error);
-      }
-    };
-    getUserByToken();
-  }, [token]);
 
   //----------------------------------------------------
   useEffect(() => {
@@ -175,6 +142,7 @@ const AlbumDetail = () => {
 
   //----------------------------------------------------
   const handleAddTrack = async (playlistId, songId, songType) => {
+    XMLDocument;
     console.log("playlistId:", playlistId);
     console.log("songId:", songId);
     try {
@@ -197,51 +165,40 @@ const AlbumDetail = () => {
     }
   };
 
+  useEffect(() => {
+    const songs = premiumTracks?.filter(
+      (value) =>
+        value?.name
+          ?.trim()
+          .toLowerCase()
+          .includes(searchSong.trim().toLowerCase()) ||
+        value?.artistId?.username
+          ?.trim()
+          .toLowerCase()
+          .includes(searchSong.trim().toLowerCase())
+    );
+    setFilterPremiumSong(songs);
+  }, [premiumTracks, searchSong]);
+
   return (
     <>
-      <section className={style.album}>
-        <Link to={`/artists/${album?.artistId?._id || artist?.id}`}>
-          <span className={style.back}>
-            <KeyboardBackspaceIcon style={{ fontSize: "28px" }} />
-          </span>
-        </Link>
-        <div className={style.profileImgBox}>
-          <img
-            className={style.profileImg}
-            src={album?.coverImage}
-            alt="cover image"
+      <section className={style.allSingleSongs}>
+        <div className={style.inputBox}>
+          <input
+            onChange={(e) => setSearchSong(e.target.value)}
+            type="text"
+            value={searchSong}
+            className={style.input}
+            placeholder="Search for artists, songs..."
           />
+          <SearchIcon className={style.searchIcon} />
         </div>
-        <div className={style.text}>
-          <p className={style.username}>
-            Album: <span style={{ color: "#fff" }}>{album?.name}</span>
-          </p>
-          <p className={style.username}>
-            Artist :{" "}
-            <span style={{ color: "#fff" }}>
-              {" "}
-              {album?.artistId?.username || artist?.username}
-            </span>
-          </p>
-          <p className={style.songsCount}>
-            Songs:{" "}
-            <span style={{ color: "#fff" }}>{album?.trackIds?.length}</span>{" "}
-          </p>
-        </div>
-      </section>
 
-      <section className={style.songs}>
-        <p className={style.heading}>Songs:</p>
-        {songs?.length > 0 &&
-          songs.map((songs, index) => (
-            <div
-              className={`${style.box} ${
-                user?.isPremium === false && songs.premiumOnly === true
-                  ? style.disabledCard
-                  : ""
-              }`}
-              key={songs.id}
-            >
+        <p className={style.heading}>Premium Songs:</p>
+
+        {filterPremiumSong?.length > 0 ? (
+          filterPremiumSong.map((songs, index) => (
+            <div className={style.box} key={songs.id}>
               <p className={style.place}>{index + 1}.</p>
               <div className={style.songsCard}>
                 <div
@@ -257,26 +214,19 @@ const AlbumDetail = () => {
                       src={songs.coverImage}
                       alt="coverImage"
                     />
-                    <WorkspacePremiumIcon
-                      className={style.premiumMini}
-                      style={{
-                        display: songs.premiumOnly ? "block" : "none",
-                        fontSize: "18px",
-                      }}
-                    />
                   </div>
                   <div>
                     <p className={style.letterTop}>{songs.name}</p>
                     <p className={style.letterBottom}>
-                      {songs.artistId.username}
+                      {songs?.artistId?.username}
                     </p>
                   </div>
                 </div>
 
                 <p className={style.songsCard__letter}>
-                  {moment(songs.createdAt).format("MMM Do YY")}
+                  {moment(songs?.createdAt).format("MMM Do YY")}
                 </p>
-                <p className={style.songsCard__letter}>{songs.playCount}</p>
+                <p className={style.songsCard__letter}>{songs?.playCount}</p>
                 <div className={style.icons}>
                   <div onClick={() => toggleFavorite(songs.id)}>
                     {isFavorite(songs.id) ? (
@@ -285,7 +235,7 @@ const AlbumDetail = () => {
                       <FavoriteBorderIcon style={{ color: "#EE10B0" }} />
                     )}
                   </div>
-                  <p>{formatDuration(songs.duration)}</p>
+                  <p>{formatDuration(songs?.duration)}</p>
                   <div
                     className={style.icon}
                     onClick={() => handlePlayMusic(songs)}
@@ -301,20 +251,20 @@ const AlbumDetail = () => {
                   </div>
 
                   <Menu
-                    className={style.menu}
                     anchorEl={anchorEl}
                     open={currentSongId === songs.id}
                     onClose={handleMenuClose}
                   >
                     <MenuItem>
                       <input
-                        className={style.playlistInput}
                         type="text"
                         placeholder="Find playlist"
+                        className={style.playlistInput}
                         onChange={(e) => setSearchQuery(e.target.value)}
                       />
                     </MenuItem>
                     {filteredData?.length > 0 &&
+                      filteredData?.collaborators?.length === 0 &&
                       filteredData?.map((playlist) => (
                         <MenuItem
                           onClick={() =>
@@ -328,21 +278,17 @@ const AlbumDetail = () => {
                     <MenuItem>
                       <NewPlaylist />
                     </MenuItem>
-                    {user?.isPremium === false || songs.premiumOnly === true ? (
-                      ""
-                    ) : (
-                      <MenuItem>
-                        <NewPlaylistwithCollab />
-                      </MenuItem>
-                    )}
                   </Menu>
                 </div>
               </div>
             </div>
-          ))}
+          ))
+        ) : (
+          <p className={style.sentence}>Not found premium songs</p>
+        )}
       </section>
     </>
   );
 };
 
-export default AlbumDetail;
+export default PremiumTracks;

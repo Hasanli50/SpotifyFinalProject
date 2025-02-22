@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 require("dotenv").config();
 const bcrypt = require("bcrypt");
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
 const userSchema = new Schema(
   {
@@ -48,6 +48,10 @@ const userSchema = new Schema(
     isPremium: {
       type: Boolean,
       default: false,
+    },
+    premiumSince: {
+      type: Date,
+      default: null,
     },
     subscriptionExpiryDate: {
       type: Date,

@@ -1,10 +1,10 @@
 import axios from "axios";
-import style from "../../assets/style/user/artistDetail.module.scss";
+import style from "../../assets/style/user/artistSongs.module.scss";
 import { useEffect, useRef, useState } from "react";
 import { BASE_URL, ENDPOINT } from "../../api/endpoint";
 import { getUserFromStorage } from "../../utils/localeStorage";
 import moment from "moment";
-import { fetchUserByToken, formatDuration } from "../../utils/reusableFunc";
+import { fetchUserByToken } from "../../utils/reusableFunc";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
@@ -13,6 +13,10 @@ import { Menu, MenuItem } from "@mui/material";
 import NewPlaylist from "../../components/user/NewPlaylist";
 import { useFetchALlPlaylistsByUser } from "../../hooks/usePlaylist";
 import { useAllTracks } from "../../hooks/useTrack";
+import NewPlaylistwithCollab from "../../components/user/NewPlaylistwithCollab";
+import toast from "react-hot-toast";
+import SearchIcon from "@mui/icons-material/Search";
+import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 
 const Favorites = () => {
   const [currentSong, setCurrentSong] = useState(null);
@@ -25,6 +29,9 @@ const Favorites = () => {
   const [filteredData, setFilteredData] = useState(playlists);
   const [track, setTrack] = useState([]);
   const { data: tracks } = useAllTracks();
+
+  const [searchSong, setSearchSong] = useState("");
+  const [filterSong, setFilterSong] = useState(track);
 
   //----------------------------------------------------
   const handlePlayMusic = (song) => {
@@ -132,51 +139,149 @@ const Favorites = () => {
       .filter((track) => track !== undefined);
 
     setTrack(songs);
-    console.log("songs: ", songs);
   }, [favorites, tracks]);
 
+  //----------------------------------------------------
+  const handleAddTrack = async (playlistId, songId, songType) => {
+    console.log("playlistId:", playlistId);
+    console.log("songId:", songId);
+    try {
+      await axios.patch(
+        `${BASE_URL + ENDPOINT.playlists}/${playlistId}/addTracks`,
+        {
+          trackId: songId,
+          type: songType,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      toast.success("Song successfully added to playlist!");
+    } catch (error) {
+      console.log("Error:", error.response?.data?.message || error.message);
+      toast.error("Song already have in playlist!");
+    }
+  };
+
+  useEffect(() => {
+    const songs = track?.filter(
+      (value) =>
+        value?.name
+          ?.trim()
+          .toLowerCase()
+          .includes(searchSong.trim().toLowerCase()) ||
+        value?.artistId?.username
+          ?.trim()
+          .toLowerCase()
+          .includes(searchSong.trim().toLowerCase())
+    );
+    setFilterSong(songs);
+  }, [track, searchSong]);
 
   return (
     <>
       <section className={style.allSingleSongs}>
+        <div className={style.inputBox}>
+          <input
+            onChange={(e) => setSearchSong(e.target.value)}
+            type="text"
+            value={searchSong}
+            className={style.input}
+            placeholder="Search for artists, songs..."
+          />
+          <SearchIcon className={style.searchIcon} />
+        </div>
+
         <p className={style.heading}>Favorites:</p>
 
-        {track?.length > 0 ? (
-          track.map((songs, index) => (
-            <div className={style.box} key={songs.id}>
-              <p className={style.place}>#{index + 1}</p>
-              <div className={style.songsCard}>
-                <div
-                  style={{
-                    display: "flex",
-                    gap: "7px",
-                    alignItems: "center",
-                  }}
-                >
-                  <div className={style.songsCard__imgBox}>
-                    <img
-                      className={style.songsCard__imgBox__img}
-                      src={songs.coverImage}
-                      alt="coverImage"
-                    />
-                  </div>
-                  <div>
-                    <p className={style.letterTop}>{songs.name}</p>
-                    <p className={style.letterBottom}>
-                      {songs?.artistId?.username}
-                    </p>
+        <div className={style.songs}>
+          {filterSong?.length > 0 ? (
+            filterSong?.map((songs) => (
+              <div
+                className={`${style.card} ${
+                  user?.isPremium === false && songs.premiumOnly === true
+                    ? style.disabledCard
+                    : ""
+                }`}
+                key={songs.id}
+              >
+                <div className={style.imgBox}>
+                  <img
+                    className={style.img}
+                    src={songs.coverImage}
+                    alt="coverImage"
+                  />
+                  <WorkspacePremiumIcon
+                    className={style.premium}
+                    style={{ display: songs.premiumOnly ? "block" : "none" }}
+                  />
+                  <div className={style.icons}>
+                    <div onClick={() => toggleFavorite(songs.id)}>
+                      <FavoriteIcon style={{ color: "#EE10B0" }} />
+                    </div>
+                    <div onClick={(e) => handleMenuClick(e, songs.id)}>
+                      <MoreVertIcon />
+                    </div>
+
+                    <Menu
+                      className={style.menu}
+                      anchorEl={anchorEl}
+                      open={currentSongId === songs.id}
+                      onClose={handleMenuClose}
+                    >
+                      <MenuItem>
+                        <input
+                          className={style.playlistInput}
+                          type="text"
+                          placeholder="Find playlist"
+                          onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+                      </MenuItem>
+                      {filteredData?.length > 0 &&
+                        filteredData?.map((playlist) => (
+                          <MenuItem
+                            onClick={() =>
+                              handleAddTrack(
+                                playlist?.id,
+                                songs?.id,
+                                songs?.type
+                              )
+                            }
+                            key={playlist.id}
+                          >
+                            {playlist.name}
+                          </MenuItem>
+                        ))}
+                      <MenuItem>
+                        <NewPlaylist />
+                      </MenuItem>
+                      {user?.isPremium === false ||
+                      songs.premiumOnly === true ? (
+                        ""
+                      ) : (
+                        <MenuItem>
+                          <NewPlaylistwithCollab />
+                        </MenuItem>
+                      )}
+                    </Menu>
                   </div>
                 </div>
 
-                <p className={style.songsCard__letter}>
-                  {moment(songs?.createdAt).format("MMM Do YY")}
-                </p>
-                <p className={style.songsCard__letter}>{songs?.playCount}</p>
-                <div className={style.icons}>
-                  <div onClick={() => toggleFavorite(songs?.id)}>
-                    <FavoriteIcon style={{ color: "#EE10B0" }} />
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <div>
+                    <p className={style.letterTop}>{songs.name}</p>
+                    <p className={style.letterBottom}>
+                      {moment(songs.createdAt).format("MMM Do YY")}
+                    </p>
                   </div>
-                  <p>{formatDuration(songs?.duration)}</p>
                   <div
                     className={style.icon}
                     onClick={() => handlePlayMusic(songs)}
@@ -187,40 +292,13 @@ const Favorites = () => {
                       <PlayArrowIcon style={{ color: "#fff" }} />
                     )}
                   </div>
-                  <div onClick={(e) => handleMenuClick(e, songs.id)}>
-                    <MoreVertIcon />
-                  </div>
-
-                  <Menu
-                    anchorEl={anchorEl}
-                    open={currentSongId === songs.id}
-                    onClose={handleMenuClose}
-                  >
-                    <MenuItem>
-                      <input
-                        type="text"
-                        placeholder="Find playlist"
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                      />
-                    </MenuItem>
-                    {filteredData?.length > 0 &&
-                      filteredData.map((playlist) => (
-                        <MenuItem key={playlist.id}>{playlist.name}</MenuItem>
-                      ))}
-                    <MenuItem>
-                      <NewPlaylist />
-                    </MenuItem>
-                    <MenuItem onClick={handleMenuClose}>
-                      + New Playlist With Collaborator
-                    </MenuItem>
-                  </Menu>
                 </div>
               </div>
-            </div>
-          ))
-        ) : (
-          <p className={style.sentence}>You don`t favorite songs</p>
-        )}
+            ))
+          ) : (
+            <p className={style.sentence}>Artist dont have single songs</p>
+          )}
+        </div>
       </section>
     </>
   );

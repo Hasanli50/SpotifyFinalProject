@@ -16,6 +16,13 @@
 }
 .imgBox {
   @extend %img-box;
+  position: relative
+}
+.premium{
+  position: absolute;
+  color: $normalBlue;
+  top: 5px;
+  left: 2px;
 }
 .img {
   @extend %img;
@@ -36,6 +43,7 @@
 .letterBottom {
   @extend %letter-bottom;
 }
+
 .viewAll {
   // margin-top: 50px;
   cursor: pointer;
@@ -74,6 +82,7 @@
 }
 .songsCard__imgBox {
   @extend %songsCard-imgBox;
+  position: relative
 }
 .songsCard__imgBox__img {
   @extend %img;
@@ -87,6 +96,10 @@
   .songsCard__imgBox__img {
     transform: scale(1.1);
   }
+}
+.disabledCard {
+  pointer-events: none; 
+  opacity: 0.7; 
 }
 
 .rectangleМiewAll {
@@ -114,6 +127,12 @@
   overflow: hidden;
   border-radius: 50%;
   margin-bottom: 20px;
+}
+.premiumMini{
+  position: absolute;
+  color: $normalBlue;
+  top: 2px;
+  left: 0px;
 }
 .profileImg {
   @extend %img;

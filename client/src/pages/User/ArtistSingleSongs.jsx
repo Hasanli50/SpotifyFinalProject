@@ -19,6 +19,7 @@ import NewPlaylistwithCollab from "../../components/user/NewPlaylistwithCollab";
 import toast from "react-hot-toast";
 import { fetchUserByToken } from "../../utils/reusableFunc";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 
 const ArtistSingleSongs = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -235,7 +236,7 @@ const ArtistSingleSongs = () => {
             style={{
               background:
                 "linear-gradient( 90deg, rgba(238, 16, 176, 1) 12%,rgba(14, 158, 239, 1) 100%)",
-              webkitBackgroundClip: "text",
+              WebkitBackgroundClip: "text",
               color: "transparent",
             }}
           >
@@ -246,12 +247,23 @@ const ArtistSingleSongs = () => {
         <div className={style.songs}>
           {filteredSingleSong?.length > 0 ? (
             filteredSingleSong.map((songs) => (
-              <div className={style.card} key={songs.id}>
+              <div
+                className={`${style.card} ${
+                  user?.isPremium === false && songs.premiumOnly === true
+                    ? style.disabledCard
+                    : ""
+                }`}
+                key={songs.id}
+              >
                 <div className={style.imgBox}>
                   <img
                     className={style.img}
                     src={songs.coverImage}
                     alt="coverImage"
+                  />
+                  <WorkspacePremiumIcon
+                    className={style.premium}
+                    style={{ display: songs.premiumOnly ? "block" : "none" }}
                   />
                   <div className={style.icons}>
                     <div onClick={() => toggleFavorite(songs.id)}>
@@ -297,9 +309,14 @@ const ArtistSingleSongs = () => {
                       <MenuItem>
                         <NewPlaylist />
                       </MenuItem>
-                      <MenuItem>
-                        <NewPlaylistwithCollab />
-                      </MenuItem>
+                      {user?.isPremium === false ||
+                      songs.premiumOnly === true ? (
+                        ""
+                      ) : (
+                        <MenuItem>
+                          <NewPlaylistwithCollab />
+                        </MenuItem>
+                      )}
                     </Menu>
                   </div>
                 </div>

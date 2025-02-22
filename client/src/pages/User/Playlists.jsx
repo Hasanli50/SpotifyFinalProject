@@ -9,7 +9,7 @@ import { getUserFromStorage } from "../../utils/localeStorage";
 const Playlists = () => {
   const { data: playlists } = useFetchALlPlaylistsByUser();
   const [collabPlaylists, setCollabPlaylists] = useState([]);
-  const [user, setUser] = useState([]); 
+  const [user, setUser] = useState([]);
   const token = getUserFromStorage();
 
   useEffect(() => {
@@ -29,9 +29,9 @@ const Playlists = () => {
       const userCollaboratedPlaylists = playlists.filter((playlist) =>
         playlist.collaborators.includes(user.id)
       );
-      setCollabPlaylists(userCollaboratedPlaylists); 
+      setCollabPlaylists(userCollaboratedPlaylists);
     }
-  }, [user, playlists]); 
+  }, [user, playlists]);
 
   return (
     <>
@@ -44,7 +44,15 @@ const Playlists = () => {
           {playlists?.length > 0 ? (
             playlists?.map((playlist) =>
               playlist.userId === user?.id ? (
-                <Grid item xs={12} sm={6} md={6} lg={4} xl={4} key={playlist.id}>
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  md={6}
+                  lg={4}
+                  xl={4}
+                  key={playlist.id}
+                >
                   <Link to={`/playlist/${playlist.id}`}>
                     <div className={style.box}>
                       <p style={{ color: "#fff" }}>{playlist.name}</p>
@@ -59,27 +67,41 @@ const Playlists = () => {
         </Grid>
       </section>
 
-      <section className={style.playlists}>
-        <p className={style.heading}>
-          Collaborate <span style={{ color: "#EE10B0" }}>Playlists</span> :{" "}
-        </p>
+      {user.isPremium === false ? (
+        ""
+      ) : (
+        <section className={style.playlists}>
+          <p className={style.heading}>
+            Collaborate <span style={{ color: "#EE10B0" }}>Playlists</span> :{" "}
+          </p>
 
-        <Grid container spacing={5}>
-          {collabPlaylists?.length > 0 ? (
-            collabPlaylists?.map((playlist) => (
-              <Grid item xs={12} sm={6} md={6} lg={4} xl={4} key={playlist.id}>
-                <Link to={`/playlist/${playlist.id}`}>
-                  <div className={style.box}>
-                    <p style={{ color: "#fff" }}>{playlist.name}</p>
-                  </div>
-                </Link>
-              </Grid>
-            ))
-          ) : (
-            <p className={style.sentence}>You don’t have any collaborative playlist</p>
-          )}
-        </Grid>
-      </section>
+          <Grid container spacing={5}>
+            {collabPlaylists?.length > 0 ? (
+              collabPlaylists?.map((playlist) => (
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  md={6}
+                  lg={4}
+                  xl={4}
+                  key={playlist.id}
+                >
+                  <Link to={`/playlist/${playlist.id}`}>
+                    <div className={style.box}>
+                      <p style={{ color: "#fff" }}>{playlist.name}</p>
+                    </div>
+                  </Link>
+                </Grid>
+              ))
+            ) : (
+              <p className={style.sentence}>
+                You don’t have any collaborative playlist
+              </p>
+            )}
+          </Grid>
+        </section>
+      )}
     </>
   );
 };

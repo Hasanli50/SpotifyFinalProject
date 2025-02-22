@@ -18,6 +18,7 @@ import NewPlaylistwithCollab from "../../components/user/NewPlaylistwithCollab";
 import toast from "react-hot-toast";
 import { fetchUserByToken } from "../../utils/reusableFunc";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 
 const GenreDetail = () => {
   const { id } = useParams();
@@ -222,12 +223,23 @@ const GenreDetail = () => {
         <div className={style.songs}>
           {filteredSong?.length > 0 ? (
             filteredSong.map((songs) => (
-              <div className={style.card} key={songs.id}>
+              <div
+                className={`${style.card} ${
+                  user?.isPremium === false && songs.premiumOnly === true
+                    ? style.disabledCard
+                    : ""
+                }`}
+                key={songs.id}
+              >
                 <div className={style.imgBox}>
                   <img
                     className={style.img}
                     src={songs.coverImage}
                     alt="coverImage"
+                  />
+                  <WorkspacePremiumIcon
+                    className={style.premium}
+                    style={{ display: songs.premiumOnly ? "block" : "none" }}
                   />
                   <div className={style.icons}>
                     <div onClick={() => toggleFavorite(songs.id)}>
@@ -273,9 +285,14 @@ const GenreDetail = () => {
                       <MenuItem>
                         <NewPlaylist />
                       </MenuItem>
-                      <MenuItem>
-                        <NewPlaylistwithCollab />
-                      </MenuItem>
+                      {user?.isPremium === false ||
+                      songs.premiumOnly === true ? (
+                        ""
+                      ) : (
+                        <MenuItem>
+                          <NewPlaylistwithCollab />
+                        </MenuItem>
+                      )}
                     </Menu>
                   </div>
                 </div>

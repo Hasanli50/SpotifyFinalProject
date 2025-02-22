@@ -9,6 +9,9 @@ import axios from "axios";
 import { BASE_URL, ENDPOINT } from "../../api/endpoint";
 import moment from "moment";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import { fetchUserByToken } from "../../utils/reusableFunc";
+import { getUserFromStorage } from "../../utils/localeStorage";
+import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 
 const NewReleaseSongs = () => {
   const [newSongs, setNewSongs] = useState([]);
@@ -16,6 +19,22 @@ const NewReleaseSongs = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
   const { data: tracks } = useAllTracks();
+
+  //get user by token
+  const [user, setUser] = useState([]);
+
+  const token = getUserFromStorage();
+  useEffect(() => {
+    const getUserByToken = async () => {
+      try {
+        const response = await fetchUserByToken(token);
+        setUser(response);
+      } catch (error) {
+        console.log("Error:", error);
+      }
+    };
+    getUserByToken();
+  }, [token]);
 
   // new releas songs
   const currentDate = moment();
@@ -88,12 +107,23 @@ const NewReleaseSongs = () => {
         >
           {newSongs?.length > 0 &&
             newSongs.map((song) => (
-              <div className={style.card} key={song.id}>
+              <div
+                className={`${style.card} ${
+                  user?.isPremium === false && song.premiumOnly === true
+                    ? style.disabledCard
+                    : ""
+                }`}
+                key={song.id}
+              >
                 <div className={style.imgBox}>
                   <img
                     className={style.img}
                     src={song.coverImage}
                     alt="coverImage"
+                  />
+                  <WorkspacePremiumIcon
+                    className={style.premium}
+                    style={{ display: song.premiumOnly ? "block" : "none" }}
                   />
                 </div>
                 <div

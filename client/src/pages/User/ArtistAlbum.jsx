@@ -85,7 +85,7 @@ const ArtistAlbum = () => {
             style={{
               background:
                 "linear-gradient( 90deg, rgba(238, 16, 176, 1) 12%,rgba(14, 158, 239, 1) 100%)",
-              webkitBackgroundClip: "text",
+              WebkitBackgroundClip: "text",
               color: "transparent",
             }}
           >
@@ -97,7 +97,7 @@ const ArtistAlbum = () => {
         <div className={style.albums}>
           {filteredData?.length > 0 ? (
             filteredData.map((album) => (
-              <Link to={`/artist-album/${artist.id}`} key={album.id}>
+              <Link to={`/album/${album.id}`} key={album.id}>
                 <div className={style.card}>
                   <div className={style.imgBox}>
                     <img

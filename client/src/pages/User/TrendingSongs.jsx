@@ -4,11 +4,13 @@ import style from "../../assets/style/user/home.module.scss";
 import PauseIcon from "@mui/icons-material/Pause";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import moment from "moment";
-import { formatDuration } from "../../utils/reusableFunc";
+import { fetchUserByToken, formatDuration } from "../../utils/reusableFunc";
 import axios from "axios";
 import { BASE_URL, ENDPOINT } from "../../api/endpoint";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { Link } from "react-router";
+import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
+import { getUserFromStorage } from "../../utils/localeStorage";
 
 const TrendingSongs = () => {
   const [currentSong, setCurrentSong] = useState(null);
@@ -17,6 +19,22 @@ const TrendingSongs = () => {
 
   const [trendingSongs, setTrendingSongs] = useState([]);
   const { data: tracks } = useAllTracks();
+
+  //get user by token
+  const [user, setUser] = useState([]);
+
+  const token = getUserFromStorage();
+  useEffect(() => {
+    const getUserByToken = async () => {
+      try {
+        const response = await fetchUserByToken(token);
+        setUser(response);
+      } catch (error) {
+        console.log("Error:", error);
+      }
+    };
+    getUserByToken();
+  }, [token]);
 
   //trending songs
   useEffect(() => {
@@ -62,7 +80,7 @@ const TrendingSongs = () => {
       console.log("Error: ", error);
     }
   };
-  
+
   return (
     <>
       <section className={style.trendingSngs}>
@@ -76,7 +94,14 @@ const TrendingSongs = () => {
         </p>
         {trendingSongs?.length > 0 &&
           trendingSongs.map((songs, index) => (
-            <div className={style.box} key={songs.id}>
+            <div
+              className={`${style.box} ${
+                user?.isPremium === false && songs.premiumOnly === true
+                  ? style.disabledCard
+                  : ""
+              }`}
+              key={songs.id}
+            >
               <p className={style.place}>#{index + 1}</p>
               <div className={style.songsCard}>
                 <div
@@ -91,6 +116,13 @@ const TrendingSongs = () => {
                       className={style.songsCard__imgBox__img}
                       src={songs.coverImage}
                       alt="coverImage"
+                    />
+                    <WorkspacePremiumIcon
+                      className={style.premiumMini}
+                      style={{
+                        display: songs.premiumOnly ? "block" : "none",
+                        fontSize: "18px",
+                      }}
                     />
                   </div>
                   <div>
