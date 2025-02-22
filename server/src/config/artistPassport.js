@@ -1,10 +1,10 @@
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const Artist = require("../models/artist"); 
+const Artist = require("../models/artist");
 require("dotenv").config();
 
 passport.use(
-  'artist-google',
+  "artist-google",
   new GoogleStrategy(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
@@ -16,16 +16,20 @@ passport.use(
         let artist = await Artist.findOne({ email: profile.emails[0].value });
 
         if (!artist) {
-          artist = await Artist.create({ 
+          artist = await Artist.create({
             googleId: profile.id,
             username: profile.displayName,
             password: "google-login",
             email: profile.emails[0].value,
             image: profile.photos[0].value,
+            status: "approved",
           });
+        } else if (artist.status === "pending") {
+          artist.status = "approved";
+          await artist.save();
         }
 
-        return done(null, artist); 
+        return done(null, artist);
       } catch (error) {
         return done(error, null);
       }
@@ -33,12 +37,11 @@ passport.use(
   )
 );
 
-
-passport.serializeUser((artist, done) => { 
+passport.serializeUser((artist, done) => {
   done(null, artist._id);
 });
 
-passport.deserializeUser(async (id, done) => { 
+passport.deserializeUser(async (id, done) => {
   try {
     const artist = await Artist.findById(id);
     done(null, artist);

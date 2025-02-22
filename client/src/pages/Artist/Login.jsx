@@ -2,7 +2,7 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import style from "../../assets/style/login.module.scss";
 import GoogleIcon from "../../assets/image/icon/GoogleIcon";
 import { Input } from "antd";
-import { Link, useNavigate, useParams } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { useFormik } from "formik";
 import { loginSchema } from "../../schema/loginSchema";
 import toast from "react-hot-toast";
@@ -13,18 +13,25 @@ import { useEffect } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { token } = useParams();
+  const location = useLocation();
+
+  const getTokenFromQuery = () => {
+    const queryParams = new URLSearchParams(location.search);
+    return queryParams.get("token");
+  };
 
   useEffect(() => {
+    const token = getTokenFromQuery();
     if (token) {
       saveUserToStorage(token);
+      localStorage.setItem("artistauth", "true");
       toast.success("Successfully signed in with Google!");
 
       setTimeout(() => {
         navigate("/artist");
       }, 300);
     }
-  }, [token, navigate]);
+  }, [location.search, navigate]);
 
   const handleGoogleLogin = () => {
     window.location.href = `http://localhost:6060/auth-artist/google`;
@@ -53,7 +60,7 @@ const Login = () => {
           localStorage.setItem("artistauth", "true");
           saveUserToStorage(response.data.token);
           setTimeout(() => {
-            navigate("/artist/");
+            navigate("/artist");
           }, 300);
         } else {
           toast.error("Login failed. Please try again.");

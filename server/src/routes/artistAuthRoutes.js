@@ -14,10 +14,17 @@ router.get(
   "/google/callback",
   passport.authenticate("artist-google", {
     failureRedirect: "/artist/login",
-    session: true, 
+    session: false,
   }),
   (req, res) => {
-    res.redirect(`${process.env.APP_BASE_URL}/artist`);
+    if (!req.user) {
+      return res.status(401).json({ error: "Authentication failed" });
+    }
+    
+    req.artist = req.user;
+
+    const token = req.artist.generateToken();
+    res.redirect(`${process.env.APP_BASE_URL}/artist/login?token=${token}`);
   }
 );
 
