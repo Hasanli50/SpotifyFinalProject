@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "src/main.jsx",
+      "use": "@vercel/static-build"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/src/pages/user/$1"
+    },
+    {
+      "src": "/artist/(.*)",
+      "dest": "/src/pages/artist/$1"
+    },
+    {
+      "src": "/admin/(.*)",
+      "dest": "/src/pages/admin/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/src/pages/$1"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
+}
