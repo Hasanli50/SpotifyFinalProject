@@ -22,8 +22,8 @@ export default defineConfig({
     },
   },
 
-  // Add this block to exclude dependencies
+  // Add this block to exclude dependencies from optimization
   optimizeDeps: {
-    exclude: ['some-package-name']  // Replace 'some-package-name' with the name of the package you're having trouble with
+    exclude: ['some-package-name']  // Replace 'some-package-name' with the actual package name causing issues
   },
 });
