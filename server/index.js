@@ -46,15 +46,15 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use("/auth-artist", artistAuthRoutes);
-app.use("/auth-user", userAuthRoutes);
-app.use("/users", userRouter);
-app.use("/artists", artistRouter);
-app.use("/playlists", playlistRouter);
-app.use("/genres", genreRoutes);
-app.use("/tracks", trackRouter);
-app.use("/albums", albumRouter);
-app.use("/search", searchRouter);
+app.use("/api/auth-artist", artistAuthRoutes);
+app.use("/api/auth-user", userAuthRoutes);
+app.use("/api/users", userRouter);
+app.use("/api/artists", artistRouter);
+app.use("/api/playlists", playlistRouter);
+app.use("/api/genres", genreRoutes);
+app.use("/api/tracks", trackRouter);
+app.use("/api/albums", albumRouter);
+app.use("/api/search", searchRouter);
 
 app.use(multerErrorHandling);
 
