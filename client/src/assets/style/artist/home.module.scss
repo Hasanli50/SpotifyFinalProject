@@ -1,0 +1,106 @@
+@import "../../scss/variables";
+@import "../../scss/extends";
+
+.main {
+  
+
+}
+.albums {
+  padding: 4% 50px;
+  @extend %section-margin;
+}
+.singles {
+  padding: 4% 50px;
+  @extend %section-margin;
+}
+.songs {
+  padding: 4% 50px;
+  @extend %section-margin;
+}
+.trendingSngs {
+  padding: 4% 50px;
+  @extend %section-margin;
+  @media only screen and (max-width: 520px) {
+    padding: 10px;
+  }
+}
+.heading {
+  @extend %heading;
+}
+.box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.place {
+  font-size: 18px;
+}
+.songsCard {
+  @extend %songs-card;
+  margin-bottom: 30px;
+  padding-right: 5px;
+  
+}
+.songsCard__imgBox {
+  @extend %songsCard-imgBox;
+  position: relative;
+}
+.songsCard__imgBox__img {
+  @extend %img;
+}
+.songsCard:hover {
+  .songsCard__imgBox__img {
+    transform: scale(1.1);
+  }
+}
+.songsCard__letter {
+  @media only screen and (max-width: 660px) {
+    display: none;
+  }
+}
+.iconBox {
+  position: absolute;
+  top: 5px;
+  left: 2px;
+  display: flex;
+}
+.premium {
+  color: red;
+}
+.premiumMini{
+  position: absolute;
+  color: red;
+  top: 2px;
+  left: 0px;
+}
+.card {
+  @extend %card;
+}
+.imgBox {
+  @extend %img-box;
+  position: relative;
+}
+.img {
+  @extend %img;
+}
+.card:hover {
+  .img {
+    transform: scale(1.1);
+  }
+}
+.letterTop {
+  @extend %letter-top;
+}
+.letterBottom {
+  @extend %letter-bottom;
+}
+.sentence {
+  font-size: 20px;
+  background: linear-gradient(
+    90deg,
+    rgba(238, 16, 176, 1) 12%,
+    rgba(14, 158, 239, 1) 100%
+  );
+  background-clip: text;
+  color: transparent;
+}

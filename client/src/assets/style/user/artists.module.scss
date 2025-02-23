@@ -1,0 +1,41 @@
+@import "../../scss/extends";
+@import "../../scss/variables";
+
+.allArtists {
+  padding: 0 50px;
+  margin-bottom: 6%;
+}
+.inputBox {
+  padding-left: 50px;
+  max-width: 335px;
+  position: relative;
+  margin-bottom: 30px;
+  @media only screen and (max-width: 520px) {
+    padding: 0  10px;
+  }
+  
+}
+.input {
+  @extend %input;
+}
+.input:focus {
+  outline: none;
+}
+.searchIcon {
+  @extend %search-icon;
+}
+.heading {
+  @extend %heading;
+  padding-top: 30px;
+}
+.profileImgBox {
+  width: 132px;
+  height: 130px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+.profileImg {
+  @extend %img;
+  cursor: pointer;
+}

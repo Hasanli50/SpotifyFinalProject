@@ -1,0 +1,64 @@
+.field {
+  max-width: 100%;
+  margin-bottom: 10px;
+}
+
+.heading {
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-size: 25px;
+  background: linear-gradient(90deg, rgb(238, 16, 176) 12%, rgb(14, 158, 239) 100%);
+  background-clip: text;
+  color: transparent;
+}
+
+.label {
+  display: block;
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: #FAB5E7;
+}
+
+.buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: end;
+}
+
+.createBtn {
+  padding: 7px 15px;
+  border-radius: 5px;
+  border: 1px solid #0B77B3;
+  color: #0B77B3;
+  font-size: 15px;
+  background-color: transparent;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.createBtn:hover {
+  background-color: #0B77B3;
+  color: #fff;
+}
+
+.cancelBtn {
+  padding: 7px 15px;
+  border-radius: 5px;
+  border: 1px solid #8F0A6A;
+  color: #8F0A6A;
+  font-size: 15px;
+  background-color: transparent;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.cancelBtn:hover {
+  background-color: #8F0A6A;
+  color: #fff;
+}
+
+.select {
+  margin-bottom: 15px;
+}/*# sourceMappingURL=albumModal.module.css.map */

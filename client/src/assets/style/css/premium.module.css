@@ -1,0 +1,107 @@
+.main {
+  padding: 2% 50px 4%;
+  text-align: left;
+}
+@media only screen and (max-width: 520px) {
+  .main {
+    padding: 0 10px;
+    text-align: justify;
+  }
+}
+
+.features {
+  margin-bottom: 30px;
+}
+
+.whatWeOffer {
+  margin-bottom: 30px;
+}
+
+.heading {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.paragraph {
+  font-size: 17px;
+}
+
+.item {
+  font-size: 17px;
+  margin-bottom: 15px;
+}
+
+.logo {
+  background: linear-gradient(90deg, rgb(238, 16, 176) 12%, rgb(14, 158, 239) 100%);
+  background-clip: text;
+  color: transparent;
+}
+
+.cardHeading {
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-size: 25px;
+  background: linear-gradient(90deg, rgb(238, 16, 176) 12%, rgb(14, 158, 239) 100%);
+  background-clip: text;
+  color: transparent;
+}
+
+.buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: end;
+}
+
+.payNow {
+  padding: 7px 15px;
+  border-radius: 5px;
+  border: 1px solid #0B77B3;
+  color: #0B77B3;
+  font-size: 15px;
+  background-color: transparent;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.payNow:hover {
+  background-color: #0B77B3;
+  color: #fff;
+}
+
+.cancelBtn {
+  padding: 7px 15px;
+  border-radius: 5px;
+  border: 1px solid #8F0A6A;
+  color: #8F0A6A;
+  font-size: 15px;
+  background-color: transparent;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.cancelBtn:hover {
+  background-color: #8F0A6A;
+  color: #fff;
+}
+
+.premiumBtn {
+  margin: 40px 0;
+  padding: 7px 15px;
+  border-radius: 5px;
+  border: 1px solid #FAB5E7;
+  color: #EE10B0;
+  font-size: 15px;
+  background-color: #FAB5E7;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.premiumBtn:hover {
+  background-color: #0E9EEF;
+  color: #fff;
+  border: 1px solid #0E9EEF;
+}/*# sourceMappingURL=premium.module.css.map */

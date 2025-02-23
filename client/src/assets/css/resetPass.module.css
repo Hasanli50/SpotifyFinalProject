@@ -1,0 +1,90 @@
+.resetPass {
+  width: 90%;
+  margin: auto;
+  padding: 60px 0;
+}
+@media only screen and (max-width: 425px) {
+  .resetPass {
+    padding: 0;
+  }
+}
+@media only screen and (min-width: 1024px) {
+  .resetPass {
+    padding: 70px 0;
+  }
+}
+@media only screen and (min-width: 1440px) {
+  .resetPass {
+    padding: 100px 0;
+  }
+}
+
+.heading {
+  color: #fff;
+  font-size: 30px;
+  margin-bottom: 15px;
+}
+
+.sentence {
+  color: #fff;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.field {
+  margin-bottom: 20px;
+  max-width: 100%;
+}
+
+.label {
+  display: block;
+  margin-bottom: 13px;
+  color: #fff;
+  font-size: 16px;
+}
+
+:global(.ant-input::placeholder) {
+  color: #d4c1cf;
+  font-size: 15px;
+}
+
+.input {
+  margin-bottom: 10px;
+}
+
+.updatePassBtn {
+  width: 100%;
+  padding: 12px 36px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #EE10B0;
+  color: #fff;
+  transition: background-color 0.3s ease;
+  font-size: 18px;
+  font-weight: bold;
+}
+.updatePassBtn:hover {
+  background-color: #D60E9E;
+}
+
+.box {
+  background-image: url("../image/photo/simon-noh-0rmby-3OTeI-unsplash.jpg");
+  width: 100%;
+  height: 400px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+@media only screen and (max-width: 768px) {
+  .box {
+    height: 400px;
+  }
+}
+@media only screen and (max-width: 425px) {
+  .box {
+    height: 350px;
+    background-size: cover;
+    width: 100%;
+  }
+}/*# sourceMappingURL=resetPass.module.css.map */

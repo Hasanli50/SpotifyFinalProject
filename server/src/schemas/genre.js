@@ -9,7 +9,6 @@ const genreSchema = new Schema(
       unique: true,
     },
   },
-  { timestamps: true }
 );
 
 module.exports = genreSchema;

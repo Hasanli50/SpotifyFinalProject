@@ -1,0 +1,56 @@
+@import "../../scss/variables";
+
+.card {
+  max-width: 476.5px;
+  background-color: #2d336b;
+  padding: 16px 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin: 40px auto;
+}
+
+.login {
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.field {
+  margin-bottom: 20px;
+  max-width: 100%;
+}
+.form {
+  // width: 100%;
+}
+
+.label {
+  display: block;
+  margin-bottom: 13px;
+  color: $whiteColor;
+  font-size: 16px;
+}
+:global(.ant-input::placeholder) {
+  color: #d4c1cf;
+  font-size: 15px;
+}
+.input {
+  margin-bottom: 10px;
+}
+
+.loginBtn {
+  background-color: #7886c7;
+  color: $whiteColor;
+  transition: background-color 0.3s ease;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 15px 0 20px 0;
+  width: 100%;
+  padding: 12px 36px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+}

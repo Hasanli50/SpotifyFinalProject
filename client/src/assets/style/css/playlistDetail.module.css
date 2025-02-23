@@ -1,0 +1,116 @@
+.card {
+  background-color: #1f1f1f;
+  width: 175px;
+  height: 214;
+  border-radius: 10px;
+  padding: 4px 15px;
+  cursor: pointer;
+}
+
+.imgBox {
+  width: 145px;
+  height: 150px;
+  overflow: hidden;
+  border-radius: 10px;
+  margin-bottom: 8px;
+}
+
+.img {
+  width: 100%;
+  object-fit: cover;
+  transition: 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+.letterTop {
+  text-align: left;
+  color: #fff;
+  margin-bottom: 8px;
+  font-size: 18px;
+}
+
+.letterBottom {
+  text-align: left;
+  color: #d2d2d2;
+  font-size: 14px;
+}
+
+.heading {
+  font-size: 35px;
+  text-align: left;
+  margin-bottom: 30px;
+  font-weight: 600;
+}
+@media only screen and (max-width: 520px) {
+  .heading {
+    font-size: 25px;
+  }
+}
+
+.playlistDetail {
+  padding: 0 50px;
+  margin-bottom: 30px;
+}
+@media only screen and (max-width: 520px) {
+  .playlistDetail {
+    padding: 10px;
+  }
+}
+
+.heading {
+  display: flex;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.card:hover .img {
+  transform: scale(1.1);
+  background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.5606617647) 100%, rgb(0, 0, 0) 100%);
+}
+
+.box {
+  margin-bottom: 50px;
+}
+
+.user {
+  position: relative;
+  text-align: center;
+}
+
+.profileImgBox {
+  position: relative;
+  display: inline-block;
+  flex-wrap: wrap;
+  overflow: hidden;
+  cursor: pointer;
+  width: 62px;
+  height: 60px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+.profileImg {
+  width: 100%;
+  cursor: pointer;
+  transition: filter 0.3s ease-in-out;
+}
+
+.profileImgBox:hover .profileImg {
+  filter: grayscale(100%);
+  opacity: 0.5;
+}
+
+.trashIcon {
+  position: absolute;
+  top: 19px;
+  right: 18px;
+  font-size: 24px;
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.profileImgBox:hover .trashIcon {
+  opacity: 1;
+}/*# sourceMappingURL=playlistDetail.module.css.map */

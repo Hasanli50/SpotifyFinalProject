@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const albumSchema = new Schema(
@@ -8,13 +8,9 @@ const albumSchema = new Schema(
       required: true,
       trim: true,
     },
-    releaseDate: {
-      type: Date,
-      required: true,
-    },
     artistId: {
       type: Schema.Types.ObjectId,
-      ref: 'Artist', 
+      ref: "Artist",
       required: true,
     },
     trackCount: {
@@ -24,7 +20,7 @@ const albumSchema = new Schema(
     trackIds: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Track', 
+        ref: "Track",
       },
     ],
     coverImage: {
@@ -34,10 +30,6 @@ const albumSchema = new Schema(
     monthlyPlayCount: {
       type: Number,
       default: 0,
-    },
-    explicit: {
-      type: Boolean,
-      default: false,
     },
   },
   { timestamps: true }

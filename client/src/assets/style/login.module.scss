@@ -1,0 +1,148 @@
+@import "../scss/variables";
+
+.card {
+  max-width: 476.5px;
+  background-color: $darkerPurple;
+  padding: 16px 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin: 40px auto;
+}
+
+.top {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.letter {
+  cursor: pointer;
+  color: $lightPink;
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: 0.3s ease-in-out;
+  margin: 0;
+}
+.login{
+  color: $normalPurple;
+}
+.login::after {
+  position: absolute;
+  content: "";
+  height: 3px;
+  background-color: $normalPurple;
+  width: 60px;
+  color: $normalPurple;
+  top: 30px;
+}
+
+.field {
+  margin-bottom: 20px;
+  max-width: 100%;
+}
+.form {
+  // width: 100%;
+}
+
+.label {
+  display: block;
+  margin-bottom: 13px;
+  color: $whiteColor;
+  font-size: 16px;
+}
+:global(.ant-input::placeholder) {
+  color: #d4c1cf;
+  font-size: 15px;
+}
+.pass{
+  color: $normalBlue;
+  text-align: right;
+  cursor: pointer;
+  text-decoration: none;
+}
+.input{
+  margin-bottom: 10px;
+}
+
+.loginBtn,
+.googleBtn {
+  width: 100%;
+  padding: 12px 36px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.loginBtn {
+  background-color: $normalPurple;
+  color: $whiteColor;
+  transition: background-color 0.3s ease;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 15px 0  20px 0;
+  &:hover {
+    background-color: $normalPurpleHover;
+  }
+}
+
+.googleBtn {
+  background-color: transparent;
+  color: $whiteColor;
+  border: 2px solid $lightPink;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  gap: 4px;
+  transition: 0.3s ease-in-out;
+  &:hover {
+    background-color: $lightPinkHover;
+    color: $pageColor;
+    .red {
+      color: #e33629;
+    }
+    .yellow {
+      color: #f8bd00;
+    }
+    .green {
+      color: #319f43;
+    }
+    .blue {
+      color: #587dbd;
+    }
+  }
+}
+
+.or {
+  text-align: center;
+  color: $whiteColor;
+  font-size: 16px;
+}
+.orBox {
+  position: relative;
+  margin-bottom: 20px;
+}
+.or::after {
+  position: absolute;
+  content: "";
+  height: 1px;
+  background-color: #fff;
+  width: 45%;
+  right: 0;
+  top: 50%;
+}
+.or::before {
+  position: absolute;
+  content: "";
+  height: 1px;
+  background-color: #fff;
+  width: 45%;
+  left: 0;
+  top: 50%;
+}

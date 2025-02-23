@@ -1,0 +1,161 @@
+@import "../../scss/extends";
+@import "../../scss/variables";
+
+.songs {
+  margin-bottom: 6%;
+  padding: 0 50px;
+}
+.heading {
+  @extend %heading;
+}
+.card {
+  @extend %card;
+}
+.imgBox {
+  @extend %img-box;
+  position: relative
+}
+.premium{
+  position: absolute;
+  color: red;
+  top: 5px;
+  left: 2px;
+}
+.img {
+  @extend %img;
+}
+.card:hover {
+  .img {
+    transform: scale(1.1);
+    background-image: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.5606617647058824) 100%,
+      rgba(0, 0, 0, 1) 100%
+    );
+  }
+}
+.letterTop {
+  @extend %letter-top;
+}
+.letterBottom {
+  @extend %letter-bottom;
+}
+
+.viewAll {
+  // margin-top: 50px;
+  cursor: pointer;
+  text-decoration: none;
+  color: $whiteColor;
+}
+.circle {
+  display: block;
+  background-color: #1e1e1e;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  position: relative;
+  margin: auto;
+  margin-bottom: 10px;
+}
+
+.trendingSngs {
+  margin-bottom: 6%;
+  padding: 0 50px;
+  @media only screen and (max-width: 520px) {
+    padding: 10px;
+  }
+}
+.box {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  gap: 12px;
+}
+.place {
+  font-size: 18px;
+}
+.songsCard {
+  @extend %songs-card;
+}
+.songsCard__imgBox {
+  @extend %songsCard-imgBox;
+  position: relative
+}
+.songsCard__imgBox__img {
+  @extend %img;
+}
+.songsCard__letter {
+  @media only screen and (max-width: 660px) {
+    display: none;
+  }
+}
+.songsCard:hover {
+  .songsCard__imgBox__img {
+    transform: scale(1.1);
+  }
+}
+.disabledCard {
+  pointer-events: none; 
+  opacity: 0.7; 
+}
+
+.rectangleМiewAll {
+  gap: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  color: $whiteColor;
+  background-color: #1e1e1e;
+  border-radius: 5px;
+  width: 140px;
+  padding: 10px 20px;
+  display: flex;
+  margin: 4% auto;
+}
+.allArtists {
+  margin-bottom: 6%;
+  padding: 0 50px;
+}
+.profileImgBox {
+  width: 132px;
+  height: 130px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+.premiumMini{
+  position: absolute;
+  color: red;
+  top: 2px;
+  left: 0px;
+}
+.profileImg {
+  @extend %img;
+  cursor: pointer;
+}
+.topSongs {
+  padding: 0 50px;
+  padding-top: 30px;
+  margin-bottom: 6%;
+
+}
+.paragraph {
+  background: linear-gradient(
+    90deg,
+    rgba(238, 16, 176, 1) 12%,
+    rgba(14, 158, 239, 1) 100%
+  );
+  background-clip: text;
+  color: transparent;
+  font-size: 20px;
+}
+.back {
+  color: $whiteColor;
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+  margin-right: 5px;
+}
+.back:hover {
+  background-color: rgb(82, 81, 81, 0.9);
+  border-radius: 50%;
+  padding: 0 9px;
+}

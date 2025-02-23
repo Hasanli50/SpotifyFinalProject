@@ -1,0 +1,70 @@
+.profileImg {
+  width: 100%;
+  object-fit: cover;
+  transition: 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+.heading {
+  font-size: 35px;
+  text-align: left;
+  margin-bottom: 30px;
+  font-weight: 600;
+}
+@media only screen and (max-width: 520px) {
+  .heading {
+    font-size: 25px;
+  }
+}
+
+.input {
+  padding: 10px 10px;
+  border-radius: 15px;
+  width: 100%;
+  background-color: #1f1f1f;
+  border: 1px solid #aaa;
+  color: #fff;
+}
+
+.searchIcon {
+  position: absolute;
+  right: 10px;
+  top: 6px;
+}
+
+.allArtists {
+  padding: 0 50px;
+  margin-bottom: 6%;
+}
+
+.inputBox {
+  padding-left: 50px;
+  max-width: 335px;
+  position: relative;
+  margin-bottom: 30px;
+}
+@media only screen and (max-width: 520px) {
+  .inputBox {
+    padding: 0 10px;
+  }
+}
+
+.input:focus {
+  outline: none;
+}
+
+.heading {
+  padding-top: 30px;
+}
+
+.profileImgBox {
+  width: 132px;
+  height: 130px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+.profileImg {
+  cursor: pointer;
+}/*# sourceMappingURL=artists.module.css.map */

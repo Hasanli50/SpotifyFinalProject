@@ -1,0 +1,47 @@
+.main {
+  padding: 2% 50px 4%;
+  text-align: left;
+}
+@media only screen and (max-width: 520px) {
+  .main {
+    text-align: justify;
+    padding: 10px;
+  }
+}
+
+.aboutUs {
+  margin-bottom: 30px;
+}
+
+.ourMission {
+  margin-bottom: 30px;
+}
+
+.whatWeOffer {
+  margin-bottom: 30px;
+}
+
+.ourVision {
+  margin-bottom: 30px;
+}
+
+.heading {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.paragraph {
+  font-size: 17px;
+}
+
+.item {
+  font-size: 17px;
+  margin-bottom: 15px;
+}
+
+.logo {
+  background: linear-gradient(90deg, rgb(238, 16, 176) 12%, rgb(14, 158, 239) 100%);
+  background-clip: text;
+  color: transparent;
+}/*# sourceMappingURL=aboutUs.module.css.map */

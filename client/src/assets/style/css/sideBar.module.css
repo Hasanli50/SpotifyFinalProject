@@ -1,0 +1,229 @@
+:global {
+  /* Style for selected menu item */
+}
+:global .ant-menu-dark .ant-menu-item-selected {
+  background-color: #EE10B0 !important;
+  border-radius: 8px;
+}
+:global .ant-menu-dark .ant-menu-item-selected a {
+  color: white;
+}
+:global .ant-layout .ant-layout-header {
+  flex: 0 0 auto;
+}
+@media only screen and (max-width: 520px) {
+  :global .ant-layout .ant-layout-header {
+    padding: 0 10px;
+  }
+}
+
+.sideBar {
+  border-right: 2px solid #EE10B0;
+  box-shadow: 8px 0 20px rgba(128, 0, 128, 0.5);
+}
+
+.box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.imgBox {
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  width: 38px;
+}
+.img {
+  border: 1px solid #EE10B0;
+  width: 100%;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.icon {
+  padding: 11px 10px;
+  border: 1px solid #0E9EEF;
+  background: transparent;
+  color: #0E9EEF;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s ease-in-out;
+  text-decoration: none;
+}
+.icon:hover {
+  background: #0E9EEF;
+  border: 1px solid #0E9EEF;
+  color: #fff;
+}
+
+.list {
+  list-style-type: none;
+  display: flex;
+  gap: 40px;
+}
+@media only screen and (max-width: 768px) {
+  .list {
+    display: none;
+  }
+}
+
+.item {
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  font-weight: 600;
+}
+
+.item:hover {
+  background: linear-gradient(90deg, rgb(238, 16, 176) 12%, rgb(14, 158, 239) 100%);
+  background-clip: text;
+  color: transparent;
+}
+
+.buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.loginBtn {
+  padding: 10px 64px;
+  border: 1px solid #EE10B0;
+  background: transparent;
+  color: #EE10B0;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s ease-in-out;
+}
+@media only screen and (max-width: 768px) {
+  .loginBtn {
+    padding: 10px 24px;
+    font-size: 12px;
+  }
+}
+
+.loginBtn:hover {
+  background: #EE10B0;
+  border: 1px solid #EE10B0;
+  color: #fff;
+}
+
+.registerBtn {
+  padding: 10px 64px;
+  border: 1px solid #0E9EEF;
+  background: transparent;
+  color: #0E9EEF;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s ease-in-out;
+}
+@media only screen and (max-width: 768px) {
+  .registerBtn {
+    padding: 10px 24px;
+    font-size: 12px;
+  }
+}
+
+.registerBtn:hover {
+  background: #0E9EEF;
+  border: 1px solid #0E9EEF;
+  color: #fff;
+}
+
+.text {
+  max-width: 450px;
+  padding-top: 8%;
+}
+
+.letter {
+  font-size: 50px;
+  line-height: 50px;
+  font-family: "Vazirmatn", sans-serif;
+  cursor: pointer;
+  margin-bottom: 30px;
+}
+@media only screen and (max-width: 768px) {
+  .letter {
+    margin-bottom: 10px;
+    font-size: 22px;
+    line-height: 30px;
+  }
+}
+
+.paragraph {
+  font-size: 14px;
+  line-height: 25px;
+  font-family: "Vazirmatn", sans-serif;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+@media only screen and (max-width: 768px) {
+  .paragraph {
+    line-height: 18px;
+  }
+}
+
+.btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.discoverBtn {
+  padding: 10px 44px;
+  border: 1px solid #EE10B0;
+  background: transparent;
+  color: #EE10B0;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s ease-in-out;
+}
+@media only screen and (max-width: 768px) {
+  .discoverBtn {
+    padding: 10px 24px;
+    font-size: 12px;
+  }
+}
+
+.discoverBtn:hover {
+  background: #EE10B0;
+  border: 1px solid #EE10B0;
+  color: #fff;
+}
+
+.createPlaylist {
+  padding: 10px 44px;
+  border: 1px solid #0E9EEF;
+  background: transparent;
+  color: #0E9EEF;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s ease-in-out;
+}
+@media only screen and (max-width: 768px) {
+  .createPlaylist {
+    padding: 10px 24px;
+    font-size: 12px;
+  }
+}
+
+.createPlaylist:hover {
+  background: #0E9EEF;
+  border: 1px solid #0E9EEF;
+  color: #fff;
+}/*# sourceMappingURL=sideBar.module.css.map */
