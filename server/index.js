@@ -18,7 +18,11 @@ const multerErrorHandling = require("./src/middlewares/multerErrorHendling.js");
 const passport = require("passport");
 const session = require("express-session");
 require("./src/config/artistPassport.js");
-require("./src/config/userPassport.js")
+require("./src/config/userPassport.js");
+
+app.set("view engine", "ejs");
+
+app.set("views", path.join(__dirname, "views")); 
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -53,7 +57,7 @@ app.use("/search", searchRouter);
 app.use(multerErrorHandling);
 
 app.get("/", (req, res) => {
-  res.render("index");
+  res.render("index"); 
 });
 
 connectToDb();
