@@ -32,8 +32,6 @@ const imageUpload = require("../config/imageMulter.js");
 
 router.get(
   "/nonDeletedArtists",
-  // verifyTokenArtist,
-  // verifyRoleArtist("admin", "artist"),
   getAllNonDeletedArtists
 );
 router.get(
