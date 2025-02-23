@@ -1,5 +1,5 @@
-@import "../../scss/variables";
-@import "../../scss/extends";
+@use "../../scss/variables" as *;
+@use "../../scss/extends" as *;
 
 .main {
   padding: 4% 50px;

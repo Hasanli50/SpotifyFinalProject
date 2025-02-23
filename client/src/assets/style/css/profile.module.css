@@ -12,7 +12,7 @@
 }
 
 .card {
-  max-width: 450px;
+  max-width: 550px;
   text-align: justify;
   margin: 20px auto;
   background-color: #1f1f1f;
@@ -38,7 +38,7 @@
   display: block;
   margin-bottom: 15px;
   font-size: 16px;
-  color: #fab5e7 !important;
+  color: #fab5e7;
 }
 
 .buttons {
@@ -63,52 +63,6 @@
 .saveBtn:hover {
   background-color: #0B77B3;
   color: #fff;
-}
-
-.field {
-  margin-bottom: 20px;
-}
-
-.label {
-  font-size: 14px;
-  color: #a9b5df;
-  margin-bottom: 8px;
-  display: block;
-}
-
-.uploadContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-
-.uploadButton {
-  background-color: #2d336b;
-  color: white;
-  padding: 8px 20px;
-  border: none;
-  border-radius: 8px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-.uploadButton:hover {
-  background-color: #1d244b;
-}
-
-.imagePreview {
-  margin-top: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.imagePreview img {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 8px;
 }
 
 .sentence {

@@ -1,4 +1,5 @@
-@import "../scss/variables";
+@use "../scss/extends";
+@use "../scss/variables" as *;
 
 .footer {
   background-color: $pageColor;

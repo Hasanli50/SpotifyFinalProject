@@ -1,5 +1,5 @@
-@import "../../scss/variables";
-@import "../../scss/extends";
+@use "../../scss/variables" as *;
+@use "../../scss/extends" as *;
 
 .playlists {
   padding: 0 50px;
