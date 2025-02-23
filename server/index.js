@@ -22,13 +22,15 @@ require("./src/config/userPassport.js");
 
 app.set("view engine", "ejs");
 
-app.set("views", path.join(__dirname, "views")); 
+app.set("views", path.join(__dirname, "/src/views"));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: process.env.APP_BASE_URL || "https://spotify-final-project-rust.vercel.app", 
+    origin:
+      process.env.APP_BASE_URL ||
+      "https://spotify-final-project-rust.vercel.app",
     methods: ["GET", "POST", "PATCH", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
@@ -57,7 +59,7 @@ app.use("/search", searchRouter);
 app.use(multerErrorHandling);
 
 app.get("/", (req, res) => {
-  res.render("index"); 
+  res.render("index");
 });
 
 connectToDb();
