@@ -1,4 +1,7 @@
-@charset "UTF-8";
+.albums, .singles, .songs, .trendingSngs {
+  margin-bottom: 7%;
+}
+
 .card {
   background-color: #1f1f1f;
   width: 175px;
@@ -16,7 +19,7 @@
   margin-bottom: 8px;
 }
 
-.img, .songsCard__imgBox__img, .profileImg {
+.songsCard__imgBox__img, .img {
   width: 100%;
   object-fit: cover;
   transition: 0.3s ease-in-out;
@@ -65,47 +68,20 @@
   border-radius: 10px;
 }
 
+.albums {
+  padding: 4% 50px;
+}
+
+.singles {
+  padding: 4% 50px;
+}
+
 .songs {
-  margin-bottom: 6%;
-  padding: 0 50px;
-}
-
-.imgBox {
-  position: relative;
-}
-
-.premium {
-  position: absolute;
-  color: red;
-  top: 5px;
-  left: 2px;
-}
-
-.card:hover .img {
-  transform: scale(1.1);
-  background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.5606617647) 100%, rgb(0, 0, 0) 100%);
-}
-
-.viewAll {
-  cursor: pointer;
-  text-decoration: none;
-  color: #fff;
-}
-
-.circle {
-  display: block;
-  background-color: #1e1e1e;
-  border-radius: 50%;
-  width: 80px;
-  height: 80px;
-  position: relative;
-  margin: auto;
-  margin-bottom: 10px;
+  padding: 4% 50px;
 }
 
 .trendingSngs {
-  margin-bottom: 6%;
-  padding: 0 50px;
+  padding: 4% 50px;
 }
 @media only screen and (max-width: 520px) {
   .trendingSngs {
@@ -116,7 +92,6 @@
 .box {
   display: flex;
   align-items: center;
-  margin-bottom: 30px;
   gap: 12px;
 }
 
@@ -124,8 +99,17 @@
   font-size: 18px;
 }
 
+.songsCard {
+  margin-bottom: 30px;
+  padding-right: 5px;
+}
+
 .songsCard__imgBox {
   position: relative;
+}
+
+.songsCard:hover .songsCard__imgBox__img {
+  transform: scale(1.1);
 }
 
 @media only screen and (max-width: 660px) {
@@ -134,16 +118,38 @@
   }
 }
 
-.songsCard:hover .songsCard__imgBox__img {
+.iconBox {
+  position: absolute;
+  top: 5px;
+  left: 2px;
+  display: flex;
+}
+
+.premium {
+  color: red;
+}
+
+.premiumMini {
+  position: absolute;
+  color: red;
+  top: 2px;
+  left: 0px;
+}
+
+.imgBox {
+  position: relative;
+}
+
+.card:hover .img {
   transform: scale(1.1);
 }
 
-.disabledCard {
-  pointer-events: none;
-  opacity: 0.7;
-}
-
-.rectangleМiewAll {
+.sentence {
+  font-size: 20px;
+  background: linear-gradient(90deg, rgb(238, 16, 176) 12%, rgb(14, 158, 239) 100%);
+  background-clip: text;
+  color: transparent;
+}/*# sourceMappingURL=home.module.css.map */All {
   gap: 10px;
   cursor: pointer;
   text-decoration: none;

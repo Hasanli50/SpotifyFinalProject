@@ -110,4 +110,41 @@
 .cancelBtn:hover {
   background-color: #8F0A6A;
   color: #fff;
+}/*# sourceMappingURL=profile.module.css.map */x;
+  gap: 15px;
+  justify-content: end;
+}
+
+.createBtn {
+  padding: 7px 15px;
+  border-radius: 5px;
+  border: 1px solid #0B77B3;
+  color: #0B77B3;
+  font-size: 15px;
+  background-color: transparent;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.createBtn:hover {
+  background-color: #0B77B3;
+  color: #fff;
+}
+
+.cancelBtn {
+  padding: 7px 15px;
+  border-radius: 5px;
+  border: 1px solid #8F0A6A;
+  color: #8F0A6A;
+  font-size: 15px;
+  background-color: transparent;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.cancelBtn:hover {
+  background-color: #8F0A6A;
+  color: #fff;
 }/*# sourceMappingURL=profile.module.css.map */

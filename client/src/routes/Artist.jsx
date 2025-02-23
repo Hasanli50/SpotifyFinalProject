@@ -15,7 +15,7 @@ import SideBar from "../components/artist/SideBar";
 import PremiumTracks from "../pages/Artist/PremiumTracks";
 import AboutUs from "../components/AboutUs";
 import Contact from "../components/Contact";
-import EditAlbum from "../components/artist/EditAlbum";
+import EditAlbum from "../components/artist/EditAlbum.jsx";
 const Artist = () => {
   return (
     <>

@@ -1,4 +1,4 @@
-@import "./variables";
+@use "../scss/variables" as *;
 
 %section-margin {
   margin-bottom: 7%;

@@ -1,5 +1,5 @@
-@use "../scss/variables";
-@use "../scss/extends";
+@use "../scss/variables" as *;
+@use "../scss/extends" as ext;
 
 .contactUs {
   padding: 4% 50px;

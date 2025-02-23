@@ -1,5 +1,5 @@
-@use "../scss/extends";
 @use "../scss/variables" as *;
+@use "../scss/extends" as ext;
 
 .footer {
   background-color: $pageColor;

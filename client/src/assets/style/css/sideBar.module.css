@@ -2,19 +2,11 @@
   /* Style for selected menu item */
 }
 :global .ant-menu-dark .ant-menu-item-selected {
-  background-color: #EE10B0 !important;
+  background-color: #EE10B0;
   border-radius: 8px;
 }
 :global .ant-menu-dark .ant-menu-item-selected a {
   color: white;
-}
-:global .ant-layout .ant-layout-header {
-  flex: 0 0 auto;
-}
-@media only screen and (max-width: 520px) {
-  :global .ant-layout .ant-layout-header {
-    padding: 0 10px;
-  }
 }
 
 .sideBar {
@@ -67,28 +59,37 @@
   color: #fff;
 }
 
-.list {
-  list-style-type: none;
-  display: flex;
-  gap: 40px;
+.text {
+  padding-top: 8%;
+}
+
+.letter {
+  font-size: 40px;
+  line-height: 50px;
+  font-family: "Vazirmatn", sans-serif;
+  cursor: pointer;
+  margin-bottom: 30px;
 }
 @media only screen and (max-width: 768px) {
-  .list {
-    display: none;
+  .letter {
+    margin-bottom: 10px;
+    font-size: 22px;
+    line-height: 30px;
   }
 }
 
-.item {
-  font-size: 15px;
+.paragraph {
+  font-size: 18px;
+  line-height: 25px;
+  font-family: "Vazirmatn", sans-serif;
   cursor: pointer;
-  transition: 0.3s ease-in-out;
-  font-weight: 600;
+  margin-bottom: 30px;
 }
-
-.item:hover {
-  background: linear-gradient(90deg, rgb(238, 16, 176) 12%, rgb(14, 158, 239) 100%);
-  background-clip: text;
-  color: transparent;
+@media only screen and (max-width: 768px) {
+  .paragraph {
+    line-height: 18px;
+  }
+}/*# sourceMappingURL=sideBar.module.css.map */ransparent;
 }
 
 .buttons {
