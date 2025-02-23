@@ -15,7 +15,7 @@ import SideBar from "../components/artist/SideBar";
 import PremiumTracks from "../pages/Artist/PremiumTracks";
 import AboutUs from "../components/AboutUs";
 import Contact from "../components/Contact";
-import EditAlbum from "../components/artist/EditAlbum.jsx";
+import UpdateAlbum from "../components/artist/UpdateAlbum";
 const Artist = () => {
   return (
     <>
@@ -36,7 +36,7 @@ const Artist = () => {
           <Route path="albums" element={<Albums />} />
           <Route path="tracks" element={<Tracks />} />
           <Route path="add-track" element={<AddTrack />} />
-          <Route path="edit-album/:id" element={<EditAlbum />} />
+          <Route path="edit-album/:id" element={<UpdateAlbum />} />
           <Route path="profile" element={<Profile />} />
           <Route path="setting" element={<Setting />} />
           <Route path="premium-tracks" element={<PremiumTracks />} />

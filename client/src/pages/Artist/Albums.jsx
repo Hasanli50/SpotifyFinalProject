@@ -11,10 +11,10 @@ import AlbumModal from "../../components/artist/AlbumModal";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { BASE_URL, ENDPOINT } from "../../api/endpoint";
-import EditAlbum from "../../components/artist/editAlbum";
 import { Menu, MenuItem } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Link } from "react-router";
+import UpdateAlbum from "../../components/artist/UpdateAlbum";
 
 const Albums = () => {
   const [artist, setArtist] = useState([]);
@@ -189,7 +189,7 @@ const Albums = () => {
                             <DeleteIcon />
                           </div>
                           <div>
-                            <EditAlbum
+                            <UpdateAlbum
                               style={{ color: "#fff" }}
                               id={album.id}
                             />

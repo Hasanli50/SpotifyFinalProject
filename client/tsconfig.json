@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "jsx": "react",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true
+  },
+  "include": [
+    "src/**/*"  // Ensure that TypeScript will include all files in the src folder
+  ],
+  "exclude": [
+    "node_modules",  // Exclude node_modules
+    "dist"  // Exclude dist build folder if it's there
+  ]
+}

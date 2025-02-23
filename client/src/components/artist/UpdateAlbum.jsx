@@ -24,7 +24,7 @@ const styles = {
   p: 4,
 };
 
-const EditAlbum = ({ id }) => {
+const UpdateAlbum = ({ id }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -180,4 +180,4 @@ const EditAlbum = ({ id }) => {
   );
 };
 
-export default EditAlbum;
+export default UpdateAlbum;
