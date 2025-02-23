@@ -20,6 +20,9 @@ export default defineConfig({
     rollupOptions: {
       external: ["**/*.woff2", "**/*.woff", "**/*.ttf", "**/*.otf"],
     },
+    build: {
+      outDir: 'dist' 
+    }
   },
 
   // Add this block to exclude dependencies from optimization
