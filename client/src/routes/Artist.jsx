@@ -12,10 +12,10 @@ import AddTrack from "../pages/Artist/AddTrack";
 import Profile from "../pages/Artist/Profile";
 import Setting from "../pages/Artist/Setting";
 import SideBar from "../components/artist/SideBar";
-import EditAlbum from "../components/artist/editAlbum";
 import PremiumTracks from "../pages/Artist/PremiumTracks";
 import AboutUs from "../components/AboutUs";
 import Contact from "../components/Contact";
+import EditAlbum from "../components/artist/EditAlbum";
 const Artist = () => {
   return (
     <>
