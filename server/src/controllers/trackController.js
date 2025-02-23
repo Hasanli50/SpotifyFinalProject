@@ -28,8 +28,6 @@ const createTrack = async (req, res) => {
         .json({ message: "Artist not found", status: "fail" });
     }
 
-    console.log("Received body:", req.body);
-    console.log("collaboratedArtistIds:", req.body.collaboratedArtistIds);
 
     const coverImage = req.files?.coverImage
       ? req.files.coverImage[0].path
@@ -97,8 +95,6 @@ const createAlbumSong = async (req, res) => {
         .json({ message: "Artist not found", status: "fail" });
     }
 
-    console.log("Received body:", req.body);
-    console.log("collaboratedArtistIds:", req.body.collaboratedArtistIds);
 
     const coverImage = req.files?.coverImage
       ? req.files.coverImage[0].path

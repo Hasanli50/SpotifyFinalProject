@@ -140,7 +140,7 @@ const PremiumTracks = () => {
                   </div>
                   <div>
                     <p className={style.letterTop}>{song.name}</p>
-                    <p className={style.letterBottom}>
+                    <p className={style.letterBottom} style={{textAlign:"left"}}>
                       {song.albumId?.name || "Single"}
                     </p>
                   </div>

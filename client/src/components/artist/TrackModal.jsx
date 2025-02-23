@@ -34,6 +34,13 @@ const styles = {
   borderRadius: "15px",
   boxShadow: "-1px 2px 8px 10px rgba(128, 0, 128, 0.5)",
   p: 4,
+  maxHeight: "80vh",
+  overflowY: "auto",
+  width: "70%",
+  "@media (max-width: 600px)": {
+    width: "100%",
+    maxHeight: "90vh",
+  },
 };
 
 const TrackModal = () => {
@@ -161,13 +168,14 @@ const TrackModal = () => {
                       sx={{
                         marginBottom: "10px",
                         width: "100%",
-                        color: "#FAB5E7",
+                        color: "#fff",
                         "& .MuiOutlinedInput-root": {
+                          color:"#fff",
                           "&:hover .MuiOutlinedInput-notchedOutline": {
-                            borderColor: "rgba(238, 16, 176, 1)",
+                            borderColor: "#fff",
                           },
                           "& .MuiOutlinedInput-notchedOutline": {
-                            borderColor: "rgba(238, 16, 176, 1)",
+                            borderColor: "#fff",
                             borderWidth: "2px",
                           },
                           "&.Mui-focused": {
@@ -176,11 +184,11 @@ const TrackModal = () => {
                               borderWidth: "2px",
                             },
                             "& input": {
-                              color: "#FAB5E7",
+                              borderColor: "#fff",
                               background: "transparant",
                             },
                             "& .MuiInputLabel-root": {
-                              color: "#FAB5E7",
+                              color: "#fff",
                             },
                           },
                         },
@@ -188,7 +196,7 @@ const TrackModal = () => {
                           color: "#FAB5E7",
                         },
                         "& input::placeholder": {
-                          color: "#FAB5E7",
+                          color: "#fff",
                         },
                       }}
                       label="Enter Album Name"
@@ -198,177 +206,6 @@ const TrackModal = () => {
                     {formik.touched.name && formik.errors.name ? (
                       <p style={{ color: "#0E9EEF", marginBottom: "20px" }}>
                         {formik.errors.name}
-                      </p>
-                    ) : null}
-                  </div>
-
-                  {/* duration */}
-                  <div className={style.field} style={{ position: "relative" }}>
-                    <label
-                      className={style.label}
-                      htmlFor="duration"
-                      name="duration"
-                    >
-                      Duration:
-                    </label>
-                    <TextField
-                      name="duration"
-                      type="number"
-                      value={formik.values.duration}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      className={style.input}
-                      id="duration"
-                      min="0"
-                      sx={{
-                        marginBottom: "10px",
-                        width: "100%",
-                        "& .MuiOutlinedInput-root": {
-                          color: "#FAB5E7",
-                          "&:hover .MuiOutlinedInput-notchedOutline": {
-                            borderColor: "rgba(238, 16, 176, 1)",
-                          },
-                          "& .MuiOutlinedInput-notchedOutline": {
-                            borderColor: "rgba(238, 16, 176, 1)",
-                            borderWidth: "2px",
-                          },
-                          "&.Mui-focused": {
-                            "& .MuiOutlinedInput-notchedOutline": {
-                              borderColor: "#FAB5E7",
-                              borderWidth: "2px",
-                            },
-                            "& input": {
-                              color: "#FAB5E7",
-                              background: "transparant",
-                            },
-                            "& .MuiInputLabel-root": {
-                              color: "#FAB5E7",
-                            },
-                          },
-                        },
-                        "& .MuiInputLabel-root": {
-                          color: "#FAB5E7",
-                        },
-                        "& input::placeholder": {
-                          color: "#FAB5E7",
-                        },
-                      }}
-                      label="Enter Album Name"
-                      variant="outlined"
-                    />
-
-                    {formik.touched.duration && formik.errors.duration ? (
-                      <p style={{ color: "#0E9EEF", marginBottom: "20px" }}>
-                        {formik.errors.duration}
-                      </p>
-                    ) : null}
-                  </div>
-
-                  <div
-                    style={{
-                      display: "flex",
-                      gap: "20px",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    {/* type */}
-                    {/* <div
-                      className={style.field}
-                      style={{ position: "relative" }}
-                    >
-                      <label className={style.label} htmlFor="type" name="type">
-                        Type:
-                      </label>
-                      <RadioGroup
-                        id="type"
-                        aria-labelledby="demo-radio-buttons-group-label"
-                        value={formik.values.type}
-                        name="type"
-                        onChange={formik.handleChange}
-                      >
-                        <FormControlLabel
-                          value="single"
-                          control={<Radio />}
-                          label="Single"
-                          sx={{
-                            color: "#FAB5E7",
-                            "&.MuiFormControlLabel-root:hover": {
-                              color: "#FAB5E7",
-                            },
-                          }}
-                        />
-                        <FormControlLabel
-                          value="album"
-                          control={<Radio />}
-                          label="Album"
-                          sx={{
-                            color: "#FAB5E7",
-                            "&.MuiFormControlLabel-root:hover": {
-                              color: "#FAB5E7",
-                            },
-                          }}
-                        />
-                      </RadioGroup>
-                    </div> */}
-                    {/* premium only */}
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          id="premiumOnly"
-                          name="premiumOnly"
-                          checked={formik.values.premiumOnly}
-                          onChange={formik.handleChange}
-                          sx={{
-                            "& .MuiSvgIcon-root": {
-                              borderColor: "rgba(238, 16, 176, 1)",
-                              "&:hover": {
-                                borderColor: "rgba(238, 16, 176, 1)",
-                              },
-                              "&.Mui-checked": {
-                                color: "rgba(238, 16, 176, 1)",
-                              },
-                            },
-                          }}
-                        />
-                      }
-                      label="Premium"
-                      labelPlacement="end"
-                      sx={{
-                        color: "#FAB5E7",
-                        "&.MuiFormControlLabel-root:hover": {
-                          color: "#FAB5E7",
-                        },
-                      }}
-                    />
-                  </div>
-                </Grid>
-                <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-                  {/* image */}
-                  <div className={style.field} style={{ position: "relative" }}>
-                    <label
-                      className={style.label}
-                      htmlFor="coverImage"
-                      name="coverImage"
-                    >
-                      Cover Image:{" "}
-                    </label>
-                    <input
-                      // className={style.input}
-                      id="coverImage"
-                      name="coverImage"
-                      type="file"
-                      style={{ marginBottom: "10px", color: "#FAB5E7" }}
-                      onChange={(e) =>
-                        formik.setFieldValue(
-                          "coverImage",
-                          e.currentTarget.files[0]
-                        )
-                      }
-                      onBlur={formik.handleBlur}
-                    />
-                    {formik.touched.coverImage && formik.errors.coverImage ? (
-                      <p style={{ color: "#0E9EEF", marginBottom: "20px" }}>
-                        {formik.errors.coverImage}
                       </p>
                     ) : null}
                   </div>
@@ -402,6 +239,129 @@ const TrackModal = () => {
                     ) : null}
                   </div>
 
+                  {/* image */}
+                  <div className={style.field} style={{ position: "relative" }}>
+                    <label
+                      className={style.label}
+                      htmlFor="coverImage"
+                      name="coverImage"
+                    >
+                      Cover Image:{" "}
+                    </label>
+                    <input
+                      // className={style.input}
+                      id="coverImage"
+                      name="coverImage"
+                      type="file"
+                      style={{ marginBottom: "10px", color: "#FAB5E7" }}
+                      onChange={(e) =>
+                        formik.setFieldValue(
+                          "coverImage",
+                          e.currentTarget.files[0]
+                        )
+                      }
+                      onBlur={formik.handleBlur}
+                    />
+                    {formik.touched.coverImage && formik.errors.coverImage ? (
+                      <p style={{ color: "#0E9EEF", marginBottom: "20px" }}>
+                        {formik.errors.coverImage}
+                      </p>
+                    ) : null}
+                  </div>
+
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        id="premiumOnly"
+                        name="premiumOnly"
+                        checked={formik.values.premiumOnly}
+                        onChange={formik.handleChange}
+                        sx={{
+                          "& .MuiSvgIcon-root": {
+                            borderColor: "rgba(238, 16, 176, 1)",
+                            "&:hover": {
+                              borderColor: "rgba(238, 16, 176, 1)",
+                            },
+                            "&.Mui-checked": {
+                              color: "rgba(238, 16, 176, 1)",
+                            },
+                          },
+                        }}
+                      />
+                    }
+                    label="Premium"
+                    labelPlacement="end"
+                    sx={{
+                      color: "#FAB5E7",
+                      "&.MuiFormControlLabel-root:hover": {
+                        color: "#FAB5E7",
+                      },
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+                  {/* duration */}
+                  <div className={style.field} style={{ position: "relative" }}>
+                    <label
+                      className={style.label}
+                      htmlFor="duration"
+                      name="duration"
+                    >
+                      Duration:
+                    </label>
+                    <TextField
+                      name="duration"
+                      type="number"
+                      value={formik.values.duration}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      className={style.input}
+                      id="duration"
+                      min="0"
+                      sx={{
+                        marginBottom: "10px",
+                        width: "100%",
+                        color: "#fff",
+                        "& .MuiOutlinedInput-root": {
+                          color:"#fff",
+                          "&:hover .MuiOutlinedInput-notchedOutline": {
+                            borderColor: "#fff",
+                          },
+                          "& .MuiOutlinedInput-notchedOutline": {
+                            borderColor: "#fff",
+                            borderWidth: "2px",
+                          },
+                          "&.Mui-focused": {
+                            "& .MuiOutlinedInput-notchedOutline": {
+                              borderColor: "#FAB5E7",
+                              borderWidth: "2px",
+                            },
+                            "& input": {
+                              borderColor: "#fff",
+                              background: "transparant",
+                            },
+                            "& .MuiInputLabel-root": {
+                              color: "#fff",
+                            },
+                          },
+                        },
+                        "& .MuiInputLabel-root": {
+                          color: "#FAB5E7",
+                        },
+                        "& input::placeholder": {
+                          color: "#fff",
+                        },
+                      }}
+                      label="Enter Album Name"
+                      variant="outlined"
+                    />
+
+                    {formik.touched.duration && formik.errors.duration ? (
+                      <p style={{ color: "#0E9EEF", marginBottom: "20px" }}>
+                        {formik.errors.duration}
+                      </p>
+                    ) : null}
+                  </div>
                   {/* colobarated artists */}
                   <div className={style.field} style={{ position: "relative" }}>
                     <label
@@ -462,6 +422,14 @@ const TrackModal = () => {
                         formik.setFieldValue("genreId", e.target.value)
                       }
                       onBlur={formik.handleBlur}
+                      style={{
+                        marginBottom: "10px",
+                        width: "100%",
+                        padding: "10px 10px 10px 5px",
+                        borderRadius: "5px",
+                        color: "#838383",
+                        fontSize: "16px",
+                      }}
                     >
                       <option value="">Select Genre</option>
                       {genres?.map((genre) => (
@@ -476,21 +444,21 @@ const TrackModal = () => {
                       </p>
                     ) : null}
                   </div>
+
+                  <div className={style.buttons}>
+                    <button type="submit" className={style.createBtn}>
+                      create
+                    </button>
+                    <button
+                      type="button"
+                      className={style.cancelBtn}
+                      onClick={handleClose}
+                    >
+                      cancel
+                    </button>
+                  </div>
                 </Grid>
               </Grid>
-
-              <div className={style.buttons}>
-                <button type="submit" className={style.createBtn}>
-                  create
-                </button>
-                <button
-                  type="button"
-                  className={style.cancelBtn}
-                  onClick={handleClose}
-                >
-                  cancel
-                </button>
-              </div>
             </Box>
           </Fade>
         </Modal>

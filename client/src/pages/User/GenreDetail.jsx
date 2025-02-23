@@ -199,18 +199,17 @@ const GenreDetail = () => {
 
   return (
     <>
+      <div className={style.inputBox}>
+        <input
+          onChange={(e) => setSearchSong(e.target.value)}
+          type="text"
+          value={searchSong}
+          className={style.input}
+          placeholder="Search for songs..."
+        />
+        <SearchIcon className={style.searchIcon} />
+      </div>
       <section className={style.allSingleSongs}>
-        <div className={style.inputBox}>
-          <input
-            onChange={(e) => setSearchSong(e.target.value)}
-            type="text"
-            value={searchSong}
-            className={style.input}
-            placeholder="Search for songs..."
-          />
-          <SearchIcon className={style.searchIcon} />
-        </div>
-
         <p className={style.heading}>
           <Link to={`/discover`}>
             <span className={style.back}>

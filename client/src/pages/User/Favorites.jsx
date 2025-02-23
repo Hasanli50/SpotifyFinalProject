@@ -182,18 +182,17 @@ const Favorites = () => {
 
   return (
     <>
+      <div className={style.inputBox}>
+        <input
+          onChange={(e) => setSearchSong(e.target.value)}
+          type="text"
+          value={searchSong}
+          className={style.input}
+          placeholder="Search for artists, songs..."
+        />
+        <SearchIcon className={style.searchIcon} />
+      </div>
       <section className={style.allSingleSongs}>
-        <div className={style.inputBox}>
-          <input
-            onChange={(e) => setSearchSong(e.target.value)}
-            type="text"
-            value={searchSong}
-            className={style.input}
-            placeholder="Search for artists, songs..."
-          />
-          <SearchIcon className={style.searchIcon} />
-        </div>
-
         <p className={style.heading}>Favorites:</p>
 
         <div className={style.songs}>
@@ -296,7 +295,7 @@ const Favorites = () => {
               </div>
             ))
           ) : (
-            <p className={style.sentence}>Artist dont have single songs</p>
+            <p className={style.sentence}>You don`t have favorites songs :(</p>
           )}
         </div>
       </section>

@@ -20,13 +20,15 @@ const styles = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 450,
+  maxWidth: 450,
+  width:"100%",
   bgcolor: "#1f1f1f",
   border: "2px solid #000",
-  //   boxShadow: 30,
+    // boxShadow: 30,
   borderRadius: "15px",
   boxShadow: "-1px 2px 8px 10px rgba(128, 0, 128, 0.5)",
   p: 4,
+  
 };
 
 const AlbumModal = () => {
@@ -126,12 +128,14 @@ const AlbumModal = () => {
                   sx={{
                     marginBottom: "10px",
                     width: "100%",
+                    color: "#fff",
                     "& .MuiOutlinedInput-root": {
+                      color:"#fff",
                       "&:hover .MuiOutlinedInput-notchedOutline": {
-                        borderColor: "rgba(238, 16, 176, 1)",
+                        borderColor: "#fff",
                       },
                       "& .MuiOutlinedInput-notchedOutline": {
-                        borderColor: "rgba(238, 16, 176, 1)",
+                        borderColor: "#fff",
                         borderWidth: "2px",
                       },
                       "&.Mui-focused": {
@@ -140,11 +144,11 @@ const AlbumModal = () => {
                           borderWidth: "2px",
                         },
                         "& input": {
-                          color: "#FAB5E7",
+                          borderColor: "#fff",
                           background: "transparant",
                         },
                         "& .MuiInputLabel-root": {
-                          color: "#FAB5E7",
+                          color: "#fff",
                         },
                       },
                     },
@@ -152,7 +156,7 @@ const AlbumModal = () => {
                       color: "#FAB5E7",
                     },
                     "& input::placeholder": {
-                      color: "#FAB5E7",
+                      color: "#fff",
                     },
                   }}
                   label="Enter Album Name"

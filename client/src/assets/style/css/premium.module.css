@@ -1,38 +1,39 @@
-@import "../../scss/extends";
-@import "../../scss/variables";
-
 .main {
   padding: 2% 50px 4%;
   text-align: left;
-  @media only screen and (max-width: 520px) {
+}
+@media only screen and (max-width: 520px) {
+  .main {
     padding: 0 10px;
     text-align: justify;
   }
 }
+
 .features {
   margin-bottom: 30px;
 }
+
 .whatWeOffer {
   margin-bottom: 30px;
 }
+
 .heading {
   font-size: 28px;
   font-weight: 600;
   margin-bottom: 15px;
 }
+
 .paragraph {
   font-size: 17px;
 }
+
 .item {
   font-size: 17px;
   margin-bottom: 15px;
 }
+
 .logo {
-  background: linear-gradient(
-    90deg,
-    rgba(238, 16, 176, 1) 12%,
-    rgba(14, 158, 239, 1) 100%
-  );
+  background: linear-gradient(90deg, rgb(238, 16, 176) 12%, rgb(14, 158, 239) 100%);
   background-clip: text;
   color: transparent;
 }
@@ -41,14 +42,9 @@
   margin-bottom: 20px;
   font-weight: 600;
   font-size: 25px;
-  background: linear-gradient(
-    90deg,
-    rgba(238, 16, 176, 1) 12%,
-    rgba(14, 158, 239, 1) 100%
-  );
+  background: linear-gradient(90deg, rgb(238, 16, 176) 12%, rgb(14, 158, 239) 100%);
   background-clip: text;
   color: transparent;
-  // color: #3f3e3e;
 }
 
 .buttons {
@@ -56,51 +52,56 @@
   gap: 15px;
   justify-content: end;
 }
+
 .payNow {
   padding: 7px 15px;
   border-radius: 5px;
-  border: 1px solid $darkBlue;
-  color: $darkBlue;
+  border: 1px solid #0B77B3;
+  color: #0B77B3;
   font-size: 15px;
   background-color: transparent;
   text-transform: capitalize;
   cursor: pointer;
   transition: 0.3s ease-in-out;
 }
+
 .payNow:hover {
-  background-color: $darkBlue;
-  color: $whiteColor;
+  background-color: #0B77B3;
+  color: #fff;
 }
+
 .cancelBtn {
   padding: 7px 15px;
   border-radius: 5px;
-  border: 1px solid $darkPurpleHover;
-  color: $darkPurpleHover;
+  border: 1px solid #8F0A6A;
+  color: #8F0A6A;
   font-size: 15px;
   background-color: transparent;
   text-transform: capitalize;
   cursor: pointer;
   transition: 0.3s ease-in-out;
 }
+
 .cancelBtn:hover {
-  background-color: $darkPurpleHover;
-  color: $whiteColor;
+  background-color: #8F0A6A;
+  color: #fff;
 }
 
 .premiumBtn {
   margin: 40px 0;
   padding: 7px 15px;
   border-radius: 5px;
-  border: 1px solid $lightPinkActive;
-  color: $normalPurple;
+  border: 1px solid #FAB5E7;
+  color: #EE10B0;
   font-size: 15px;
-  background-color: $lightPinkActive;
+  background-color: #FAB5E7;
   text-transform: capitalize;
   cursor: pointer;
   transition: 0.3s ease-in-out;
 }
+
 .premiumBtn:hover {
-  background-color: $normalBlue;
-  color: $whiteColor;
-  border: 1px solid $normalBlue;
-}
+  background-color: #0E9EEF;
+  color: #fff;
+  border: 1px solid #0E9EEF;
+}/*# sourceMappingURL=premium.module.css.map */

@@ -1,6 +1,9 @@
 .table {
   padding: 2% 50px;
   text-align: left;
+  @media only screen and (max-width: 520px) {
+    padding: 0 10px;
+  }
 }
 .btn {
   color: #fff;

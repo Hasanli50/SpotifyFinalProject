@@ -141,7 +141,94 @@ const register = async (req, res) => {
         from: process.env.MAIL_USER,
         to: email,
         subject: "Account Verification | Melodies",
-        html: `<h1>Click <a href="${process.env.APP_BASE_URL}/verify/${token}">here</a> to verify your account</h1>`,
+        html: `
+      <html>
+        <head>
+          <style>
+            body {
+              font-family: Arial, sans-serif;
+              background-color: #f4f7fa;
+              margin: 0;
+              padding: 0;
+            }
+            .container {
+              width: 100%;
+              max-width: 600px;
+              margin: 0 auto;
+              padding: 20px;
+            }
+            .header {
+              background: linear-gradient(90deg,
+                rgba(238, 16, 176, 1) 12%,
+                rgba(14, 158, 239, 1) 100%);
+              color: white;
+              text-align: center;
+              padding: 15px 0;
+              border-radius: 5px 5px 0 0;
+            }
+            .header h1 {
+              margin: 0;
+              font-size: 24px;
+            }
+            .content {
+              background-color: white;
+              padding: 25px;
+              border-radius: 5px;
+              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            }
+            .content p {
+              font-size: 16px;
+              color: #333;
+              line-height: 1.6;
+            }
+            .cta-button {
+              display: inline-block;
+              background: linear-gradient(
+                90deg,
+                rgba(238, 16, 176, 1) 12%,
+                rgba(14, 158, 239, 1) 100%
+              );
+              color: white;
+              padding: 15px 50px;
+              font-size: 20px;
+              text-decoration: none;
+              text-transform: capitalize;
+              font-weight: 500;
+              border-radius: 5px;
+              cursor: pointer;
+              transition: 0.3s ease-in-out;
+              margin-top: 20px;
+              text-align: center;
+            }
+            .cta-button:hover {
+              opacity: 0.9;
+            }
+            .footer {
+              text-align: center;
+              padding: 20px 0;
+              font-size: 12px;
+              color: #999;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="header">
+              <h1>Welcome to Melodies!</h1>
+            </div>
+            <div class="content">
+              <p>Hello,</p>
+              <p>Thank you for signing up with Melodies! We're excited to have you on board.</p>
+              <p>To complete your registration and verify your account, please click the button below:</p>
+              <a href="${process.env.APP_BASE_URL}/verify/${token}" class="cta-button">Verify My Account</a>
+            </div>
+            <div class="footer">
+              <p>If you did not sign up for Melodies, you can ignore this email.</p>
+            </div>
+          </div>
+        </body>
+      </html>
+    `,
       })
       .catch((error) => {
         console.log("error: ", error);
@@ -473,8 +560,6 @@ const updateUserInfo = async (req, res) => {
       runValidators: true,
     });
 
-    console.log("Previous user image:", prevUser.image);
-
     if (req.file) {
       const publicId = extractPublicId(prevUser);
       await cloudinary.uploader.destroy(`uploads/${publicId}`, (error) => {
@@ -500,7 +585,6 @@ const updatePassword = async (req, res) => {
   try {
     const { id } = req.params;
     const { password, confirmPassword } = req.body;
-    // console.log(req.body)
 
     if (password !== confirmPassword) {
       return res.status(400).json({
@@ -510,7 +594,6 @@ const updatePassword = async (req, res) => {
     }
 
     const user = await User.findById(id);
-    // console.log(user)
 
     if (!user) {
       return res.status(404).json({
@@ -575,7 +658,91 @@ const forgotPassword = async (req, res) => {
         from: process.env.MAIL_USER,
         to: email,
         subject: "Password Reset | Melodies",
-        html: `<h1>Click <a href="${process.env.APP_BASE_URL}/reset-password/${token}">here</a> to reset your password</h1> <h3>If you did not send a request, you can ignore this email</h3>`,
+        html: `
+    <html>
+      <head>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fa;
+            margin: 0;
+            padding: 0;
+          }
+          .container {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 10px;
+          }
+          .header {
+            background: linear-gradient(90deg,
+              rgba(238, 16, 176, 1) 12%,
+              rgba(14, 158, 239, 1) 100%);
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            border-radius: 5px 5px 0 0;
+          }
+          .header h1 {
+            margin: 0;
+            font-size: 24px;
+          }
+          .content {
+            background-color: #f4f7fa;
+            padding: 25px;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+          }
+          .content p {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.6;
+          }
+            .cta-button {
+            display: inline-block;
+            background: linear-gradient(90deg,
+              rgba(238, 16, 176, 1) 12%,
+              rgba(14, 158, 239, 1) 100%);
+            color: white;
+            padding: 15px 25px;
+            font-size: 20px;
+            text-decoration: none;
+            text-transform: capitalize;
+            font-weight: 500;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+            margin-top: 20px;
+            text-align: center;
+            }
+          .cta-button:hover {
+            opacity: 0.9;
+          }
+          .footer {
+            text-align: center;
+            padding: 20px 0;
+            font-size: 12px;
+            color: #999;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1>Password Reset Request</h1>
+          </div>
+          <div class="content">
+            <p>Hello,</p>
+            <p>We received a request to reset the password for your Melodies account. If you made this request, you can reset your password by clicking the button below:</p>
+            <a href="${process.env.APP_BASE_URL}/reset-password/${token}" class="cta-button">Reset My Password</a>
+          </div>
+          <div class="footer">
+            <p>If you did not sign up for Melodies, you can ignore this email.</p>
+          </div>
+        </div>
+      </body>
+    </html>
+    `,
       })
       .catch((error) => {
         console.log("error: ", error);
@@ -628,9 +795,6 @@ const resetPassword = async (req, res) => {
       });
     }
 
-    // Log user before updating
-    console.log("User found:", user);
-
     const updatedUser = await User.findByIdAndUpdate(
       id,
       {
@@ -638,8 +802,6 @@ const resetPassword = async (req, res) => {
       },
       { new: true }
     ).select("-password");
-
-    console.log("Updated User:", updatedUser);
 
     return res.status(200).json({
       data: updatedUser,
@@ -686,7 +848,90 @@ const payment = async (req, res) => {
         from: process.env.MAIL_USER,
         to: updatedUser.email,
         subject: "Payment | Melodies",
-        html: `<h1>You paid $5</h1><h3>If you did not send this request, you can ignore this email.</h3>`,
+        html: `
+    <html>
+      <head>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fa;
+            margin: 0;
+            padding: 0;
+          }
+          .container {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 10px;
+          }
+          .header {
+            background: linear-gradient(90deg,
+              rgba(238, 16, 176, 1) 12%,
+              rgba(14, 158, 239, 1) 100%);
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            border-radius: 5px 5px 0 0;
+          }
+          .header h1 {
+            margin: 0;
+            font-size: 24px;
+          }
+          .content {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+          }
+          .content p {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.6;
+          }
+            .cta-button {
+              display: inline-block;
+              background: linear-gradient(90deg,
+                  rgba(238, 16, 176, 1) 12%,
+                  rgba(14, 158, 239, 1) 100%);
+              color: white;
+              padding: 15px 25px;
+              font-size: 20px;
+              text-decoration: none;
+              text-transform: capitalize;
+              font-weight: 500;
+              border-radius: 5px;
+              cursor: pointer;
+              transition: 0.3s ease-in-out;
+              margin-top: 20px;
+              text-align: center;
+            }
+          .cta-button:hover {
+           opacity: 0.9;
+          }
+          .footer {
+            text-align: center;
+            padding: 20px 0;
+            font-size: 12px;
+            color: #999;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1>Payment Confirmation</h1>
+          </div>
+          <div class="content">
+            <p>Hello,</p>
+            <p>We received your payment of <strong>$5</strong> for your Melodies subscription. Thank you for supporting us!</p>
+          </div>
+          <div class="footer">
+            <p>If you have any questions, feel free to contact us at support@melodies.com</p>
+          </div>
+        </div>
+      </body>
+    </html>
+    `,
       })
       .catch((error) => {
         console.log("Error sending email:", error);

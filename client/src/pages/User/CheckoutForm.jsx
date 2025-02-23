@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import { useState, useEffect } from "react";
 import { Modal, Fade, Box } from "@mui/material";

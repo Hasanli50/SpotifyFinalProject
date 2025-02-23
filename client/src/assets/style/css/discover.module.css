@@ -11,15 +11,15 @@
   margin-bottom: 30px;
   font-weight: 600;
 }
+@media only screen and (max-width: 520px) {
+  .heading {
+    font-size: 25px;
+  }
+}
 
 .allArtists {
   margin-bottom: 6%;
   padding: 0 50px;
-}
-@media only screen and (max-width: 520px) {
-  .allArtists {
-    padding: 10px;
-  }
 }
 
 .profileImgBox {

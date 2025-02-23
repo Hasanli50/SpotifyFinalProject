@@ -3,17 +3,17 @@
 .field {
   max-width: 100%;
 }
-.card{
-    max-width: 450px;
-    text-align: justify;
-    margin: 20px auto;
-    background-color: #1f1f1f;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: -1px 2px 8px 10px rgb(45, 51, 107, 0.7)
+.card {
+  max-width: 450px;
+  text-align: justify;
+  margin: 20px auto;
+  background-color: #1f1f1f;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: -1px 2px 8px 10px rgb(45, 51, 107, 0.7);
 }
 .form {
-    width: 100%;
+  width: 100%;
 }
 .heading {
   margin-bottom: 20px;
@@ -33,7 +33,7 @@
   display: block;
   margin-bottom: 15px;
   font-size: 16px;
-  color: #A9B5DF;
+  color: #a9b5df;
 }
 .buttons {
   display: flex;
@@ -44,8 +44,8 @@
   margin-top: 20px;
   padding: 7px 15px;
   border-radius: 5px;
-  border: 1px solid #2D336B;
-  color: #2D336B;
+  border: 1px solid #2d336b;
+  color: #2d336b;
   font-weight: 600;
   font-size: 15px;
   background-color: transparent;
@@ -54,6 +54,6 @@
   transition: 0.3s ease-in-out;
 }
 .saveBtn:hover {
-  background-color: #2D336B;
+  background-color: #2d336b;
   color: $whiteColor;
 }

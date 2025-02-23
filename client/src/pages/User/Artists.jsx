@@ -40,18 +40,17 @@ const Artists = () => {
 
   return (
     <>
+      <div className={style.inputBox}>
+        <input
+          onChange={(e) => setSearchQuery(e.target.value)}
+          type="text"
+          value={searchQuery}
+          className={style.input}
+          placeholder="Search for artists..."
+        />
+        <SearchIcon className={style.searchIcon} />
+      </div>
       <section className={style.allArtists}>
-        <div className={style.inputBox}>
-          <input
-            onChange={(e) => setSearchQuery(e.target.value)}
-            type="text"
-            value={searchQuery}
-            className={style.input}
-            placeholder="Search for artists..."
-          />
-          <SearchIcon className={style.searchIcon} />
-        </div>
-
         <p className={style.heading}>
           All <span style={{ color: "#EE10B0" }}>Artists</span> :{" "}
         </p>

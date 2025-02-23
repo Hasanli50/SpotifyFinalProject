@@ -24,6 +24,11 @@
   margin-bottom: 30px;
   font-weight: 600;
 }
+@media only screen and (max-width: 520px) {
+  .heading {
+    font-size: 25px;
+  }
+}
 
 .songsCard {
   background-color: #1f1f1f;
@@ -89,6 +94,13 @@
   }
 }
 
+.premiumMini {
+  position: absolute;
+  color: red;
+  top: 2px;
+  left: 0px;
+}
+
 .profileImg {
   width: 100%;
   border-radius: 10px;
@@ -136,6 +148,11 @@
   font-size: 18px;
 }
 
+.songsCard {
+  padding-right: 5px;
+  position: relative;
+}
+
 .songsCard:hover .songsCard__imgBox__img {
   transform: scale(1.1);
 }
@@ -149,4 +166,23 @@
 .icons {
   display: flex;
   gap: 5px;
+}
+
+.btn {
+  padding: 7px 20px;
+  border-radius: 10px;
+  border: 1px solid #725fd3;
+  text-transform: capitalize;
+  cursor: pointer;
+  background: linear-gradient(90deg, rgb(238, 16, 176) 12%, rgb(14, 158, 239) 100%);
+  background-clip: text;
+  color: transparent;
+}
+
+.sentence {
+  text-align: left;
+  font-size: 20px;
+  background: linear-gradient(90deg, rgb(238, 16, 176) 12%, rgb(14, 158, 239) 100%);
+  background-clip: text;
+  color: transparent;
 }/*# sourceMappingURL=albumDetail.module.css.map */

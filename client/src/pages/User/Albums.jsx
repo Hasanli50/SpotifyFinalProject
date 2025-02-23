@@ -44,7 +44,6 @@ const Albums = () => {
 
   return (
     <>
-      <section className={style.allSingleSongs}>
         <div className={style.inputBox}>
           <input
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -55,13 +54,16 @@ const Albums = () => {
           />
           <SearchIcon className={style.searchIcon} />
         </div>
-
+      <section className={style.allSingleSongs}>
         <p className={style.heading}>Albums :</p>
 
         <div className={style.albums}>
           {filteredData?.length > 0 ? (
             filteredData?.map((album) => (
-              <Link to={ user?.length === 0 ? "/login" : `/album/${album?.id}`} key={album?.id}>
+              <Link
+                to={user?.length === 0 ? "/login" : `/album/${album?.id}`}
+                key={album?.id}
+              >
                 <div className={style.card}>
                   <div className={style.imgBox}>
                     <img
@@ -87,7 +89,7 @@ const Albums = () => {
               </Link>
             ))
           ) : (
-            <p className={style.sentence}>You don`t have any albums</p>
+            <p className={style.sentence}>Albums not found</p>
           )}
         </div>
       </section>

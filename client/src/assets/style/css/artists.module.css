@@ -11,10 +11,10 @@
   margin-bottom: 30px;
   font-weight: 600;
 }
-
-.inputBox {
-  max-width: 335px;
-  position: relative;
+@media only screen and (max-width: 520px) {
+  .heading {
+    font-size: 25px;
+  }
 }
 
 .input {
@@ -36,9 +36,16 @@
   padding: 0 50px;
   margin-bottom: 6%;
 }
+
+.inputBox {
+  padding-left: 50px;
+  max-width: 335px;
+  position: relative;
+  margin-bottom: 30px;
+}
 @media only screen and (max-width: 520px) {
-  .allArtists {
-    padding: 10px;
+  .inputBox {
+    padding: 0 10px;
   }
 }
 

@@ -11,6 +11,11 @@
 :global .ant-layout .ant-layout-header {
   flex: 0 0 auto;
 }
+@media only screen and (max-width: 520px) {
+  :global .ant-layout .ant-layout-header {
+    padding: 0 10px;
+  }
+}
 
 .sideBar {
   border-right: 2px solid #EE10B0;
@@ -162,7 +167,7 @@
   line-height: 25px;
   font-family: "Vazirmatn", sans-serif;
   cursor: pointer;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 }
 @media only screen and (max-width: 768px) {
   .paragraph {

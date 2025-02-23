@@ -2,6 +2,12 @@
   padding: 2% 50px 4%;
   text-align: left;
 }
+@media only screen and (max-width: 520px) {
+  .main {
+    text-align: justify;
+    padding: 10px;
+  }
+}
 
 .aboutUs {
   margin-bottom: 30px;
@@ -36,6 +42,6 @@
 
 .logo {
   background: linear-gradient(90deg, rgb(238, 16, 176) 12%, rgb(14, 158, 239) 100%);
-  -webkit-background-clip: text;
+  background-clip: text;
   color: transparent;
 }/*# sourceMappingURL=aboutUs.module.css.map */

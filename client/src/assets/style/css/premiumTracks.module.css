@@ -1,6 +1,11 @@
 .premiumTracks {
   padding: 4% 50px;
 }
+@media only screen and (max-width: 520px) {
+  .premiumTracks {
+    padding: 10px;
+  }
+}
 
 .songBox {
   display: flex;
@@ -13,7 +18,7 @@
   font-size: 30px;
   margin-bottom: 30px;
   background: linear-gradient(90deg, rgb(238, 16, 176) 12%, rgb(14, 158, 239) 100%);
-  -webkit-background-clip: text;
+  background-clip: text;
   color: transparent;
 }
 
@@ -28,8 +33,9 @@
   cursor: pointer;
   display: flex;
   justify-content: space-between;
-  padding-right: 20px;
+  padding-right: 10px;
   align-items: center;
+  margin-bottom: 30px;
 }
 
 .songsCard__imgBox {
@@ -37,6 +43,14 @@
   height: 60px;
   overflow: hidden;
   border-radius: 10px;
+  position: relative;
+}
+
+.premiumMini {
+  position: absolute;
+  color: red;
+  top: 2px;
+  left: 0px;
 }
 
 .songsCard__imgBox__img {
@@ -65,7 +79,7 @@
   font-size: 20px;
   padding: 3%;
   background: linear-gradient(90deg, rgb(238, 16, 176) 12%, rgb(14, 158, 239) 100%);
-  -webkit-background-clip: text;
+  background-clip: text;
   color: transparent;
 }
 
@@ -76,6 +90,6 @@
   text-transform: capitalize;
   cursor: pointer;
   background: linear-gradient(90deg, rgb(238, 16, 176) 12%, rgb(14, 158, 239) 100%);
-  -webkit-background-clip: text;
+  background-clip: text;
   color: transparent;
 }/*# sourceMappingURL=premiumTracks.module.css.map */

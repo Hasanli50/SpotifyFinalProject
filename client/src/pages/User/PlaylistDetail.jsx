@@ -281,6 +281,7 @@ const PlaylistDetail = () => {
         </div>
 
         <div
+        className={style.playlist}
           style={{
             display: "flex",
             gap: "40px",

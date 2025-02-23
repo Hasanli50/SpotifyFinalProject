@@ -1,11 +1,17 @@
 import style from "../../assets/style/artist/home.module.scss";
 import Grid from "@mui/material/Grid";
 import { getUserFromStorage } from "../../utils/localeStorage";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { fetchArtistByToken, formatDuration } from "../../utils/reusableFunc";
 import { useAllAlbums } from "../../hooks/useAlbum";
 import { useAllTracks } from "../../hooks/useTrack";
 import moment from "moment";
+import { Link } from "react-router";
+import { BASE_URL, ENDPOINT } from "../../api/endpoint";
+import axios from "axios";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import PauseIcon from "@mui/icons-material/Pause";
+import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 
 const Home = () => {
   const [artist, setArtist] = useState([]);
@@ -13,6 +19,10 @@ const Home = () => {
   const [artistSongs, setArtistSongs] = useState([]);
   const [newSongs, setNewSongs] = useState([]);
   const [trendingSongs, setTrendingSongs] = useState([]);
+
+  const [currentSong, setCurrentSong] = useState(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef(null);
 
   const { data } = useAllAlbums();
   const { data: tracks } = useAllTracks();
@@ -111,6 +121,41 @@ const Home = () => {
     }
   }, [tracks]);
 
+  //----------------------------------------------------
+  const handlePlayMusic = (song) => {
+    if (currentSong && currentSong.id === song.id) {
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+      setIsPlaying(false);
+      setCurrentSong(null);
+    } else {
+      setCurrentSong(song);
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+      audioRef.current = new Audio(song.previewUrl);
+      audioRef.current.play();
+      setIsPlaying(true);
+
+      handlePlayCount(song.id);
+    }
+  };
+
+  //----------------------------------------------------
+  //increment playcount
+  const handlePlayCount = async (id) => {
+    try {
+      const response = await axios.patch(
+        `${BASE_URL + ENDPOINT.tracks}/${id}/increment-play`
+      );
+
+      console.log(response.data.data);
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+  };
+
   return (
     <>
       <main className={style.main}>
@@ -121,21 +166,23 @@ const Home = () => {
           <Grid container spacing={2}>
             {artistAlbum?.length > 0 ? (
               artistAlbum?.map((album) => (
-                <Grid item xs={12} sm={6} md={4} lg={3} xl={3} key={album.id}>
-                  <div className={style.card}>
-                    <div className={style.imgBox}>
-                      <img
-                        className={style.img}
-                        src={album.coverImage}
-                        alt="coverImage"
-                      />
+                <Link to={`/artist/add-track/${album.id}`} key={album.id}>
+                  <Grid item xs={12} sm={6} md={4} lg={3} xl={3}>
+                    <div className={style.card}>
+                      <div className={style.imgBox}>
+                        <img
+                          className={style.img}
+                          src={album.coverImage}
+                          alt="coverImage"
+                        />
+                      </div>
+                      <p className={style.letterTop}>{album.name}</p>
+                      <p className={style.letterBottom}>
+                        Songs: {album.trackCount}
+                      </p>
                     </div>
-                    <p className={style.letterTop}>{album.name}</p>
-                    <p className={style.letterBottom}>
-                      Songs: {album.trackCount}
-                    </p>
-                  </div>
-                </Grid>
+                  </Grid>
+                </Link>
               ))
             ) : (
               <p className={style.sentence}>You don`t have any albums</p>
@@ -147,7 +194,7 @@ const Home = () => {
           <p className={style.heading}>
             Top <span style={{ color: "#EE10B0" }}>Singles</span> :{" "}
           </p>
-          <Grid container spacing={2}>
+          <Grid container spacing={7}>
             {artistSongs?.length > 0 ? (
               artistSongs?.map((songs) => (
                 <Grid item xs={12} sm={6} md={4} lg={3} xl={3} key={songs.id}>
@@ -158,9 +205,37 @@ const Home = () => {
                         src={songs.coverImage}
                         alt="image"
                       />
+                      <div className={style.iconBox}>
+                        <WorkspacePremiumIcon
+                          className={style.premium}
+                          style={{
+                            display: songs.premiumOnly ? "block" : "none",
+                          }}
+                        />
+                      </div>
                     </div>
-                    <p className={style.letterTop}>{songs.name}</p>
-                    <p className={style.letterBottom}>{songs.playCount}</p>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                      }}
+                    >
+                      <div>
+                        <p className={style.letterTop}>{songs.name}</p>
+                        <p className={style.letterBottom}>{songs.playCount}</p>
+                      </div>
+                      <div
+                        className={style.icon}
+                        onClick={() => handlePlayMusic(songs)}
+                      >
+                        {currentSong?.id === songs.id && isPlaying ? (
+                          <PauseIcon style={{ color: "#fff" }} />
+                        ) : (
+                          <PlayArrowIcon style={{ color: "#fff" }} />
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </Grid>
               ))
@@ -174,7 +249,7 @@ const Home = () => {
           <p className={style.heading}>
             New Release <span style={{ color: "#EE10B0" }}>Songs</span> :{" "}
           </p>
-          <Grid container spacing={2}>
+          <Grid container spacing={7}>
             {newSongs?.length > 0 &&
               newSongs.map((songs) => (
                 <Grid item xs={12} sm={6} md={4} lg={3} xl={3} key={songs.id}>
@@ -185,11 +260,39 @@ const Home = () => {
                         src={songs.coverImage}
                         alt="coverImage"
                       />
+                      <div className={style.iconBox}>
+                        <WorkspacePremiumIcon
+                          className={style.premium}
+                          style={{
+                            display: songs.premiumOnly ? "block" : "none",
+                          }}
+                        />
+                      </div>
                     </div>
-                    <p className={style.letterTop}>{songs.name}</p>
-                    <p className={style.letterBottom}>
-                      {moment(songs.createdAt).format("MMM Do YY")}
-                    </p>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                      }}
+                    >
+                      <div>
+                        <p className={style.letterTop}>{songs.name}</p>
+                        <p className={style.letterBottom}>
+                          {moment(songs.createdAt).format("MMM Do YY")}
+                        </p>
+                      </div>
+                      <div
+                        className={style.icon}
+                        onClick={() => handlePlayMusic(songs)}
+                      >
+                        {currentSong?.id === songs.id && isPlaying ? (
+                          <PauseIcon style={{ color: "#fff" }} />
+                        ) : (
+                          <PlayArrowIcon style={{ color: "#fff" }} />
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </Grid>
               ))}
@@ -218,6 +321,12 @@ const Home = () => {
                         src={songs.coverImage}
                         alt="coverImage"
                       />
+                      <WorkspacePremiumIcon
+                        className={style.premiumMini}
+                        style={{
+                          display: songs.premiumOnly ? "block" : "none",
+                        }}
+                      />
                     </div>
                     <div>
                       <p className={style.letterTop}>{songs.name}</p>
@@ -233,7 +342,26 @@ const Home = () => {
                   <p className={style.songsCard__letter}>
                     {songs.albumId === null ? "Single" : songs.albumId.name}
                   </p>
-                  <p>{formatDuration(songs.duration)}</p>
+
+                  <div
+                    style={{
+                      display: "flex",
+                      // alignItems: "center",
+                      gap:"10px"
+                    }}
+                  >
+                    <p>{formatDuration(songs.duration)}</p>
+                    <div
+                      className={style.icon}
+                      onClick={() => handlePlayMusic(songs)}
+                    >
+                      {currentSong?.id === songs.id && isPlaying ? (
+                        <PauseIcon style={{ color: "#fff" }} />
+                      ) : (
+                        <PlayArrowIcon style={{ color: "#fff" }} />
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}

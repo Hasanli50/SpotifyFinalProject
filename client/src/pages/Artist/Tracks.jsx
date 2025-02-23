@@ -12,7 +12,6 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
 import axios from "axios";
 import { BASE_URL, ENDPOINT } from "../../api/endpoint";
-import AlbumIcon from "@mui/icons-material/Album";
 import Swal from "sweetalert2";
 import TrackModal from "../../components/artist/TrackModal";
 
@@ -192,71 +191,72 @@ const Tracks = () => {
 
           <div className={style.songs}>
             {filteredData?.length > 0 ? (
-              filteredData?.map((songs) => (
-                <div className={style.card} key={songs.id}>
-                  <div className={style.imgBox}>
-                    <img
-                      className={style.img}
-                      src={songs.coverImage}
-                      alt="coverImage"
-                    />
-                    <div className={style.iconBox}>
-                      <WorkspacePremiumIcon
-                        className={style.premium}
-                        style={{
-                          display: songs.premiumOnly ? "block" : "none",
-                        }}
+              filteredData
+                ?.filter((song) => song?.type === "single")
+                .map((songs) => (
+                  <div className={style.card} key={songs.id}>
+                    <div className={style.imgBox}>
+                      <img
+                        className={style.img}
+                        src={songs.coverImage}
+                        alt="coverImage"
                       />
-                      <AlbumIcon className={style.album} />
-                    </div>
-                    <div className={style.icons}>
-                      <div onClick={(e) => handleMenuClick(e, songs.id)}>
-                        <MoreVertIcon />
-                      </div>
-
-                      <Menu
-                        anchorEl={anchorEl}
-                        open={currentSongId === songs.id}
-                        onClose={handleMenuClose}
-                      >
-                        <MenuItem
-                          onClick={() => {
-                            handleDelete(songs.id), handleMenuClose();
+                      <div className={style.iconBox}>
+                        <WorkspacePremiumIcon
+                          className={style.premium}
+                          style={{
+                            display: songs.premiumOnly ? "block" : "none",
                           }}
-                        >
-                          Delete Song
-                        </MenuItem>
-                        {/* <MenuItem onClick={handleMenuClose}>Edit Song</MenuItem> */}
-                      </Menu>
-                    </div>
-                  </div>
+                        />
+                      </div>
+                      <div className={style.icons}>
+                        <div onClick={(e) => handleMenuClick(e, songs.id)}>
+                          <MoreVertIcon />
+                        </div>
 
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                    }}
-                  >
-                    <div>
-                      <p className={style.letterTop}>{songs.name}</p>
-                      <p className={style.letterBottom}>
-                        {moment(songs.createdAt).format("MMM Do YY")}
-                      </p>
+                        <Menu
+                          anchorEl={anchorEl}
+                          open={currentSongId === songs.id}
+                          onClose={handleMenuClose}
+                        >
+                          <MenuItem
+                            onClick={() => {
+                              handleDelete(songs.id), handleMenuClose();
+                            }}
+                          >
+                            Delete Song
+                          </MenuItem>
+                          {/* <MenuItem onClick={handleMenuClose}>Edit Song</MenuItem> */}
+                        </Menu>
+                      </div>
                     </div>
+
                     <div
-                      className={style.icon}
-                      onClick={() => handlePlayMusic(songs)}
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                      }}
                     >
-                      {currentSong?.id === songs.id && isPlaying ? (
-                        <PauseIcon style={{ color: "#fff" }} />
-                      ) : (
-                        <PlayArrowIcon style={{ color: "#fff" }} />
-                      )}
+                      <div>
+                        <p className={style.letterTop}>{songs.name}</p>
+                        <p className={style.letterBottom}>
+                          {moment(songs.createdAt).format("MMM Do YY")}
+                        </p>
+                      </div>
+                      <div
+                        className={style.icon}
+                        onClick={() => handlePlayMusic(songs)}
+                      >
+                        {currentSong?.id === songs.id && isPlaying ? (
+                          <PauseIcon style={{ color: "#fff" }} />
+                        ) : (
+                          <PlayArrowIcon style={{ color: "#fff" }} />
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))
+                ))
             ) : (
               <p className={style.sentence}>Artist dont have single songs</p>
             )}

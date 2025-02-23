@@ -1,5 +1,5 @@
-@import "../../scss/variables";
 @import "../../scss/extends";
+@import "../../scss/variables";
 
 .main {
   padding: 4% 50px;
@@ -14,28 +14,24 @@
   flex-wrap: wrap;
 }
 .box {
-  @extend %box;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
   margin-bottom: 40px;
 }
 .inputBox {
-  width: 335px;
+  width: 350px;
   position: relative;
 }
 .input {
-  padding: 10px 10px;
-  border-radius: 15px;
-  width: 100%;
-  background-color: #1f1f1f;
-  border: 1px solid #aaa;
-  color: $whiteColor;
+  @extend %input;
 }
 .input:focus {
   outline: none;
 }
 .searchIcon {
-  position: absolute;
-  right: 10px;
-  top: 6px;
+  @extend %search-icon;
 }
 .select {
   padding: 9px 10px;
@@ -69,7 +65,7 @@
   display: flex;
 }
 .premium {
-  color: $normalBlue;
+  color: red;
 }
 .album {
   color: $normalBlue;

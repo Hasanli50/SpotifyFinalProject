@@ -2,20 +2,28 @@
 @import "../../scss/extends";
 
 .main {
-  padding: 4% 50px;
+  
+
 }
 .albums {
+  padding: 4% 50px;
   @extend %section-margin;
 }
 .singles {
+  padding: 4% 50px;
   @extend %section-margin;
 }
 .songs {
+  padding: 4% 50px;
   @extend %section-margin;
 }
-// .trendingSngs {
-//   margin-bottom: 5%;
-// }
+.trendingSngs {
+  padding: 4% 50px;
+  @extend %section-margin;
+  @media only screen and (max-width: 520px) {
+    padding: 10px;
+  }
+}
 .heading {
   @extend %heading;
 }
@@ -29,10 +37,13 @@
 }
 .songsCard {
   @extend %songs-card;
-  margin-bottom: 30px
+  margin-bottom: 30px;
+  padding-right: 5px;
+  
 }
 .songsCard__imgBox {
   @extend %songsCard-imgBox;
+  position: relative;
 }
 .songsCard__imgBox__img {
   @extend %img;
@@ -47,11 +58,27 @@
     display: none;
   }
 }
+.iconBox {
+  position: absolute;
+  top: 5px;
+  left: 2px;
+  display: flex;
+}
+.premium {
+  color: red;
+}
+.premiumMini{
+  position: absolute;
+  color: red;
+  top: 2px;
+  left: 0px;
+}
 .card {
   @extend %card;
 }
 .imgBox {
   @extend %img-box;
+  position: relative;
 }
 .img {
   @extend %img;

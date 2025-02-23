@@ -104,38 +104,39 @@ const EditAlbum = ({ id }) => {
                 id="outlined-basic"
                 color= "#FAB5E7"
                 sx={{
-                    marginBottom: "10px",
-                    width: "100%",
-                    "& .MuiOutlinedInput-root": {
-                        color: "#FAB5E7",
-                      "&:hover .MuiOutlinedInput-notchedOutline": {
-                        borderColor: "rgba(238, 16, 176, 1)",
-                      },
+                  marginBottom: "10px",
+                  width: "100%",
+                  color: "#fff",
+                  "& .MuiOutlinedInput-root": {
+                    color:"#fff",
+                    "&:hover .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#fff",
+                    },
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#fff",
+                      borderWidth: "2px",
+                    },
+                    "&.Mui-focused": {
                       "& .MuiOutlinedInput-notchedOutline": {
-                        borderColor: "rgba(238, 16, 176, 1)",
+                        borderColor: "#FAB5E7",
                         borderWidth: "2px",
                       },
-                      "&.Mui-focused": {
-                        "& .MuiOutlinedInput-notchedOutline": {
-                          borderColor: "#FAB5E7",
-                          borderWidth: "2px",
-                        },
-                        "& input": {
-                          color: "#FAB5E7",
-                          background: "transparant",
-                        },
-                        "& .MuiInputLabel-root": {
-                          color: "#FAB5E7",
-                        },
+                      "& input": {
+                        borderColor: "#fff",
+                        background: "transparant",
+                      },
+                      "& .MuiInputLabel-root": {
+                        color: "#fff",
                       },
                     },
-                    "& .MuiInputLabel-root": {
-                      color: "#FAB5E7",
-                    },
-                    "& input::placeholder": {
-                      color: "#FAB5E7",
-                    },
-                  }}
+                  },
+                  "& .MuiInputLabel-root": {
+                    color: "#FAB5E7",
+                  },
+                  "& input::placeholder": {
+                    color: "#fff",
+                  },
+                }}
                 label="Enter Album Name"
                 variant="outlined"
               />

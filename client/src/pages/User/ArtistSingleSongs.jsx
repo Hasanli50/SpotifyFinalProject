@@ -214,7 +214,6 @@ const ArtistSingleSongs = () => {
   };
   return (
     <>
-      <section className={style.allSingleSongs}>
         <div className={style.inputBox}>
           <input
             onChange={(e) => setSearchSong(e.target.value)}
@@ -225,6 +224,7 @@ const ArtistSingleSongs = () => {
           />
           <SearchIcon className={style.searchIcon} />
         </div>
+      <section className={style.allSingleSongs}>
 
         <p className={style.heading}>
           <Link to={`/artists/${artist.id}`}>

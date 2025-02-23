@@ -41,6 +41,11 @@
   margin-bottom: 30px;
   font-weight: 600;
 }
+@media only screen and (max-width: 520px) {
+  .heading {
+    font-size: 25px;
+  }
+}
 
 .playlistDetail {
   padding: 0 50px;

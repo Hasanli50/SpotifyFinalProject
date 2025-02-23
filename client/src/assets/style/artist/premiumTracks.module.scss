@@ -1,5 +1,5 @@
-@import "../../scss/extends";
 @import "../../scss/variables";
+@import "../../scss/extends";
 
 .premiumTracks {
   padding: 4% 50px;
@@ -47,7 +47,7 @@
 }
 .premiumMini{
   position: absolute;
-  color: $normalBlue;
+  color: red;
   top: 2px;
   left: 0px;
 }

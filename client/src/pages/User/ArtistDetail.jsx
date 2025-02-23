@@ -419,7 +419,7 @@ const ArtistDetail = () => {
               </Link>
             ))
           ) : (
-            <p className={style.sentence}>You don`t have any albums</p>
+            <p className={style.sentence}>Albums not found</p>
           )}
           <Link to={`/artist-all-albums/${artist.id}`}>
             <div className={style.viewAll}>

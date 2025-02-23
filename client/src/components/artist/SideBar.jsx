@@ -116,7 +116,7 @@ const SideBar = () => {
             {
               key: "3",
               icon: <AudiotrackIcon />,
-              label: <Link to={"/artist/tracks"}>Tracks</Link>,
+              label: <Link to={"/artist/tracks"}>Single Songs</Link>,
             },
             {
               key: "4",

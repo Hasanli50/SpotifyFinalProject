@@ -41,9 +41,8 @@
   @extend %letter-bottom;
 }
 
-
-.box{
-    margin-bottom: 50px;
+.box {
+  margin-bottom: 50px;
 }
 .user {
   position: relative;
@@ -66,12 +65,12 @@
 .profileImg {
   width: 100%;
   cursor: pointer;
-  transition: filter 0.3s ease-in-out; 
+  transition: filter 0.3s ease-in-out;
 }
 
 .profileImgBox:hover .profileImg {
-  filter: grayscale(100%); 
-  opacity: 0.5; 
+  filter: grayscale(100%);
+  opacity: 0.5;
 }
 
 .trashIcon {
@@ -80,7 +79,7 @@
   right: 18px;
   font-size: 24px;
   color: #fff;
-  opacity: 0; 
+  opacity: 0;
   transition: opacity 0.3s ease-in-out;
 }
 

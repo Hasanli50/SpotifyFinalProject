@@ -42,6 +42,11 @@
   margin-bottom: 30px;
   font-weight: 600;
 }
+@media only screen and (max-width: 520px) {
+  .heading {
+    font-size: 25px;
+  }
+}
 
 .songsCard {
   background-color: #1f1f1f;
@@ -64,10 +69,16 @@
   margin-bottom: 6%;
   padding: 0 50px;
 }
-@media only screen and (max-width: 520px) {
-  .songs {
-    padding: 10px;
-  }
+
+.imgBox {
+  position: relative;
+}
+
+.premium {
+  position: absolute;
+  color: red;
+  top: 5px;
+  left: 2px;
 }
 
 .card:hover .img {
@@ -113,6 +124,10 @@
   font-size: 18px;
 }
 
+.songsCard__imgBox {
+  position: relative;
+}
+
 @media only screen and (max-width: 660px) {
   .songsCard__letter {
     display: none;
@@ -121,6 +136,11 @@
 
 .songsCard:hover .songsCard__imgBox__img {
   transform: scale(1.1);
+}
+
+.disabledCard {
+  pointer-events: none;
+  opacity: 0.7;
 }
 
 .rectangleМiewAll {
@@ -140,11 +160,6 @@
   margin-bottom: 6%;
   padding: 0 50px;
 }
-@media only screen and (max-width: 520px) {
-  .allArtists {
-    padding: 10px;
-  }
-}
 
 .profileImgBox {
   width: 132px;
@@ -152,6 +167,13 @@
   overflow: hidden;
   border-radius: 50%;
   margin-bottom: 20px;
+}
+
+.premiumMini {
+  position: absolute;
+  color: red;
+  top: 2px;
+  left: 0px;
 }
 
 .profileImg {
@@ -162,11 +184,6 @@
   padding: 0 50px;
   padding-top: 30px;
   margin-bottom: 6%;
-}
-@media only screen and (max-width: 520px) {
-  .topSongs {
-    padding: 10px;
-  }
 }
 
 .paragraph {

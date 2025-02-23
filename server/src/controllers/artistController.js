@@ -57,51 +57,6 @@ const getAllDeletedArtists = async (_, res) => {
   }
 };
 
-// const updateStatus = async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     const artist = await Artist.findById(id);
-
-//     if (!artist) {
-//       return res.status(404).json({
-//         message: "Artist not found",
-//         status: "fail",
-//       });
-//     }
-
-//     const updated = await Artist.findByIdAndUpdate(
-//       id,
-//       {
-//         status: "approved",
-//       },
-//       { new: true }
-//     );
-//     const email = artist.email;
-
-//     await transporter
-//       .sendMail({
-//         from: process.env.MAIL_USER,
-//         to: email,
-//         subject: "Account Verification | Melodies",
-//         html: `<h1>Click <a href="${process.env.APP_BASE_URL}/verify">here</a> to verify your account</h1>`,
-//       })
-//       .catch((error) => {
-//         console.log("error: ", error);
-//       });
-
-//     res.status(200).json({
-//       message: "Pending artist fetched successfully",
-//       status: "success",
-//       data: updated,
-//     });
-//   } catch (error) {
-//     res.status(500).json({
-//       message: error.message || "Internal server error",
-//       status: "fail",
-//     });
-//   }
-// };
-
 const getById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -133,7 +88,6 @@ const getById = async (req, res) => {
 const getByToken = async (req, res) => {
   try {
     const { id } = req.artist;
-    console.log(id);
 
     const artist = await Artist.findById({ _id: id, isDeleted: false })
       .select("-password")
@@ -160,7 +114,6 @@ const getByToken = async (req, res) => {
 };
 
 const register = async (req, res) => {
-  // console.log("🔵 Register route hit!");
   try {
     const { username, email, password } = req.body;
 
@@ -230,7 +183,6 @@ const login = async (req, res) => {
     const { username, password } = req.body;
 
     const artist = await Artist.login(username, password);
-    // console.log(artist);
     if (!artist) {
       return res.status(404).json({
         message: "Invalid username or password",
@@ -311,22 +263,94 @@ const verifyAccount = async (req, res) => {
         from: process.env.MAIL_USER,
         to: updatedArtist.email,
         subject: "Account Verification | Melodies",
-        html: `<div style="color: #000;">
-        <h2 style=" text-transform: capitalize; font-size: 30px; margin-bottom: 10px;">
-            Congratulations!
-        </h2>
-        <p style="margin-bottom: 20px;">Your account successfully vefied!!!</p>
-        <a href="${process.env.APP_BASE_URL}/artist/login" style="text-decoration: none;">
-            <button style="padding: 10px 50px; border: 1px solid #41A145; font-size: 20px;
-        text-transform: capitalize;
-        font-weight: 500;
-        cursor: pointer;
-        transition: 0.3s ease-in-out;   
-        background-color: #000;
-        color: #41A145;
-        border-radius: 5px;">Login</button>
-        </a>
-    </div>`,
+        html: `
+      <html>
+        <head>
+          <style>
+            body {
+              font-family: Arial, sans-serif;
+              background-color: #f4f7fa;
+              margin: 0;
+              padding: 0;
+            }
+            .container {
+              width: 100%;
+              max-width: 500px;
+              margin: 0 auto;
+              padding: 10px;
+            }
+            .header {
+              background: linear-gradient(90deg,
+                rgba(238, 16, 176, 1) 12%,
+                rgba(14, 158, 239, 1) 100%);
+              color: white;
+              text-align: center;
+              padding: 15px 0;
+              border-radius: 5px 5px 0 0;
+            }
+            .header h2 {
+              margin: 0;
+              font-size: 30px;
+              text-transform: capitalize;
+            }
+            .content {
+              background-color: #fff;
+              padding: 25px;
+              border-radius: 5px;
+              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            }
+            .content p {
+              font-size: 16px;
+              color: #333;
+              line-height: 1.6;
+            }
+            .cta-button {
+              display: inline-block;
+              background: linear-gradient(
+                90deg,
+                rgba(238, 16, 176, 1) 12%,
+                rgba(14, 158, 239, 1) 100%
+              );
+              color: white;
+              padding: 15px 50px;
+              font-size: 20px;
+              text-decoration: none;
+              text-transform: capitalize;
+              font-weight: 500;
+              border-radius: 5px;
+              cursor: pointer;
+              transition: 0.3s ease-in-out;
+              margin-top: 20px;
+              text-align: center;
+            }
+            .cta-button:hover {
+              opacity: 0.9;
+            }
+            .footer {
+              text-align: center;
+              padding: 20px 0;
+              font-size: 12px;
+              color: #999;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="header">
+              <h2>Congratulations!</h2>
+            </div>
+            <div class="content">
+              <p>Your account has been successfully verified!</p>
+              <p>You're now ready to log in and start your journey with Melodies.</p>
+              <a href="${process.env.APP_BASE_URL}/artist/login" class="cta-button">Login</a>
+            </div>
+            <div class="footer">
+              <p>If you did not request this verification, please ignore this email.</p>
+            </div>
+          </div>
+        </body>
+      </html>
+      `,
       })
       .catch((error) => {
         console.log("error: ", error);
@@ -526,14 +550,13 @@ const unBanAccount = async (req, res) => {
     });
   }
 };
+
 const mongoose = require("mongoose");
 const updateArtistInfo = async (req, res) => {
   try {
     const { id } = req.params;
     const { id: artistId } = req.artist;
     const { username, email, genreIds, description } = req.body;
-    console.log("req.body", req.body);
-    console.log("Received genreIds:", genreIds);
 
     if (id !== artistId) {
       return res.status(401).json({
@@ -573,7 +596,6 @@ const updateArtistInfo = async (req, res) => {
       runValidators: true,
     }).lean();
 
-    console.log("Updated Artist:", updatedArtist);
 
     if (req.file) {
       const publicId = extractPublicId(prevArtist);
@@ -664,7 +686,6 @@ const updatePassword = async (req, res) => {
 const forgotPassword = async (req, res) => {
   try {
     const { email } = req.body;
-    // console.log("Email received:", email);
     const artist = await Artist.findOne({ email: email, isDeleted: false });
 
     if (!artist) {
@@ -681,7 +702,91 @@ const forgotPassword = async (req, res) => {
         from: process.env.MAIL_USER,
         to: email,
         subject: "Password Reset | Spotify",
-        html: `<h1>Click <a href="${process.env.APP_BASE_URL}/artist/reset-password/${token}">here</a> to reset your password</h1> <h3>If you did not send a request, you can ignore this email</h3>`,
+        html: `
+      <html>
+        <head>
+          <style>
+            body {
+              font-family: Arial, sans-serif;
+              background-color: #f4f7fa;
+              margin: 0;
+              padding: 0;
+            }
+            .container {
+              width: 100%;
+              max-width: 500px;
+              margin: 0 auto;
+              padding: 10px;
+            }
+            .header {
+              background: linear-gradient(90deg,
+                  rgba(238, 16, 176, 1) 12%,
+                  rgba(14, 158, 239, 1) 100%);
+              color: white;
+              text-align: center;
+              padding: 15px 0;
+              border-radius: 5px 5px 0 0;
+            }
+            .header h1 {
+              margin: 0;
+              font-size: 24px;
+            }
+            .content {
+              background-color: #f4f7fa;
+              padding: 25px;
+              border-radius: 5px;
+              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            }
+            .content p {
+              font-size: 16px;
+              color: #333;
+              line-height: 1.6;
+            }
+            .cta-button {
+              display: inline-block;
+              background: linear-gradient(90deg,
+                  rgba(238, 16, 176, 1) 12%,
+                  rgba(14, 158, 239, 1) 100%);
+              color: white;
+              padding: 15px 25px;
+              font-size: 20px;
+              text-decoration: none;
+              text-transform: capitalize;
+              font-weight: 500;
+              border-radius: 5px;
+              cursor: pointer;
+              transition: 0.3s ease-in-out;
+              margin-top: 20px;
+              text-align: center;
+            }
+            .cta-button:hover {
+             opacity: 0.9;
+            }
+            .footer {
+              text-align: center;
+              padding: 20px 0;
+              font-size: 12px;
+              color: #999;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="header">
+              <h1>Password Reset Request</h1>
+            </div>
+            <div class="content">
+              <p>Hello,</p>
+              <p>We received a request to reset the password for your Melodies account. If you made this request, you can reset your password by clicking the button below:</p>
+              <a href="${process.env.APP_BASE_URL}/artist/reset-password/${token}" class="cta-button">Reset My Password</a>
+            </div>
+            <div class="footer">
+              <p>If you did not sign up for Melodies, you can ignore this email.</p>
+            </div>
+          </div>
+        </body>
+      </html>
+      `,
       })
       .catch((error) => {
         console.log("error: ", error);

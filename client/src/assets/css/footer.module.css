@@ -60,13 +60,13 @@
 
 .item:hover {
   background: linear-gradient(90deg, rgb(238, 16, 176) 12%, rgb(14, 158, 239) 100%);
-  -webkit-background-clip: text;
+  background-clip: text;
   color: transparent;
 }
 
 .logo {
   background: linear-gradient(90deg, rgb(238, 16, 176) 12%, rgb(14, 158, 239) 100%);
-  -webkit-background-clip: text;
+  background-clip: text;
   color: transparent;
   font-size: 30px;
   text-transform: capitalize;

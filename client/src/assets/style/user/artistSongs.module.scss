@@ -1,12 +1,16 @@
 @import "../../scss/extends";
 @import "../../scss/variables";
 
-.box{
-  @extend %box;
-}
+
 .inputBox {
-  @extend %input-box;
+  padding-left: 50px;
+  max-width: 335px;
+  position: relative;
   margin-bottom: 30px;
+  @media only screen and (max-width: 520px) {
+    padding: 0  10px;
+  }
+  
 }
 .input {
   @extend %input;
@@ -34,7 +38,7 @@
 }
 .premium {
   position: absolute;
-  color: $normalBlue;
+  color: red;
   top: 5px;
   left: 2px;
 }
@@ -73,9 +77,7 @@
 .allSingleSongs {
   padding: 0 50px;
   margin-bottom: 50px;
-  @media only screen and (max-width: 520px) {
-    padding: 10px;
-  }
+
 }
 .songs {
   display: flex;

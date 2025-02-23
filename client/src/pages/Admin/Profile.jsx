@@ -69,26 +69,27 @@ const Profile = () => {
             sx={{
               marginBottom: "10px",
               width: "100%",
+              color: "#fff",
               "& .MuiOutlinedInput-root": {
-                color: "#A9B5DF",
+                color:"#fff",
                 "&:hover .MuiOutlinedInput-notchedOutline": {
-                  borderColor: "rgb(45, 51, 107, 0.7)",
+                  borderColor: "#fff",
                 },
                 "& .MuiOutlinedInput-notchedOutline": {
-                  borderColor: "rgb(45, 51, 107, 0.7)",
+                  borderColor: "#fff",
                   borderWidth: "2px",
                 },
                 "&.Mui-focused": {
                   "& .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "rgb(45, 51, 107, 0.7)",
+                    borderColor: "#A9B5DF",
                     borderWidth: "2px",
                   },
                   "& input": {
-                    color: "#A9B5DF",
+                    borderColor: "#fff",
                     background: "transparant",
                   },
                   "& .MuiInputLabel-root": {
-                    color: "#A9B5DF",
+                    color: "#fff",
                   },
                 },
               },
@@ -96,7 +97,7 @@ const Profile = () => {
                 color: "#A9B5DF",
               },
               "& input::placeholder": {
-                color: "#A9B5DF",
+                color: "#fff",
               },
             }}
             name="username"
@@ -118,26 +119,27 @@ const Profile = () => {
             sx={{
               marginBottom: "10px",
               width: "100%",
+              color: "#fff",
               "& .MuiOutlinedInput-root": {
-                color: "#A9B5DF",
+                color:"#fff",
                 "&:hover .MuiOutlinedInput-notchedOutline": {
-                  borderColor: "rgb(45, 51, 107, 0.7)",
+                  borderColor: "#fff",
                 },
                 "& .MuiOutlinedInput-notchedOutline": {
-                  borderColor: "rgb(45, 51, 107, 0.7)",
+                  borderColor: "#fff",
                   borderWidth: "2px",
                 },
                 "&.Mui-focused": {
                   "& .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "rgb(45, 51, 107, 0.7)",
+                    borderColor: "#A9B5DF",
                     borderWidth: "2px",
                   },
                   "& input": {
-                    color: "#A9B5DF",
+                    borderColor: "#fff",
                     background: "transparant",
                   },
                   "& .MuiInputLabel-root": {
-                    color: "#A9B5DF",
+                    color: "#fff",
                   },
                 },
               },
@@ -145,7 +147,7 @@ const Profile = () => {
                 color: "#A9B5DF",
               },
               "& input::placeholder": {
-                color: "#A9B5DF",
+                color: "#fff",
               },
             }}
             name="email"

@@ -4,9 +4,6 @@
 .songs {
   margin-bottom: 6%;
   padding: 0 50px;
-  @media only screen and (max-width: 520px) {
-    padding: 10px;
-  }
 }
 .heading {
   @extend %heading;
@@ -20,7 +17,7 @@
 }
 .premium{
   position: absolute;
-  color: $normalBlue;
+  color: red;
   top: 5px;
   left: 2px;
 }
@@ -117,9 +114,6 @@
 .allArtists {
   margin-bottom: 6%;
   padding: 0 50px;
-  @media only screen and (max-width: 520px) {
-    padding: 10px;
-  }
 }
 .profileImgBox {
   width: 132px;
@@ -130,7 +124,7 @@
 }
 .premiumMini{
   position: absolute;
-  color: $normalBlue;
+  color: red;
   top: 2px;
   left: 0px;
 }
@@ -142,9 +136,7 @@
   padding: 0 50px;
   padding-top: 30px;
   margin-bottom: 6%;
-  @media only screen and (max-width: 520px) {
-    padding: 10px;
-  }
+
 }
 .paragraph {
   background: linear-gradient(
