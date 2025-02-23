@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import { useState, useEffect } from "react";
 import { Modal, Fade, Box } from "@mui/material";
@@ -6,8 +5,8 @@ import style from "../../assets/style/user/premium.module.scss";
 import { BASE_URL, ENDPOINT } from "../../api/endpoint";
 import toast from "react-hot-toast";
 import { getUserFromStorage } from "../../utils/localeStorage";
-// import { fetchUserByToken } from "../../utils/reusableFunc";
 import axios from "axios";
+import { fetchUserByToken } from "../../utils/reusableFunc";
 
 const CheckoutForm = ({ open, handleClose }) => {
   const [loading, setLoading] = useState(false);
@@ -16,64 +15,48 @@ const CheckoutForm = ({ open, handleClose }) => {
   const stripe = useStripe();
   const elements = useElements();
   const token = getUserFromStorage();
+  const [user, setUser] = useState([]);
+
+  // Fetch user details
+  useEffect(() => {
+    const getUserByToken = async () => {
+      try {
+        const response = await fetchUserByToken(token);
+        setUser(response);
+      } catch (error) {
+        console.log("Error:", error);
+      }
+    };
+    getUserByToken();
+  }, [token]);
 
   const checkAndUpdatePremiumStatus = async (token) => {
     try {
       const response = await axios.get(
-        `${BASE_URL + ENDPOINT.users}/update-status`,
+        `${BASE_URL + ENDPOINT.users}/${user.id}`, 
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
-      return response.data;
+      const userData = response.data;
+      setIsPremium(userData.isPremium);
+      setIsExpired(userData.premiumExpired);
     } catch (error) {
       console.error("Error checking premium status:", error);
-      return null;
     }
   };
 
-  // //get user by token
-  // const [user, setUser] = useState([]);
-
-  // useEffect(() => {
-  //   const getUserByToken = async () => {
-  //     try {
-  //       const response = await fetchUserByToken(token);
-  //       setUser(response);
-  //     } catch (error) {
-  //       console.log("Error:", error);
-  //     }
-  //   };
-  //   getUserByToken();
-  // }, [token]);
-
-useEffect(() => {
-    const updatePremium = async () => {
-      const premiumData = await checkAndUpdatePremiumStatus(token);
-      if (premiumData) {
-        if (premiumData.premiumExpired) {
-          setIsExpired(true);
-          setIsPremium(false);
-          toast.info("Your premium subscription has expired. Please renew your subscription.");
-        } else {
-          setIsPremium(true);
-          setIsExpired(false);
-        }
-      }
-    };
-    updatePremium();
+  useEffect(() => {
+    checkAndUpdatePremiumStatus(token);
   }, [token]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!stripe || !elements) return;
-  
+
     setLoading(true);
-  
     const cardElement = elements.getElement(CardElement);
-  
+
     try {
       const response = await axios.post(
         `${BASE_URL + ENDPOINT.users}/create-payment-intent`,
@@ -85,10 +68,10 @@ useEffect(() => {
           },
         }
       );
-  
+
       const paymentIntentResponse = response.data;
       const clientSecret = paymentIntentResponse.clientSecret;
-  
+
       const { error, paymentIntent } = await stripe.confirmCardPayment(
         clientSecret,
         {
@@ -100,22 +83,30 @@ useEffect(() => {
           },
         }
       );
-  
-      setLoading(false);
-  
+
       if (error) {
-        console.error(error.message);
+        console.error("Stripe Error:", error.message);
         toast.error("Payment failed");
-      } else if (paymentIntent.status === "succeeded") {
+        setLoading(false);
+        return;
+      }
+
+      if (paymentIntent.status === "succeeded") {
         toast.success("Payment Successful!");
+
+        await axios.get(`${BASE_URL + ENDPOINT.users}/update-status`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        await checkAndUpdatePremiumStatus(token);
+
         handleClose();
       }
     } catch (error) {
+      console.error("Error processing payment:", error);
+      toast.error("Payment failed. Please try again.");
+    } finally {
       setLoading(false);
-      const errorMessage =
-        error.response?.data?.message ||
-        "Payment failed. Please try again.";
-      toast.error(errorMessage);
     }
   };
 
@@ -142,14 +133,16 @@ useEffect(() => {
           <p className={style.cardHeading}>Make a Payment</p>
 
           {isPremium && !isExpired && (
-            <p className={style.infoMessage} style={{marginBottom:"20px"}}>
+            <p className={style.infoMessage} style={{ marginBottom: "20px" }}>
               You already have premium access!
             </p>
           )}
 
           <div style={{ marginBottom: "20px" }}>
             <CardElement
-              options={{ style: { base: { color: "#000", fontSize: "16px" } } }}
+              options={{
+                style: { base: { color: "#000", fontSize: "16px" } },
+              }}
             />
           </div>
 
@@ -157,9 +150,9 @@ useEffect(() => {
             <button
               type="submit"
               className={style.payNow}
-              disabled={(isPremium && !isExpired) || loading || !stripe}
+              disabled={isPremium || loading || !stripe} 
             >
-              {isPremium && !isExpired
+              {isPremium
                 ? "Already Premium"
                 : loading
                 ? "Processing..."

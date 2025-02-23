@@ -42,6 +42,7 @@ const Artist = () => {
           <Route path="premium-tracks" element={<PremiumTracks />} />
           <Route path="about-us" element={<AboutUs />} />
           <Route path="contact" element={<Contact />} />
+          <Route path="add-track/:id" element={<AddTrack />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

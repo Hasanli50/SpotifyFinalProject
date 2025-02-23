@@ -3,6 +3,7 @@ const router = express.Router();
 const fileUpload = require("../config/trackMulter.js");
 const {
   createTrack,
+  createAlbumSong,
   getTrackById,
   getAllTracks,
   deleteTrack,
@@ -20,6 +21,16 @@ router.post(
   createTrackValidator,
   createTrack
 ); //+
+
+router.post(
+  "/albumSong",
+  fileUpload.fields([
+    { name: "coverImage", maxCount: 1 },
+    { name: "previewUrl", maxCount: 1 },
+  ]),
+  createTrackValidator,
+  createAlbumSong
+); //+
 router.get("/:id", getTrackById); //+
 router.get("/", getAllTracks); //+
 router.delete(
@@ -30,7 +41,7 @@ router.delete(
   ]),
   deleteTrack
 );
-router.patch("/:id/increment-play", incrementPlayCount) //+
-router.patch("/:id/premium-only", changePremium) 
+router.patch("/:id/increment-play", incrementPlayCount); //+
+router.patch("/:id/premium-only", changePremium);
 
 module.exports = router;

@@ -1,4 +1,5 @@
 @import "../../scss/variables";
+@import "../../scss/extends";
 
 .main {
   padding: 4% 50px;
@@ -6,9 +7,14 @@
 .tracks {
   margin-bottom: 2%;
 }
-.box {
+.songs {
   display: flex;
-  gap: 20px;
+  gap: 30px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.box {
+  @extend %box;
   margin-bottom: 40px;
 }
 .inputBox {
@@ -45,46 +51,58 @@
   align-items: center;
 }
 
-.songBox {
+.card {
+  @extend %card;
+}
+.disabledCard {
+  pointer-events: none;
+  opacity: 0.7;
+}
+.imgBox {
+  @extend %img-box;
+  position: relative;
+}
+.iconBox {
+  position: absolute;
+  top: 5px;
+  left: 2px;
   display: flex;
-  align-items: center;
-  gap: 12px;
 }
-.place {
-  font-size: 18px;
+.premium {
+  color: $normalBlue;
 }
-.songsCard {
-  background-color: #1f1f1f;
-  width: 100%;
-  border-radius: 10px;
-  cursor: pointer;
+.album {
+  color: $normalBlue;
+}
+.icons {
   display: flex;
-  justify-content: space-between;
-  padding-right: 20px;
-  align-items: center;
+  gap: 0px;
+  position: absolute;
+  right: 0px;
+  top: 5px;
 }
-.songsCard__imgBox {
-  width: 58px;
-  height: 60px;
-  overflow: hidden;
-  border-radius: 10px;
+.img {
+  @extend %img;
 }
-.songsCard__imgBox__img {
-  width: 100%;
-  object-fit: cover;
-  transition: 0.3s ease-in-out;
-  border-radius: 10px;
-}
-.songsCard:hover {
-  .songsCard__imgBox__img {
+.card:hover {
+  .img {
     transform: scale(1.1);
   }
 }
-.songsCard__letter {
-  @media only screen and (max-width: 660px) {
-    display: none;
-  }
+.letterTop {
+  @extend %letter-top;
 }
-.blackAudioPlayer {
-  padding: 7px 0;
+.letterBottom {
+  @extend %letter-bottom;
+}
+.sentence {
+  text-align: left;
+  font-size: 20px;
+  background: linear-gradient(
+    90deg,
+    rgba(238, 16, 176, 1) 12%,
+    rgba(14, 158, 239, 1) 100%
+  );
+  background-clip: text;
+  color: transparent;
 }

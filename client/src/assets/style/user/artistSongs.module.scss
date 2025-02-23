@@ -1,6 +1,9 @@
 @import "../../scss/extends";
 @import "../../scss/variables";
 
+.box{
+  @extend %box;
+}
 .inputBox {
   @extend %input-box;
   margin-bottom: 30px;

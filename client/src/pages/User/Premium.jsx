@@ -4,6 +4,8 @@ import CheckoutForm from "./CheckoutForm";
 import { getUserFromStorage } from "../../utils/localeStorage";
 import { fetchUserByToken } from "../../utils/reusableFunc";
 import { useNavigate } from "react-router";
+import axios from "axios";
+import { BASE_URL, ENDPOINT } from "../../api/endpoint";
 
 const Premium = () => {
   const [open, setOpen] = useState(false);
@@ -21,14 +23,22 @@ const Premium = () => {
       try {
         const response = await fetchUserByToken(token);
         setUser(response);
+
         if (response.isPremium && response.premiumSince) {
           const currentDate = new Date();
-          // For testing, check with 1 minute expiration
           const premiumExpirationDate = new Date(response.premiumSince);
-          premiumExpirationDate.setMinutes(premiumExpirationDate.getMinutes() + 1);
+          premiumExpirationDate.setMinutes(
+            premiumExpirationDate.getMinutes() + 1
+          );
+
           if (currentDate > premiumExpirationDate) {
             setIsExpired(true);
             setIsPremium(false);
+
+            // 🔥 Force update the backend!
+            await axios.get(`${BASE_URL + ENDPOINT.users}/update-status`, {
+              headers: { Authorization: `Bearer ${token}` },
+            });
           } else {
             setIsPremium(true);
             setIsExpired(false);
@@ -41,8 +51,7 @@ const Premium = () => {
       }
     };
     getUserByToken();
-  }, [token]);
-  
+  }, [token]); 
 
   const handleUser = () => {
     if (user.length === 0) {
@@ -54,7 +63,9 @@ const Premium = () => {
     <>
       <main className={style.main}>
         <section className={style.features}>
-          <h2 className={style.heading}>Unlock Premium Features with Melodies</h2>
+          <h2 className={style.heading}>
+            Unlock Premium Features with Melodies
+          </h2>
           <p className={style.paragraph}>
             Upgrade to Melodies Premium for just $5 and take your music
             experience to the next level! With a Premium subscription, you’ll
@@ -93,15 +104,16 @@ const Premium = () => {
         </section>
 
         <button
-          onClick={() => { handleUser(); handleOpen(); }}
+          onClick={() => {
+            handleUser();
+            handleOpen();
+          }}
           className={style.premiumBtn}
-          disabled={isPremium && !isExpired} 
+          disabled={isPremium && !isExpired}
         >
-          {isPremium && !isExpired
-            ? "Already Premium"
-            : "Upgrade to Premium"}
+          {isPremium && !isExpired ? "Already Premium" : "Upgrade to Premium"}
         </button>
-        
+
         <CheckoutForm open={open} handleClose={handleClose} />
       </main>
     </>

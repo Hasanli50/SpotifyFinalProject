@@ -9,9 +9,17 @@
 }
 .card {
   @extend %card;
+  position: relative;
 }
 .imgBox {
   @extend %img-box;
+}
+.icons {
+  display: flex;
+  gap: 0px;
+  position: absolute;
+  right: 0px;
+  top: 5px;
 }
 .img {
   @extend %img;

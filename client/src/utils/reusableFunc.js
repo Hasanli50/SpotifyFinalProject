@@ -10,10 +10,11 @@ export const fetchArtistByToken = async (token) => {
     });
     return response.data.data;
   } catch (error) {
-    console.log("Error:", error);
+    console.log("Error:", error.response ? error.response.data : error.message);
     throw error;
   }
 };
+
 
 export const fetcAdminByToken = async (token) => {
   try {

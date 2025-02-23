@@ -1,15 +1,10 @@
-import * as Yup from 'yup';
+import * as Yup from "yup";
 
 export const songSchema = Yup.object().shape({
-  name: Yup.string()
-    .required("Name is required")
-    .trim(),
-
-  artistId: Yup.string()
-    .matches(/^[0-9a-fA-F]{24}$/, "Artist ID must be a valid MongoDB ID")
-    .required("Artist ID is required"),
+  name: Yup.string().required("Name is required").trim(),
 
   duration: Yup.number()
+    .min(0, "Duration cannot be less than 0")
     .positive("Duration must be a positive number")
     .required("Duration is required"),
 
@@ -24,16 +19,25 @@ export const songSchema = Yup.object().shape({
   premiumOnly: Yup.boolean(),
 
   collaboratedArtistIds: Yup.array()
-    .of(Yup.string().matches(/^[0-9a-fA-F]{24}$/, "Collaborated Artist IDs must be valid MongoDB IDs"))
+    .of(
+      Yup.string().matches(
+        /^[0-9a-fA-F]{24}$/,
+        "Collaborated Artist IDs must be valid MongoDB IDs"
+      )
+    )
     .optional(),
 
   coverImage: Yup.mixed()
     .required("Cover image is required")
-    .test("fileType", "Only image files (PNG, JPG, JPEG) are allowed.", (value) => {
-      if (!value) return false;
-      const validTypes = ["image/png", "image/jpeg", "image/jpg"];
-      return validTypes.includes(value.type);
-    })
+    .test(
+      "fileType",
+      "Only image files (PNG, JPG, JPEG) are allowed.",
+      (value) => {
+        if (!value) return false;
+        const validTypes = ["image/png", "image/jpeg", "image/jpg"];
+        return validTypes.includes(value.type);
+      }
+    )
     .test("fileSize", "File size must be less than 5MB", (value) => {
       if (!value) return true;
       return value.size <= 5 * 1024 * 1024;
@@ -49,5 +53,5 @@ export const songSchema = Yup.object().shape({
     .test("fileSize", "File size must be less than 5MB", (value) => {
       if (!value) return true;
       return value.size <= 5 * 1024 * 1024;
-    })
+    }),
 });

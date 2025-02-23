@@ -133,6 +133,7 @@ const getById = async (req, res) => {
 const getByToken = async (req, res) => {
   try {
     const { id } = req.artist;
+    console.log(id);
 
     const artist = await Artist.findById({ _id: id, isDeleted: false })
       .select("-password")
@@ -543,15 +544,15 @@ const updateArtistInfo = async (req, res) => {
 
     const genre = genreIds.map((id) => {
       if (mongoose.isValidObjectId(id)) {
-        return new mongoose.Types.ObjectId(id); 
+        return new mongoose.Types.ObjectId(id);
       } else {
-        throw new Error(`Invalid ObjectId: ${id}`); 
+        throw new Error(`Invalid ObjectId: ${id}`);
       }
     });
 
     const sentArtist = {
       ...req.body,
-      genreIds: genre, 
+      genreIds: genre,
     };
 
     if (req.file) {

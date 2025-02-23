@@ -1,17 +1,12 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
-import PlaylistAddCircleIcon from "@mui/icons-material/PlaylistAddCircle";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import style from "../../assets/style/artist/albumModal.module.scss";
-import {
-  Checkbox,
-  FormControlLabel,
-  // Radio,
-  // RadioGroup,
-  TextField,
-} from "@mui/material";
+import { Checkbox, FormControlLabel, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import toast from "react-hot-toast";
 import { getUserFromStorage } from "../../utils/localeStorage";
@@ -36,7 +31,7 @@ const styles = {
   p: 4,
 };
 
-const TrackModal = () => {
+const CreateAlbumSong = ({albumId}) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -63,11 +58,12 @@ const TrackModal = () => {
     initialValues: {
       name: "",
       duration: 0,
+      albumId: "",
       coverImage: null,
       previewUrl: null,
       premiumOnly: false,
       collaboratedArtistIds: [],
-      type: "single",
+      type: "album",
       artistId: "",
       genreId: "",
     },
@@ -78,6 +74,7 @@ const TrackModal = () => {
         const formData = new FormData();
         formData.append("name", values.name || "");
         formData.append("duration", values.duration || 0);
+        formData.append("albumId", albumId);
         formData.append("coverImage", values.coverImage || null);
         formData.append("previewUrl", values.previewUrl || null);
         formData.append("premiumOnly", values.premiumOnly);
@@ -85,7 +82,7 @@ const TrackModal = () => {
           formData.append("collaboratedArtistIds[]", id);
         });
 
-        formData.append("type", values.type || "single");
+        formData.append("type", values.type || "album");
         formData.append("artistId", user?.id || "");
         formData.append("genreId", values.genreId || "");
 
@@ -94,7 +91,7 @@ const TrackModal = () => {
         }
 
         const response = await axios.post(
-          `${BASE_URL + ENDPOINT.tracks}`,
+          `${BASE_URL + ENDPOINT.tracks}/albumSong`,
           formData,
           {
             headers: {
@@ -123,8 +120,10 @@ const TrackModal = () => {
 
   return (
     <>
-      <div onClick={handleOpen}>
-        <PlaylistAddCircleIcon style={{ fontSize: "30px" }} />
+      <div onClick={handleOpen} style={{ margin: "30px 0" }}>
+        <AddCircleOutlineIcon
+          style={{ color: "#fff", fontSize: "45px", cursor: "pointer" }}
+        />
       </div>
       <div style={{ padding: "0 20px" }}>
         <Modal
@@ -498,4 +497,4 @@ const TrackModal = () => {
     </>
   );
 };
-export default TrackModal;
+export default CreateAlbumSong;

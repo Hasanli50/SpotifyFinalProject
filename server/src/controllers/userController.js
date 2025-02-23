@@ -677,7 +677,7 @@ const payment = async (req, res) => {
     );
 
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: 500, 
+      amount: 500,
       currency: "usd",
     });
 
@@ -706,29 +706,33 @@ const updatePremiumStatus = async (req, res) => {
     const { id } = req.user;
     const user = await User.findById({ _id: id, isDeleted: false });
 
-    if (user && user.isPremium && user.premiumSince) {
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+        status: "fail",
+      });
+    }
+
+    if (user.isPremium && user.premiumSince) {
       const currentDate = new Date();
       const premiumExpirationDate = new Date(user.premiumSince);
-      premiumExpirationDate.setMinutes(premiumExpirationDate.getMinutes() + 1);
+      premiumExpirationDate.setMinutes(premiumExpirationDate.getMinutes() + 1); // Change to 30 days for real use case
 
       if (currentDate > premiumExpirationDate) {
-        const updatedUser = await User.findByIdAndUpdate(
+        await User.findByIdAndUpdate(
           id,
           { isPremium: false, premiumSince: null },
           { new: true }
         );
-        return res.status(200).json({
-          message: "Premium subscription expired. Updated user status.",
-          data: updatedUser,
-          premiumExpired: true,
-        });
       }
     }
 
+    // Send the updated user info
+    const updatedUser = await User.findById(id);
     res.status(200).json({
-      message: "Premium subscription active.",
-      data: user,
-      premiumExpired: false,
+      message: "Premium status updated.",
+      data: formatObj(updatedUser),
+      premiumExpired: !updatedUser.isPremium,
     });
   } catch (error) {
     console.error("Error updating premium status:", error);

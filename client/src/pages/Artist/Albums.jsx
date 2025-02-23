@@ -12,18 +12,20 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { BASE_URL, ENDPOINT } from "../../api/endpoint";
 import EditAlbum from "../../components/artist/editAlbum";
-// import EditIcon from "@mui/icons-material/Edit";
-// import { Link } from "react-router";
+import { Menu, MenuItem } from "@mui/material";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { Link } from "react-router";
 
 const Albums = () => {
   const [artist, setArtist] = useState([]);
   const [artistAlbum, setArtistAlbums] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredData, setFilteredData] = useState(artistAlbum);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [currentAlbumId, setCurrentAlbumId] = useState(null);
 
   const token = getUserFromStorage();
   const { data } = useAllAlbums();
-  // console.log(artist);
 
   //find artist
   useEffect(() => {
@@ -116,6 +118,16 @@ const Albums = () => {
     }
   };
 
+  const handleMenuClick = (event, albumId) => {
+    setAnchorEl(event.currentTarget);
+    setCurrentAlbumId(albumId);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+    setCurrentAlbumId(null);
+  };
+
   return (
     <>
       <main className={style.main}>
@@ -169,7 +181,7 @@ const Albums = () => {
                         <p className={style.letterBottom}>
                           Songs: {album.trackCount}
                         </p>
-                        <div style={{ display: "flex", gap:"10px" }}>
+                        <div style={{ display: "flex", gap: "10px" }}>
                           <div
                             style={{ color: "#fff" }}
                             onClick={() => handleDelete(album.id)}
@@ -183,6 +195,25 @@ const Albums = () => {
                             />
                           </div>
                         </div>
+                      </div>
+
+                      <div className={style.icons}>
+                        <div onClick={(e) => handleMenuClick(e, album.id)}>
+                          <MoreVertIcon />
+                        </div>
+
+                        <Menu
+                          anchorEl={anchorEl}
+                          open={currentAlbumId === album.id}
+                          onClose={handleMenuClose}
+                        >
+                          <Link to={`/artist/add-track/${album.id}`} style={{textDecoration:"none", color:"#000"}}>
+                            <MenuItem onClick={handleMenuClose}>
+                              Add Song
+                            </MenuItem>
+                          </Link>
+                          {/* <MenuItem onClick={handleMenuClose}>Edit Song</MenuItem> */}
+                        </Menu>
                       </div>
                     </div>
                   </Grid>

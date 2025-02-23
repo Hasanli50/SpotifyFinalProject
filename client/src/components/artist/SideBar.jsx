@@ -3,7 +3,6 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   HomeOutlined,
-  PlusOutlined,
   LogoutOutlined,
   UserAddOutlined,
 } from "@ant-design/icons";
@@ -11,7 +10,6 @@ import { Button, Layout, Menu } from "antd";
 import style from "../../assets/style/artist/sideBar.module.scss";
 import AlbumIcon from "@mui/icons-material/Album";
 import AudiotrackIcon from "@mui/icons-material/Audiotrack";
-import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
 import { Link, Outlet, useNavigate } from "react-router";
 import Footer from "../Footer";
 import bgHome from "../../assets/image/photo/bgHome.png";
@@ -127,31 +125,21 @@ const SideBar = () => {
             },
             {
               key: "5",
-              icon: <PlusOutlined />,
-              label: <Link to={"/artist/add-track"}>Add Track</Link>,
-            },
-            {
-              key: "6",
               icon: <PersonIcon />,
               label: <Link to={"/artist/profile"}>Profile</Link>,
             },
             {
-              key: "7",
+              key: "6",
               icon: <InfoIcon />,
               label: <Link to={"/artist/about-us"}>About Us</Link>,
             },
             {
-              key: "8",
+              key: "7",
               icon: <PhoneIcon />,
               label: <Link to={"/artist/contact"}>Contact</Link>,
             },
             {
-              key: "9",
-              icon: <SettingsSuggestIcon />,
-              label: <Link to={"/artist/setting"}>Setting</Link>,
-            },
-            {
-              key: "10",
+              key: "8",
               icon: <LogoutOutlined />,
               label: <p onClick={handleLogout}>Logout</p>,
             },

@@ -12,15 +12,24 @@ const formatObj = require("../utils/formatObj.js");
 // Create a new track
 const createTrack = async (req, res) => {
   try {
-    const { name, artistId, duration, genreId, type, premiumOnly } = req.body;
-    console.log("req body: ", req.body);
-
+    const {
+      name,
+      artistId,
+      duration,
+      genreId,
+      type,
+      premiumOnly,
+      collaboratedArtistIds,
+    } = req.body;
     const artist = await Artist.findById(artistId);
     if (!artist) {
       return res
         .status(404)
         .json({ message: "Artist not found", status: "fail" });
     }
+
+    console.log("Received body:", req.body);
+    console.log("collaboratedArtistIds:", req.body.collaboratedArtistIds);
 
     const coverImage = req.files?.coverImage
       ? req.files.coverImage[0].path
@@ -42,16 +51,95 @@ const createTrack = async (req, res) => {
       albumId: null,
       duration,
       genreId,
-      type,
+      type: "single",
       previewUrl,
       coverImage,
       premiumOnly,
-      collaboratedArtistIds: [],
+      collaboratedArtistIds,
     });
+
     await track.save();
 
     artist.trackIds.push(track._id);
     await artist.save();
+
+    return res.status(201).json({
+      data: formatObj(track),
+      message: "Track created successfully",
+      status: "success",
+    });
+  } catch (error) {
+    console.error("Error saving track:", error);
+    return res.status(500).json({
+      message: error.message || "Internal server error",
+      status: "fail",
+    });
+  }
+};
+
+//create song for album
+const createAlbumSong = async (req, res) => {
+  try {
+    const {
+      name,
+      artistId,
+      albumId,
+      duration,
+      genreId,
+      premiumOnly,
+      collaboratedArtistIds,
+    } = req.body;
+
+    const artist = await Artist.findById(artistId);
+    if (!artist) {
+      return res
+        .status(404)
+        .json({ message: "Artist not found", status: "fail" });
+    }
+
+    console.log("Received body:", req.body);
+    console.log("collaboratedArtistIds:", req.body.collaboratedArtistIds);
+
+    const coverImage = req.files?.coverImage
+      ? req.files.coverImage[0].path
+      : null;
+    const previewUrl = req.files?.previewUrl
+      ? req.files.previewUrl[0].path
+      : null;
+
+    if (!coverImage || !previewUrl) {
+      return res.status(400).json({
+        message: "Both cover image and preview URL are required.",
+        status: "fail",
+      });
+    }
+
+    const track = new Track({
+      name,
+      artistId,
+      albumId,
+      duration,
+      genreId,
+      type: "album",
+      previewUrl,
+      coverImage,
+      premiumOnly,
+      collaboratedArtistIds,
+    });
+
+    await track.save();
+
+    artist.trackIds.push(track._id);
+    await artist.save();
+
+    const album = await Album.findById(albumId);
+    if (album) {
+      album.trackIds.push(track._id);
+      album.trackCount = album.trackIds.length;
+      await album.save();
+    } else {
+      console.warn(`Album with id ${albumId} not found`);
+    }
 
     return res.status(201).json({
       data: formatObj(track),
@@ -167,17 +255,17 @@ const deleteTrack = async (req, res) => {
         throw new Error("Failed to delete image from Cloudinary");
       }
     }
-    console.log(track.previewUrl);
+    // console.log(track.previewUrl);
 
-    if (track.previewUrl) {
-      const publicId = extractPublicIAudio(track);
-      console.log(publicId);
-      const result = await cloudinary.uploader.destroy(`uploads/${publicId}`);
-      console.log("Cloudinary Response:", result);
-      if (result.result !== "ok") {
-        throw new Error("Failed to delete audio from Cloudinary");
-      }
-    }
+    // if (track.previewUrl) {
+    //   const publicId = extractPublicIAudio(track);
+    //   console.log(publicId);
+    //   const result = await cloudinary.uploader.destroy(`uploads/${publicId}`);
+    //   console.log("Cloudinary Response:", result);
+    //   if (result.result !== "ok") {
+    //     throw new Error("Failed to delete audio from Cloudinary");
+    //   }
+    // }
 
     await Track.findByIdAndDelete(id);
 
@@ -254,6 +342,7 @@ const changePremium = async (req, res) => {
 
 module.exports = {
   createTrack,
+  createAlbumSong,
   getTrackById,
   getAllTracks,
   deleteTrack,

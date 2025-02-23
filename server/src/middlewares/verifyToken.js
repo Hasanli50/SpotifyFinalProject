@@ -35,4 +35,4 @@ const verifyTokenArtist = (req, res, next) => {
     next();
   });
 };
-module.exports = {verifyToken, verifyTokenArtist};
+module.exports = { verifyToken, verifyTokenArtist };

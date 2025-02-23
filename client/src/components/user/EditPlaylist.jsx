@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import style from "../../assets/style/artist/albumModal.module.scss";
 import Backdrop from "@mui/material/Backdrop";
@@ -25,7 +26,7 @@ const styles = {
   p: 4,
 };
 
-const EditPlaylist = () => {
+const EditPlaylist = ({ onPlaylistUpdated }) => {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState(""); 
   const token = getUserFromStorage();
@@ -56,7 +57,7 @@ const EditPlaylist = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.patch(
+      const response = await axios.patch(
         `${BASE_URL + ENDPOINT.playlists}/${id}`,
         { name },
         {
@@ -66,7 +67,7 @@ const EditPlaylist = () => {
         }
       );
       toast.success("Playlist successfully updated!");
-      setName(name)
+      if (onPlaylistUpdated) onPlaylistUpdated(response.data.data);
       handleClose();
     } catch (error) {
       toast.error("Failed to update playlist, try again!");

@@ -103,6 +103,7 @@ const SideBar = () => {
           {collapsed ? "M" : "Melodies"}
         </div>
         <Menu
+        className={style.user}
           theme="dark"
           mode="inline"
           style={{ backgroundColor: "#000" }}

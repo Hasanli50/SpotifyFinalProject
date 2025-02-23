@@ -78,8 +78,10 @@ const getAllAlbums = async (req, res) => {
 // Get a single album by ID ++
 const getAlbumById = async (req, res) => {
   try {
-    const album = await Album.findById(req.params.id);
-    //   .populate("artistId", "name")
+    const album = await Album.findById(req.params.id).populate(
+      "artistId",
+      "username"
+    );
     //   .populate("trackIds", "name duration");
 
     if (!album) {

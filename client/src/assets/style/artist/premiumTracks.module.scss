@@ -1,5 +1,11 @@
+@import "../../scss/extends";
+@import "../../scss/variables";
+
 .premiumTracks {
   padding: 4% 50px;
+  @media only screen and (max-width: 520px) {
+    padding: 10px;
+  }
 }
 .songBox {
   display: flex;
@@ -28,14 +34,22 @@
   cursor: pointer;
   display: flex;
   justify-content: space-between;
-  padding-right: 20px;
+  padding-right: 10px;
   align-items: center;
+  margin-bottom: 30px;
 }
 .songsCard__imgBox {
   width: 58px;
   height: 60px;
   overflow: hidden;
   border-radius: 10px;
+  position: relative;
+}
+.premiumMini{
+  position: absolute;
+  color: $normalBlue;
+  top: 2px;
+  left: 0px;
 }
 .songsCard__imgBox__img {
   width: 100%;

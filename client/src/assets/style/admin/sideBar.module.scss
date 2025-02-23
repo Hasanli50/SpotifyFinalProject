@@ -1,6 +1,6 @@
 @import "../../scss/variables";
 
-:global {
+// :global {
   /* Style for selected menu item */
   .ant-menu-dark .ant-menu-item-selected {
     background-color: rgb(45, 51, 107) ;
@@ -10,7 +10,7 @@
   .ant-menu-dark .ant-menu-item-selected a {
     color: white;
   }
-}
+// }
 
 .sideBar {
   border-right: 2px solid rgb(45, 51, 107);

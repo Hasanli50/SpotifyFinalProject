@@ -9,7 +9,6 @@ import { getUserFromStorage } from "../../utils/localeStorage";
 import { useAllTracks } from "../../hooks/useTrack";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useAllNonDeletedUsers } from "../../hooks/useUser";
-// import EditIcon from "@mui/icons-material/Edit";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 import EditPlaylist from "../../components/user/EditPlaylist";
@@ -29,6 +28,7 @@ const PlaylistDetail = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState([]);
 
+  // Fetch user details
   useEffect(() => {
     const getUserByToken = async () => {
       try {
@@ -41,28 +41,29 @@ const PlaylistDetail = () => {
     getUserByToken();
   }, [token]);
 
-  useEffect(() => {
-    const handleGetPlaylistById = async () => {
-      try {
-        const response = await axios.get(
-          `${BASE_URL + ENDPOINT.playlists}/${id}/playlist`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+  // Function to fetch playlist details
+  const fetchPlaylistDetails = async () => {
+    try {
+      const response = await axios.get(
+        `${BASE_URL + ENDPOINT.playlists}/${id}/playlist`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setPlaylist(response.data.data);
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+  };
 
-        setPlaylist(response.data.data);
-      } catch (error) {
-        console.log("Error: ", error);
-      }
-    };
-    handleGetPlaylistById();
+  // Fetch playlist on component mount and when id/token change
+  useEffect(() => {
+    fetchPlaylistDetails();
   }, [id, token]);
 
-  //---------------------------------------------------
-
+  // Update playlistTracks when tracks or playlist changes
   useEffect(() => {
     const track = tracks?.filter((s) =>
       playlist?.trackIds?.some((trackObj) => trackObj?.trackId === s?.id)
@@ -70,15 +71,14 @@ const PlaylistDetail = () => {
     setPlaylistTracks(track);
   }, [tracks, playlist]);
 
-  //---------------------------------------------------
+  // Update collaborators
   useEffect(() => {
-    const user = users?.filter((person) =>
+    const filteredCollabs = users?.filter((person) =>
       playlist?.collaborators?.includes(person?.id)
     );
-    setCollabs(user);
+    setCollabs(filteredCollabs);
   }, [users, playlist]);
 
-  //---------------------------------------------------
   const handlePlayMusic = (song) => {
     if (currentSong && currentSong.id === song.id) {
       if (audioRef.current) {
@@ -99,20 +99,18 @@ const PlaylistDetail = () => {
     }
   };
 
-  //increment playcount
+  // Increment play count
   const handlePlayCount = async (id) => {
     try {
       const response = await axios.patch(
         `${BASE_URL + ENDPOINT.tracks}/${id}/increment-play`
       );
-
       console.log(response.data.data);
     } catch (error) {
       console.log("Error: ", error);
     }
   };
 
-  //---------------------------------------------------
   const handleRemoveTrack = async (playlistId, trackId) => {
     try {
       Swal.fire({
@@ -140,7 +138,6 @@ const PlaylistDetail = () => {
             text: "Your file has been deleted.",
             icon: "success",
           });
-
           const updatedPlaylist = response.data.data;
           setPlaylist(updatedPlaylist);
 
@@ -158,7 +155,6 @@ const PlaylistDetail = () => {
     }
   };
 
-  //---------------------------------------------------
   const handleRemoveCollab = async (playlistId, collaboratorId) => {
     try {
       Swal.fire({
@@ -202,7 +198,6 @@ const PlaylistDetail = () => {
     }
   };
 
-  //---------------------------------------------------
   const handleRemovePlaylist = async (playlistId) => {
     try {
       Swal.fire({
@@ -215,23 +210,18 @@ const PlaylistDetail = () => {
         confirmButtonText: "Yes, delete it!",
       }).then(async (result) => {
         if (result.isConfirmed) {
-          const response = await axios.delete(
-            `${BASE_URL + ENDPOINT.playlists}/${playlistId}`,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
+          await axios.delete(`${BASE_URL + ENDPOINT.playlists}/${playlistId}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
           Swal.fire({
             title: "Deleted!",
             text: "Your file has been deleted.",
             icon: "success",
           });
 
-          const updatedPlaylist = response?.data?.data;
           navigate("/playlists");
-          setPlaylist(updatedPlaylist);
         }
       });
     } catch (error) {
@@ -248,9 +238,8 @@ const PlaylistDetail = () => {
           {playlist?.userId === user?.id ? (
             <p style={{ display: "flex", gap: "10px" }}>
               <span>
-                <EditPlaylist />
+                <EditPlaylist onPlaylistUpdated={fetchPlaylistDetails} />
               </span>
-
               <span onClick={() => handleRemovePlaylist(playlist?.id)}>
                 <DeleteIcon />
               </span>
@@ -283,9 +272,7 @@ const PlaylistDetail = () => {
                       >
                         <DeleteIcon className={style.trashIcon} />
                       </div>
-                    ) : (
-                      <></>
-                    )}
+                    ) : null}
                   </div>
                   <p className={style.name}>{user.username}</p>
                 </div>
@@ -335,7 +322,6 @@ const PlaylistDetail = () => {
                         <PlayArrowIcon style={{ color: "#fff" }} />
                       )}
                     </div>
-
                     <div
                       onClick={() => handleRemoveTrack(playlist?.id, song?.id)}
                     >
