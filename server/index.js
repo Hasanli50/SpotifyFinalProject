@@ -24,7 +24,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: process.env.APP_BASE_URL || "http://localhost:5174", 
+    origin: process.env.APP_BASE_URL || "https://spotify-final-project-rust.vercel.app", 
     methods: ["GET", "POST", "PATCH", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })

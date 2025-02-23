@@ -596,7 +596,6 @@ const updateArtistInfo = async (req, res) => {
       runValidators: true,
     }).lean();
 
-
     if (req.file) {
       const publicId = extractPublicId(prevArtist);
       await cloudinary.uploader.destroy(`uploads/${publicId}`, (error) => {
