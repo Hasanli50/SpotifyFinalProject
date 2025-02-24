@@ -45,14 +45,6 @@ app.use(
   })
 );
 
-app.use((req, res, next) => {
-  res.setHeader(
-    "Content-Security-Policy",
-    "default-src 'self'; img-src 'self' data:;"
-  );
-  next();
-});
-
 app.use(passport.initialize());
 app.use(passport.session());
 app.use("/api/auth-artist", artistAuthRoutes);
