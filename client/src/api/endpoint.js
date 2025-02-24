@@ -1,4 +1,4 @@
-export const BASE_URL = "https://spotifyfinalproject-5.onrender.com/api/";
+export const BASE_URL = "https://spotifyfinalproject-6.onrender.com/api/";
 
 export const ENDPOINT = {
   artists: "artists",
