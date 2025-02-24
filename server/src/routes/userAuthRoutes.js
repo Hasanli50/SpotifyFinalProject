@@ -19,9 +19,8 @@ router.get(
   (req, res) => {
     const token = req.user.generateToken();
 
-    res.redirect(`http://localhost:5174/login?token=${token}`);
+    res.redirect(`${process.env.APP_BASE_URL}/login?token=${token}`);
   }
 );
-
 
 module.exports = router;
