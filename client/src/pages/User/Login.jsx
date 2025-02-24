@@ -36,7 +36,7 @@ const Login = () => {
   }, [location.search, navigate]);
 
   const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:6060/auth-user/google";
+    window.location.href = "https://spotifyfinalproject-6.onrender.com/auth-user/google";
   };
 
   const formik = useFormik({
