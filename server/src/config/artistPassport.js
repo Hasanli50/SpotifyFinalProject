@@ -9,7 +9,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "/auth-artist/google/callback",
+      callbackURL: "https://spotifyfinalproject-6.onrender.com/api/auth-artist/google/callback",
     },
     async (accessToken, refreshToken, profile, done) => {
       try {

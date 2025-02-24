@@ -34,7 +34,7 @@ const Login = () => {
   }, [location.search, navigate]);
 
   const handleGoogleLogin = () => {
-    window.location.href = `https://spotifyfinalproject-6.onrender.com/auth-artist/google`;
+    window.location.href = `https://spotifyfinalproject-6.onrender.com/api/auth-artist/google`;
   };
 
   const formik = useFormik({
