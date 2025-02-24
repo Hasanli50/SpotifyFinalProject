@@ -30,9 +30,10 @@ app.use(
   cors({
     origin:
       process.env.APP_BASE_URL ||
-      "https://spotify-final-project-rust.vercel.app",
+      "https://spotify-final-project-6s59.vercel.app",
     methods: ["GET", "POST", "PATCH", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
   })
 );
 
