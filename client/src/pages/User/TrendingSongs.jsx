@@ -49,7 +49,7 @@ const TrendingSongs = () => {
   }, [tracks]);
 
   const handlePlayMusic = (song) => {
-    if (currentSong && currentSong.id === song.id) {
+    if (currentSong && currentSong?.id === song?.id) {
       if (audioRef.current) {
         audioRef.current.pause();
       }
@@ -60,7 +60,7 @@ const TrendingSongs = () => {
       if (audioRef.current) {
         audioRef.current.pause();
       }
-      audioRef.current = new Audio(song.previewUrl);
+      audioRef.current = new Audio(song?.previewUrl);
       audioRef.current.play();
       setIsPlaying(true);
 
@@ -93,10 +93,10 @@ const TrendingSongs = () => {
           Trending <span style={{ color: "#EE10B0" }}>Songs</span> :{" "}
         </p>
         {trendingSongs?.length > 0 &&
-          trendingSongs.map((songs, index) => (
+          trendingSongs?.map((songs, index) => (
             <div
               className={`${style.box} ${
-                user?.isPremium === false && songs.premiumOnly === true
+                user?.isPremium === false && songs?.premiumOnly === true
                   ? style.disabledCard
                   : ""
               }`}
@@ -137,7 +137,7 @@ const TrendingSongs = () => {
                   {moment(songs.createdAt).format("MMM Do YY")}
                 </p>
                 <p className={style.songsCard__letter}>
-                  {songs.albumId === null ? "Single" : songs.albumId.name}
+                  {songs?.albumId === null ? "Single" : songs?.albumId?.name}
                 </p>
 
                 <div style={{ display: "flex", gap: "10px" }}>
@@ -146,7 +146,7 @@ const TrendingSongs = () => {
                     className={style.icon}
                     onClick={() => handlePlayMusic(songs)}
                   >
-                    {currentSong?.id === songs.id && isPlaying ? (
+                    {currentSong?.id === songs?.id && isPlaying ? (
                       <PauseIcon style={{ color: "#fff" }} />
                     ) : (
                       <PlayArrowIcon style={{ color: "#fff" }} />

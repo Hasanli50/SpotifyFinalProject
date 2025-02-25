@@ -52,8 +52,8 @@ const Home = () => {
 
   useEffect(() => {
     if (artists?.length) {
-      const artistNames = artists.map((artist) => artist.username);
-      const followersCount = artists.map((artist) => artist?.followers || 0);
+      const artistNames = artists?.map((artist) => artist?.username);
+      const followersCount = artists?.map((artist) => artist?.followers || 0);
 
       setChartData({
         labels: artistNames,

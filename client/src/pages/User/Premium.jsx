@@ -24,9 +24,9 @@ const Premium = () => {
         const response = await fetchUserByToken(token);
         setUser(response);
 
-        if (response.isPremium && response.premiumSince) {
+        if (response?.isPremium && response?.premiumSince) {
           const currentDate = new Date();
-          const premiumExpirationDate = new Date(response.premiumSince);
+          const premiumExpirationDate = new Date(response?.premiumSince);
           premiumExpirationDate.setMinutes(
             premiumExpirationDate.getMinutes() + 1
           );
@@ -54,7 +54,7 @@ const Premium = () => {
   }, [token]); 
 
   const handleUser = () => {
-    if (user.length === 0) {
+    if (user?.length === 0) {
       return navigate("/login");
     }
   };

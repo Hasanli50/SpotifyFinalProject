@@ -103,7 +103,7 @@ const Profile = () => {
         const { password, confirmPassword } = values;
         console.log(values);
 
-        if (password === artist.password) {
+        if (password === artist?.password) {
           toast.error(
             "New password must be different from the current password"
           );
@@ -196,7 +196,7 @@ const Profile = () => {
                 Username:
               </label>
               <TextField
-                value={artist.username || ""}
+                value={artist?.username || ""}
                 onChange={(e) =>
                   setArtist((prev) => ({ ...prev, username: e.target.value }))
                 }
@@ -246,7 +246,7 @@ const Profile = () => {
                 Email:
               </label>
               <TextField
-                value={artist.email || ""}
+                value={artist?.email || ""}
                 onChange={(e) =>
                   setArtist((prev) => ({ ...prev, email: e.target.value }))
                 }
@@ -313,7 +313,7 @@ const Profile = () => {
                 Description:
               </label>
               <textarea
-                value={artist.description || ""}
+                value={artist?.description || ""}
                 onChange={(e) =>
                   setArtist((prev) => ({
                     ...prev,
@@ -355,11 +355,11 @@ const Profile = () => {
                     ? data
                         .filter(
                           (genre) =>
-                            !artist?.genreIds?.some((g) => g?._id === genre.id)
+                            !artist?.genreIds?.some((g) => g?._id === genre?.id)
                         )
                         .map((genre) => ({
-                          value: genre.id,
-                          label: genre.name,
+                          value: genre?.id,
+                          label: genre?.name,
                         }))
                     : []
                 }

@@ -62,7 +62,7 @@ const Profile = () => {
             Username:
           </label>
           <TextField
-            value={admin.username || ""}
+            value={admin?.username || ""}
             onChange={(e) =>
               setAdmin((prev) => ({ ...prev, username: e.target.value }))
             }
@@ -112,7 +112,7 @@ const Profile = () => {
             Email:
           </label>
           <TextField
-            value={admin.email || ""}
+            value={admin?.email || ""}
             onChange={(e) =>
               setAdmin((prev) => ({ ...prev, email: e.target.value }))
             }

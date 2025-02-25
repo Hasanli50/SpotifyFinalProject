@@ -17,7 +17,7 @@ const Messages = () => {
   const [artists, setArtists] = useState(data);
 
   useEffect(() => {
-    const filteredData = data?.filter((artist) => artist.status === "pending");
+    const filteredData = data?.filter((artist) => artist?.status === "pending");
     setArtists(filteredData);
   }, [data]);
 
@@ -48,8 +48,8 @@ const Messages = () => {
             icon: "success",
           });
 
-          const updatedArtists = artists.filter((artist) => artist.id !== id);
-          setArtists(updatedArtists.status === "pending")
+          const updatedArtists = artists?.filter((artist) => artist?.id !== id);
+          setArtists(updatedArtists?.status === "pending")
         }
       });
     } catch (error) {

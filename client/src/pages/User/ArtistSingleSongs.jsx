@@ -79,18 +79,18 @@ const ArtistSingleSongs = () => {
       tracks?.length > 0
     ) {
       const trackIds = tracks?.filter((track) =>
-        artist.trackIds.includes(track.id)
+        artist?.trackIds?.includes(track?.id)
       );
       const single =
         trackIds?.length > 0 &&
-        trackIds?.filter((track) => track.type === "single");
+        trackIds?.filter((track) => track?.type === "single");
       setSingleSongs(single);
     }
   }, [artist, tracks]);
 
   //----------------------------------------------------
   const handlePlayMusic = (song) => {
-    if (currentSong && currentSong.id === song.id) {
+    if (currentSong && currentSong?.id === song?.id) {
       if (audioRef.current) {
         audioRef.current.pause();
       }
@@ -101,11 +101,11 @@ const ArtistSingleSongs = () => {
       if (audioRef.current) {
         audioRef.current.pause();
       }
-      audioRef.current = new Audio(song.previewUrl);
+      audioRef.current = new Audio(song?.previewUrl);
       audioRef.current.play();
       setIsPlaying(true);
 
-      handlePlayCount(song.id);
+      handlePlayCount(song?.id);
     }
   };
 
@@ -150,7 +150,7 @@ const ArtistSingleSongs = () => {
     let updatedFavorites = [...favorites];
 
     if (updatedFavorites.includes(songId)) {
-      updatedFavorites = updatedFavorites.filter((id) => id !== songId);
+      updatedFavorites = updatedFavorites?.filter((id) => id !== songId);
     } else {
       updatedFavorites.push(songId);
     }
@@ -158,7 +158,7 @@ const ArtistSingleSongs = () => {
     setFavorites(updatedFavorites);
 
     localStorage.setItem(
-      `userFavorites_${user.id}`,
+      `userFavorites_${user?.id}`,
       JSON.stringify(updatedFavorites)
     );
   };
@@ -184,7 +184,7 @@ const ArtistSingleSongs = () => {
   //----------------------------------------------------
   useEffect(() => {
     const data = playlists?.filter((value) =>
-      value.name.trim().toLowerCase().includes(searchQuery.trim().toLowerCase())
+      value?.name?.trim().toLowerCase().includes(searchQuery.trim().toLowerCase())
     );
     setFilteredData(data);
   }, [playlists, searchQuery]);
@@ -227,7 +227,7 @@ const ArtistSingleSongs = () => {
       <section className={style.allSingleSongs}>
 
         <p className={style.heading}>
-          <Link to={`/artists/${artist.id}`}>
+          <Link to={`/artists/${artist?.id}`}>
             <span className={style.back}>
               <KeyboardBackspaceIcon style={{ fontSize: "28px" }} />
             </span>
@@ -249,7 +249,7 @@ const ArtistSingleSongs = () => {
             filteredSingleSong.map((songs) => (
               <div
                 className={`${style.card} ${
-                  user?.isPremium === false && songs.premiumOnly === true
+                  user?.isPremium === false && songs?.premiumOnly === true
                     ? style.disabledCard
                     : ""
                 }`}
@@ -263,24 +263,24 @@ const ArtistSingleSongs = () => {
                   />
                   <WorkspacePremiumIcon
                     className={style.premium}
-                    style={{ display: songs.premiumOnly ? "block" : "none" }}
+                    style={{ display: songs?.premiumOnly ? "block" : "none" }}
                   />
                   <div className={style.icons}>
                     <div onClick={() => toggleFavorite(songs.id)}>
-                      {isFavorite(songs.id) ? (
+                      {isFavorite(songs?.id) ? (
                         <FavoriteIcon style={{ color: "#EE10B0" }} />
                       ) : (
                         <FavoriteBorderIcon style={{ color: "#EE10B0" }} />
                       )}
                     </div>
-                    <div onClick={(e) => handleMenuClick(e, songs.id)}>
+                    <div onClick={(e) => handleMenuClick(e, songs?.id)}>
                       <MoreVertIcon />
                     </div>
 
                     <Menu
                       className={style.menu}
                       anchorEl={anchorEl}
-                      open={currentSongId === songs.id}
+                      open={currentSongId === songs?.id}
                       onClose={handleMenuClose}
                     >
                       <MenuItem>
@@ -301,16 +301,16 @@ const ArtistSingleSongs = () => {
                                 songs?.type
                               )
                             }
-                            key={playlist.id}
+                            key={playlist?.id}
                           >
-                            {playlist.name}
+                            {playlist?.name}
                           </MenuItem>
                         ))}
                       <MenuItem>
                         <NewPlaylist />
                       </MenuItem>
                       {user?.isPremium === false ||
-                      songs.premiumOnly === true ? (
+                      songs?.premiumOnly === true ? (
                         ""
                       ) : (
                         <MenuItem>

@@ -80,7 +80,7 @@ const PlaylistDetail = () => {
   }, [users, playlist]);
 
   const handlePlayMusic = (song) => {
-    if (currentSong && currentSong.id === song.id) {
+    if (currentSong && currentSong?.id === song?.id) {
       if (audioRef.current) {
         audioRef.current.pause();
       }
@@ -91,7 +91,7 @@ const PlaylistDetail = () => {
       if (audioRef.current) {
         audioRef.current.pause();
       }
-      audioRef.current = new Audio(song.previewUrl);
+      audioRef.current = new Audio(song?.previewUrl);
       audioRef.current.play();
       setIsPlaying(true);
 
@@ -187,7 +187,7 @@ const PlaylistDetail = () => {
           setPlaylist(updatedPlaylist);
 
           const updatedCollabs = users?.filter((user) =>
-            updatedPlaylist?.collaborators?.includes(user.id)
+            updatedPlaylist?.collaborators?.includes(user?.id)
           );
           setCollabs(updatedCollabs);
         }

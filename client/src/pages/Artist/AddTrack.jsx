@@ -39,7 +39,7 @@ const AddTrack = () => {
 
   //----------------------------------------------------
   const handlePlayMusic = (song) => {
-    if (currentSong && currentSong.id === song.id) {
+    if (currentSong && currentSong?.id === song?.id) {
       if (audioRef.current) {
         audioRef.current.pause();
       }
@@ -72,7 +72,7 @@ const AddTrack = () => {
   };
 
   useEffect(() => {
-    const song = tracks.filter((track) => track?.albumId?._id === id);
+    const song = tracks?.filter((track) => track?.albumId?._id === id);
     setSongs(song);
     setFilteredData(song);
   }, [tracks, id]);
@@ -90,7 +90,7 @@ const AddTrack = () => {
       }).then(async (result) => {
         if (result.isConfirmed) {
           await axios.delete(`${BASE_URL + ENDPOINT.tracks}/${songId}`);
-          const musics = songs.filter((song) => song.id !== songId);
+          const musics = songs?.filter((song) => song?.id !== songId);
           setFilteredData(musics);
           Swal.fire({
             title: "Deleted!",
@@ -138,8 +138,8 @@ const AddTrack = () => {
       <section className={style.songs}>
         <p className={style.heading}>Songs: </p>
         <div className={style.albumSongs}>
-          {filteredData.length > 0 ? (
-            filteredData.map((song, index) => (
+          {filteredData?.length > 0 ? (
+            filteredData?.map((song, index) => (
               <div className={style.box} key={song.id}>
                 <p className={style.place}>{index + 1}.</p>
                 <div className={style.songsCard}>
@@ -188,7 +188,7 @@ const AddTrack = () => {
                       className={style.icon}
                       onClick={() => handlePlayMusic(song)}
                     >
-                      {currentSong?.id === song.id && isPlaying ? (
+                      {currentSong?.id === song?.id && isPlaying ? (
                         <PauseIcon style={{ color: "#fff" }} />
                       ) : (
                         <PlayArrowIcon style={{ color: "#fff" }} />

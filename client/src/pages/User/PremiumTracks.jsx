@@ -48,7 +48,7 @@ const PremiumTracks = () => {
 
   useEffect(() => {
     try {
-      const filteredSongs = tracks.filter((song) => song.premiumOnly === true);
+      const filteredSongs = tracks?.filter((song) => song?.premiumOnly === true);
       setPremiumTracks(filteredSongs);
       console.log("premium: ", filteredSongs);
     } catch (error) {
@@ -58,7 +58,7 @@ const PremiumTracks = () => {
 
   //----------------------------------------------------
   const handlePlayMusic = (song) => {
-    if (currentSong && currentSong.id === song.id) {
+    if (currentSong && currentSong?.id === song?.id) {
       if (audioRef.current) {
         audioRef.current.pause();
       }
@@ -69,7 +69,7 @@ const PremiumTracks = () => {
       if (audioRef.current) {
         audioRef.current.pause();
       }
-      audioRef.current = new Audio(song.previewUrl);
+      audioRef.current = new Audio(song?.previewUrl);
       audioRef.current.play();
       setIsPlaying(true);
 
@@ -101,7 +101,7 @@ const PremiumTracks = () => {
     let updatedFavorites = [...favorites];
 
     if (updatedFavorites.includes(songId)) {
-      updatedFavorites = updatedFavorites.filter((id) => id !== songId);
+      updatedFavorites = updatedFavorites?.filter((id) => id !== songId);
     } else {
       updatedFavorites.push(songId);
     }
@@ -109,7 +109,7 @@ const PremiumTracks = () => {
     setFavorites(updatedFavorites);
 
     localStorage.setItem(
-      `userFavorites_${user.id}`,
+      `userFavorites_${user?.id}`,
       JSON.stringify(updatedFavorites)
     );
   };
@@ -135,7 +135,7 @@ const PremiumTracks = () => {
   //----------------------------------------------------
   useEffect(() => {
     const data = playlists?.filter((value) =>
-      value.name.trim().toLowerCase().includes(searchQuery.trim().toLowerCase())
+      value?.name?.trim().toLowerCase().includes(searchQuery.trim().toLowerCase())
     );
     setFilteredData(data);
   }, [playlists, searchQuery]);
@@ -197,7 +197,7 @@ const PremiumTracks = () => {
         <p className={style.heading}>Premium Songs:</p>
 
         {filterPremiumSong?.length > 0 ? (
-          filterPremiumSong.map((songs, index) => (
+          filterPremiumSong?.map((songs, index) => (
             <div className={style.box} key={songs.id}>
               <p className={style.place}>{index + 1}.</p>
               <div className={style.songsCard}>
@@ -228,8 +228,8 @@ const PremiumTracks = () => {
                 </p>
                 <p className={style.songsCard__letter}>{songs?.playCount}</p>
                 <div className={style.icons}>
-                  <div onClick={() => toggleFavorite(songs.id)}>
-                    {isFavorite(songs.id) ? (
+                  <div onClick={() => toggleFavorite(songs?.id)}>
+                    {isFavorite(songs?.id) ? (
                       <FavoriteIcon style={{ color: "#EE10B0" }} />
                     ) : (
                       <FavoriteBorderIcon style={{ color: "#EE10B0" }} />
@@ -252,7 +252,7 @@ const PremiumTracks = () => {
 
                   <Menu
                     anchorEl={anchorEl}
-                    open={currentSongId === songs.id}
+                    open={currentSongId === songs?.id}
                     onClose={handleMenuClose}
                   >
                     <MenuItem>

@@ -47,8 +47,8 @@ const ArtistAlbum = () => {
       artist?.albumIds.length > 0 &&
       albums?.length > 0
     ) {
-      const albumIds = albums.filter((album) =>
-        artist.albumIds.includes(album.id)
+      const albumIds = albums?.filter((album) =>
+        artist?.albumIds?.includes(album?.id)
       );
       setArtistAlbums(albumIds);
     }
@@ -56,7 +56,7 @@ const ArtistAlbum = () => {
 
   useEffect(() => {
     const data = artistAlbum?.filter((value) =>
-      value.name.trim().toLowerCase().includes(searchQuery.trim().toLowerCase())
+      value?.name?.trim().toLowerCase().includes(searchQuery.trim().toLowerCase())
     );
     setFilteredData(data);
   }, [artistAlbum, searchQuery]);
@@ -76,7 +76,7 @@ const ArtistAlbum = () => {
         </div>
 
         <p className={style.heading}>
-          <Link to={`/artists/${artist.id}`}>
+          <Link to={`/artists/${artist?.id}`}>
             <span className={style.back}>
               <KeyboardBackspaceIcon style={{ fontSize: "28px" }} />
             </span>
@@ -96,8 +96,8 @@ const ArtistAlbum = () => {
 
         <div className={style.albums}>
           {filteredData?.length > 0 ? (
-            filteredData.map((album) => (
-              <Link to={`/album/${album.id}`} key={album.id}>
+            filteredData?.map((album) => (
+              <Link to={`/album/${album?.id}`} key={album?.id}>
                 <div className={style.card}>
                   <div className={style.imgBox}>
                     <img

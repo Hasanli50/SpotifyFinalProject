@@ -88,14 +88,14 @@ const UpdateAlbum = ({ id }) => {
       >
         <Fade in={open}>
           <Box sx={styles} component="form" onSubmit={handleSubmit}>
-            <p className={style.heading}>Edit: {editAlbum.name}</p>
+            <p className={style.heading}>Edit: {editAlbum?.name}</p>
 
             <div className={style.field}>
               <label className={style.label} htmlFor="name">
                 Name:
               </label>
               <TextField
-                value={editAlbum.name}
+                value={editAlbum?.name}
                 onChange={(e) =>
                   setEditAlbum({ ...editAlbum, name: e.target.value })
                 }

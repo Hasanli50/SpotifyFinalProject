@@ -199,7 +199,7 @@ const TrackModal = () => {
                           color: "#fff",
                         },
                       }}
-                      label="Enter Album Name"
+                      label="Enter Song Name"
                       variant="outlined"
                     />
 
@@ -352,7 +352,7 @@ const TrackModal = () => {
                           color: "#fff",
                         },
                       }}
-                      label="Enter Album Name"
+                      label="Enter Song Duration (in seconds)"
                       variant="outlined"
                     />
 
@@ -387,7 +387,7 @@ const TrackModal = () => {
                       onChange={(selected) => {
                         formik.setFieldValue(
                           "collaboratedArtistIds",
-                          selected.map((s) => s?.value)
+                          selected?.map((s) => s?.value)
                         );
                       }}
                       options={artists
@@ -398,8 +398,8 @@ const TrackModal = () => {
                             )
                         )
                         .map((artist) => ({
-                          label: artist.username,
-                          value: artist.id,
+                          label: artist?.username,
+                          value: artist?.id,
                         }))}
                       placeholder="Select Collaborated Artists"
                     />

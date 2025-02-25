@@ -28,14 +28,14 @@ const Login = () => {
 
         const user = data.find(
           (user) =>
-            user.username === cleanedValues.username && user.role === "admin"
+            user?.username === cleanedValues?.username && user?.role === "admin"
         );
         if (!user) {
           toast.error("Incorrect username. Please try again.");
           return;
         }
 
-        if (user.isVerified !== true) {
+        if (user?.isVerified !== true) {
           toast.error("Please check your email and verify your account");
           return;
         }

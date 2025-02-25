@@ -52,19 +52,19 @@ const Login = () => {
         };
 
         const user = data?.find(
-          (user) => user?.username === cleanedValues.username
+          (user) => user?.username === cleanedValues?.username
         );
         if (!user) {
           toast.error("Incorrect username. Please try again.");
           return;
         }
   
-        if (user.isVerified !== true) {
+        if (user?.isVerified !== true) {
           toast.error("Please check your email and verify your account");
           return;
         }
         
-        if (user.role !== "user") {
+        if (user?.role !== "user") {
           toast.error("Only users can login!");
           return;
         }

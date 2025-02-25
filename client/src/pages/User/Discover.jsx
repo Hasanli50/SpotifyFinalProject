@@ -56,7 +56,7 @@ const Discover = () => {
           {genres?.length > 0 &&
             genres?.map((genre) => (
               <Grid item xs={12} sm={12} md={6} lg={4} xl={4} key={genre.id}>
-                <Link to={user.length === 0 ? "/login" : `/genre/${genre.id}`}>
+                <Link to={user?.length === 0 ? "/login" : `/genre/${genre?.id}`}>
                   <div
                     className={style.box}
                     style={{

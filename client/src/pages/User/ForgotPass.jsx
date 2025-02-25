@@ -23,8 +23,8 @@ const ForgotPass = () => {
           email: values.email.trim(),
         };
 
-        const user = data.find(
-          (user) => user.email === cleanedValue.email
+        const user = data?.find(
+          (user) => user?.email === cleanedValue?.email
         );
         if (!user) {
           toast.error("Email not found");

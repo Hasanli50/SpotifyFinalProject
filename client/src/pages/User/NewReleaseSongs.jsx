@@ -42,8 +42,8 @@ const NewReleaseSongs = () => {
 
   useEffect(() => {
     if (tracks?.length > 0) {
-      const tracksPlayedThisMonth = tracks.filter((track) => {
-        const trackCreatedAt = moment(track.createdAt);
+      const tracksPlayedThisMonth = tracks?.filter((track) => {
+        const trackCreatedAt = moment(track?.createdAt);
         return trackCreatedAt.isAfter(startOfWeek);
       });
       const sortedTracks = [...tracksPlayedThisMonth].sort(
@@ -55,7 +55,7 @@ const NewReleaseSongs = () => {
   }, [tracks]);
 
   const handlePlayMusic = (song) => {
-    if (currentSong && currentSong.id === song.id) {
+    if (currentSong && currentSong?.id === song?.id) {
       if (audioRef.current) {
         audioRef.current.pause();
       }
@@ -66,11 +66,11 @@ const NewReleaseSongs = () => {
       if (audioRef.current) {
         audioRef.current.pause();
       }
-      audioRef.current = new Audio(song.previewUrl);
+      audioRef.current = new Audio(song?.previewUrl);
       audioRef.current.play();
       setIsPlaying(true);
 
-      handlePlayCount(song.id);
+      handlePlayCount(song?.id);
     }
   };
 
@@ -106,10 +106,10 @@ const NewReleaseSongs = () => {
           }}
         >
           {newSongs?.length > 0 &&
-            newSongs.map((song) => (
+            newSongs?.map((song) => (
               <div
                 className={`${style.card} ${
-                  user?.isPremium === false && song.premiumOnly === true
+                  user?.isPremium === false && song?.premiumOnly === true
                     ? style.disabledCard
                     : ""
                 }`}
@@ -123,7 +123,7 @@ const NewReleaseSongs = () => {
                   />
                   <WorkspacePremiumIcon
                     className={style.premium}
-                    style={{ display: song.premiumOnly ? "block" : "none" }}
+                    style={{ display: song?.premiumOnly ? "block" : "none" }}
                   />
                 </div>
                 <div
@@ -143,7 +143,7 @@ const NewReleaseSongs = () => {
                     className={style.icon}
                     onClick={() => handlePlayMusic(song)}
                   >
-                    {currentSong?.id === song.id && isPlaying ? (
+                    {currentSong?.id === song?.id && isPlaying ? (
                       <PauseIcon style={{ color: "#fff" }} />
                     ) : (
                       <PlayArrowIcon style={{ color: "#fff" }} />

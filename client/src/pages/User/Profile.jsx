@@ -91,7 +91,7 @@ const Profile = () => {
         const { password, confirmPassword } = values;
         console.log(values);
 
-        if (password === user.password) {
+        if (password === user?.password) {
           toast.error(
             "New password must be different from the current password"
           );

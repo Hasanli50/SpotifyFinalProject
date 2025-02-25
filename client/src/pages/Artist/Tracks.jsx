@@ -30,7 +30,7 @@ const Tracks = () => {
   const token = getUserFromStorage();
   //----------------------------------------------------
   const handlePlayMusic = (song) => {
-    if (currentSong && currentSong.id === song.id) {
+    if (currentSong && currentSong?.id === song?.id) {
       if (audioRef.current) {
         audioRef.current.pause();
       }
@@ -41,11 +41,11 @@ const Tracks = () => {
       if (audioRef.current) {
         audioRef.current.pause();
       }
-      audioRef.current = new Audio(song.previewUrl);
+      audioRef.current = new Audio(song?.previewUrl);
       audioRef.current.play();
       setIsPlaying(true);
 
-      handlePlayCount(song.id);
+      handlePlayCount(song?.id);
     }
   };
 
@@ -91,11 +91,11 @@ const Tracks = () => {
     if (
       artist &&
       artist?.trackIds &&
-      artist?.trackIds.length > 0 &&
+      artist?.trackIds?.length > 0 &&
       data?.length > 0
     ) {
       const trackIds = data?.filter((track) =>
-        artist.trackIds.includes(track.id)
+        artist?.trackIds?.includes(track?.id)
       );
       setTracks(trackIds);
     }
@@ -103,8 +103,8 @@ const Tracks = () => {
 
   // Filter tracks by search query
   useEffect(() => {
-    const data = tracks.filter((value) =>
-      value.name.trim().toLowerCase().includes(searchQuery.trim().toLowerCase())
+    const data = tracks?.filter((value) =>
+      value?.name?.trim().toLowerCase().includes(searchQuery.trim().toLowerCase())
     );
     setFilteredData(data);
   }, [tracks, searchQuery]);
@@ -146,7 +146,7 @@ const Tracks = () => {
       }).then(async (result) => {
         if (result.isConfirmed) {
           await axios.delete(`${BASE_URL + ENDPOINT.tracks}/${songId}`);
-          const songs = tracks.filter((song) => song.id !== songId);
+          const songs = tracks?.filter((song) => song?.id !== songId);
           setFilteredData(songs);
           Swal.fire({
             title: "Deleted!",
@@ -248,7 +248,7 @@ const Tracks = () => {
                         className={style.icon}
                         onClick={() => handlePlayMusic(songs)}
                       >
-                        {currentSong?.id === songs.id && isPlaying ? (
+                        {currentSong?.id === songs?.id && isPlaying ? (
                           <PauseIcon style={{ color: "#fff" }} />
                         ) : (
                           <PlayArrowIcon style={{ color: "#fff" }} />

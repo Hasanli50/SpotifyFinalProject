@@ -16,7 +16,7 @@ const Users = () => {
   const [users, setUsers] = useState(data);
 
   useEffect(() => {
-    const filteredData = data?.filter((user) => user.role === "user");
+    const filteredData = data?.filter((user) => user?.role === "user");
     setUsers(filteredData);
   }, [data]);
 
@@ -47,8 +47,8 @@ const Users = () => {
             icon: "success",
           });
           setUsers((prevState) =>
-            prevState.map((user) =>
-              user.id === id ? { ...user, isBanned: true } : user
+            prevState?.map((user) =>
+              user?.id === id ? { ...user, isBanned: true } : user
             )
           );
         }
@@ -89,8 +89,8 @@ const Users = () => {
             icon: "success",
           });
           setUsers((prevState) =>
-            prevState.map((users) =>
-              users.id === id ? { ...users, isBanned: false } : users
+            prevState?.map((users) =>
+              users?.id === id ? { ...users, isBanned: false } : users
             )
           );
         }
@@ -127,7 +127,7 @@ const Users = () => {
             icon: "success",
           });
           const filteredData = data?.filter(
-            (user) => user.id !== id && user.role === "user"
+            (user) => user?.id !== id && user?.role === "user"
           );
           setUsers(filteredData);
         }

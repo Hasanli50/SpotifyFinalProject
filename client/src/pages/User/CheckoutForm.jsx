@@ -34,7 +34,7 @@ const CheckoutForm = ({ open, handleClose }) => {
   const checkAndUpdatePremiumStatus = async (token) => {
     try {
       const response = await axios.get(
-        `${BASE_URL + ENDPOINT.users}/${user.id}`, 
+        `${BASE_URL + ENDPOINT.users}/${user?.id}`, 
         {
           headers: { Authorization: `Bearer ${token}` },
         }

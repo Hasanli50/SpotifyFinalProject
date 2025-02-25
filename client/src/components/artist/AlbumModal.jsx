@@ -63,7 +63,7 @@ const AlbumModal = () => {
       try {
         const formData = new FormData();
         formData.append("name", values.name);
-        formData.append("artistId", artist.id);
+        formData.append("artistId", artist?.id);
         formData.append("coverImage", values.coverImage);
 
         console.log("Sending data to server:", formData);

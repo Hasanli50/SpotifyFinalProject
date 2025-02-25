@@ -45,11 +45,11 @@ const Albums = () => {
     if (
       artist &&
       artist?.albumIds &&
-      artist?.albumIds.length > 0 &&
+      artist?.albumIds?.length > 0 &&
       data?.length > 0
     ) {
-      const albumIds = data.filter((album) =>
-        artist.albumIds.includes(album.id)
+      const albumIds = data?.filter((album) =>
+        artist?.albumIds?.includes(album.id)
       );
       setArtistAlbums(albumIds);
     }
@@ -82,8 +82,8 @@ const Albums = () => {
   };
 
   useEffect(() => {
-    const data = artistAlbum.filter((value) =>
-      value.name.trim().toLowerCase().includes(searchQuery.trim().toLowerCase())
+    const data = artistAlbum?.filter((value) =>
+      value?.name?.trim().toLowerCase().includes(searchQuery.trim().toLowerCase())
     );
     setFilteredData(data);
   }, [artistAlbum, searchQuery]);
@@ -103,7 +103,7 @@ const Albums = () => {
           const response = await axios.delete(
             `${BASE_URL + ENDPOINT.albums}/${id}`
           );
-          filteredData.filter((album) => album.id !== id);
+          filteredData?.filter((album) => album?.id !== id);
           console.log(response);
           Swal.fire({
             title: "Deleted!",
@@ -160,7 +160,7 @@ const Albums = () => {
           <div className={style.albums}>
             <Grid container spacing={2}>
               {filteredData?.length > 0 ? (
-                filteredData.map((album) => (
+                filteredData?.map((album) => (
                   <Grid item xs={12} sm={6} md={4} lg={3} xl={3} key={album.id}>
                     <div className={style.card}>
                       <div className={style.imgBox}>
@@ -207,7 +207,7 @@ const Albums = () => {
                           open={currentAlbumId === album.id}
                           onClose={handleMenuClose}
                         >
-                          <Link to={`/artist/add-track/${album.id}`} style={{textDecoration:"none", color:"#000"}}>
+                          <Link to={`/artist/add-track/${album?.id}`} style={{textDecoration:"none", color:"#000"}}>
                             <MenuItem onClick={handleMenuClose}>
                               Add Song
                             </MenuItem>

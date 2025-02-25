@@ -37,9 +37,9 @@ const SignUp = () => {
           );
           console.log("Sending data to server:", newArtist);
           //add toast for duplicate email
-          const duplicateEmail = data.find((x) => x.email === newArtist.email);
-          const duplicateUsername = data.find(
-            (x) => x.username === newArtist.username
+          const duplicateEmail = data?.find((x) => x?.email === newArtist?.email);
+          const duplicateUsername = data?.find(
+            (x) => x?.username === newArtist?.username
           );
 
           if (duplicateUsername) {

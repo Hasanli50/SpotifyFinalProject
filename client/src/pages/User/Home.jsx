@@ -75,7 +75,7 @@ const Home = () => {
   }, [tracks]);
 
   const handlePlayMusic = (song) => {
-    if (currentSong && currentSong.id === song.id) {
+    if (currentSong && currentSong?.id === song?.id) {
       if (audioRef.current) {
         audioRef.current.pause();
       }
@@ -86,11 +86,11 @@ const Home = () => {
       if (audioRef.current) {
         audioRef.current.pause();
       }
-      audioRef.current = new Audio(song.previewUrl);
+      audioRef.current = new Audio(song?.previewUrl);
       audioRef.current.play();
       setIsPlaying(true);
 
-      handlePlayCount(song.id);
+      handlePlayCount(song?.id);
     }
   };
 
@@ -112,8 +112,8 @@ const Home = () => {
   //top songs
   useEffect(() => {
     if (tracks?.length > 0) {
-      const tracksPlayedThisWeek = tracks.filter((track) => {
-        const trackCreatedAt = moment(track.createdAt);
+      const tracksPlayedThisWeek = tracks?.filter((track) => {
+        const trackCreatedAt = moment(track?.createdAt);
         return trackCreatedAt.isAfter(startOfWeek);
       });
 
@@ -143,10 +143,10 @@ const Home = () => {
           }}
         >
           {topSongs?.length > 0 ? (
-            topSongs.map((song) => (
+            topSongs?.map((song) => (
               <div
                 className={`${style.card} ${
-                  user?.isPremium === false && song.premiumOnly === true
+                  user?.isPremium === false && song?.premiumOnly === true
                     ? style.disabledCard
                     : ""
                 }`}
@@ -155,12 +155,12 @@ const Home = () => {
                 <div className={style.imgBox}>
                   <img
                     className={style.img}
-                    src={song.coverImage}
+                    src={song?.coverImage}
                     alt={`${song.name} cover`}
                   />
                   <WorkspacePremiumIcon
                     className={style.premium}
-                    style={{ display: song.premiumOnly ? "block" : "none" }}
+                    style={{ display: song?.premiumOnly ? "block" : "none" }}
                   />
                 </div>
                 <div
@@ -180,7 +180,7 @@ const Home = () => {
                     className={style.icon}
                     onClick={() => handlePlayMusic(song)}
                   >
-                    {currentSong?.id === song.id && isPlaying ? (
+                    {currentSong?.id === song?.id && isPlaying ? (
                       <PauseIcon style={{ color: "#fff" }} />
                     ) : (
                       <PlayArrowIcon style={{ color: "#fff" }} />
@@ -226,10 +226,10 @@ const Home = () => {
           }}
         >
           {newSongs?.length > 0 &&
-            newSongs.map((song) => (
+            newSongs?.map((song) => (
               <div
                 className={`${style.card} ${
-                  user?.isPremium === false && song.premiumOnly === true
+                  user?.isPremium === false && song?.premiumOnly === true
                     ? style.disabledCard
                     : ""
                 }`}
@@ -243,7 +243,7 @@ const Home = () => {
                   />
                   <WorkspacePremiumIcon
                     className={style.premium}
-                    style={{ display: song.premiumOnly ? "block" : "none" }}
+                    style={{ display: song?.premiumOnly ? "block" : "none" }}
                   />
                 </div>
                 <div
@@ -263,7 +263,7 @@ const Home = () => {
                     className={style.icon}
                     onClick={() => handlePlayMusic(song)}
                   >
-                    {currentSong?.id === song.id && isPlaying ? (
+                    {currentSong?.id === song?.id && isPlaying ? (
                       <PauseIcon style={{ color: "#fff" }} />
                     ) : (
                       <PlayArrowIcon style={{ color: "#fff" }} />
@@ -296,10 +296,10 @@ const Home = () => {
           Trending <span style={{ color: "#EE10B0" }}>Songs</span> :{" "}
         </p>
         {trendingSongs?.length > 0 &&
-          trendingSongs.map((songs, index) => (
+          trendingSongs?.map((songs, index) => (
             <div
               className={`${style.box} ${
-                user?.isPremium === false && songs.premiumOnly === true
+                user?.isPremium === false && songs?.premiumOnly === true
                   ? style.disabledCard
                   : ""
               }`}
@@ -323,7 +323,7 @@ const Home = () => {
                     <WorkspacePremiumIcon
                       className={style.premiumMini}
                       style={{
-                        display: songs.premiumOnly ? "block" : "none",
+                        display: songs?.premiumOnly ? "block" : "none",
                         fontSize: "18px",
                       }}
                     />
@@ -349,12 +349,12 @@ const Home = () => {
                   <div
                     className={style.icon}
                     onClick={() => {
-                      if (!songs.premiumOnly) {
+                      if (!songs?.premiumOnly) {
                         handlePlayMusic(songs);
                       }
                     }}
                   >
-                    {currentSong?.id === songs.id && isPlaying ? (
+                    {currentSong?.id === songs?.id && isPlaying ? (
                       <PauseIcon style={{ color: "#fff" }} />
                     ) : (
                       <PlayArrowIcon style={{ color: "#fff" }} />
@@ -393,8 +393,8 @@ const Home = () => {
             alignItems: "center",
           }}
         >
-          {artists.length > 0 &&
-            artists.map((artist) => (
+          {artists?.length > 0 &&
+            artists?.map((artist) => (
               <Link
                 to={user?.length === 0 ? "/login" : `/artists/${artist?.id}`}
                 key={artist?.id}

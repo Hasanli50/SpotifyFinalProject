@@ -29,7 +29,7 @@ const ResetPass = () => {
           confirmPassword: values.confirmPassword.trim(),
         };
 
-        if (cleanedValue.password !== cleanedValue.confirmPassword) {
+        if (cleanedValue?.password !== cleanedValue?.confirmPassword) {
           toast.error("Passwords do not match");
           return;
         }

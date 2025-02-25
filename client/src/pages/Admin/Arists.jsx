@@ -16,7 +16,7 @@ const Arists = () => {
   const [artists, setArtists] = useState(data);
 
   useEffect(() => {
-    const filteredData = data?.filter((user) => user.status === "approved");
+    const filteredData = data?.filter((user) => user?.status === "approved");
     setArtists(filteredData);
   }, [data]);
 
@@ -47,8 +47,8 @@ const Arists = () => {
             icon: "success",
           });
           setArtists((prevState) =>
-            prevState.map((artist) =>
-              artist.id === id ? { ...artist, isBanned: true } : artist
+            prevState?.map((artist) =>
+              artist?.id === id ? { ...artist, isBanned: true } : artist
             )
           );
         }
@@ -89,8 +89,8 @@ const Arists = () => {
             icon: "success",
           });
           setArtists((prevState) =>
-            prevState.map((artist) =>
-              artist.id === id ? { ...artist, isBanned: false } : artist
+            prevState?.map((artist) =>
+              artist?.id === id ? { ...artist, isBanned: false } : artist
             )
           );
         }
@@ -126,7 +126,7 @@ const Arists = () => {
             text: "Your file has been deleted.",
             icon: "success",
           });
-          const filteredData = data?.filter((artist) => artist.id !== id);
+          const filteredData = data?.filter((artist) => artist?.id !== id);
           setArtists(filteredData);
         }
       });

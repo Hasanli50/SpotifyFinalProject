@@ -37,7 +37,7 @@ const WeeklySongs = () => {
   }, [token]);
 
   const handlePlayMusic = (song) => {
-    if (currentSong && currentSong.id === song.id) {
+    if (currentSong && currentSong?.id === song?.id) {
       if (audioRef.current) {
         audioRef.current.pause();
       }
@@ -48,7 +48,7 @@ const WeeklySongs = () => {
       if (audioRef.current) {
         audioRef.current.pause();
       }
-      audioRef.current = new Audio(song.previewUrl);
+      audioRef.current = new Audio(song?.previewUrl);
       audioRef.current.play();
       setIsPlaying(true);
 
@@ -74,12 +74,12 @@ const WeeklySongs = () => {
   //top songs
   useEffect(() => {
     if (tracks?.length > 0) {
-      const tracksPlayedThisWeek = tracks.filter((track) => {
-        const trackCreatedAt = moment(track.createdAt);
+      const tracksPlayedThisWeek = tracks?.filter((track) => {
+        const trackCreatedAt = moment(track?.createdAt);
         return trackCreatedAt.isAfter(startOfWeek);
       });
 
-      const sortedTracks = tracksPlayedThisWeek.sort(
+      const sortedTracks = tracksPlayedThisWeek?.sort(
         (a, b) => b.playCount - a.playCount
       );
 
@@ -107,10 +107,10 @@ const WeeklySongs = () => {
           }}
         >
           {topSongs?.length > 0 ? (
-            topSongs.map((song) => (
+            topSongs?.map((song) => (
               <div
                 className={`${style.card} ${
-                  user?.isPremium === false && song.premiumOnly === true
+                  user?.isPremium === false && song?.premiumOnly === true
                     ? style.disabledCard
                     : ""
                 }`}
@@ -124,7 +124,7 @@ const WeeklySongs = () => {
                   />
                   <WorkspacePremiumIcon
                     className={style.premium}
-                    style={{ display: song.premiumOnly ? "block" : "none" }}
+                    style={{ display: song?.premiumOnly ? "block" : "none" }}
                   />
                 </div>
                 <div
@@ -144,7 +144,7 @@ const WeeklySongs = () => {
                     className={style.icon}
                     onClick={() => handlePlayMusic(song)}
                   >
-                    {currentSong?.id === song.id && isPlaying ? (
+                    {currentSong?.id === song?.id && isPlaying ? (
                       <PauseIcon style={{ color: "#fff" }} />
                     ) : (
                       <PlayArrowIcon style={{ color: "#fff" }} />

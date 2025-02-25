@@ -47,11 +47,11 @@ const Home = () => {
     if (
       artist &&
       artist?.albumIds &&
-      artist?.albumIds.length > 0 &&
+      artist?.albumIds?.length > 0 &&
       data?.length > 0
     ) {
-      const albumIds = data.filter((album) =>
-        artist.albumIds.includes(album.id)
+      const albumIds = data?.filter((album) =>
+        artist?.albumIds?.includes(album.id)
       );
       // console.log("Filtered Albums:", albumIds);
       if (albumIds.length > 0) {
@@ -72,15 +72,15 @@ const Home = () => {
     if (
       artist &&
       artist?.trackIds &&
-      artist?.trackIds.length > 0 &&
+      artist?.trackIds?.length > 0 &&
       tracks?.length > 0
     ) {
       const trackIds = tracks?.filter((track) =>
-        artist.trackIds.includes(track.id)
+        artist?.trackIds?.includes(track.id)
       );
       const single =
         trackIds?.length > 0 &&
-        trackIds?.filter((track) => track.type === "single");
+        trackIds?.filter((track) => track?.type === "single");
       // console.log("singles: ", single);
       // console.log("Filtered Tracks:", trackIds);
       if (single?.length > 0) {
@@ -123,7 +123,7 @@ const Home = () => {
 
   //----------------------------------------------------
   const handlePlayMusic = (song) => {
-    if (currentSong && currentSong.id === song.id) {
+    if (currentSong && currentSong?.id === song?.id) {
       if (audioRef.current) {
         audioRef.current.pause();
       }
@@ -166,7 +166,7 @@ const Home = () => {
           <Grid container spacing={2}>
             {artistAlbum?.length > 0 ? (
               artistAlbum?.map((album) => (
-                <Link to={`/artist/add-track/${album.id}`} key={album.id}>
+                <Link to={`/artist/add-track/${album?.id}`} key={album?.id}>
                   <Grid item xs={12} sm={6} md={4} lg={3} xl={3}>
                     <div className={style.card}>
                       <div className={style.imgBox}>
@@ -202,14 +202,14 @@ const Home = () => {
                     <div className={style.imgBox}>
                       <img
                         className={style.img}
-                        src={songs.coverImage}
+                        src={songs?.coverImage}
                         alt="image"
                       />
                       <div className={style.iconBox}>
                         <WorkspacePremiumIcon
                           className={style.premium}
                           style={{
-                            display: songs.premiumOnly ? "block" : "none",
+                            display: songs?.premiumOnly ? "block" : "none",
                           }}
                         />
                       </div>
@@ -229,7 +229,7 @@ const Home = () => {
                         className={style.icon}
                         onClick={() => handlePlayMusic(songs)}
                       >
-                        {currentSong?.id === songs.id && isPlaying ? (
+                        {currentSong?.id === songs?.id && isPlaying ? (
                           <PauseIcon style={{ color: "#fff" }} />
                         ) : (
                           <PlayArrowIcon style={{ color: "#fff" }} />
@@ -251,7 +251,7 @@ const Home = () => {
           </p>
           <Grid container spacing={7}>
             {newSongs?.length > 0 &&
-              newSongs.map((songs) => (
+              newSongs?.map((songs) => (
                 <Grid item xs={12} sm={6} md={4} lg={3} xl={3} key={songs.id}>
                   <div className={style.card}>
                     <div className={style.imgBox}>
@@ -286,7 +286,7 @@ const Home = () => {
                         className={style.icon}
                         onClick={() => handlePlayMusic(songs)}
                       >
-                        {currentSong?.id === songs.id && isPlaying ? (
+                        {currentSong?.id === songs?.id && isPlaying ? (
                           <PauseIcon style={{ color: "#fff" }} />
                         ) : (
                           <PlayArrowIcon style={{ color: "#fff" }} />
@@ -304,7 +304,7 @@ const Home = () => {
             Trending <span style={{ color: "#EE10B0" }}>Songs</span> :{" "}
           </p>
           {trendingSongs?.length > 0 &&
-            trendingSongs.map((songs, index) => (
+            trendingSongs?.map((songs, index) => (
               <div className={style.box} key={songs.id}>
                 <p className={style.place}>#{index + 1}</p>
                 <div className={style.songsCard}>
@@ -355,7 +355,7 @@ const Home = () => {
                       className={style.icon}
                       onClick={() => handlePlayMusic(songs)}
                     >
-                      {currentSong?.id === songs.id && isPlaying ? (
+                      {currentSong?.id === songs?.id && isPlaying ? (
                         <PauseIcon style={{ color: "#fff" }} />
                       ) : (
                         <PlayArrowIcon style={{ color: "#fff" }} />

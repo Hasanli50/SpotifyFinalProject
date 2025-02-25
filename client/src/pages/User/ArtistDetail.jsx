@@ -71,7 +71,7 @@ const ArtistDetail = () => {
       tracks?.length > 0
     ) {
       const trackIds = tracks?.filter((track) =>
-        artist.trackIds.includes(track.id)
+        artist?.trackIds?.includes(track.id)
       );
 
       if (trackIds?.length > 0) {
@@ -96,8 +96,8 @@ const ArtistDetail = () => {
       artist?.albumIds.length > 0 &&
       albums?.length > 0
     ) {
-      const albumIds = albums.filter((album) =>
-        artist.albumIds.includes(album.id)
+      const albumIds = albums?.filter((album) =>
+        artist?.albumIds?.includes(album?.id)
       );
       setArtistAlbums(albumIds);
     }
@@ -109,15 +109,15 @@ const ArtistDetail = () => {
     if (
       artist &&
       artist?.trackIds &&
-      artist?.trackIds.length > 0 &&
+      artist?.trackIds?.length > 0 &&
       tracks?.length > 0
     ) {
       const trackIds = tracks?.filter((track) =>
-        artist.trackIds.includes(track.id)
+        artist?.trackIds?.includes(track?.id)
       );
       const single =
         trackIds?.length > 0 &&
-        trackIds?.filter((track) => track.type === "single");
+        trackIds?.filter((track) => track?.type === "single");
       // console.log("singles: ", single);
       // console.log("Filtered Tracks:", trackIds);
       if (single?.length > 0) {
@@ -131,7 +131,7 @@ const ArtistDetail = () => {
 
   //----------------------------------------------------
   const handlePlayMusic = (song) => {
-    if (currentSong && currentSong.id === song.id) {
+    if (currentSong && currentSong?.id === song?.id) {
       if (audioRef.current) {
         audioRef.current.pause();
       }
@@ -190,7 +190,7 @@ const ArtistDetail = () => {
     let updatedFavorites = [...favorites];
 
     if (updatedFavorites.includes(songId)) {
-      updatedFavorites = updatedFavorites.filter((id) => id !== songId);
+      updatedFavorites = updatedFavorites?.filter((id) => id !== songId);
     } else {
       updatedFavorites.push(songId);
     }
@@ -198,7 +198,7 @@ const ArtistDetail = () => {
     setFavorites(updatedFavorites);
 
     localStorage.setItem(
-      `userFavorites_${user.id}`,
+      `userFavorites_${user?.id}`,
       JSON.stringify(updatedFavorites)
     );
   };
@@ -224,7 +224,7 @@ const ArtistDetail = () => {
   //----------------------------------------------------
   useEffect(() => {
     const data = playlists?.filter((value) =>
-      value.name.trim().toLowerCase().includes(searchQuery.trim().toLowerCase())
+      value?.name?.trim().toLowerCase().includes(searchQuery.trim().toLowerCase())
     );
     setFilteredData(data);
   }, [playlists, searchQuery]);
@@ -278,10 +278,10 @@ const ArtistDetail = () => {
       <section className={style.popular}>
         <p className={style.heading}>Popular:</p>
         {artistSongs?.length > 0 &&
-          artistSongs.map((songs, index) => (
+          artistSongs?.map((songs, index) => (
             <div
               className={`${style.box} ${
-                user?.isPremium === false && songs.premiumOnly === true
+                user?.isPremium === false && songs?.premiumOnly === true
                   ? style.disabledCard
                   : ""
               }`}
@@ -373,7 +373,7 @@ const ArtistDetail = () => {
                     <MenuItem>
                       <NewPlaylist />
                     </MenuItem>
-                    {user?.isPremium === false || songs.premiumOnly === true ? (
+                    {user?.isPremium === false || songs?.premiumOnly === true ? (
                       ""
                     ) : (
                       <MenuItem>
@@ -394,7 +394,7 @@ const ArtistDetail = () => {
         <div className={style.albums}>
           {artistAlbum?.length > 0 ? (
             artistAlbum.map((album) => (
-              <Link to={`/album/${album.id}`} key={album.id}>
+              <Link to={`/album/${album?.id}`} key={album?.id}>
                 <div className={style.card}>
                   <div className={style.imgBox}>
                     <img
@@ -421,7 +421,7 @@ const ArtistDetail = () => {
           ) : (
             <p className={style.sentence}>Albums not found</p>
           )}
-          <Link to={`/artist-all-albums/${artist.id}`}>
+          <Link to={`/artist-all-albums/${artist?.id}`}>
             <div className={style.viewAll}>
               <div className={style.circle}>
                 <AddIcon
@@ -446,10 +446,10 @@ const ArtistDetail = () => {
         </p>
         <div className={style.songs}>
           {singleSongs?.length > 0 ? (
-            singleSongs.map((songs) => (
+            singleSongs?.map((songs) => (
               <div
                 className={`${style.card} ${
-                  user?.isPremium === false && songs.premiumOnly === true
+                  user?.isPremium === false && songs?.premiumOnly === true
                     ? style.disabledCard
                     : ""
                 }`}
@@ -484,7 +484,7 @@ const ArtistDetail = () => {
                     className={style.icon}
                     onClick={() => handlePlayMusic(songs)}
                   >
-                    {currentSong?.id === songs.id && isPlaying ? (
+                    {currentSong?.id === songs?.id && isPlaying ? (
                       <PauseIcon style={{ color: "#fff" }} />
                     ) : (
                       <PlayArrowIcon style={{ color: "#fff" }} />
@@ -496,7 +496,7 @@ const ArtistDetail = () => {
           ) : (
             <p className={style.sentence}>You don`t have any albums</p>
           )}
-          <Link to={`/all-single-songs/${artist.id}`}>
+          <Link to={`/all-single-songs/${artist?.id}`}>
             <div className={style.viewAll}>
               <div className={style.circle}>
                 <AddIcon

@@ -35,7 +35,7 @@ const Favorites = () => {
 
   //----------------------------------------------------
   const handlePlayMusic = (song) => {
-    if (currentSong && currentSong.id === song.id) {
+    if (currentSong && currentSong?.id === song?.id) {
       if (audioRef.current) {
         audioRef.current.pause();
       }
@@ -46,7 +46,7 @@ const Favorites = () => {
       if (audioRef.current) {
         audioRef.current.pause();
       }
-      audioRef.current = new Audio(song.previewUrl);
+      audioRef.current = new Audio(song?.previewUrl);
       audioRef.current.play();
       setIsPlaying(true);
 
@@ -101,7 +101,7 @@ const Favorites = () => {
   //----------------------------------------------------
   useEffect(() => {
     const savedFavorites =
-      JSON.parse(localStorage.getItem(`userFavorites_${user.id}`)) || [];
+      JSON.parse(localStorage.getItem(`userFavorites_${user?.id}`)) || [];
     setFavorites(savedFavorites);
   }, [user.id]);
 
@@ -109,7 +109,7 @@ const Favorites = () => {
     let updatedFavorites = [...favorites];
 
     if (updatedFavorites.includes(songId)) {
-      updatedFavorites = updatedFavorites.filter((id) => id !== songId);
+      updatedFavorites = updatedFavorites?.filter((id) => id !== songId);
     } else {
       updatedFavorites.push(songId);
     }
@@ -125,7 +125,7 @@ const Favorites = () => {
   //----------------------------------------------------
   useEffect(() => {
     const data = playlists?.filter((value) =>
-      value.name.trim().toLowerCase().includes(searchQuery.trim().toLowerCase())
+      value?.name?.trim().toLowerCase().includes(searchQuery.trim().toLowerCase())
     );
     setFilteredData(data);
   }, [playlists, searchQuery]);
@@ -134,7 +134,7 @@ const Favorites = () => {
   useEffect(() => {
     const songs = favorites
       ?.map((songId) => {
-        return tracks?.find((track) => track.id === songId);
+        return tracks?.find((track) => track?.id === songId);
       })
       .filter((track) => track !== undefined);
 
@@ -200,7 +200,7 @@ const Favorites = () => {
             filterSong?.map((songs) => (
               <div
                 className={`${style.card} ${
-                  user?.isPremium === false && songs.premiumOnly === true
+                  user?.isPremium === false && songs?.premiumOnly === true
                     ? style.disabledCard
                     : ""
                 }`}
@@ -227,7 +227,7 @@ const Favorites = () => {
                     <Menu
                       className={style.menu}
                       anchorEl={anchorEl}
-                      open={currentSongId === songs.id}
+                      open={currentSongId === songs?.id}
                       onClose={handleMenuClose}
                     >
                       <MenuItem>
@@ -248,9 +248,9 @@ const Favorites = () => {
                                 songs?.type
                               )
                             }
-                            key={playlist.id}
+                            key={playlist?.id}
                           >
-                            {playlist.name}
+                            {playlist?.name}
                           </MenuItem>
                         ))}
                       <MenuItem>

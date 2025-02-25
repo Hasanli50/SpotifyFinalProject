@@ -199,7 +199,7 @@ const CreateAlbumSong = ({ albumId }) => {
                           color: "#fff",
                         },
                       }}
-                      label="Enter Album Name"
+                      label="Enter Song Name"
                       variant="outlined"
                     />
 
@@ -350,7 +350,7 @@ const CreateAlbumSong = ({ albumId }) => {
                           color: "#fff",
                         },
                       }}
-                      label="Enter Album Name"
+                      label="Enter Song Duration (in seconds)"
                       variant="outlined"
                     />
 
@@ -431,8 +431,8 @@ const CreateAlbumSong = ({ albumId }) => {
                     >
                       <option value="">Select Genre</option>
                       {genres?.map((genre) => (
-                        <option key={genre.id} value={genre.id}>
-                          {genre.name}
+                        <option key={genre?.id} value={genre?.id}>
+                          {genre?.name}
                         </option>
                       ))}
                     </select>

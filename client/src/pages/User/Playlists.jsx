@@ -26,8 +26,8 @@ const Playlists = () => {
 
   useEffect(() => {
     if (user && playlists) {
-      const userCollaboratedPlaylists = playlists.filter((playlist) =>
-        playlist.collaborators.includes(user.id)
+      const userCollaboratedPlaylists = playlists?.filter((playlist) =>
+        playlist?.collaborators?.includes(user?.id)
       );
       setCollabPlaylists(userCollaboratedPlaylists);
     }
@@ -67,7 +67,7 @@ const Playlists = () => {
         </Grid>
       </section>
 
-      {user.isPremium === false ? (
+      {user?.isPremium === false ? (
         ""
       ) : (
         <section className={style.playlists}>
@@ -87,7 +87,7 @@ const Playlists = () => {
                   xl={4}
                   key={playlist.id}
                 >
-                  <Link to={`/playlist/${playlist.id}`}>
+                  <Link to={`/playlist/${playlist?.id}`}>
                     <div className={style.box}>
                       <p style={{ color: "#fff" }}>{playlist.name}</p>
                     </div>

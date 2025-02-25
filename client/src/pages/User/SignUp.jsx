@@ -32,9 +32,9 @@ const SignUp = () => {
             uploadResponse.secure_url
           );
           // console.log("Sending data to server:", newUser);
-          const duplicateEmail = data.find((x) => x.email === newUser.email);
-          const duplicateUsername = data.find(
-            (x) => x.username === newUser.username
+          const duplicateEmail = data?.find((x) => x?.email === newUser?.email);
+          const duplicateUsername = data?.find(
+            (x) => x?.username === newUser?.username
           );
 
           if (duplicateUsername) {

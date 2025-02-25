@@ -38,11 +38,11 @@ const PremiumTracks = () => {
   // Filter artist's tracks
   useEffect(() => {
     if (artist?.trackIds?.length > 0 && data?.length > 0) {
-      const trackIds = data.filter((track) =>
-        artist.trackIds.includes(track.id)
+      const trackIds = data?.filter((track) =>
+        artist?.trackIds?.includes(track?.id)
       );
-      const filteredData = trackIds.filter(
-        (track) => track.premiumOnly === true
+      const filteredData = trackIds?.filter(
+        (track) => track?.premiumOnly === true
       );
       setTracks(filteredData);
     }
@@ -64,7 +64,7 @@ const PremiumTracks = () => {
             `${BASE_URL + ENDPOINT.tracks}/${id}/premium-only`,
             { premiumOnly: false }
           );
-          const updatedTracks = tracks.filter((song) => song.id !== id);
+          const updatedTracks = tracks?.filter((song) => song?.id !== id);
           setTracks(updatedTracks);
           Swal.fire({
             title: "Updated!",
@@ -81,7 +81,7 @@ const PremiumTracks = () => {
 
   //----------------------------------------------------
   const handlePlayMusic = (song) => {
-    if (currentSong && currentSong.id === song.id) {
+    if (currentSong && currentSong?.id === song?.id) {
       if (audioRef.current) {
         audioRef.current.pause();
       }
@@ -117,8 +117,8 @@ const PremiumTracks = () => {
     <section className={style.premiumTracks}>
       <p className={style.heading}>Premium Tracks: </p>
       <div className={style.songs}>
-        {tracks.length > 0 ? (
-          tracks.map((song, index) => (
+        {tracks?.length > 0 ? (
+          tracks?.map((song, index) => (
             <div className={style.songBox} key={song.id}>
               <p className={style.place}>{index + 1}.</p>
               <div className={style.songsCard}>
@@ -155,7 +155,7 @@ const PremiumTracks = () => {
                     className={style.icon}
                     onClick={() => handlePlayMusic(song)}
                   >
-                    {currentSong?.id === song.id && isPlaying ? (
+                    {currentSong?.id === song?.id && isPlaying ? (
                       <PauseIcon style={{ color: "#fff" }} />
                     ) : (
                       <PlayArrowIcon style={{ color: "#fff" }} />

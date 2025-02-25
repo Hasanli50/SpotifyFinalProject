@@ -175,30 +175,30 @@ const NewPlaylistwithCollab = () => {
                   value={
                     data
                       ?.filter((user) =>
-                        formik.values.collaborators.includes(user.id)
+                        formik.values.collaborators.includes(user?.id)
                       )
                       .map((user) => ({
-                        label: user.username,
-                        value: user.id,
+                        label: user?.username,
+                        value: user?.id,
                       })) || []
                   }
                   onChange={(selected) => {
                     formik.setFieldValue(
                       "collaborators",
-                      selected.map((s) => s.value)
+                      selected?.map((s) => s?.value)
                     );
                   }}
                   options={
                     data
                     ?.filter(
                       (user) =>
-                        user.role === "user" && 
-                        user.id !== currentUser.id && 
-                        !formik.values.collaborators.includes(user.id) 
+                        user?.role === "user" && 
+                        user?.id !== currentUser?.id && 
+                        !formik.values.collaborators.includes(user?.id) 
                     )
                       .map((user) => ({
-                        label: user.username,
-                        value: user.id,
+                        label: user?.username,
+                        value: user?.id,
                       })) || []
                   }
                   isMulti

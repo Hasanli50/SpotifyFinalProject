@@ -64,7 +64,7 @@ const GenreDetail = () => {
 
   //----------------------------------------------------
   const handlePlayMusic = (song) => {
-    if (currentSong && currentSong.id === song.id) {
+    if (currentSong && currentSong?.id === song?.id) {
       if (audioRef.current) {
         audioRef.current.pause();
       }
@@ -75,11 +75,11 @@ const GenreDetail = () => {
       if (audioRef.current) {
         audioRef.current.pause();
       }
-      audioRef.current = new Audio(song.previewUrl);
+      audioRef.current = new Audio(song?.previewUrl);
       audioRef.current.play();
       setIsPlaying(true);
 
-      handlePlayCount(song.id);
+      handlePlayCount(song?.id);
     }
   };
 
@@ -116,7 +116,7 @@ const GenreDetail = () => {
 
   useEffect(() => {
     const savedFavorites =
-      JSON.parse(localStorage.getItem(`userFavorites_${user.id}`)) || [];
+      JSON.parse(localStorage.getItem(`userFavorites_${user?.id}`)) || [];
     setFavorites(savedFavorites);
   }, [user.id]);
 
@@ -124,7 +124,7 @@ const GenreDetail = () => {
     let updatedFavorites = [...favorites];
 
     if (updatedFavorites.includes(songId)) {
-      updatedFavorites = updatedFavorites.filter((id) => id !== songId);
+      updatedFavorites = updatedFavorites?.filter((id) => id !== songId);
     } else {
       updatedFavorites.push(songId);
     }
@@ -132,7 +132,7 @@ const GenreDetail = () => {
     setFavorites(updatedFavorites);
 
     localStorage.setItem(
-      `userFavorites_${user.id}`,
+      `userFavorites_${user?.id}`,
       JSON.stringify(updatedFavorites)
     );
   };
@@ -158,7 +158,7 @@ const GenreDetail = () => {
   //----------------------------------------------------
   useEffect(() => {
     const data = playlists?.filter((value) =>
-      value.name.trim().toLowerCase().includes(searchQuery.trim().toLowerCase())
+      value?.name?.trim().toLowerCase().includes(searchQuery.trim().toLowerCase())
     );
     setFilteredData(data);
   }, [playlists, searchQuery]);
@@ -221,14 +221,14 @@ const GenreDetail = () => {
 
         <div className={style.songs}>
           {filteredSong?.length > 0 ? (
-            filteredSong.map((songs) => (
+            filteredSong?.map((songs) => (
               <div
                 className={`${style.card} ${
-                  user?.isPremium === false && songs.premiumOnly === true
+                  user?.isPremium === false && songs?.premiumOnly === true
                     ? style.disabledCard
                     : ""
                 }`}
-                key={songs.id}
+                key={songs?.id}
               >
                 <div className={style.imgBox}>
                   <img
@@ -238,11 +238,11 @@ const GenreDetail = () => {
                   />
                   <WorkspacePremiumIcon
                     className={style.premium}
-                    style={{ display: songs.premiumOnly ? "block" : "none" }}
+                    style={{ display: songs?.premiumOnly ? "block" : "none" }}
                   />
                   <div className={style.icons}>
                     <div onClick={() => toggleFavorite(songs.id)}>
-                      {isFavorite(songs.id) ? (
+                      {isFavorite(songs?.id) ? (
                         <FavoriteIcon style={{ color: "#EE10B0" }} />
                       ) : (
                         <FavoriteBorderIcon style={{ color: "#EE10B0" }} />
@@ -255,7 +255,7 @@ const GenreDetail = () => {
                     <Menu
                       className={style.menu}
                       anchorEl={anchorEl}
-                      open={currentSongId === songs.id}
+                      open={currentSongId === songs?.id}
                       onClose={handleMenuClose}
                     >
                       <MenuItem>
@@ -285,7 +285,7 @@ const GenreDetail = () => {
                         <NewPlaylist />
                       </MenuItem>
                       {user?.isPremium === false ||
-                      songs.premiumOnly === true ? (
+                      songs?.premiumOnly === true ? (
                         ""
                       ) : (
                         <MenuItem>
@@ -313,7 +313,7 @@ const GenreDetail = () => {
                     className={style.icon}
                     onClick={() => handlePlayMusic(songs)}
                   >
-                    {currentSong?.id === songs.id && isPlaying ? (
+                    {currentSong?.id === songs?.id && isPlaying ? (
                       <PauseIcon style={{ color: "#fff" }} />
                     ) : (
                       <PlayArrowIcon style={{ color: "#fff" }} />

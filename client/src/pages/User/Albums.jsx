@@ -30,7 +30,7 @@ const Albums = () => {
   useEffect(() => {
     const data = albums?.filter(
       (value) =>
-        value.name
+        value?.name
           .trim()
           .toLowerCase()
           .includes(searchQuery.trim().toLowerCase()) ||
@@ -68,7 +68,7 @@ const Albums = () => {
                   <div className={style.imgBox}>
                     <img
                       className={style.img}
-                      src={album.coverImage}
+                      src={album?.coverImage}
                       alt="coverImage"
                     />
                   </div>

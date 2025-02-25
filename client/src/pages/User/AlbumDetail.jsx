@@ -63,11 +63,11 @@ const AlbumDetail = () => {
     if (
       album &&
       album?.trackIds &&
-      album?.trackIds.length > 0 &&
+      album?.trackIds?.length > 0 &&
       tracks?.length > 0
     ) {
       const trackIds = tracks?.filter((track) =>
-        album.trackIds.includes(track.id)
+        album?.trackIds?.includes(track?.id)
       );
       setSongs(trackIds);
     }
@@ -75,7 +75,7 @@ const AlbumDetail = () => {
 
   //----------------------------------------------------
   const handlePlayMusic = (song) => {
-    if (currentSong && currentSong.id === song.id) {
+    if (currentSong && currentSong?.id === song?.id) {
       if (audioRef.current) {
         audioRef.current.pause();
       }
@@ -134,7 +134,7 @@ const AlbumDetail = () => {
     let updatedFavorites = [...favorites];
 
     if (updatedFavorites.includes(songId)) {
-      updatedFavorites = updatedFavorites.filter((id) => id !== songId);
+      updatedFavorites = updatedFavorites?.filter((id) => id !== songId);
     } else {
       updatedFavorites.push(songId);
     }
@@ -168,7 +168,7 @@ const AlbumDetail = () => {
   //----------------------------------------------------
   useEffect(() => {
     const data = playlists?.filter((value) =>
-      value.name.trim().toLowerCase().includes(searchQuery.trim().toLowerCase())
+      value?.name?.trim().toLowerCase().includes(searchQuery.trim().toLowerCase())
     );
     setFilteredData(data);
   }, [playlists, searchQuery]);
@@ -236,7 +236,7 @@ const AlbumDetail = () => {
           songs.map((songs, index) => (
             <div
               className={`${style.box} ${
-                user?.isPremium === false && songs.premiumOnly === true
+                user?.isPremium === false && songs?.premiumOnly === true
                   ? style.disabledCard
                   : ""
               }`}
@@ -303,7 +303,7 @@ const AlbumDetail = () => {
                   <Menu
                     className={style.menu}
                     anchorEl={anchorEl}
-                    open={currentSongId === songs.id}
+                    open={currentSongId === songs?.id}
                     onClose={handleMenuClose}
                   >
                     <MenuItem>
@@ -328,7 +328,7 @@ const AlbumDetail = () => {
                     <MenuItem>
                       <NewPlaylist />
                     </MenuItem>
-                    {user?.isPremium === false || songs.premiumOnly === true ? (
+                    {user?.isPremium === false || songs?.premiumOnly === true ? (
                       ""
                     ) : (
                       <MenuItem>
