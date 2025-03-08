@@ -148,9 +148,9 @@ const Tracks = () => {
         confirmButtonText: "Yes, delete it!",
       }).then(async (result) => {
         if (result.isConfirmed) {
-          await axios.delete(`${BASE_URL + ENDPOINT.tracks}/${songId}`);
           const songs = tracks?.filter((song) => song?.id !== songId);
           setFilteredData(songs);
+          await axios.delete(`${BASE_URL + ENDPOINT.tracks}/${songId}`);
           Swal.fire({
             title: "Deleted!",
             text: "Your file has been deleted.",
