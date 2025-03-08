@@ -40,6 +40,10 @@ const Albums = () => {
     getArtistByToken();
   }, [token]);
 
+  const addAlbum = (newAlbum) => {
+    setArtistAlbums((prevAlbums) => [newAlbum, ...prevAlbums]);
+  };
+
   // albums
   useEffect(() => {
     if (
@@ -106,7 +110,9 @@ const Albums = () => {
           const response = await axios.delete(
             `${BASE_URL + ENDPOINT.albums}/${id}`
           );
-          filteredData?.filter((album) => album?.id !== id);
+          setArtistAlbums((prevAlbums) =>
+            prevAlbums.filter((album) => album.id !== id)
+          );
           console.log(response);
           Swal.fire({
             title: "Deleted!",
@@ -156,7 +162,7 @@ const Albums = () => {
               <option value="desc">desc</option>
             </select>
             <div className={style.btn}>
-              <AlbumModal />
+              <AlbumModal addAlbum={addAlbum} />
             </div>
           </div>
 
@@ -192,10 +198,9 @@ const Albums = () => {
                             <DeleteIcon />
                           </div>
                           <div>
-                            <UpdateAlbum
-                              style={{ color: "#fff" }}
-                              id={album.id}
-                            />
+                            {album.map((album) => (
+                              <UpdateAlbum key={album.id} id={album.id} />
+                            ))}
                           </div>
                         </div>
                       </div>

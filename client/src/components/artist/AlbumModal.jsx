@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import style from "../../assets/style/artist/albumModal.module.scss";
 import Backdrop from "@mui/material/Backdrop";
@@ -21,17 +22,16 @@ const styles = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   maxWidth: 450,
-  width:"100%",
+  width: "100%",
   bgcolor: "#1f1f1f",
   border: "2px solid #000",
-    // boxShadow: 30,
+  // boxShadow: 30,
   borderRadius: "15px",
   boxShadow: "-1px 2px 8px 10px rgba(128, 0, 128, 0.5)",
   p: 4,
-  
 };
 
-const AlbumModal = () => {
+const AlbumModal = ({ addAlbum }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -79,6 +79,7 @@ const AlbumModal = () => {
         );
 
         if (response.status === 201) {
+          addAlbum(response.data.data);
           toast.success("Album successfully created!");
           actions.resetForm();
           handleClose();
@@ -130,7 +131,7 @@ const AlbumModal = () => {
                     width: "100%",
                     color: "#fff",
                     "& .MuiOutlinedInput-root": {
-                      color:"#fff",
+                      color: "#fff",
                       "&:hover .MuiOutlinedInput-notchedOutline": {
                         borderColor: "#fff",
                       },

@@ -138,6 +138,10 @@ const ArtistSingleSongs = () => {
     getUserByToken();
   }, [token]);
 
+  useEffect(() => {
+    setFilteredData(playlists);
+  }, [playlists]);
+
   //----------------------------------------------------
 
   useEffect(() => {
@@ -184,7 +188,10 @@ const ArtistSingleSongs = () => {
   //----------------------------------------------------
   useEffect(() => {
     const data = playlists?.filter((value) =>
-      value?.name?.trim().toLowerCase().includes(searchQuery.trim().toLowerCase())
+      value?.name
+        ?.trim()
+        .toLowerCase()
+        .includes(searchQuery.trim().toLowerCase())
     );
     setFilteredData(data);
   }, [playlists, searchQuery]);
@@ -212,20 +219,24 @@ const ArtistSingleSongs = () => {
       toast.error("Song already have in playlist!");
     }
   };
+
+  const handleCreateNewPlaylist = (newPlaylist) => {
+    setFilteredData((prevData) => [...prevData, newPlaylist]);
+  };
+
   return (
     <>
-        <div className={style.inputBox}>
-          <input
-            onChange={(e) => setSearchSong(e.target.value)}
-            type="text"
-            value={searchSong}
-            className={style.input}
-            placeholder="Search for songs..."
-          />
-          <SearchIcon className={style.searchIcon} />
-        </div>
+      <div className={style.inputBox}>
+        <input
+          onChange={(e) => setSearchSong(e.target.value)}
+          type="text"
+          value={searchSong}
+          className={style.input}
+          placeholder="Search for songs..."
+        />
+        <SearchIcon className={style.searchIcon} />
+      </div>
       <section className={style.allSingleSongs}>
-
         <p className={style.heading}>
           <Link to={`/artists/${artist?.id}`}>
             <span className={style.back}>
@@ -307,7 +318,9 @@ const ArtistSingleSongs = () => {
                           </MenuItem>
                         ))}
                       <MenuItem>
-                        <NewPlaylist />
+                        <NewPlaylist
+                          handleCreateNewPlaylist={handleCreateNewPlaylist}
+                        />
                       </MenuItem>
                       {user?.isPremium === false ||
                       songs?.premiumOnly === true ? (

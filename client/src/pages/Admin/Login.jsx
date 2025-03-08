@@ -26,7 +26,7 @@ const Login = () => {
           password: values.password.trim(),
         };
 
-        const user = data.find(
+        const user = data?.find(
           (user) =>
             user?.username === cleanedValues?.username && user?.role === "admin"
         );

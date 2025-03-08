@@ -30,7 +30,6 @@ const Home = () => {
   const [user, setUser] = useState([]);
 
   const token = getUserFromStorage();
-  const role = localStorage.getItem("userauth");
   useEffect(() => {
     const getUserByToken = async () => {
       try {
@@ -147,10 +146,8 @@ const Home = () => {
             topSongs?.map((song) => (
               <div
                 className={`${style.card} ${
-                  !role &&
-                  user?.length === 0 &&
-                  user?.isPremium === false &&
-                  song?.premiumOnly === true
+                  Object.keys(user).length === 0 ||
+                  (user?.isPremium === false && song?.premiumOnly === true)
                     ? style.disabledCard
                     : ""
                 }`}
@@ -233,10 +230,8 @@ const Home = () => {
             newSongs?.map((song) => (
               <div
                 className={`${style.card} ${
-                  !role &&
-                  user?.length === 0 &&
-                  user?.isPremium === false &&
-                  song?.premiumOnly === true
+                  Object.keys(user).length === 0 ||
+                  (user?.isPremium === false && song?.premiumOnly === true)
                     ? style.disabledCard
                     : ""
                 }`}
@@ -306,10 +301,8 @@ const Home = () => {
           trendingSongs?.map((songs, index) => (
             <div
               className={`${style.box} ${
-                !role &&
-                user?.length === 0 &&
-                user?.isPremium === false &&
-                songs?.premiumOnly === true
+                Object.keys(user).length === 0 ||
+                (user?.isPremium === false && songs?.premiumOnly === true)
                   ? style.disabledCard
                   : ""
               }`}

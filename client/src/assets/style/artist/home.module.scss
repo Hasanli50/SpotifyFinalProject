@@ -100,14 +100,5 @@
   );
   background-clip: text;
   color: transparent;
-}
-.paragraph {
-  font-size: 20px;
-  background: linear-gradient(
-    90deg,
-    rgba(238, 16, 176, 1) 12%,
-    rgba(14, 158, 239, 1) 100%
-  );
-  background-clip: text;
-  color: transparent;
+  text-align: left;
 }
