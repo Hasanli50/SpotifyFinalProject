@@ -208,6 +208,10 @@ const GenreDetail = () => {
     setFilteredData((prevData) => [...prevData, newPlaylist]);
   };
 
+  useEffect(() => {
+    console.log("Updated filteredData:", filteredData);
+  }, [filteredData]);
+
   return (
     <>
       <div className={style.inputBox}>

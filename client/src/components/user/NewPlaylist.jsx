@@ -51,7 +51,7 @@ const NewPlaylist = ({handleCreateNewPlaylist}) => {
         if (response.status === 201) {
           toast.success("Playlist successfully created!");
           actions.resetForm();
-          handleCreateNewPlaylist(response.data);
+          handleCreateNewPlaylist(response.data.data);
           handleClose();
         }
       } catch (error) {
