@@ -50,7 +50,7 @@ const Login = () => {
           saveUserToStorage(response.data.token);
           localStorage.setItem("adminauth", "true");
           const role = localStorage.getItem("adminauth");
-          if (role === "true") {
+          if (role) {
             navigate("/admin");
           }
 

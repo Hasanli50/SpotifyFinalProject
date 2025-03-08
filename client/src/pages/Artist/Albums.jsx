@@ -83,7 +83,10 @@ const Albums = () => {
 
   useEffect(() => {
     const data = artistAlbum?.filter((value) =>
-      value?.name?.trim().toLowerCase().includes(searchQuery.trim().toLowerCase())
+      value?.name
+        ?.trim()
+        .toLowerCase()
+        .includes(searchQuery.trim().toLowerCase())
     );
     setFilteredData(data);
   }, [artistAlbum, searchQuery]);
@@ -158,9 +161,9 @@ const Albums = () => {
           </div>
 
           <div className={style.allAlbums}>
-            <Grid container spacing={2}>
-              {filteredData?.length > 0 ? (
-                filteredData?.map((album) => (
+            {filteredData?.length > 0 ? (
+              <Grid container spacing={2}>
+                {filteredData?.map((album) => (
                   <Grid item xs={12} sm={6} md={4} lg={3} xl={3} key={album.id}>
                     <div className={style.card}>
                       <div className={style.imgBox}>
@@ -207,7 +210,10 @@ const Albums = () => {
                           open={currentAlbumId === album.id}
                           onClose={handleMenuClose}
                         >
-                          <Link to={`/artist/add-track/${album?.id}`} style={{textDecoration:"none", color:"#000"}}>
+                          <Link
+                            to={`/artist/add-track/${album?.id}`}
+                            style={{ textDecoration: "none", color: "#000" }}
+                          >
                             <MenuItem onClick={handleMenuClose}>
                               Add Song
                             </MenuItem>
@@ -217,11 +223,11 @@ const Albums = () => {
                       </div>
                     </div>
                   </Grid>
-                ))
-              ) : (
-                <p className={style.sentence}>You don`t have any albums</p>
-              )}
-            </Grid>
+                ))}
+              </Grid>
+            ) : (
+              <p className={style.sentence}>You don`t have any albums</p>
+            )}
           </div>
         </section>
       </main>

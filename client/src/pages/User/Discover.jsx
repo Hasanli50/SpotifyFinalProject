@@ -52,7 +52,7 @@ const Discover = () => {
               <Grid item xs={12} sm={12} md={6} lg={4} xl={4} key={genre.id}>
                 <Link
                   to={
-                    !role && user.length === 0
+                    !role && user?.length === 0
                       ? "/login"
                       : `/genre/${genre?.id}`
                   }
@@ -88,7 +88,7 @@ const Discover = () => {
             artists.map((artist) => (
               <Link
                 to={
-                  !role && user.length === 0
+                  !role && user?.length === 0
                     ? "/login"
                     : `/artists/${artist?.id}`
                 }

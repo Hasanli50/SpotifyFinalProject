@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import style from "../../assets/style/artist/albumModal.module.scss";
 import Backdrop from "@mui/material/Backdrop";
@@ -25,7 +26,7 @@ const styles = {
   p: 4,
 };
 
-const NewPlaylist = () => {
+const NewPlaylist = ({handleCreateNewPlaylist}) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -50,6 +51,7 @@ const NewPlaylist = () => {
         if (response.status === 201) {
           toast.success("Playlist successfully created!");
           actions.resetForm();
+          handleCreateNewPlaylist(response.data);
           handleClose();
         }
       } catch (error) {

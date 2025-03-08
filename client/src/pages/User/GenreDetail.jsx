@@ -112,6 +112,10 @@ const GenreDetail = () => {
     getUserByToken();
   }, [token]);
 
+  useEffect(() => {
+    setFilteredData(playlists);
+  }, [playlists]);
+
   //----------------------------------------------------
 
   useEffect(() => {
@@ -158,7 +162,10 @@ const GenreDetail = () => {
   //----------------------------------------------------
   useEffect(() => {
     const data = playlists?.filter((value) =>
-      value?.name?.trim().toLowerCase().includes(searchQuery.trim().toLowerCase())
+      value?.name
+        ?.trim()
+        .toLowerCase()
+        .includes(searchQuery.trim().toLowerCase())
     );
     setFilteredData(data);
   }, [playlists, searchQuery]);
@@ -195,6 +202,10 @@ const GenreDetail = () => {
       console.log("Error:", error.response?.data?.message || error.message);
       toast.error("Song already have in playlist!");
     }
+  };
+
+  const handleCreateNewPlaylist = (newPlaylist) => {
+    setFilteredData((prevData) => [...prevData, newPlaylist]);
   };
 
   return (
@@ -282,7 +293,9 @@ const GenreDetail = () => {
                           </MenuItem>
                         ))}
                       <MenuItem>
-                        <NewPlaylist />
+                        <NewPlaylist
+                          handleCreateNewPlaylist={handleCreateNewPlaylist}
+                        />
                       </MenuItem>
                       {user?.isPremium === false ||
                       songs?.premiumOnly === true ? (

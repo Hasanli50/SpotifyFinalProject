@@ -163,9 +163,9 @@ const Home = () => {
           <p className={style.heading}>
             Your Last <span style={{ color: "#EE10B0" }}>Albums</span> :{" "}
           </p>
-          <Grid container spacing={7}>
-            {artistAlbum?.length > 0 ? (
-              artistAlbum?.map((album) => (
+          {artistAlbum?.length > 0 ? (
+            <Grid container spacing={7}>
+              {artistAlbum?.map((album) => (
                 <Link to={`/artist/add-track/${album?.id}`} key={album?.id}>
                   <Grid item xs={12} sm={6} md={4} lg={3} xl={3}>
                     <div className={style.card}>
@@ -183,20 +183,20 @@ const Home = () => {
                     </div>
                   </Grid>
                 </Link>
-              ))
-            ) : (
-              <p className={style.sentence}>You don`t have any albums</p>
-            )}
-          </Grid>
+              ))}
+            </Grid>
+          ) : (
+            <p className={style.sentence}>You don`t have any albums</p>
+          )}
         </section>
 
         <section className={style.singles}>
           <p className={style.heading}>
             Top <span style={{ color: "#EE10B0" }}>Singles</span> :{" "}
           </p>
-          <Grid container spacing={7}>
-            {artistSongs?.length > 0 ? (
-              artistSongs?.map((songs) => (
+          {artistSongs?.length > 0 ? (
+            <Grid container spacing={7}>
+              {artistSongs?.map((songs) => (
                 <Grid item xs={12} sm={6} md={4} lg={3} xl={3} key={songs.id}>
                   <div className={style.card}>
                     <div className={style.imgBox}>
@@ -238,11 +238,11 @@ const Home = () => {
                     </div>
                   </div>
                 </Grid>
-              ))
-            ) : (
-              <p className={style.paragraph}>You don`t have any singles</p>
-            )}
-          </Grid>
+              ))}
+            </Grid>
+          ) : (
+            <p className={style.sentence}>You don`t have any singles</p>
+          )}
         </section>
 
         <section className={style.songs}>
@@ -347,7 +347,7 @@ const Home = () => {
                     style={{
                       display: "flex",
                       // alignItems: "center",
-                      gap:"10px"
+                      gap: "10px",
                     }}
                   >
                     <p>{formatDuration(songs.duration)}</p>
