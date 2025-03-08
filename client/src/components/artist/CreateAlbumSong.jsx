@@ -109,7 +109,7 @@ const CreateAlbumSong = ({ albumId, setFilteredData }) => {
         console.log("Server response:", response);
 
         if (response) {
-          setFilteredData(response.data.data);
+          setFilteredData((prevTracks) => [...prevTracks, response.data.data]);
           toast.success("Track successfully created!");
           actions.resetForm();
           handleClose();

@@ -113,7 +113,7 @@ const TrackModal = ({ setFilteredData }) => {
         console.log("Server response:", response);
 
         if (response) {
-          setFilteredData((prevTracks) => [...prevTracks, response.data]);
+          setFilteredData((prevTracks) => [...prevTracks, response.data.data]);
           toast.success("Track successfully created!");
           actions.resetForm();
           handleClose();
