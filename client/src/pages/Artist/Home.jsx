@@ -163,7 +163,7 @@ const Home = () => {
           <p className={style.heading}>
             Your Last <span style={{ color: "#EE10B0" }}>Albums</span> :{" "}
           </p>
-          <Grid container spacing={2}>
+          <Grid container spacing={7}>
             {artistAlbum?.length > 0 ? (
               artistAlbum?.map((album) => (
                 <Link to={`/artist/add-track/${album?.id}`} key={album?.id}>
@@ -240,7 +240,7 @@ const Home = () => {
                 </Grid>
               ))
             ) : (
-              <p className={style.sentence}>You don`t have any singles</p>
+              <p className={style.paragraph}>You don`t have any singles</p>
             )}
           </Grid>
         </section>

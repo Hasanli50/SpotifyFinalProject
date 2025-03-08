@@ -2,8 +2,6 @@
 @use "../../scss/extends" as *;
 
 .main {
-  
-
 }
 .albums {
   padding: 4% 50px;
@@ -39,7 +37,6 @@
   @extend %songs-card;
   margin-bottom: 30px;
   padding-right: 5px;
-  
 }
 .songsCard__imgBox {
   @extend %songsCard-imgBox;
@@ -67,7 +64,7 @@
 .premium {
   color: red;
 }
-.premiumMini{
+.premiumMini {
   position: absolute;
   color: red;
   top: 2px;
@@ -95,6 +92,16 @@
   @extend %letter-bottom;
 }
 .sentence {
+  font-size: 20px;
+  background: linear-gradient(
+    90deg,
+    rgba(238, 16, 176, 1) 12%,
+    rgba(14, 158, 239, 1) 100%
+  );
+  background-clip: text;
+  color: transparent;
+}
+.paragraph {
   font-size: 20px;
   background: linear-gradient(
     90deg,
