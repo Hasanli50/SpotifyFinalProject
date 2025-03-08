@@ -13,9 +13,9 @@
 }
 .imgBox {
   @extend %img-box;
-  position: relative
+  position: relative;
 }
-.premium{
+.premium {
   position: absolute;
   color: red;
   top: 5px;
@@ -57,7 +57,11 @@
   margin: auto;
   margin-bottom: 10px;
 }
-
+.songBox {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 .trendingSngs {
   margin-bottom: 6%;
   padding: 0 50px;
@@ -79,7 +83,7 @@
 }
 .songsCard__imgBox {
   @extend %songsCard-imgBox;
-  position: relative
+  position: relative;
 }
 .songsCard__imgBox__img {
   @extend %img;
@@ -95,8 +99,8 @@
   }
 }
 .disabledCard {
-  pointer-events: none; 
-  opacity: 0.7; 
+  pointer-events: none;
+  opacity: 0.7;
 }
 
 .rectangleМiewAll {
@@ -122,7 +126,7 @@
   border-radius: 50%;
   margin-bottom: 20px;
 }
-.premiumMini{
+.premiumMini {
   position: absolute;
   color: red;
   top: 2px;
@@ -136,7 +140,6 @@
   padding: 0 50px;
   padding-top: 30px;
   margin-bottom: 6%;
-
 }
 .paragraph {
   background: linear-gradient(

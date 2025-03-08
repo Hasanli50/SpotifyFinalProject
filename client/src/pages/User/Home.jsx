@@ -302,12 +302,12 @@ const Home = () => {
         {trendingSongs?.length > 0 &&
           trendingSongs?.map((songs, index) => (
             <div
-              className={`${
+              className={`${style.songBox} ${
                 (console.log("user:", user),
                 console.log("songs:", songs),
                 console.log(user?.isPremium),
                 console.log(songs?.premiumOnly),
-                Object.keys(user).length === 0
+                Array.isArray(user) && user.length === 0
                   ? style.disabledCard
                   : user?.isPremium === false && songs?.premiumOnly === true
                   ? style.disabledCard
