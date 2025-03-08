@@ -7,6 +7,12 @@
 .albums {
   margin-bottom: 2%;
 }
+.allAlbums {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  flex-wrap: wrap;
+}
 .card {
   @extend %card;
   position: relative;

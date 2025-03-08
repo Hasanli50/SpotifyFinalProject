@@ -8,7 +8,7 @@ const Contact = () => {
           <input
             type="text"
             className={style.input}
-            placeholder="Search for albums..."
+            placeholder="How can we help you? Enter your message here..."
           />
           <SearchIcon className={style.searchIcon} />
         </div>

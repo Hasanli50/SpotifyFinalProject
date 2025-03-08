@@ -205,7 +205,7 @@ const Profile = () => {
                   width: "100%",
                   color: "#fff",
                   "& .MuiOutlinedInput-root": {
-                    color:"#fff",
+                    color: "#fff",
                     "&:hover .MuiOutlinedInput-notchedOutline": {
                       borderColor: "#fff",
                     },
@@ -255,7 +255,7 @@ const Profile = () => {
                   width: "100%",
                   color: "#fff",
                   "& .MuiOutlinedInput-root": {
-                    color:"#fff",
+                    color: "#fff",
                     "&:hover .MuiOutlinedInput-notchedOutline": {
                       borderColor: "#fff",
                     },
@@ -304,7 +304,7 @@ const Profile = () => {
                 }
                 name="image"
                 type="file"
-                style={{ marginBottom: "10px" , color: "#FAB5E7"}}
+                style={{ marginBottom: "10px", color: "#FAB5E7" }}
               />
             </div>
 
@@ -451,13 +451,14 @@ const Profile = () => {
                     sx={{
                       marginBottom: "10px",
                       width: "100%",
+                      color: "#fff",
                       "& .MuiOutlinedInput-root": {
-                        color: "#FAB5E7",
+                        color: "#fff",
                         "&:hover .MuiOutlinedInput-notchedOutline": {
-                          borderColor: "rgba(238, 16, 176, 1)",
+                          borderColor: "#fff",
                         },
                         "& .MuiOutlinedInput-notchedOutline": {
-                          borderColor: "rgba(238, 16, 176, 1)",
+                          borderColor: "#fff",
                           borderWidth: "2px",
                         },
                         "&.Mui-focused": {
@@ -466,11 +467,11 @@ const Profile = () => {
                             borderWidth: "2px",
                           },
                           "& input": {
-                            color: "#FAB5E7",
+                            borderColor: "#fff",
                             background: "transparant",
                           },
                           "& .MuiInputLabel-root": {
-                            color: "#FAB5E7",
+                            color: "#fff",
                           },
                         },
                       },
@@ -478,7 +479,7 @@ const Profile = () => {
                         color: "#FAB5E7",
                       },
                       "& input::placeholder": {
-                        color: "#FAB5E7",
+                        color: "#fff",
                       },
                     }}
                     label="Enter Password"
@@ -507,13 +508,14 @@ const Profile = () => {
                     sx={{
                       marginBottom: "10px",
                       width: "100%",
+                      color: "#fff",
                       "& .MuiOutlinedInput-root": {
-                        color: "#FAB5E7",
+                        color: "#fff",
                         "&:hover .MuiOutlinedInput-notchedOutline": {
-                          borderColor: "rgba(238, 16, 176, 1)",
+                          borderColor: "#fff",
                         },
                         "& .MuiOutlinedInput-notchedOutline": {
-                          borderColor: "rgba(238, 16, 176, 1)",
+                          borderColor: "#fff",
                           borderWidth: "2px",
                         },
                         "&.Mui-focused": {
@@ -522,11 +524,11 @@ const Profile = () => {
                             borderWidth: "2px",
                           },
                           "& input": {
-                            color: "#FAB5E7",
+                            borderColor: "#fff",
                             background: "transparant",
                           },
                           "& .MuiInputLabel-root": {
-                            color: "#FAB5E7",
+                            color: "#fff",
                           },
                         },
                       },
@@ -534,7 +536,7 @@ const Profile = () => {
                         color: "#FAB5E7",
                       },
                       "& input::placeholder": {
-                        color: "#FAB5E7",
+                        color: "#fff",
                       },
                     }}
                     label="Enter Confirm Password"

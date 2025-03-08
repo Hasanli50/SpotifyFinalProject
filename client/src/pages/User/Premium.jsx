@@ -51,10 +51,10 @@ const Premium = () => {
       }
     };
     getUserByToken();
-  }, [token]); 
+  }, [token]);
 
   const handleUser = () => {
-    if (user?.length === 0) {
+    if (Object.keys(user).length === 0) {
       return navigate("/login");
     }
   };

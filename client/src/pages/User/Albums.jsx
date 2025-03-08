@@ -54,7 +54,7 @@ const Albums = () => {
           />
           <SearchIcon className={style.searchIcon} />
         </div>
-      <section className={style.allSingleSongs}>
+      <section className={style.allAlbums}>
         <p className={style.heading}>Albums :</p>
 
         <div className={style.albums}>

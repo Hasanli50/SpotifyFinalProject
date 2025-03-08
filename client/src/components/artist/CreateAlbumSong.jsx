@@ -389,15 +389,11 @@ const CreateAlbumSong = ({ albumId }) => {
                         );
                       }}
                       options={artists
-                        ?.filter(
-                          (artist) =>
-                            !formik.values.collaboratedArtistIds.includes(
-                              artist?.id
-                            )
-                        )
+                        ?.filter((artist) => artist?.id !== user?.id)
+                        .filter((artist) => !formik.values.collaboratedArtistIds.includes(artist?.id))
                         .map((artist) => ({
-                          label: artist.username,
-                          value: artist.id,
+                          label: artist?.username,
+                          value: artist?.id,
                         }))}
                       placeholder="Select Collaborated Artists"
                     />

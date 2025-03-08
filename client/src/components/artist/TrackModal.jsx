@@ -170,7 +170,7 @@ const TrackModal = () => {
                         width: "100%",
                         color: "#fff",
                         "& .MuiOutlinedInput-root": {
-                          color:"#fff",
+                          color: "#fff",
                           "&:hover .MuiOutlinedInput-notchedOutline": {
                             borderColor: "#fff",
                           },
@@ -323,7 +323,7 @@ const TrackModal = () => {
                         width: "100%",
                         color: "#fff",
                         "& .MuiOutlinedInput-root": {
-                          color:"#fff",
+                          color: "#fff",
                           "&:hover .MuiOutlinedInput-notchedOutline": {
                             borderColor: "#fff",
                           },
@@ -391,7 +391,8 @@ const TrackModal = () => {
                         );
                       }}
                       options={artists
-                        ?.filter(
+                        ?.filter((artist) => artist.id !== user?.id)
+                        .filter(
                           (artist) =>
                             !formik.values.collaboratedArtistIds.includes(
                               artist?.id

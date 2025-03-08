@@ -43,7 +43,7 @@ const Playlists = () => {
         <Grid container spacing={5}>
           {playlists?.length > 0 ? (
             playlists?.map((playlist) =>
-              playlist.userId === user?.id ? (
+              playlist?.userId === user?.id ? (
                 <Grid
                   item
                   xs={12}
@@ -51,9 +51,9 @@ const Playlists = () => {
                   md={6}
                   lg={4}
                   xl={4}
-                  key={playlist.id}
+                  key={playlist?.id}
                 >
-                  <Link to={`/playlist/${playlist.id}`}>
+                  <Link to={`/playlist/${playlist?.id}`}>
                     <div className={style.box}>
                       <p style={{ color: "#fff" }}>{playlist.name}</p>
                     </div>

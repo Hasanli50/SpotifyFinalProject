@@ -157,7 +157,7 @@ const Albums = () => {
             </div>
           </div>
 
-          <div className={style.albums}>
+          <div className={style.allAlbums}>
             <Grid container spacing={2}>
               {filteredData?.length > 0 ? (
                 filteredData?.map((album) => (

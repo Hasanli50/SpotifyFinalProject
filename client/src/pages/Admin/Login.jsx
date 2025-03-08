@@ -48,12 +48,15 @@ const Login = () => {
           actions.resetForm();
           toast.success("Successfully signed in!");
           saveUserToStorage(response.data.token);
-          localStorage.setItem("adminauth", "true")
-          // console.log(response.data.token);
-
-          setTimeout(() => {
+          localStorage.setItem("adminauth", "true");
+          const role = localStorage.getItem("adminauth");
+          if (role === "true") {
             navigate("/admin");
-          }, 300);
+          }
+
+          // setTimeout(() => {
+          //   navigate("/admin");
+          // }, 300);
         } else {
           toast.error("Login failed. Please try again.");
         }
