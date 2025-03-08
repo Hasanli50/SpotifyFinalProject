@@ -6,30 +6,30 @@ import AddIcon from "@mui/icons-material/Add";
 import Grid from "@mui/material/Grid";
 import { useGenres } from "../../hooks/useGenre";
 import randomColor from "randomcolor";
-// import { getUserFromStorage } from "../../utils/localeStorage";
-// import { fetchUserByToken } from "../../utils/reusableFunc";
+import { getUserFromStorage } from "../../utils/localeStorage";
+import { fetchUserByToken } from "../../utils/reusableFunc";
 
 const Discover = () => {
   const { data } = useAllNonDeletedArtists();
   const { data: genres } = useGenres();
   const [artists, setArtists] = useState([]);
 
-  //get user by token
-  // const [user, setUser] = useState([]);
+  // get user by token
+  const [user, setUser] = useState([]);
 
-  // const token = getUserFromStorage();
+  const token = getUserFromStorage();
   const role = localStorage.getItem("userauth");
-  // useEffect(() => {
-  //   const getUserByToken = async () => {
-  //     try {
-  //       const response = await fetchUserByToken(token);
-  //       setUser(response);
-  //     } catch (error) {
-  //       console.log("Error:", error);
-  //     }
-  //   };
-  //   getUserByToken();
-  // }, [token]);
+  useEffect(() => {
+    const getUserByToken = async () => {
+      try {
+        const response = await fetchUserByToken(token);
+        setUser(response);
+      } catch (error) {
+        console.log("Error:", error);
+      }
+    };
+    getUserByToken();
+  }, [token]);
 
   useEffect(() => {
     if (data?.length > 0) {
@@ -38,15 +38,6 @@ const Discover = () => {
     }
   }, [data]);
 
-  // Function to generate a random hex color code
-  // const generateRandomColor = () => {
-  //   const letters = "0123456789ABCDEF";
-  //   let color = "#";
-  //   for (let i = 0; i < 6; i++) {
-  //     color += letters[Math.floor(Math.random() * 16)];
-  //   }
-  //   return color;
-  // };
   const generateRandomColor = () => randomColor();
 
   return (
@@ -59,7 +50,13 @@ const Discover = () => {
           {genres?.length > 0 &&
             genres?.map((genre) => (
               <Grid item xs={12} sm={12} md={6} lg={4} xl={4} key={genre.id}>
-                <Link to={role ? "/login" : `/genre/${genre?.id}`}>
+                <Link
+                  to={
+                    role && Object.keys(user).length === 0
+                      ? "/login"
+                      : `/genre/${genre?.id}`
+                  }
+                >
                   <div
                     className={style.box}
                     style={{
@@ -90,7 +87,11 @@ const Discover = () => {
           {artists.length > 0 &&
             artists.map((artist) => (
               <Link
-                to={role ? "/login" : `/artists/${artist?.id}`}
+                to={
+                  role && Object.keys(user).length === 0
+                    ? "/login"
+                    : `/artists/${artist?.id}`
+                }
                 key={artist?.id}
               >
                 <div className={style.artists}>

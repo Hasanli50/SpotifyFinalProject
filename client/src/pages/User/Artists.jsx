@@ -15,6 +15,7 @@ const Artists = () => {
   const [user, setUser] = useState([]);
 
   const token = getUserFromStorage();
+  const role = localStorage.getItem("userauth");
   useEffect(() => {
     const getUserByToken = async () => {
       try {
@@ -66,7 +67,7 @@ const Artists = () => {
           {filteredData?.length > 0 &&
             filteredData?.map((artist) => (
               <Link
-                to={user?.length === 0 ? "/login" : `/artists/${artist?.id}`}
+                to={ role && Object.keys(user).length === 0 ? "/login" : `/artists/${artist?.id}`}
                 key={artist?.id}
               >
                 <div className={style.artists}>
