@@ -166,8 +166,8 @@ const Home = () => {
           <Grid container spacing={7}>
             {artistAlbum?.length > 0 ? (
               artistAlbum?.map((album) => (
-                <Link to={`/artist/add-track/${album?.id}`} key={album?.id}>
-                  <Grid item xs={12} sm={6} md={4} lg={3} xl={3}>
+                <Grid item xs={12} sm={6} md={4} lg={3} xl={3} key={album?.id}>
+                  <Link to={`/artist/add-track/${album?.id}`}>
                     <div className={style.card}>
                       <div className={style.imgBox}>
                         <img
@@ -181,8 +181,8 @@ const Home = () => {
                         Songs: {album.trackCount}
                       </p>
                     </div>
-                  </Grid>
-                </Link>
+                  </Link>
+                </Grid>
               ))
             ) : (
               <p className={style.sentence}>You don`t have any albums</p>

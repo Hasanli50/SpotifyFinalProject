@@ -38,7 +38,7 @@ const styles = {
   },
 };
 
-const CreateAlbumSong = ({ albumId, setSongs }) => {
+const CreateAlbumSong = ({ albumId, setFilteredData }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -109,7 +109,7 @@ const CreateAlbumSong = ({ albumId, setSongs }) => {
         console.log("Server response:", response);
 
         if (response) {
-          setSongs(response.data.data)
+          setFilteredData(response.data.data);
           toast.success("Track successfully created!");
           actions.resetForm();
           handleClose();

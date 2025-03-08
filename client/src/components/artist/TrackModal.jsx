@@ -44,7 +44,7 @@ const styles = {
   },
 };
 
-const TrackModal = ({ setTracks }) => {
+const TrackModal = ({ setFilteredData }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -113,7 +113,7 @@ const TrackModal = ({ setTracks }) => {
         console.log("Server response:", response);
 
         if (response) {
-          setTracks((prevTracks) => [...prevTracks, response.data]);
+          setFilteredData((prevTracks) => [...prevTracks, response.data]);
           toast.success("Track successfully created!");
           actions.resetForm();
           handleClose();

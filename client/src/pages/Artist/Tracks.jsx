@@ -188,7 +188,7 @@ const Tracks = () => {
               <option value="desc">desc</option>
             </select>
             <div className={style.btn}>
-              <TrackModal setTracks={setTracks} />
+              <TrackModal setFilteredData={setFilteredData} />
             </div>
           </div>
 
