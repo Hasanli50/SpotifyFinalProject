@@ -146,8 +146,9 @@ const Home = () => {
             topSongs?.map((song) => (
               <div
                 className={`${style.card} ${
-                  Object.keys(user).length === 0 ||
-                  (user?.isPremium === false && song?.premiumOnly === true)
+                  Object.keys(user).length === 0
+                    ? style.disabledCard
+                    : user?.isPremium === false && song?.premiumOnly === true
                     ? style.disabledCard
                     : ""
                 }`}
@@ -230,8 +231,9 @@ const Home = () => {
             newSongs?.map((song) => (
               <div
                 className={`${style.card} ${
-                  Object.keys(user).length === 0 ||
-                  (user?.isPremium === false && song?.premiumOnly === true)
+                  Object.keys(user).length === 0
+                    ? style.disabledCard
+                    : user?.isPremium === false && song?.premiumOnly === true
                     ? style.disabledCard
                     : ""
                 }`}
@@ -300,9 +302,10 @@ const Home = () => {
         {trendingSongs?.length > 0 &&
           trendingSongs?.map((songs, index) => (
             <div
-              className={`${style.box} ${
-                Object.keys(user).length === 0 ||
-                (user?.isPremium === false && songs?.premiumOnly === true)
+              className={`${style.card} ${
+                Object.keys(user).length === 0
+                  ? style.disabledCard
+                  : user?.isPremium === false && songs?.premiumOnly === true
                   ? style.disabledCard
                   : ""
               }`}

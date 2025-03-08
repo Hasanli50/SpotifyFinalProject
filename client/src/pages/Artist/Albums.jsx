@@ -198,9 +198,7 @@ const Albums = () => {
                             <DeleteIcon />
                           </div>
                           <div>
-                            {album.map((album) => (
-                              <UpdateAlbum key={album.id} id={album.id} />
-                            ))}
+                            <UpdateAlbum key={album.id} id={album.id} />
                           </div>
                         </div>
                       </div>
