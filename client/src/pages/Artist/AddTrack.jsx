@@ -131,7 +131,7 @@ const AddTrack = () => {
             Songs:{" "}
             <span style={{ color: "#fff" }}>{album?.trackIds?.length}</span>{" "}
           </p>
-          <CreateAlbumSong albumId={id} />
+          <CreateAlbumSong albumId={id} setSongs={setSongs} />
         </div>
       </section>
 

@@ -29,17 +29,16 @@ const styles = {
   borderRadius: "15px",
   boxShadow: "-1px 2px 8px 10px rgba(128, 0, 128, 0.5)",
   p: 4,
-  maxHeight: "80vh", 
-  overflowY: "auto", 
-  width: "70%", 
-  '@media (max-width: 600px)': {
-    width: '100%',  
-    maxHeight: '90vh', 
+  maxHeight: "80vh",
+  overflowY: "auto",
+  width: "70%",
+  "@media (max-width: 600px)": {
+    width: "100%",
+    maxHeight: "90vh",
   },
 };
 
-
-const CreateAlbumSong = ({ albumId }) => {
+const CreateAlbumSong = ({ albumId, setSongs }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -110,6 +109,7 @@ const CreateAlbumSong = ({ albumId }) => {
         console.log("Server response:", response);
 
         if (response) {
+          setSongs(response.data.data)
           toast.success("Track successfully created!");
           actions.resetForm();
           handleClose();
@@ -170,7 +170,7 @@ const CreateAlbumSong = ({ albumId }) => {
                         width: "100%",
                         color: "#fff",
                         "& .MuiOutlinedInput-root": {
-                          color:"#fff",
+                          color: "#fff",
                           "&:hover .MuiOutlinedInput-notchedOutline": {
                             borderColor: "#fff",
                           },
@@ -321,7 +321,7 @@ const CreateAlbumSong = ({ albumId }) => {
                         width: "100%",
                         color: "#fff",
                         "& .MuiOutlinedInput-root": {
-                          color:"#fff",
+                          color: "#fff",
                           "&:hover .MuiOutlinedInput-notchedOutline": {
                             borderColor: "#fff",
                           },
@@ -390,7 +390,12 @@ const CreateAlbumSong = ({ albumId }) => {
                       }}
                       options={artists
                         ?.filter((artist) => artist?.id !== user?.id)
-                        .filter((artist) => !formik.values.collaboratedArtistIds.includes(artist?.id))
+                        .filter(
+                          (artist) =>
+                            !formik.values.collaboratedArtistIds.includes(
+                              artist?.id
+                            )
+                        )
                         .map((artist) => ({
                           label: artist?.username,
                           value: artist?.id,

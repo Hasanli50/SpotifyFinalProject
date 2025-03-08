@@ -104,7 +104,10 @@ const Tracks = () => {
   // Filter tracks by search query
   useEffect(() => {
     const data = tracks?.filter((value) =>
-      value?.name?.trim().toLowerCase().includes(searchQuery.trim().toLowerCase())
+      value?.name
+        ?.trim()
+        .toLowerCase()
+        .includes(searchQuery.trim().toLowerCase())
     );
     setFilteredData(data);
   }, [tracks, searchQuery]);
@@ -185,7 +188,7 @@ const Tracks = () => {
               <option value="desc">desc</option>
             </select>
             <div className={style.btn}>
-              <TrackModal />
+              <TrackModal setTracks={setTracks} />
             </div>
           </div>
 

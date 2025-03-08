@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
@@ -43,7 +44,7 @@ const styles = {
   },
 };
 
-const TrackModal = () => {
+const TrackModal = ({ setTracks }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -112,6 +113,7 @@ const TrackModal = () => {
         console.log("Server response:", response);
 
         if (response) {
+          setTracks((prevTracks) => [...prevTracks, response.data]);
           toast.success("Track successfully created!");
           actions.resetForm();
           handleClose();
