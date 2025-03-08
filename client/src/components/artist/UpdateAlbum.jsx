@@ -24,7 +24,7 @@ const styles = {
   p: 4,
 };
 
-const UpdateAlbum = ({ id }) => {
+const UpdateAlbum = ({ id, updateAlbum }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -64,9 +64,14 @@ const UpdateAlbum = ({ id }) => {
       formData.append("coverImage", editAlbum.coverImage);
     }
     try {
-      await axios.patch(`${BASE_URL + ENDPOINT.albums}/${id}`, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      const response = await axios.patch(
+        `${BASE_URL + ENDPOINT.albums}/${id}`,
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+      updateAlbum(response.data.data);
       toast.success("Album successfully updated!");
       handleClose();
     } catch (error) {
@@ -102,13 +107,13 @@ const UpdateAlbum = ({ id }) => {
                 name="name"
                 className={style.input}
                 id="outlined-basic"
-                color= "#FAB5E7"
+                color="#FAB5E7"
                 sx={{
                   marginBottom: "10px",
                   width: "100%",
                   color: "#fff",
                   "& .MuiOutlinedInput-root": {
-                    color:"#fff",
+                    color: "#fff",
                     "&:hover .MuiOutlinedInput-notchedOutline": {
                       borderColor: "#fff",
                     },

@@ -137,6 +137,14 @@ const Albums = () => {
     setCurrentAlbumId(null);
   };
 
+  const updateAlbum = (updatedAlbum) => {
+    setArtistAlbums((prevAlbums) =>
+      prevAlbums.map((album) =>
+        album.id === updatedAlbum.id ? updatedAlbum : album
+      )
+    );
+  };
+
   return (
     <>
       <main className={style.main}>
@@ -198,7 +206,11 @@ const Albums = () => {
                             <DeleteIcon />
                           </div>
                           <div>
-                            <UpdateAlbum key={album.id} id={album.id} />
+                            <UpdateAlbum
+                              key={album.id}
+                              id={album.id}
+                              updateAlbum={updateAlbum}
+                            />
                           </div>
                         </div>
                       </div>

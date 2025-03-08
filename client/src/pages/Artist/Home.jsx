@@ -163,9 +163,9 @@ const Home = () => {
           <p className={style.heading}>
             Your Last <span style={{ color: "#EE10B0" }}>Albums</span> :{" "}
           </p>
-          {artistAlbum?.length > 0 ? (
-            <Grid container spacing={7}>
-              {artistAlbum?.map((album) => (
+          <Grid container spacing={7}>
+            {artistAlbum?.length > 0 ? (
+              artistAlbum?.map((album) => (
                 <Link to={`/artist/add-track/${album?.id}`} key={album?.id}>
                   <Grid item xs={12} sm={6} md={4} lg={3} xl={3}>
                     <div className={style.card}>
@@ -183,11 +183,11 @@ const Home = () => {
                     </div>
                   </Grid>
                 </Link>
-              ))}
-            </Grid>
-          ) : (
-            <p className={style.sentence}>You don`t have any albums</p>
-          )}
+              ))
+            ) : (
+              <p className={style.sentence}>You don`t have any albums</p>
+            )}
+          </Grid>
         </section>
 
         <section className={style.singles}>
