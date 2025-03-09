@@ -372,7 +372,7 @@ const ArtistDetail = () => {
                     </MenuItem>
                     {filteredData?.length > 0 &&
                       filteredData?.map((playlist) => {
-                        if (playlist?.userId === user?.id && user?.isPremium) {
+                        if (playlist?.userId === user?.id) {
                           return (
                             <MenuItem
                               onClick={() =>
