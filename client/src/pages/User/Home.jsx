@@ -146,6 +146,7 @@ const Home = () => {
             topSongs?.map((song) => (
               <div
                 className={`${style.card} ${
+                  !user ||
                   user.length === 0 ||
                   (user?.isPremium === false && song?.premiumOnly === true)
                     ? style.disabledCard
@@ -230,6 +231,7 @@ const Home = () => {
             newSongs?.map((song) => (
               <div
                 className={`${style.card} ${
+                  !user ||
                   user.length === 0 ||
                   (user?.isPremium === false && song?.premiumOnly === true)
                     ? style.disabledCard
@@ -303,8 +305,9 @@ const Home = () => {
               className={`${style.songBox} ${
                 (console.log("user:", user),
                 console.log("songs:", songs),
-                console.log(user?.isPremium === false),
-                console.log(songs?.premiumOnly === true),
+                console.log("user is premium?", user?.isPremium),
+                console.log("song is premium?", songs?.premiumOnly),
+                !user ||
                 user.length === 0 ||
                 (user?.isPremium === false && songs?.premiumOnly === true)
                   ? style.disabledCard
