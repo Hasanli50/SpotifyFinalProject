@@ -194,14 +194,7 @@ const Home = () => {
               topSongs
                 ?.filter((song) => !song?.premiumOnly)
                 .map((song) => (
-                  <div
-                    className={`${style.card} ${
-                      user?.isPremium === false && song?.premiumOnly === true
-                        ? style.disabledCard
-                        : ""
-                    }`}
-                    key={song.id}
-                  >
+                  <div className={`${style.card}`} key={song.id}>
                     <div className={style.imgBox}>
                       <img
                         className={style.img}
@@ -331,14 +324,7 @@ const Home = () => {
               newSongs
                 ?.filter((song) => !song?.premiumOnly)
                 .map((song) => (
-                  <div
-                    className={`${style.card} ${
-                      user?.isPremium === false && song?.premiumOnly === true
-                        ? style.disabledCard
-                        : ""
-                    }`}
-                    key={song.id}
-                  >
+                  <div className={`${style.card} `} key={song.id}>
                     <div className={style.imgBox}>
                       <img
                         className={style.img}
@@ -480,14 +466,7 @@ const Home = () => {
           : trendingSongs
               ?.filter((song) => !song?.premiumOnly)
               .map((songs, index) => (
-                <div
-                  className={`${style.songBox} ${
-                    user?.isPremium === false && songs?.premiumOnly === true
-                      ? style.disabledCard
-                      : ""
-                  }`}
-                  key={songs.id}
-                >
+                <div className={`${style.songBox}`} key={songs.id}>
                   <p className={style.place}>#{index + 1}</p>
                   <div className={style.songsCard}>
                     <div
