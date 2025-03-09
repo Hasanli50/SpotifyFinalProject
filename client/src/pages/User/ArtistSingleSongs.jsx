@@ -303,20 +303,31 @@ const ArtistSingleSongs = () => {
                         />
                       </MenuItem>
                       {filteredData?.length > 0 &&
-                        filteredData?.map((playlist) => (
-                          <MenuItem
-                            onClick={() =>
-                              handleAddTrack(
-                                playlist?.id,
-                                songs?.id,
-                                songs?.type
-                              )
-                            }
-                            key={playlist?.id}
-                          >
-                            {playlist?.name}
-                          </MenuItem>
-                        ))}
+                        filteredData?.map((playlist) => {
+                          const isCollaborator =
+                            playlist?.collaborators?.includes(user?.id);
+                          if (
+                            playlist?.userId === user?.id ||
+                            (isCollaborator && user?.isPremium)
+                          ) {
+                            return (
+                              <MenuItem
+                                onClick={() =>
+                                  handleAddTrack(
+                                    playlist?.id,
+                                    songs?.id,
+                                    songs?.type
+                                  )
+                                }
+                                key={playlist?.id}
+                              >
+                                {playlist?.name}
+                              </MenuItem>
+                            );
+                          }
+                          return null;
+                        })}
+
                       <MenuItem>
                         <NewPlaylist
                           handleCreateNewPlaylist={handleCreateNewPlaylist}
@@ -327,7 +338,9 @@ const ArtistSingleSongs = () => {
                         ""
                       ) : (
                         <MenuItem>
-                          <NewPlaylistwithCollab />
+                          <NewPlaylistwithCollab
+                            handleCreateNewPlaylist={handleCreateNewPlaylist}
+                          />
                         </MenuItem>
                       )}
                     </Menu>

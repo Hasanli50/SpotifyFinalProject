@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import style from "../../assets/style/artist/albumModal.module.scss";
 import Backdrop from "@mui/material/Backdrop";
@@ -28,7 +29,7 @@ const styles = {
   p: 4,
 };
 
-const NewPlaylistwithCollab = () => {
+const NewPlaylistwithCollab = ({ handleCreateNewPlaylist }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -74,6 +75,7 @@ const NewPlaylistwithCollab = () => {
         );
 
         if (response.status === 201) {
+          handleCreateNewPlaylist(response.data.data);
           toast.success("Playlist successfully created!");
           actions.resetForm();
           handleClose();
@@ -190,12 +192,13 @@ const NewPlaylistwithCollab = () => {
                   }}
                   options={
                     data
-                    ?.filter(
-                      (user) =>
-                        user?.role === "user" && 
-                        user?.id !== currentUser?.id && 
-                        !formik.values.collaborators.includes(user?.id) 
-                    )
+                      ?.filter(
+                        (user) =>
+                          user?.role === "user" &&
+                          user?.isPremium === true &&
+                          user?.id !== currentUser?.id &&
+                          !formik.values.collaborators.includes(user?.id)
+                      )
                       .map((user) => ({
                         label: user?.username,
                         value: user?.id,

@@ -372,7 +372,12 @@ const ArtistDetail = () => {
                     </MenuItem>
                     {filteredData?.length > 0 &&
                       filteredData?.map((playlist) => {
-                        if (playlist?.userId === user?.id) {
+                        const isCollaborator =
+                          playlist?.collaborators?.includes(user?.id);
+                        if (
+                          playlist?.userId === user?.id ||
+                          (isCollaborator && user?.isPremium)
+                        ) {
                           return (
                             <MenuItem
                               onClick={() =>
@@ -400,7 +405,9 @@ const ArtistDetail = () => {
                       ""
                     ) : (
                       <MenuItem>
-                        <NewPlaylistwithCollab />
+                        <NewPlaylistwithCollab
+                          handleCreateNewPlaylist={handleCreateNewPlaylist}
+                        />
                       </MenuItem>
                     )}
                   </Menu>
