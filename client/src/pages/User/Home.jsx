@@ -143,61 +143,111 @@ const Home = () => {
           }}
         >
           {topSongs?.length > 0 ? (
-            topSongs?.map((song) => (
-              <div
-                className={`${style.card} ${
-                  !user ||
-                  user.length === 0 ||
-                  ((user?.isPremium === undefined ||
-                    user?.isPremium === false) &&
-                    song?.premiumOnly === true)
-                    ? style.disabledCard
-                    : ""
-                }`}
-                key={song.id}
-              >
-                <div className={style.imgBox}>
-                  <img
-                    className={style.img}
-                    src={song?.coverImage}
-                    alt={`${song.name} cover`}
-                  />
-                  <WorkspacePremiumIcon
-                    className={style.premium}
-                    style={{ display: song?.premiumOnly ? "block" : "none" }}
-                  />
-                </div>
+            user?.length > 0 ? (
+              topSongs?.map((song) => (
                 <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
+                  className={`${style.card} ${
+                    user?.isPremium === false && song?.premiumOnly === true
+                      ? style.disabledCard
+                      : ""
+                  }`}
+                  key={song.id}
                 >
-                  <div>
-                    <p className={style.letterTop}>{song.name}</p>
-                    <p className={style.letterBottom}>
-                      {song.artistId.username}
-                    </p>
+                  <div className={style.imgBox}>
+                    <img
+                      className={style.img}
+                      src={song?.coverImage}
+                      alt={`${song.name} cover`}
+                    />
+                    <WorkspacePremiumIcon
+                      className={style.premium}
+                      style={{ display: song?.premiumOnly ? "block" : "none" }}
+                    />
                   </div>
                   <div
-                    className={style.icon}
-                    onClick={() => handlePlayMusic(song)}
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
                   >
-                    {currentSong?.id === song?.id && isPlaying ? (
-                      <PauseIcon style={{ color: "#fff" }} />
-                    ) : (
-                      <PlayArrowIcon style={{ color: "#fff" }} />
-                    )}
+                    <div>
+                      <p className={style.letterTop}>{song.name}</p>
+                      <p className={style.letterBottom}>
+                        {song.artistId.username}
+                      </p>
+                    </div>
+                    <div
+                      className={style.icon}
+                      onClick={() => handlePlayMusic(song)}
+                    >
+                      {currentSong?.id === song?.id && isPlaying ? (
+                        <PauseIcon style={{ color: "#fff" }} />
+                      ) : (
+                        <PlayArrowIcon style={{ color: "#fff" }} />
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))
+              ))
+            ) : (
+              topSongs
+                ?.filter((song) => !song?.premiumOnly)
+                .map((song) => (
+                  <div
+                    className={`${style.card} ${
+                      user?.isPremium === false && song?.premiumOnly === true
+                        ? style.disabledCard
+                        : ""
+                    }`}
+                    key={song.id}
+                  >
+                    <div className={style.imgBox}>
+                      <img
+                        className={style.img}
+                        src={song?.coverImage}
+                        alt={`${song.name} cover`}
+                      />
+                      <WorkspacePremiumIcon
+                        className={style.premium}
+                        style={{
+                          display: song?.premiumOnly ? "block" : "none",
+                        }}
+                      />
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                      }}
+                    >
+                      <div>
+                        <p className={style.letterTop}>{song.name}</p>
+                        <p className={style.letterBottom}>
+                          {song.artistId.username}
+                        </p>
+                      </div>
+                      <div
+                        className={style.icon}
+                        onClick={() => handlePlayMusic(song)}
+                      >
+                        {currentSong?.id === song?.id && isPlaying ? (
+                          <PauseIcon style={{ color: "#fff" }} />
+                        ) : (
+                          <PlayArrowIcon style={{ color: "#fff" }} />
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))
+            )
           ) : (
             <p className={style.paragraph}>
               No top songs for this week. Check back later!
             </p>
           )}
+
           <Link to={"/top-songs"}>
             <div className={style.viewAll}>
               <div className={style.circle}>
@@ -229,57 +279,112 @@ const Home = () => {
             alignItems: "center",
           }}
         >
-          {newSongs?.length > 0 &&
-            newSongs?.map((song) => (
-              <div
-                className={`${style.card} ${
-                  !user ||
-                  user.length === 0 ||
-                  ((user?.isPremium === undefined ||
-                    user?.isPremium === false) &&
-                    song?.premiumOnly === true)
-                    ? style.disabledCard
-                    : ""
-                }`}
-                key={song.id}
-              >
-                <div className={style.imgBox}>
-                  <img
-                    className={style.img}
-                    src={song.coverImage}
-                    alt={`${song.name} cover`}
-                  />
-                  <WorkspacePremiumIcon
-                    className={style.premium}
-                    style={{ display: song?.premiumOnly ? "block" : "none" }}
-                  />
-                </div>
+          {newSongs?.length > 0 ? (
+            user?.length > 0 ? (
+              newSongs?.map((song) => (
                 <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
+                  className={`${style.card} ${
+                    user?.isPremium === false && song?.premiumOnly === true
+                      ? style.disabledCard
+                      : ""
+                  }`}
+                  key={song.id}
                 >
-                  <div>
-                    <p className={style.letterTop}>{song.name}</p>
-                    <p className={style.letterBottom}>
-                      {song.artistId.username}
-                    </p>
+                  <div className={style.imgBox}>
+                    <img
+                      className={style.img}
+                      src={song.coverImage}
+                      alt={`${song.name} cover`}
+                    />
+                    <WorkspacePremiumIcon
+                      className={style.premium}
+                      style={{ display: song?.premiumOnly ? "block" : "none" }}
+                    />
                   </div>
                   <div
-                    className={style.icon}
-                    onClick={() => handlePlayMusic(song)}
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
                   >
-                    {currentSong?.id === song?.id && isPlaying ? (
-                      <PauseIcon style={{ color: "#fff" }} />
-                    ) : (
-                      <PlayArrowIcon style={{ color: "#fff" }} />
-                    )}
+                    <div>
+                      <p className={style.letterTop}>{song.name}</p>
+                      <p className={style.letterBottom}>
+                        {song.artistId.username}
+                      </p>
+                    </div>
+                    <div
+                      className={style.icon}
+                      onClick={() => handlePlayMusic(song)}
+                    >
+                      {currentSong?.id === song?.id && isPlaying ? (
+                        <PauseIcon style={{ color: "#fff" }} />
+                      ) : (
+                        <PlayArrowIcon style={{ color: "#fff" }} />
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              newSongs
+                ?.filter((song) => !song?.premiumOnly)
+                .map((song) => (
+                  <div
+                    className={`${style.card} ${
+                      user?.isPremium === false && song?.premiumOnly === true
+                        ? style.disabledCard
+                        : ""
+                    }`}
+                    key={song.id}
+                  >
+                    <div className={style.imgBox}>
+                      <img
+                        className={style.img}
+                        src={song.coverImage}
+                        alt={`${song.name} cover`}
+                      />
+                      <WorkspacePremiumIcon
+                        className={style.premium}
+                        style={{
+                          display: song?.premiumOnly ? "block" : "none",
+                        }}
+                      />
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                      }}
+                    >
+                      <div>
+                        <p className={style.letterTop}>{song.name}</p>
+                        <p className={style.letterBottom}>
+                          {song.artistId.username}
+                        </p>
+                      </div>
+                      <div
+                        className={style.icon}
+                        onClick={() => handlePlayMusic(song)}
+                      >
+                        {currentSong?.id === song?.id && isPlaying ? (
+                          <PauseIcon style={{ color: "#fff" }} />
+                        ) : (
+                          <PlayArrowIcon style={{ color: "#fff" }} />
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))
+            )
+          ) : (
+            <p className={style.paragraph}>
+              No new songs available. Check back later!
+            </p>
+          )}
+
           <Link to={"/new-songs"}>
             <div className={style.viewAll}>
               <div className={style.circle}>
