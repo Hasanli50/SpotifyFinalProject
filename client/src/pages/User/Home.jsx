@@ -148,7 +148,9 @@ const Home = () => {
                 className={`${style.card} ${
                   !user ||
                   user.length === 0 ||
-                  (user?.isPremium === false && song?.premiumOnly === true)
+                  ((user?.isPremium === undefined ||
+                    user?.isPremium === false) &&
+                    song?.premiumOnly === true)
                     ? style.disabledCard
                     : ""
                 }`}
@@ -233,7 +235,9 @@ const Home = () => {
                 className={`${style.card} ${
                   !user ||
                   user.length === 0 ||
-                  (user?.isPremium === false && song?.premiumOnly === true)
+                  ((user?.isPremium === undefined ||
+                    user?.isPremium === false) &&
+                    song?.premiumOnly === true)
                     ? style.disabledCard
                     : ""
                 }`}
@@ -309,7 +313,8 @@ const Home = () => {
                 console.log("song is premium?", songs?.premiumOnly),
                 !user ||
                 user.length === 0 ||
-                (user?.isPremium === false && songs?.premiumOnly === true)
+                ((user?.isPremium === undefined || user?.isPremium === false) &&
+                  songs?.premiumOnly === true)
                   ? style.disabledCard
                   : "")
               }`}
