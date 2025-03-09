@@ -3,10 +3,8 @@ function extractPublicIdImage(obj) {
 }
 
 const extractPublicIAudio = (obj) => {
-  let publicId = obj.previewUrl.split("/").pop().split(".")[0];
-  return publicId;
+  return obj.previewUrl.split("/").reverse()[0].split(".")[0];
 };
-
 
 // function extractPublicIAudio(obj) {
 //   let publicId = obj.previewUrl.split("/").reverse()[0];

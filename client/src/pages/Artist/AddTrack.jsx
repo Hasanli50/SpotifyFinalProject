@@ -128,8 +128,7 @@ const AddTrack = () => {
             <span style={{ color: "#fff" }}> {album?.artistId?.username}</span>
           </p>
           <p className={style.songsCount}>
-            Songs:{" "}
-            <span style={{ color: "#fff" }}>{album?.trackIds?.length}</span>{" "}
+            Songs: <span style={{ color: "#fff" }}>{filteredData?.length}</span>{" "}
           </p>
           <CreateAlbumSong albumId={id} setFilteredData={setFilteredData} />
         </div>

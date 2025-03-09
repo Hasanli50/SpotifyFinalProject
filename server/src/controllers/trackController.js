@@ -28,7 +28,6 @@ const createTrack = async (req, res) => {
         .json({ message: "Artist not found", status: "fail" });
     }
 
-
     const coverImage = req.files?.coverImage
       ? req.files.coverImage[0].path
       : null;
@@ -94,7 +93,6 @@ const createAlbumSong = async (req, res) => {
         .status(404)
         .json({ message: "Artist not found", status: "fail" });
     }
-
 
     const coverImage = req.files?.coverImage
       ? req.files.coverImage[0].path
@@ -253,15 +251,17 @@ const deleteTrack = async (req, res) => {
     }
     // console.log(track.previewUrl);
 
-    // if (track.previewUrl) {
-    //   const publicId = extractPublicIAudio(track);
-    //   console.log(publicId);
-    //   const result = await cloudinary.uploader.destroy(`uploads/${publicId}`);
-    //   console.log("Cloudinary Response:", result);
-    //   if (result.result !== "ok") {
-    //     throw new Error("Failed to delete audio from Cloudinary");
-    //   }
-    // }
+    if (track.previewUrl) {
+      const publicId = extractPublicIAudio(track);
+      console.log(publicId);
+      const result = await cloudinary.uploader.destroy(`uploads/${publicId}`, {
+        resource_type: "raw",
+      });
+      console.log("Cloudinary Response:", result);
+      if (result.result !== "ok") {
+        throw new Error("Failed to delete audio from Cloudinary");
+      }
+    }
 
     await Track.findByIdAndDelete(id);
 
