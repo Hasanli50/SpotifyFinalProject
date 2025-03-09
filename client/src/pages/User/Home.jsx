@@ -142,8 +142,8 @@ const Home = () => {
             alignItems: "center",
           }}
         >
-          {topSongs?.length === 0 ? (
-            user?.length > 0 ? (
+          {topSongs?.length > 0 ? (
+            user?.length === 0 ? (
               topSongs
                 ?.filter((song) => !song?.premiumOnly)
                 .map((song) => (

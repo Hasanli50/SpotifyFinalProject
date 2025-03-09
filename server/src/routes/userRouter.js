@@ -18,7 +18,6 @@ const {
   updateUserInfo,
   updatePassword,
   payment,
-  updatePremiumStatus,
 } = require("../controllers/userController.js");
 const validateRegistration = require("../middlewares/userMiddlewares/registerValidator.js");
 const { verifyToken } = require("../middlewares/verifyToken.js");
@@ -123,6 +122,5 @@ router.get("/logout", (req, res) => {
 });
 
 router.post("/create-payment-intent", verifyToken, checkPremiumStatus, payment);
-router.get('/update-status', updatePremiumStatus);
 
 module.exports = router;

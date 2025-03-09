@@ -7,6 +7,7 @@ const extractPublicId = require("../utils/extractPublicId.js");
 const { cloudinary } = require("../config/imageCloudinary.js");
 const Stripe = require("stripe");
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+const cron = require("node-cron");
 
 const getAllNonDeletedUsers = async (_, res) => {
   try {
@@ -946,44 +947,133 @@ const payment = async (req, res) => {
   }
 };
 
-const updatePremiumStatus = async (req, res) => {
+const updatePremiumStatus = async () => {
   try {
-    const { id } = req.user;
-    const user = await User.findById({ _id: id, isDeleted: false });
+    const users = await User.find({
+      isPremium: true,
+      isDeleted: false,
+    });
 
-    if (!user) {
-      return res.status(404).json({
-        message: "User not found",
-        status: "fail",
-      });
-    }
+    const currentDate = new Date();
 
-    if (user.isPremium && user.premiumSince) {
-      const currentDate = new Date();
+    for (const user of users) {
       const premiumExpirationDate = new Date(user.premiumSince);
-      premiumExpirationDate.setMinutes(premiumExpirationDate.getMinutes() + 1); // Change to 30 days for real use case
+      premiumExpirationDate.setMinutes(premiumExpirationDate.getMinutes() + 1);
 
       if (currentDate > premiumExpirationDate) {
-        await User.findByIdAndUpdate(
-          id,
-          { isPremium: false, premiumSince: null },
-          { new: true }
-        );
+        await User.findByIdAndUpdate(user._id, {
+          isPremium: false,
+          premiumSince: null,
+        });
+
+        await transporter
+          .sendMail({
+            from: process.env.MAIL_USER,
+            to: user.email,
+            subject: "Your Premium Subscription has Expired, | Melodies",
+            html: `
+      <html>
+        <head>
+          <style>
+            body {
+              font-family: Arial, sans-serif;
+              background-color: #f4f7fa;
+              margin: 0;
+              padding: 0;
+            }
+            .container {
+              width: 100%;
+              max-width: 600px;
+              margin: 0 auto;
+              padding: 20px;
+            }
+            .header {
+              background: linear-gradient(90deg,
+                rgba(238, 16, 176, 1) 12%,
+                rgba(14, 158, 239, 1) 100%);
+              color: white;
+              text-align: center;
+              padding: 15px 0;
+              border-radius: 5px 5px 0 0;
+            }
+            .header h1 {
+              margin: 0;
+              font-size: 24px;
+            }
+            .content {
+              background-color: white;
+              padding: 25px;
+              border-radius: 5px;
+              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            }
+            .content p {
+              font-size: 16px;
+              color: #333;
+              line-height: 1.6;
+            }
+            .cta-button {
+              display: inline-block;
+              background: linear-gradient(
+                90deg,
+                rgba(238, 16, 176, 1) 12%,
+                rgba(14, 158, 239, 1) 100%
+              );
+              color: white;
+              padding: 15px 50px;
+              font-size: 20px;
+              text-decoration: none;
+              text-transform: capitalize;
+              font-weight: 500;
+              border-radius: 5px;
+              cursor: pointer;
+              transition: 0.3s ease-in-out;
+              margin-top: 20px;
+              text-align: center;
+            }
+            .cta-button:hover {
+              opacity: 0.9;
+            }
+            .footer {
+              text-align: center;
+              padding: 20px 0;
+              font-size: 12px;
+              color: #999;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="header">
+              <h1>Subscription Expired</h1>
+            </div>
+            <div class="content"> 
+              <p>Hello, ${user.username},</p>
+              <p>We wanted to inform you that your premium subscription to Melodies has expired.</p>
+              <p>If you wish to continue enjoying premium features, feel free to subscribe again.</p>
+              <p>Thank you for being a valued user of Melodies!</p>
+            </div>
+            <div class="footer">
+              <p>If you did not sign up for Melodies, you can ignore this email.</p>
+            </div>
+          </div>
+        </body>
+      </html>
+    `,
+          })
+          .catch((error) => {
+            console.log("error: ", error);
+          });
+        console.log(`User ${user._id} premium status updated.`);
       }
     }
 
-    // Send the updated user info
-    const updatedUser = await User.findById(id);
-    res.status(200).json({
-      message: "Premium status updated.",
-      data: formatObj(updatedUser),
-      premiumExpired: !updatedUser.isPremium,
-    });
+    console.log("Premium statuses updated.");
   } catch (error) {
-    console.error("Error updating premium status:", error);
-    res.status(500).json({ message: error.message });
+    console.error("Error updating premium statuses:", error);
   }
 };
+
+cron.schedule("* * * * *", updatePremiumStatus);
 
 module.exports = {
   getAllNonDeletedUsers,
@@ -1003,5 +1093,4 @@ module.exports = {
   updatePassword,
   updateUserInfo,
   payment,
-  updatePremiumStatus,
 };

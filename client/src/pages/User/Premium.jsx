@@ -4,14 +4,10 @@ import CheckoutForm from "./CheckoutForm";
 import { getUserFromStorage } from "../../utils/localeStorage";
 import { fetchUserByToken } from "../../utils/reusableFunc";
 import { useNavigate } from "react-router";
-import axios from "axios";
-import { BASE_URL, ENDPOINT } from "../../api/endpoint";
 
 const Premium = () => {
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState({});
-  const [isPremium, setIsPremium] = useState(false);
-  const [isExpired, setIsExpired] = useState(false);
   const navigate = useNavigate();
   const token = getUserFromStorage();
 
@@ -23,29 +19,6 @@ const Premium = () => {
       try {
         const response = await fetchUserByToken(token);
         setUser(response);
-
-        if (response?.isPremium && response?.premiumSince) {
-          const currentDate = new Date();
-          const premiumExpirationDate = new Date(response?.premiumSince);
-          premiumExpirationDate.setMinutes(
-            premiumExpirationDate.getMinutes() + 1
-          );
-
-          if (currentDate > premiumExpirationDate) {
-            setIsExpired(true);
-            setIsPremium(false);
-
-            // 🔥 Force update the backend!
-            await axios.get(`${BASE_URL + ENDPOINT.users}/update-status`, {
-              headers: { Authorization: `Bearer ${token}` },
-            });
-          } else {
-            setIsPremium(true);
-            setIsExpired(false);
-          }
-        } else {
-          setIsPremium(false);
-        }
       } catch (error) {
         console.log("Error:", error);
       }
@@ -109,9 +82,9 @@ const Premium = () => {
             handleOpen();
           }}
           className={style.premiumBtn}
-          disabled={isPremium && !isExpired}
+          disabled={user.isPremium}
         >
-          {isPremium && !isExpired ? "Already Premium" : "Upgrade to Premium"}
+          {user.isPremium ? "Already Premium" : "Upgrade to Premium"}
         </button>
 
         <CheckoutForm open={open} handleClose={handleClose} />
