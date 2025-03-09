@@ -371,16 +371,25 @@ const ArtistDetail = () => {
                       />
                     </MenuItem>
                     {filteredData?.length > 0 &&
-                      filteredData?.map((playlist) => (
-                        <MenuItem
-                          onClick={() =>
-                            handleAddTrack(playlist?.id, songs?.id, songs?.type)
-                          }
-                          key={playlist.id}
-                        >
-                          {playlist.name}
-                        </MenuItem>
-                      ))}
+                      filteredData?.map((playlist) => {
+                        if (playlist?.userId === user?.id && user?.isPremium) {
+                          return (
+                            <MenuItem
+                              onClick={() =>
+                                handleAddTrack(
+                                  playlist?.id,
+                                  songs?.id,
+                                  songs?.type
+                                )
+                              }
+                              key={playlist.id}
+                            >
+                              {playlist.name}
+                            </MenuItem>
+                          );
+                        }
+                        return null;
+                      })}
                     <MenuItem>
                       <NewPlaylist
                         handleCreateNewPlaylist={handleCreateNewPlaylist}

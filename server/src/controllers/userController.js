@@ -958,7 +958,7 @@ const updatePremiumStatus = async () => {
 
     for (const user of users) {
       const premiumExpirationDate = new Date(user.premiumSince);
-      premiumExpirationDate.setMinutes(premiumExpirationDate.getMinutes() + 1);
+      premiumExpirationDate.setMinutes(premiumExpirationDate.getDate() + 30);
 
       if (currentDate > premiumExpirationDate) {
         await User.findByIdAndUpdate(user._id, {
