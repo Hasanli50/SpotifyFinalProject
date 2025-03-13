@@ -11,6 +11,7 @@ import CreateAlbumSong from "../../components/artist/CreateAlbumSong";
 import moment from "moment";
 import { useAllTracks } from "../../hooks/useTrack";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const AddTrack = () => {
   const { id } = useParams();
@@ -22,7 +23,6 @@ const AddTrack = () => {
   const audioRef = useRef(null);
   const { data: tracks } = useAllTracks();
 
-  console.log(id);
   // album
   useEffect(() => {
     const getById = async () => {
@@ -61,11 +61,7 @@ const AddTrack = () => {
   //increment playcount
   const handlePlayCount = async (id) => {
     try {
-      const response = await axios.patch(
-        `${BASE_URL + ENDPOINT.tracks}/${id}/increment-play`
-      );
-
-      console.log(response.data.data);
+      await axios.patch(`${BASE_URL + ENDPOINT.tracks}/${id}/increment-play`);
     } catch (error) {
       console.log("Error: ", error);
     }
@@ -106,6 +102,9 @@ const AddTrack = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Album Detail</title>
+      </Helmet>
       <section className={style.album}>
         <Link to={"/artist/albums"}>
           <span className={style.back}>

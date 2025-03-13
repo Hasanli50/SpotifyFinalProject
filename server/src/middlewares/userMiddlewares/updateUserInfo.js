@@ -16,7 +16,6 @@ const updateUserInfoValidator = [
     .normalizeEmail(),
 
     body("image").custom((value, { req }) => {
-      // Image is optional, but validate if present
       if (req.file && !req.file.mimetype.match(/^image\//)) {
         throw new Error("Uploaded file is not an image");
       }

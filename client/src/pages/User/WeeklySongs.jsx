@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from "react";
-// import { useAllAlbums } from "../../hooks/useAlbum";
 import { useAllTracks } from "../../hooks/useTrack";
 import style from "../../assets/style/user/home.module.scss";
 import PauseIcon from "@mui/icons-material/Pause";
@@ -12,6 +11,7 @@ import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { getUserFromStorage } from "../../utils/localeStorage";
 import { fetchUserByToken } from "../../utils/reusableFunc";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
+import { Helmet } from "react-helmet-async";
 
 const WeeklySongs = () => {
   const [topSongs, setTopSongs] = useState([]);
@@ -59,11 +59,7 @@ const WeeklySongs = () => {
   //increment playcount
   const handlePlayCount = async (id) => {
     try {
-      const response = await axios.patch(
-        `${BASE_URL + ENDPOINT.tracks}/${id}/increment-play`
-      );
-
-      console.log(response.data.data);
+      await axios.patch(`${BASE_URL + ENDPOINT.tracks}/${id}/increment-play`);
     } catch (error) {
       console.log("Error: ", error);
     }
@@ -89,6 +85,9 @@ const WeeklySongs = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Weekly Songs</title>
+      </Helmet>
       <section className={style.topSongs}>
         <p className={style.heading}>
           <Link to={"/"}>

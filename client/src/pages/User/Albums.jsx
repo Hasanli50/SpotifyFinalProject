@@ -5,6 +5,7 @@ import { useAllAlbums } from "../../hooks/useAlbum";
 import SearchIcon from "@mui/icons-material/Search";
 import { getUserFromStorage } from "../../utils/localeStorage";
 import { fetchUserByToken } from "../../utils/reusableFunc";
+import { Helmet } from "react-helmet-async";
 
 const Albums = () => {
   const { data: albums } = useAllAlbums();
@@ -44,16 +45,19 @@ const Albums = () => {
 
   return (
     <>
-        <div className={style.inputBox}>
-          <input
-            onChange={(e) => setSearchQuery(e.target.value)}
-            type="text"
-            value={searchQuery}
-            className={style.input}
-            placeholder="Search for artist, albums..."
-          />
-          <SearchIcon className={style.searchIcon} />
-        </div>
+      <Helmet>
+        <title>Albums</title>
+      </Helmet>
+      <div className={style.inputBox}>
+        <input
+          onChange={(e) => setSearchQuery(e.target.value)}
+          type="text"
+          value={searchQuery}
+          className={style.input}
+          placeholder="Search for artist, albums..."
+        />
+        <SearchIcon className={style.searchIcon} />
+      </div>
       <section className={style.allAlbums}>
         <p className={style.heading}>Albums :</p>
 

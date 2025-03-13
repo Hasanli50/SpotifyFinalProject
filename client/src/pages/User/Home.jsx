@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from "react";
-// import { useAllAlbums } from "../../hooks/useAlbum";
 import { useAllTracks } from "../../hooks/useTrack";
 import style from "../../assets/style/user/home.module.scss";
 import PauseIcon from "@mui/icons-material/Pause";
@@ -13,6 +12,7 @@ import { BASE_URL, ENDPOINT } from "../../api/endpoint";
 import { useAllNonDeletedArtists } from "../../hooks/useArtist";
 import { getUserFromStorage } from "../../utils/localeStorage";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
+import { Helmet } from "react-helmet-async";
 
 const Home = () => {
   const [artists, setArtists] = useState([]);
@@ -70,7 +70,6 @@ const Home = () => {
 
       const lastFiveTracks = sortedTracks.slice(0, 5);
       setTrendingSongs(lastFiveTracks);
-      console.log(tracks);
     }
   }, [tracks]);
 
@@ -97,11 +96,7 @@ const Home = () => {
   //increment playcount
   const handlePlayCount = async (id) => {
     try {
-      const response = await axios.patch(
-        `${BASE_URL + ENDPOINT.tracks}/${id}/increment-play`
-      );
-
-      console.log(response.data.data);
+      await axios.patch(`${BASE_URL + ENDPOINT.tracks}/${id}/increment-play`);
     } catch (error) {
       console.log("Error: ", error);
     }
@@ -124,12 +119,14 @@ const Home = () => {
       const topFiveTracks = sortedTracks.slice(0, 5);
 
       setTopSongs(topFiveTracks);
-      console.log(topFiveTracks);
     }
   }, [tracks]);
 
   return (
     <>
+      <Helmet>
+        <title>Home</title>
+      </Helmet>
       <section className={style.topSongs}>
         <p className={style.heading}>
           Weekly Top <span style={{ color: "#EE10B0" }}>Songs</span> :{" "}

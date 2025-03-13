@@ -17,6 +17,7 @@ import NewPlaylistwithCollab from "../../components/user/NewPlaylistwithCollab";
 import toast from "react-hot-toast";
 import SearchIcon from "@mui/icons-material/Search";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
+import { Helmet } from "react-helmet-async";
 
 const Favorites = () => {
   const [currentSong, setCurrentSong] = useState(null);
@@ -58,11 +59,7 @@ const Favorites = () => {
   //increment playcount
   const handlePlayCount = async (id) => {
     try {
-      const response = await axios.patch(
-        `${BASE_URL + ENDPOINT.tracks}/${id}/increment-play`
-      );
-
-      console.log(response.data.data);
+      await axios.patch(`${BASE_URL + ENDPOINT.tracks}/${id}/increment-play`);
     } catch (error) {
       console.log("Error: ", error);
     }
@@ -150,8 +147,6 @@ const Favorites = () => {
 
   //----------------------------------------------------
   const handleAddTrack = async (playlistId, songId, songType) => {
-    console.log("playlistId:", playlistId);
-    console.log("songId:", songId);
     try {
       await axios.patch(
         `${BASE_URL + ENDPOINT.playlists}/${playlistId}/addTracks`,
@@ -193,6 +188,9 @@ const Favorites = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Favorites</title>
+      </Helmet>
       <div className={style.inputBox}>
         <input
           onChange={(e) => setSearchSong(e.target.value)}

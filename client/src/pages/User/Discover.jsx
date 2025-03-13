@@ -8,6 +8,7 @@ import { useGenres } from "../../hooks/useGenre";
 import randomColor from "randomcolor";
 import { getUserFromStorage } from "../../utils/localeStorage";
 import { fetchUserByToken } from "../../utils/reusableFunc";
+import { Helmet } from "react-helmet-async";
 
 const Discover = () => {
   const { data } = useAllNonDeletedArtists();
@@ -42,6 +43,9 @@ const Discover = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Discover</title>
+      </Helmet>
       <section className={style.genres}>
         <p className={style.heading}>
           Browse <span style={{ color: "#EE10B0" }}>All</span> :{" "}

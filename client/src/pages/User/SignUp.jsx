@@ -10,6 +10,7 @@ import { UserCloudinary } from "../../utils/userCloudinary";
 import axios from "axios";
 import { BASE_URL, ENDPOINT } from "../../api/endpoint";
 import { useAllNonDeletedUsers } from "../../hooks/useUser";
+import { Helmet } from "react-helmet-async";
 
 const SignUp = () => {
   const { data } = useAllNonDeletedUsers();
@@ -31,7 +32,6 @@ const SignUp = () => {
             values.password,
             uploadResponse.secure_url
           );
-          // console.log("Sending data to server:", newUser);
           const duplicateEmail = data?.find((x) => x?.email === newUser?.email);
           const duplicateUsername = data?.find(
             (x) => x?.username === newUser?.username
@@ -47,15 +47,14 @@ const SignUp = () => {
             formik.setFieldValue("email", "");
             return;
           }
-          // console.log("Sending the following data to the backend:", values);
-          // const response = await mutate(values);
-          // console.log("Response from mutate:", response);
 
           if (!duplicateUsername && !duplicateEmail) {
             await axios.post(`${BASE_URL + ENDPOINT.users}/register`, values, {
               headers: { "Content-Type": "multipart/form-data" },
             });
-            toast.success("You successfully registered, check your email and verify account!");
+            toast.success(
+              "You successfully registered, check your email and verify account!"
+            );
             actions.resetForm();
             return;
           }
@@ -70,6 +69,9 @@ const SignUp = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Sign Up</title>
+      </Helmet>
       <div className={style.card}>
         <div className={style.top}>
           <Link to={"/register"} className={`${style.letter} ${style.signUp}`}>
@@ -77,7 +79,7 @@ const SignUp = () => {
           </Link>
 
           <Link to={"/login"} className={style.letter}>
-            <p>Login</p>
+            <p>Sign In</p>
           </Link>
         </div>
         <form className={style.form} onSubmit={formik.handleSubmit}>

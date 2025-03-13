@@ -136,7 +136,6 @@ const register = async (req, res) => {
     await newUser.save();
 
     const token = newUser.generateToken();
-    //send mail with nodemailer
     await transporter
       .sendMail({
         from: process.env.MAIL_USER,
@@ -306,7 +305,7 @@ const login = async (req, res) => {
         email: user.email,
         role: user.role,
       },
-      token: user.generateToken(), // generate token
+      token: user.generateToken(),
       message: "User logged in successfully",
       status: "success",
     });
@@ -469,7 +468,7 @@ const unfreezeAccount = async (req, res) => {
 const banAccount = async (req, res) => {
   try {
     const { id } = req.params;
-    const { duration } = req.body; // in minutes
+    const { duration } = req.body;
 
     const banExpiresAt = new Date(Date.now() + duration * 60 * 1000);
     const user = await User.findById(id);
@@ -638,7 +637,6 @@ const updatePassword = async (req, res) => {
   }
 };
 
-//send email
 const forgotPassword = async (req, res) => {
   try {
     const { email } = req.body;
@@ -1063,11 +1061,8 @@ const updatePremiumStatus = async () => {
           .catch((error) => {
             console.log("error: ", error);
           });
-        console.log(`User ${user._id} premium status updated.`);
       }
     }
-
-    console.log("Premium statuses updated.");
   } catch (error) {
     console.error("Error updating premium statuses:", error);
   }

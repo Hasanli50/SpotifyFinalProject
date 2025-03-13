@@ -11,6 +11,7 @@ import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { Link } from "react-router";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import { getUserFromStorage } from "../../utils/localeStorage";
+import { Helmet } from "react-helmet-async";
 
 const TrendingSongs = () => {
   const [currentSong, setCurrentSong] = useState(null);
@@ -71,11 +72,7 @@ const TrendingSongs = () => {
   //increment playcount
   const handlePlayCount = async (id) => {
     try {
-      const response = await axios.patch(
-        `${BASE_URL + ENDPOINT.tracks}/${id}/increment-play`
-      );
-
-      console.log(response.data.data);
+      await axios.patch(`${BASE_URL + ENDPOINT.tracks}/${id}/increment-play`);
     } catch (error) {
       console.log("Error: ", error);
     }
@@ -83,6 +80,9 @@ const TrendingSongs = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Tranding Songs</title>
+      </Helmet>
       <section className={style.trendingSngs}>
         <p className={style.heading}>
           <Link to={"/"}>

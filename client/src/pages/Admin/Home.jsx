@@ -17,6 +17,7 @@ import {
   Legend,
 } from "chart.js";
 import { Box, Typography } from "@mui/material";
+import { Helmet } from "react-helmet-async";
 
 ChartJS.register(
   CategoryScale,
@@ -33,7 +34,6 @@ const Home = () => {
   const { data: users } = useAllNonDeletedUsers();
   const { data: playlists } = useFetchALlPlaylists();
   const [chartData, setChartData] = useState({});
-  // console.log(artists)
 
   const [admin, setAdmin] = useState([]);
 
@@ -60,8 +60,8 @@ const Home = () => {
         datasets: [
           {
             label: "Followers Count",
-            data: followersCount, // Followers data
-            backgroundColor: "#42a5f5", // Bar color
+            data: followersCount,
+            backgroundColor: "#42a5f5",
             borderColor: "#1e88e5",
             borderWidth: 1,
           },
@@ -72,6 +72,9 @@ const Home = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Home</title>
+      </Helmet>
       <section className={style.home}>
         <p className={style.heading}>
           Welcome back,{" "}
@@ -103,7 +106,7 @@ const Home = () => {
             </li>
           </ul>
 
-          <Box className={style.chart} >
+          <Box className={style.chart}>
             <Typography variant="h6" gutterBottom>
               Artist Followers
             </Typography>

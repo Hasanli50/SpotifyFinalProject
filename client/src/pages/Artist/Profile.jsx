@@ -12,6 +12,7 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
 import { useFormik } from "formik";
 import { updatePassSchema } from "../../schema/editPass";
+import { Helmet } from "react-helmet-async";
 
 const styles = {
   position: "absolute",
@@ -101,7 +102,6 @@ const Profile = () => {
     onSubmit: async (values, actions) => {
       try {
         const { password, confirmPassword } = values;
-        console.log(values);
 
         if (password === artist?.password) {
           toast.error(
@@ -188,6 +188,9 @@ const Profile = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Profile</title>
+      </Helmet>
       <section className={style.box}>
         <div className={style.card}>
           <form onSubmit={handleSubmit}>
@@ -364,7 +367,6 @@ const Profile = () => {
                     : []
                 }
                 onChange={(selectedOptions) => {
-                  console.log("Selected genres:", selectedOptions);
                   setArtist((prev) => ({
                     ...prev,
                     genreIds: selectedOptions.map((option) => ({

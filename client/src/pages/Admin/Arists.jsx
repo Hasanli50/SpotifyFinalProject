@@ -9,6 +9,7 @@ import { BASE_URL, ENDPOINT } from "../../api/endpoint";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import { getUserFromStorage } from "../../utils/localeStorage";
+import { Helmet } from "react-helmet-async";
 
 const Arists = () => {
   const { data } = useAllNonDeletedArtists();
@@ -350,6 +351,9 @@ const Arists = () => {
   ];
   return (
     <>
+      <Helmet>
+        <title>Artists</title>
+      </Helmet>
       <section className={style.table}>
         <p className={style.users}>Artists: </p>
         <div>

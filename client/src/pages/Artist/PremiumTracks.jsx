@@ -11,6 +11,7 @@ import Swal from "sweetalert2";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
+import { Helmet } from "react-helmet-async";
 
 const PremiumTracks = () => {
   const [currentSong, setCurrentSong] = useState(null);
@@ -103,79 +104,93 @@ const PremiumTracks = () => {
   //increment playcount
   const handlePlayCount = async (id) => {
     try {
-      const response = await axios.patch(
-        `${BASE_URL + ENDPOINT.tracks}/${id}/increment-play`
-      );
-
-      console.log(response.data.data);
+      await axios.patch(`${BASE_URL + ENDPOINT.tracks}/${id}/increment-play`);
     } catch (error) {
       console.log("Error: ", error);
     }
   };
 
   return (
-    <section className={style.premiumTracks}>
-      <p className={style.heading}>Premium Tracks: </p>
-      <div className={style.songs}>
-        {tracks?.length > 0 ? (
-          tracks?.map((song, index) => (
-            <div className={style.songBox} key={song.id}>
-              <p className={style.place}>{index + 1}.</p>
-              <div className={style.songsCard}>
-                <div
-                  style={{ display: "flex", gap: "7px", alignItems: "center" }}
-                >
-                  <div className={style.songsCard__imgBox}>
-                    <img
-                      className={style.songsCard__imgBox__img}
-                      src={song.coverImage}
-                      alt="coverImage"
-                    />
-                    <WorkspacePremiumIcon
-                      className={style.premiumMini}
-                      style={{
-                        fontSize: "18px",
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <p className={style.letterTop}>{song.name}</p>
-                    <p className={style.letterBottom} style={{textAlign:"left"}}>
-                      {song.albumId?.name || "Single"}
-                    </p>
-                  </div>
-                </div>
-                <p className={style.songsCard__letter}>
-                  {song.createdAt
-                    ? moment(song.createdAt).format("MMM Do YY")
-                    : "Unknown Date"}
-                </p>
-                <div style={{display:"flex", alignItems:"center", gap:"20px"}}>
+    <>
+      <Helmet>
+        <title>Premium Songs</title>
+      </Helmet>
+      <section className={style.premiumTracks}>
+        <p className={style.heading}>Premium Tracks: </p>
+        <div className={style.songs}>
+          {tracks?.length > 0 ? (
+            tracks?.map((song, index) => (
+              <div className={style.songBox} key={song.id}>
+                <p className={style.place}>{index + 1}.</p>
+                <div className={style.songsCard}>
                   <div
-                    className={style.icon}
-                    onClick={() => handlePlayMusic(song)}
+                    style={{
+                      display: "flex",
+                      gap: "7px",
+                      alignItems: "center",
+                    }}
                   >
-                    {currentSong?.id === song?.id && isPlaying ? (
-                      <PauseIcon style={{ color: "#fff" }} />
-                    ) : (
-                      <PlayArrowIcon style={{ color: "#fff" }} />
-                    )}
+                    <div className={style.songsCard__imgBox}>
+                      <img
+                        className={style.songsCard__imgBox__img}
+                        src={song.coverImage}
+                        alt="coverImage"
+                      />
+                      <WorkspacePremiumIcon
+                        className={style.premiumMini}
+                        style={{
+                          fontSize: "18px",
+                        }}
+                      />
+                    </div>
+                    <div>
+                      <p className={style.letterTop}>{song.name}</p>
+                      <p
+                        className={style.letterBottom}
+                        style={{ textAlign: "left" }}
+                      >
+                        {song.albumId?.name || "Single"}
+                      </p>
+                    </div>
                   </div>
-                  <button
-                    className={style.btn}
-                    onClick={() => handleChangePremiumToFree(song.id)}
+                  <p className={style.songsCard__letter}>
+                    {song.createdAt
+                      ? moment(song.createdAt).format("MMM Do YY")
+                      : "Unknown Date"}
+                  </p>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "20px",
+                    }}
                   >
-                    Free
-                  </button>
+                    <div
+                      className={style.icon}
+                      onClick={() => handlePlayMusic(song)}
+                    >
+                      {currentSong?.id === song?.id && isPlaying ? (
+                        <PauseIcon style={{ color: "#fff" }} />
+                      ) : (
+                        <PlayArrowIcon style={{ color: "#fff" }} />
+                      )}
+                    </div>
+                    <button
+                      className={style.btn}
+                      onClick={() => handleChangePremiumToFree(song.id)}
+                    >
+                      Free
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))
-        ) : (
-          <p className={style.sentence}>You don`t have premium tracks</p>
-        )}
-      </div>
-    </section>
+            ))
+          ) : (
+            <p className={style.sentence}>You don`t have premium tracks</p>
+          )}
+        </div>
+      </section>
+    </>
   );
 };
 

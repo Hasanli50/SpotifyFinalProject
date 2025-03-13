@@ -4,6 +4,7 @@ import CheckoutForm from "./CheckoutForm";
 import { getUserFromStorage } from "../../utils/localeStorage";
 import { fetchUserByToken } from "../../utils/reusableFunc";
 import { useNavigate } from "react-router";
+import { Helmet } from "react-helmet-async";
 
 const Premium = () => {
   const [open, setOpen] = useState(false);
@@ -34,6 +35,9 @@ const Premium = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Premium</title>
+      </Helmet>
       <main className={style.main}>
         <section className={style.features}>
           <h2 className={style.heading}>

@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import { getUserFromStorage } from "../../utils/localeStorage";
 import moment from "moment";
+import { Helmet } from "react-helmet-async";
 
 const Messages = () => {
   const { data } = useAllNonDeletedArtists();
@@ -49,7 +50,7 @@ const Messages = () => {
           });
 
           const updatedArtists = artists?.filter((artist) => artist?.id !== id);
-          setArtists(updatedArtists?.status === "pending")
+          setArtists(updatedArtists?.status === "pending");
         }
       });
     } catch (error) {
@@ -234,6 +235,9 @@ const Messages = () => {
   ];
   return (
     <>
+      <Helmet>
+        <title>Messages</title>
+      </Helmet>
       <section className={style.table}>
         <p className={style.users}>Artists who are awaiting confirmation: </p>
         <div>

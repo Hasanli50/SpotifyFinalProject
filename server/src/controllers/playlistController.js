@@ -43,7 +43,6 @@ const createPlaylist = async (req, res) => {
 };
 
 //get all playlists
-
 const getAllPlaylists = async (req, res) => {
   try {
     const playlists = await Playlist.find({});
@@ -72,10 +71,10 @@ const getAllPlaylists = async (req, res) => {
 // Get all playlists of a user
 const getPlaylistsOfUser = async (req, res) => {
   try {
-    const userId = req.user.id; // Assuming user ID is stored in req.user
+    const userId = req.user.id; 
 
     const playlists = await Playlist.find({ userId });
-    //   .populate("trackIds.trackId") // Populate track information for trackIds
+    //   .populate("trackIds.trackId") 
     //   .exec();
 
     return res.status(200).json({
@@ -212,7 +211,7 @@ const removeTrackFromPlaylist = async (req, res) => {
   }
 };
 
-// Update playlist details (e.g., name)
+// Update playlist details 
 const updatePlaylist = async (req, res) => {
   try {
     const { id } = req.params;
@@ -295,7 +294,6 @@ const deletePlaylist = async (req, res) => {
       }
     }
 
-    // Remove the playlist from the database
     await Playlist.findByIdAndDelete(playlistId);
 
     return res.status(200).json({
@@ -316,7 +314,7 @@ const getPlaylistTracks = async (req, res) => {
     const { id } = req.params;
 
     const playlist = await Playlist.findById(id)
-      .populate("trackIds.trackId") // Populate track information
+      .populate("trackIds.trackId") 
       .exec();
 
     if (!playlist) {

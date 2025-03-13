@@ -171,17 +171,17 @@ const deleteAlbum = async (req, res) => {
       await cloudinary.uploader.destroy(`uploads/${publicId}`);
     }
 
-    // Step 1: Delete all tracks from the Track model that were associated with the album
+    // Delete all tracks from the Track model that were associated with the album
     await Track.deleteMany({ _id: { $in: album.trackIds } }, { new: true });
 
-    // Step 2: Remove the trackIds from all playlists that contain any of the deleted tracks
+    // Remove the trackIds from all playlists that contain any of the deleted tracks
     await Playlist.updateMany(
       { "trackIds.trackId": { $in: album.trackIds } },
       { $pull: { trackIds: { trackId: { $in: album.trackIds } } } },
       { new: true }
     );
 
-    // Step 3: Remove the trackIds from the Artist model
+    // Remove the trackIds from the Artist model
     await Artist.updateMany(
       { trackIds: { $in: album.trackIds } },
       {
@@ -190,14 +190,13 @@ const deleteAlbum = async (req, res) => {
       { new: true }
     );
 
-    // Step 4: Update artist album list by removing the deleted albumId
+    // Update artist album list by removing the deleted albumId
     await Artist.findByIdAndUpdate(
       album.artistId,
       { $pull: { albumIds: album._id }, $inc: { albums_count: -1 } },
       { new: true }
     );
 
-    // Respond back with success
     res.status(200).json({
       message: "Album and associated data deleted successfully",
       status: "success",
@@ -292,16 +291,16 @@ const removeTrackFromAlbum = async (req, res) => {
         await cloudinary.uploader.destroy(`uploads/${publicId}`);
       }
 
-      // Step 1: Delete the track from the Track model
+      // Delete the track from the Track model
       await Track.findByIdAndDelete(trackObjectId);
 
-      // Step 2: Remove the trackId from all Playlists that contain this track
+      // Remove the trackId from all Playlists that contain this track
       await Playlist.updateMany(
         { "trackIds.trackId": trackObjectId },
         { $pull: { trackIds: { trackId: trackObjectId } } }
       );
 
-      // Step 3: Remove the trackId from the Artist model
+      // Remove the trackId from the Artist model
       await Artist.updateMany(
         { trackIds: trackObjectId },
         { $pull: { trackIds: trackObjectId } }

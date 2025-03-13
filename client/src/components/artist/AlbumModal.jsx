@@ -5,7 +5,6 @@ import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
-// import Typography from '@mui/material/Typography';
 import PlaylistAddCircleIcon from "@mui/icons-material/PlaylistAddCircle";
 import { TextField } from "@mui/material";
 import toast from "react-hot-toast";
@@ -65,8 +64,6 @@ const AlbumModal = ({ addAlbum }) => {
         formData.append("name", values.name);
         formData.append("artistId", artist?.id);
         formData.append("coverImage", values.coverImage);
-
-        console.log("Sending data to server:", formData);
 
         const response = await axios.post(
           `${BASE_URL + ENDPOINT.albums}`,

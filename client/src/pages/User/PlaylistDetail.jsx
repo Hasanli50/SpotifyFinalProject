@@ -13,6 +13,7 @@ import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 import EditPlaylist from "../../components/user/EditPlaylist";
 import { fetchUserByToken } from "../../utils/reusableFunc";
+import { Helmet } from "react-helmet-async";
 
 const PlaylistDetail = () => {
   const { id } = useParams();
@@ -102,10 +103,7 @@ const PlaylistDetail = () => {
   // Increment play count
   const handlePlayCount = async (id) => {
     try {
-      const response = await axios.patch(
-        `${BASE_URL + ENDPOINT.tracks}/${id}/increment-play`
-      );
-      console.log(response.data.data);
+      await axios.patch(`${BASE_URL + ENDPOINT.tracks}/${id}/increment-play`);
     } catch (error) {
       console.log("Error: ", error);
     }
@@ -232,6 +230,9 @@ const PlaylistDetail = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Playlist Detail</title>
+      </Helmet>
       <section className={style.playlistDetail}>
         <p className={style.heading}>
           <span style={{ color: "#EE10B0" }}>{playlist?.name}</span>
@@ -281,7 +282,7 @@ const PlaylistDetail = () => {
         </div>
 
         <div
-        className={style.playlist}
+          className={style.playlist}
           style={{
             display: "flex",
             gap: "40px",

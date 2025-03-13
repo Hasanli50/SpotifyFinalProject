@@ -11,6 +11,7 @@ import axios from "axios";
 import { saveUserToStorage } from "../../utils/localeStorage";
 import { useEffect } from "react";
 import { useAllNonDeletedUsers } from "../../hooks/useUser";
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
   const { data } = useAllNonDeletedUsers();
@@ -36,7 +37,8 @@ const Login = () => {
   }, [location.search, navigate]);
 
   const handleGoogleLogin = () => {
-    window.location.href = "https://spotifyfinalproject-6.onrender.com/api/auth-user/google";
+    window.location.href =
+      "https://spotifyfinalproject-6.onrender.com/api/auth-user/google";
   };
 
   const formik = useFormik({
@@ -58,22 +60,22 @@ const Login = () => {
           toast.error("Incorrect username. Please try again.");
           return;
         }
-  
+
         if (user?.isVerified !== true) {
           toast.error("Please check your email and verify your account");
           return;
         }
-        
+
         if (user?.role !== "user") {
           toast.error("Only users can login!");
           return;
         }
-  
+
         const response = await axios.post(
           `${BASE_URL + ENDPOINT.users}/login`,
           cleanedValues
         );
-  
+
         if (response?.data?.token) {
           actions.resetForm();
           toast.success("Successfully signed in!");
@@ -95,97 +97,101 @@ const Login = () => {
     },
     validationSchema: loginSchema,
   });
-  
 
   return (
-    <div className={style.card}>
-      <div className={style.top}>
-        <Link to={"/register"} className={style.letter}>
-          <p>Sign Up</p>
-        </Link>
+    <>
+      <Helmet>
+        <title>Sign In</title>
+      </Helmet>
+      <div className={style.card}>
+        <div className={style.top}>
+          <Link to={"/register"} className={style.letter}>
+            <p>Sign Up</p>
+          </Link>
 
-        <Link to={"/login"} className={`${style.letter} ${style.login}`}>
-          <p>Login</p>
-        </Link>
+          <Link to={"/login"} className={`${style.letter} ${style.login}`}>
+            <p>Sign In</p>
+          </Link>
+        </div>
+
+        <form className={style.form} onSubmit={formik.handleSubmit}>
+          <div className={style.field} style={{ position: "relative" }}>
+            <label className={style.label} htmlFor="username">
+              Username:
+            </label>
+            <Input
+              className={style.input}
+              name="username"
+              value={formik.values.username}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              style={{
+                background: "none",
+                borderRadius: "4px",
+                border: "2px solid #fff",
+                width: "100%",
+                color: "#fff",
+              }}
+              size="large"
+              placeholder="Enter Your Username"
+              prefix={<UserOutlined />}
+            />
+            {formik.errors.username && formik.touched.username ? (
+              <p style={{ color: "#0E9EEF" }}>{formik.errors.username}</p>
+            ) : null}
+          </div>
+
+          <div className={style.field} style={{ position: "relative" }}>
+            <label className={style.label} htmlFor="pass">
+              Password:
+            </label>
+            <Input
+              className={style.input}
+              name="password"
+              type="password"
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              style={{
+                background: "none",
+                borderRadius: "4px",
+                border: "2px solid #fff",
+                width: "100%",
+                color: "#fff",
+              }}
+              size="large"
+              placeholder="Enter Your Password"
+              prefix={<LockOutlined />}
+            />
+            {formik.errors.password && formik.touched.password ? (
+              <p style={{ color: "#0E9EEF" }}>{formik.errors.password}</p>
+            ) : null}
+          </div>
+          <Link to={"/forgot-password"} className={style.pass}>
+            <p>Forgot Password?</p>
+          </Link>
+          <button type="submit" className={style.loginBtn}>
+            Login
+          </button>
+
+          <div className={style.orBox}>
+            <p className={style.or}>Or</p>
+          </div>
+          {/* <Link to={"/auth/google"} style={{textDecoration: "none"}}> */}
+          <button
+            className={style.googleBtn}
+            onClick={handleGoogleLogin}
+            type="button"
+          >
+            <GoogleIcon />
+            <span className={style.red}>Login</span>
+            <span className={style.yellow}>With</span>
+            <span className={style.blue}>Google</span>
+          </button>
+          {/* </Link> */}
+        </form>
       </div>
-
-      <form className={style.form} onSubmit={formik.handleSubmit}>
-        <div className={style.field} style={{ position: "relative" }}>
-          <label className={style.label} htmlFor="username">
-            Username:
-          </label>
-          <Input
-            className={style.input}
-            name="username"
-            value={formik.values.username}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            style={{
-              background: "none",
-              borderRadius: "4px",
-              border: "2px solid #fff",
-              width: "100%",
-              color: "#fff",
-            }}
-            size="large"
-            placeholder="Enter Your Username"
-            prefix={<UserOutlined />}
-          />
-          {formik.errors.username && formik.touched.username ? (
-            <p style={{ color: "#0E9EEF" }}>{formik.errors.username}</p>
-          ) : null}
-        </div>
-
-        <div className={style.field} style={{ position: "relative" }}>
-          <label className={style.label} htmlFor="pass">
-            Password:
-          </label>
-          <Input
-            className={style.input}
-            name="password"
-            type="password"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            style={{
-              background: "none",
-              borderRadius: "4px",
-              border: "2px solid #fff",
-              width: "100%",
-              color: "#fff",
-            }}
-            size="large"
-            placeholder="Enter Your Password"
-            prefix={<LockOutlined />}
-          />
-          {formik.errors.password && formik.touched.password ? (
-            <p style={{ color: "#0E9EEF" }}>{formik.errors.password}</p>
-          ) : null}
-        </div>
-        <Link to={"/forgot-password"} className={style.pass}>
-          <p>Forgot Password?</p>
-        </Link>
-        <button type="submit" className={style.loginBtn}>
-          Login
-        </button>
-
-        <div className={style.orBox}>
-          <p className={style.or}>Or</p>
-        </div>
-        {/* <Link to={"/auth/google"} style={{textDecoration: "none"}}> */}
-        <button
-          className={style.googleBtn}
-          onClick={handleGoogleLogin}
-          type="button"
-        >
-          <GoogleIcon />
-          <span className={style.red}>Login</span>
-          <span className={style.yellow}>With</span>
-          <span className={style.blue}>Google</span>
-        </button>
-        {/* </Link> */}
-      </form>
-    </div>
+    </>
   );
 };
 

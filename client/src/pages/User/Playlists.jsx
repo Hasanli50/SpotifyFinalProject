@@ -5,6 +5,7 @@ import Grid from "@mui/material/Grid";
 import { fetchUserByToken } from "../../utils/reusableFunc";
 import { useEffect, useState } from "react";
 import { getUserFromStorage } from "../../utils/localeStorage";
+import { Helmet } from "react-helmet-async";
 
 const Playlists = () => {
   const { data: playlists } = useFetchALlPlaylistsByUser();
@@ -35,6 +36,9 @@ const Playlists = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Playlists</title>
+      </Helmet>
       <section className={style.playlists}>
         <p className={style.heading}>
           Your <span style={{ color: "#EE10B0" }}>Playlists</span> :{" "}

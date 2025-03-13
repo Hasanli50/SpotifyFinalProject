@@ -5,6 +5,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useEffect, useState } from "react";
 import { getUserFromStorage } from "../../utils/localeStorage";
 import { fetchUserByToken } from "../../utils/reusableFunc";
+import { Helmet } from "react-helmet-async";
 
 const Artists = () => {
   const { data } = useAllNonDeletedArtists();
@@ -27,7 +28,6 @@ const Artists = () => {
     };
     getUserByToken();
   }, [token]);
-  console.log("user token", user?.length);
 
   useEffect(() => {
     const artists = data?.filter((value) =>
@@ -41,6 +41,9 @@ const Artists = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Artists</title>
+      </Helmet>
       <div className={style.inputBox}>
         <input
           onChange={(e) => setSearchQuery(e.target.value)}
@@ -67,7 +70,11 @@ const Artists = () => {
           {filteredData?.length > 0 &&
             filteredData?.map((artist) => (
               <Link
-                to={ role && Object.keys(user).length === 0 ? "/login" : `/artists/${artist?.id}`}
+                to={
+                  role && Object.keys(user).length === 0
+                    ? "/login"
+                    : `/artists/${artist?.id}`
+                }
                 key={artist?.id}
               >
                 <div className={style.artists}>

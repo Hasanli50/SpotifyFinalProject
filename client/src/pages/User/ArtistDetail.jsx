@@ -21,6 +21,7 @@ import { useFetchALlPlaylistsByUser } from "../../hooks/usePlaylist";
 import NewPlaylistwithCollab from "../../components/user/NewPlaylistwithCollab";
 import toast from "react-hot-toast";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
+import { Helmet } from "react-helmet-async";
 
 const ArtistDetail = () => {
   const { id } = useParams();
@@ -78,10 +79,7 @@ const ArtistDetail = () => {
         const sortedTracks = [...trackIds].sort(
           (a, b) => b.playCount - a.playCount
         );
-
         const lastFiveTracks = sortedTracks.slice(0, 5);
-
-        console.log("Last 5 Albums:", lastFiveTracks);
         setArtistSongs(lastFiveTracks);
       }
     }
@@ -118,12 +116,9 @@ const ArtistDetail = () => {
       const single =
         trackIds?.length > 0 &&
         trackIds?.filter((track) => track?.type === "single");
-      // console.log("singles: ", single);
-      // console.log("Filtered Tracks:", trackIds);
       if (single?.length > 0) {
         const lastFiveTracks = single.slice(0, 5);
 
-        // console.log("Last 5 Albums:", lastFiveTracks);
         setSingleSongs(lastFiveTracks);
       }
     }
@@ -153,11 +148,7 @@ const ArtistDetail = () => {
   //increment playcount
   const handlePlayCount = async (id) => {
     try {
-      const response = await axios.patch(
-        `${BASE_URL + ENDPOINT.tracks}/${id}/increment-play`
-      );
-
-      console.log(response.data.data);
+      await axios.patch(`${BASE_URL + ENDPOINT.tracks}/${id}/increment-play`);
     } catch (error) {
       console.log("Error: ", error);
     }
@@ -238,8 +229,6 @@ const ArtistDetail = () => {
 
   //----------------------------------------------------
   const handleAddTrack = async (playlistId, songId, songType) => {
-    console.log("playlistId:", playlistId);
-    console.log("songId:", songId);
     try {
       await axios.patch(
         `${BASE_URL + ENDPOINT.playlists}/${playlistId}/addTracks`,
@@ -266,6 +255,9 @@ const ArtistDetail = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Artist Detail</title>
+      </Helmet>
       <section className={style.aboutArtist}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>

@@ -16,6 +16,7 @@ import { useAllTracks } from "../../hooks/useTrack";
 import toast from "react-hot-toast";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import SearchIcon from "@mui/icons-material/Search";
+import { Helmet } from "react-helmet-async";
 
 const PremiumTracks = () => {
   //get user by token
@@ -48,9 +49,10 @@ const PremiumTracks = () => {
 
   useEffect(() => {
     try {
-      const filteredSongs = tracks?.filter((song) => song?.premiumOnly === true);
+      const filteredSongs = tracks?.filter(
+        (song) => song?.premiumOnly === true
+      );
       setPremiumTracks(filteredSongs);
-      console.log("premium: ", filteredSongs);
     } catch (error) {
       console.log("Error: ", error);
     }
@@ -80,11 +82,7 @@ const PremiumTracks = () => {
   //increment playcount
   const handlePlayCount = async (id) => {
     try {
-      const response = await axios.patch(
-        `${BASE_URL + ENDPOINT.tracks}/${id}/increment-play`
-      );
-
-      console.log(response.data.data);
+      await axios.patch(`${BASE_URL + ENDPOINT.tracks}/${id}/increment-play`);
     } catch (error) {
       console.log("Error: ", error);
     }
@@ -135,7 +133,10 @@ const PremiumTracks = () => {
   //----------------------------------------------------
   useEffect(() => {
     const data = playlists?.filter((value) =>
-      value?.name?.trim().toLowerCase().includes(searchQuery.trim().toLowerCase())
+      value?.name
+        ?.trim()
+        .toLowerCase()
+        .includes(searchQuery.trim().toLowerCase())
     );
     setFilteredData(data);
   }, [playlists, searchQuery]);
@@ -143,8 +144,6 @@ const PremiumTracks = () => {
   //----------------------------------------------------
   const handleAddTrack = async (playlistId, songId, songType) => {
     XMLDocument;
-    console.log("playlistId:", playlistId);
-    console.log("songId:", songId);
     try {
       await axios.patch(
         `${BASE_URL + ENDPOINT.playlists}/${playlistId}/addTracks`,
@@ -182,6 +181,9 @@ const PremiumTracks = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Premium Songs</title>
+      </Helmet>
       <section className={style.allSingleSongs}>
         <div className={style.inputBox}>
           <input

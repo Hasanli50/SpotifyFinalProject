@@ -8,7 +8,11 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { BASE_URL, ENDPOINT } from "../../api/endpoint";
 import { MailOutlined } from "@ant-design/icons";
-import { removeUserFromStorage, saveUserToStorage } from "../../utils/localeStorage";
+import {
+  removeUserFromStorage,
+  saveUserToStorage,
+} from "../../utils/localeStorage";
+import { Helmet } from "react-helmet-async";
 
 const ForgotPass = () => {
   const { data } = useAllNonDeletedArtists();
@@ -53,6 +57,9 @@ const ForgotPass = () => {
   });
   return (
     <>
+      <Helmet>
+        <title>Forgot Password</title>
+      </Helmet>
       <section className={style.forgotPass}>
         <Grid container spacing={6}>
           <Grid item xs={12} sm={5} md={5} lg={5} xl={6}>

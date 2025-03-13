@@ -9,8 +9,6 @@ import style from "../../assets/style/artist/albumModal.module.scss";
 import {
   Checkbox,
   FormControlLabel,
-  // Radio,
-  // RadioGroup,
   TextField,
 } from "@mui/material";
 import { useFormik } from "formik";
@@ -80,7 +78,6 @@ const TrackModal = ({ setFilteredData }) => {
       genreId: "",
     },
     onSubmit: async (values, actions) => {
-      console.log("values", values);
 
       try {
         const formData = new FormData();
@@ -97,10 +94,6 @@ const TrackModal = ({ setFilteredData }) => {
         formData.append("artistId", user?.id || "");
         formData.append("genreId", values.genreId || "");
 
-        for (let [key, value] of formData.entries()) {
-          console.log(`${key}:`, value);
-        }
-
         const response = await axios.post(
           `${BASE_URL + ENDPOINT.tracks}`,
           formData,
@@ -110,7 +103,6 @@ const TrackModal = ({ setFilteredData }) => {
             },
           }
         );
-        console.log("Server response:", response);
 
         if (response) {
           setFilteredData((prevTracks) => [...prevTracks, response.data.data]);

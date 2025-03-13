@@ -12,7 +12,6 @@ const User = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
 
         <Route
@@ -28,14 +27,6 @@ const User = () => {
           <Route path="users" element={<Users />} />
           <Route path="messages" element={<Messages />} />
           <Route path="profile" element={<Profile />} />
-          {/* <Route path="tracks" element={<Tracks />} />
-          <Route path="add-track" element={<AddTrack />} />
-          <Route path="edit-album/:id" element={<EditAlbum />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="setting" element={<Setting />} />
-          <Route path="premium-tracks" element={<PremiumTracks />} />
-          <Route path="about-us" element={<AboutUs />} />
-          <Route path="contact" element={<Contact />} /> */}
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

@@ -13,7 +13,6 @@ const checkPremiumStatus = async (req, res, next) => {
           isPremium: false,
           premiumSince: null,
         });
-        // Optionally, attach an indicator to req
         req.premiumExpired = true;
       }
     }

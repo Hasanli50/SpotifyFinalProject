@@ -9,6 +9,7 @@ import { BASE_URL, ENDPOINT } from "../../api/endpoint";
 import axios from "axios";
 import { saveUserToStorage } from "../../utils/localeStorage";
 import { useAllNonDeletedUsers } from "../../hooks/useUser";
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
   const { data } = useAllNonDeletedUsers();
@@ -53,10 +54,6 @@ const Login = () => {
           if (role) {
             navigate("/admin");
           }
-
-          // setTimeout(() => {
-          //   navigate("/admin");
-          // }, 300);
         } else {
           toast.error("Login failed. Please try again.");
         }
@@ -72,8 +69,11 @@ const Login = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Sign In</title>
+      </Helmet>
       <div className={style.card}>
-        <p className={`${style.letter} ${style.login}`}>Login</p>
+        <p className={`${style.letter} ${style.login}`}>Sign In</p>
 
         <form className={style.form} onSubmit={formik.handleSubmit}>
           <div className={style.field} style={{ position: "relative" }}>

@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import { getUserFromStorage } from "../../utils/localeStorage";
 import { useAllNonDeletedUsers } from "../../hooks/useUser";
+import { Helmet } from "react-helmet-async";
 
 const Users = () => {
   const { data } = useAllNonDeletedUsers();
@@ -343,6 +344,9 @@ const Users = () => {
   ];
   return (
     <>
+      <Helmet>
+        <title>Users</title>
+      </Helmet>
       <section className={style.table}>
         <p className={style.users}>Users: </p>
         <div>

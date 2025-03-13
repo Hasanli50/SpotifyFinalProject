@@ -4,18 +4,15 @@ import { Link } from "react-router";
 import { Input } from "antd";
 import { useFormik } from "formik";
 import { Register } from "../../classes/Register";
-import {
-  useAllNonDeletedArtists,
-  // useRegisterArtist,
-} from "../../hooks/useArtist";
+import { useAllNonDeletedArtists } from "../../hooks/useArtist";
 import { signUpSchema } from "../../schema/signUpSchema";
 import toast from "react-hot-toast";
 import { UserCloudinary } from "../../utils/userCloudinary";
 import axios from "axios";
 import { BASE_URL, ENDPOINT } from "../../api/endpoint";
+import { Helmet } from "react-helmet-async";
 
 const SignUp = () => {
-  // const { mutate, isLoading, error } = useRegisterArtist();
   const { data } = useAllNonDeletedArtists();
 
   const formik = useFormik({
@@ -35,9 +32,9 @@ const SignUp = () => {
             values.password,
             uploadResponse.secure_url
           );
-          console.log("Sending data to server:", newArtist);
-          //add toast for duplicate email
-          const duplicateEmail = data?.find((x) => x?.email === newArtist?.email);
+          const duplicateEmail = data?.find(
+            (x) => x?.email === newArtist?.email
+          );
           const duplicateUsername = data?.find(
             (x) => x?.username === newArtist?.username
           );
@@ -52,9 +49,6 @@ const SignUp = () => {
             formik.setFieldValue("email", "");
             return;
           }
-          // console.log("Sending the following data to the backend:", values);
-          // const response = await mutate(values);
-          // console.log("Response from mutate:", response);
 
           if (!duplicateUsername && !duplicateEmail) {
             await axios.post(
@@ -67,14 +61,6 @@ const SignUp = () => {
             toast.success("Artist registered successfully, pending approval!");
             actions.resetForm();
             return;
-            // mutate(newArtist, {
-            //   onSuccess: () => {
-            //   },
-            //   onError: (err) => {
-            //     console.error("Error registering artist:", err);
-            //     toast.error("Error registering artist");
-            //   },
-            // });
           }
         }
       } catch (error) {
@@ -87,6 +73,9 @@ const SignUp = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Sign Up</title>
+      </Helmet>
       <div className={style.card}>
         <div className={style.top}>
           <Link
@@ -97,7 +86,7 @@ const SignUp = () => {
           </Link>
 
           <Link to={"/artist/login"} className={style.letter}>
-            <p>Login</p>
+            <p>Sign In</p>
           </Link>
         </div>
         <form className={style.form} onSubmit={formik.handleSubmit}>

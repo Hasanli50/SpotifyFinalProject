@@ -12,6 +12,7 @@ import axios from "axios";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
+import { Helmet } from "react-helmet-async";
 
 const Home = () => {
   const [artist, setArtist] = useState([]);
@@ -27,7 +28,6 @@ const Home = () => {
   const { data } = useAllAlbums();
   const { data: tracks } = useAllTracks();
   const token = getUserFromStorage();
-  // console.log(artist);
 
   //find artist
   useEffect(() => {
@@ -53,15 +53,11 @@ const Home = () => {
       const albumIds = data?.filter((album) =>
         artist?.albumIds?.includes(album.id)
       );
-      // console.log("Filtered Albums:", albumIds);
       if (albumIds.length > 0) {
         const sortedAlbums = [...albumIds].sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
         );
-
         const lastFiveAlbums = sortedAlbums.slice(0, 5);
-
-        // console.log("Last 5 Albums:", lastFiveAlbums);
         setArtistAlbums(lastFiveAlbums);
       }
     }
@@ -81,16 +77,11 @@ const Home = () => {
       const single =
         trackIds?.length > 0 &&
         trackIds?.filter((track) => track?.type === "single");
-      // console.log("singles: ", single);
-      // console.log("Filtered Tracks:", trackIds);
       if (single?.length > 0) {
         const sortedTracks = [...single].sort(
           (a, b) => b.playCount - a.playCount
         );
-
         const lastFiveTracks = sortedTracks.slice(0, 5);
-
-        // console.log("Last 5 Albums:", lastFiveTracks);
         setArtistSongs(lastFiveTracks);
       }
     }
@@ -117,7 +108,6 @@ const Home = () => {
 
       const lastFiveTracks = sortedTracks.slice(0, 5);
       setTrendingSongs(lastFiveTracks);
-      console.log(tracks);
     }
   }, [tracks]);
 
@@ -146,11 +136,7 @@ const Home = () => {
   //increment playcount
   const handlePlayCount = async (id) => {
     try {
-      const response = await axios.patch(
-        `${BASE_URL + ENDPOINT.tracks}/${id}/increment-play`
-      );
-
-      console.log(response.data.data);
+      await axios.patch(`${BASE_URL + ENDPOINT.tracks}/${id}/increment-play`);
     } catch (error) {
       console.log("Error: ", error);
     }
@@ -158,6 +144,9 @@ const Home = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Home</title>
+      </Helmet>
       <main className={style.main}>
         <section className={style.albums}>
           <p className={style.heading}>

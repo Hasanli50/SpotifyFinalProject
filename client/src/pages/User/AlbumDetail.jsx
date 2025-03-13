@@ -21,6 +21,7 @@ import { useAllNonDeletedArtists } from "../../hooks/useArtist";
 import { Link, useParams } from "react-router";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
+import { Helmet } from "react-helmet-async";
 
 const AlbumDetail = () => {
   const { id } = useParams();
@@ -53,7 +54,6 @@ const AlbumDetail = () => {
     if (album?.artistId && artists?.length > 0) {
       const artistObj = artists?.find((user) => user?.id === album?.artistId);
       setArtist(artistObj);
-      console.log(artistObj);
     }
   }, [album, artists]);
 
@@ -97,11 +97,7 @@ const AlbumDetail = () => {
   //increment playcount
   const handlePlayCount = async (id) => {
     try {
-      const response = await axios.patch(
-        `${BASE_URL + ENDPOINT.tracks}/${id}/increment-play`
-      );
-
-      console.log(response.data.data);
+      await axios.patch(`${BASE_URL + ENDPOINT.tracks}/${id}/increment-play`);
     } catch (error) {
       console.log("Error: ", error);
     }
@@ -182,8 +178,6 @@ const AlbumDetail = () => {
 
   //----------------------------------------------------
   const handleAddTrack = async (playlistId, songId, songType) => {
-    console.log("playlistId:", playlistId);
-    console.log("songId:", songId);
     try {
       await axios.patch(
         `${BASE_URL + ENDPOINT.playlists}/${playlistId}/addTracks`,
@@ -210,6 +204,9 @@ const AlbumDetail = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Album Detail</title>
+      </Helmet>
       <section className={style.album}>
         <Link to={`/artists/${album?.artistId?._id || artist?.id}`}>
           <span className={style.back}>

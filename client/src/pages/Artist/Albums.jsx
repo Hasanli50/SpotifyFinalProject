@@ -15,6 +15,7 @@ import { Menu, MenuItem } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Link } from "react-router";
 import UpdateAlbum from "../../components/artist/UpdateAlbum";
+import { Helmet } from "react-helmet-async";
 
 const Albums = () => {
   const [artist, setArtist] = useState([]);
@@ -107,13 +108,10 @@ const Albums = () => {
         confirmButtonText: "Yes, delete it!",
       }).then(async (result) => {
         if (result.isConfirmed) {
-          const response = await axios.delete(
-            `${BASE_URL + ENDPOINT.albums}/${id}`
-          );
+          await axios.delete(`${BASE_URL + ENDPOINT.albums}/${id}`);
           setArtistAlbums((prevAlbums) =>
             prevAlbums.filter((album) => album.id !== id)
           );
-          console.log(response);
           Swal.fire({
             title: "Deleted!",
             text: "Your file has been deleted.",
@@ -147,6 +145,9 @@ const Albums = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Albums</title>
+      </Helmet>
       <main className={style.main}>
         <section className={style.albums}>
           <div className={style.box}>

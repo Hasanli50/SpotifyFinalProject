@@ -7,6 +7,7 @@ import { getUserFromStorage } from "../../utils/localeStorage";
 import { useAllAlbums } from "../../hooks/useAlbum";
 import SearchIcon from "@mui/icons-material/Search";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import { Helmet } from "react-helmet-async";
 
 const ArtistAlbum = () => {
   const { id } = useParams();
@@ -56,13 +57,19 @@ const ArtistAlbum = () => {
 
   useEffect(() => {
     const data = artistAlbum?.filter((value) =>
-      value?.name?.trim().toLowerCase().includes(searchQuery.trim().toLowerCase())
+      value?.name
+        ?.trim()
+        .toLowerCase()
+        .includes(searchQuery.trim().toLowerCase())
     );
     setFilteredData(data);
   }, [artistAlbum, searchQuery]);
 
   return (
     <>
+      <Helmet>
+        <title>Albums</title>
+      </Helmet>
       <section className={style.allSingleSongs}>
         <div className={style.inputBox}>
           <input

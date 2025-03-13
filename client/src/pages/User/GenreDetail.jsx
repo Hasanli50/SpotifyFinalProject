@@ -19,6 +19,7 @@ import toast from "react-hot-toast";
 import { fetchUserByToken } from "../../utils/reusableFunc";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
+import { Helmet } from "react-helmet-async";
 
 const GenreDetail = () => {
   const { id } = useParams();
@@ -86,11 +87,7 @@ const GenreDetail = () => {
   //increment playcount
   const handlePlayCount = async (id) => {
     try {
-      const response = await axios.patch(
-        `${BASE_URL + ENDPOINT.tracks}/${id}/increment-play`
-      );
-
-      console.log(response.data.data);
+      await axios.patch(`${BASE_URL + ENDPOINT.tracks}/${id}/increment-play`);
     } catch (error) {
       console.log("Error: ", error);
     }
@@ -182,8 +179,6 @@ const GenreDetail = () => {
 
   //----------------------------------------------------
   const handleAddTrack = async (playlistId, songId, songType) => {
-    console.log("playlistId:", playlistId);
-    console.log("songId:", songId);
     try {
       await axios.patch(
         `${BASE_URL + ENDPOINT.playlists}/${playlistId}/addTracks`,
@@ -210,6 +205,9 @@ const GenreDetail = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Genre Detail</title>
+      </Helmet>
       <div className={style.inputBox}>
         <input
           onChange={(e) => setSearchSong(e.target.value)}

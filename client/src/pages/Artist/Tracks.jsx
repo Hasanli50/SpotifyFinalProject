@@ -14,6 +14,7 @@ import axios from "axios";
 import { BASE_URL, ENDPOINT } from "../../api/endpoint";
 import Swal from "sweetalert2";
 import TrackModal from "../../components/artist/TrackModal";
+import { Helmet } from "react-helmet-async";
 
 const Tracks = () => {
   const [artist, setArtist] = useState([]);
@@ -53,11 +54,7 @@ const Tracks = () => {
   //increment playcount
   const handlePlayCount = async (id) => {
     try {
-      const response = await axios.patch(
-        `${BASE_URL + ENDPOINT.tracks}/${id}/increment-play`
-      );
-
-      console.log(response.data.data);
+      await axios.patch(`${BASE_URL + ENDPOINT.tracks}/${id}/increment-play`);
     } catch (error) {
       console.log("Error: ", error);
     }
@@ -165,6 +162,9 @@ const Tracks = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Songs</title>
+      </Helmet>
       <main className={style.main}>
         <section className={style.tracks}>
           <div className={style.box}>
@@ -229,7 +229,6 @@ const Tracks = () => {
                           >
                             Delete Song
                           </MenuItem>
-                          {/* <MenuItem onClick={handleMenuClose}>Edit Song</MenuItem> */}
                         </Menu>
                       </div>
                     </div>

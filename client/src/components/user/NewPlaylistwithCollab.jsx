@@ -55,11 +55,6 @@ const NewPlaylistwithCollab = ({ handleCreateNewPlaylist }) => {
       collaborators: [],
     },
     onSubmit: async (values, actions) => {
-      console.log("Submitting form data:", {
-        name: values.name,
-        collaborators: values.collaborators,
-      });
-
       try {
         const response = await axios.post(
           `${BASE_URL + ENDPOINT.playlists}/create`,

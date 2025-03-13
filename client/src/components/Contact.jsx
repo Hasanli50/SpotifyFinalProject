@@ -1,8 +1,12 @@
+import { Helmet } from "react-helmet-async";
 import style from "../assets/style/contact.module.scss";
 import SearchIcon from "@mui/icons-material/Search";
 const Contact = () => {
   return (
     <>
+      <Helmet>
+        <title>Contact</title>
+      </Helmet>
       <section className={style.contactUs}>
         <div className={style.inputBox}>
           <input

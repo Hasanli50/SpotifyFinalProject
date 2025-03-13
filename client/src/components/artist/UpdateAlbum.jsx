@@ -29,7 +29,6 @@ const UpdateAlbum = ({ id, updateAlbum }) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [editAlbum, setEditAlbum] = useState({ name: "", coverImage: null });
-  // console.log(id)
 
   useEffect(() => {
     const fetchAlbumById = async () => {

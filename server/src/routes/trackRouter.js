@@ -20,7 +20,7 @@ router.post(
   ]),
   createTrackValidator,
   createTrack
-); //+
+); 
 
 router.post(
   "/albumSong",
@@ -30,9 +30,9 @@ router.post(
   ]),
   createTrackValidator,
   createAlbumSong
-); //+
-router.get("/:id", getTrackById); //+
-router.get("/", getAllTracks); //+
+); 
+router.get("/:id", getTrackById); 
+router.get("/", getAllTracks); 
 router.delete(
   "/:id",
   fileUpload.fields([
@@ -41,7 +41,7 @@ router.delete(
   ]),
   deleteTrack
 );
-router.patch("/:id/increment-play", incrementPlayCount); //+
+router.patch("/:id/increment-play", incrementPlayCount); 
 router.patch("/:id/premium-only", changePremium);
 
 module.exports = router;

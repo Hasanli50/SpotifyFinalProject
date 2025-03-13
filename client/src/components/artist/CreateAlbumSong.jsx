@@ -75,7 +75,6 @@ const CreateAlbumSong = ({ albumId, setFilteredData }) => {
       genreId: "",
     },
     onSubmit: async (values, actions) => {
-      console.log("values", values);
 
       try {
         const formData = new FormData();
@@ -93,10 +92,6 @@ const CreateAlbumSong = ({ albumId, setFilteredData }) => {
         formData.append("artistId", user?.id || "");
         formData.append("genreId", values.genreId || "");
 
-        for (let [key, value] of formData.entries()) {
-          console.log(`${key}:`, value);
-        }
-
         const response = await axios.post(
           `${BASE_URL + ENDPOINT.tracks}/albumSong`,
           formData,
@@ -106,7 +101,6 @@ const CreateAlbumSong = ({ albumId, setFilteredData }) => {
             },
           }
         );
-        console.log("Server response:", response);
 
         if (response) {
           setFilteredData((prevTracks) => [...prevTracks, response.data.data]);

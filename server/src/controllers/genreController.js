@@ -29,7 +29,7 @@ const createGenre = async (req, res) => {
 
 const getAllGenres = async (_, res) => {
   try {
-    const genres = await Genre.find().sort({ name: 1 }); // Sorting genres alphabetically by name
+    const genres = await Genre.find().sort({ name: 1 }); 
     if (genres.length === 0) {
       return res.status(404).json({
         message: "Genres not found",

@@ -3,7 +3,6 @@ const router = express.Router();
 const {
   getAllNonDeletedArtists,
   getAllDeletedArtists,
-  // updateStatus,
   getById,
   register,
   login,
@@ -40,12 +39,6 @@ router.get(
   verifyRoleArtist("admin", "artist"),
   getAllDeletedArtists
 );
-// router.patch(
-//   "/pending-status/:id",
-//   verifyTokenArtist,
-//   verifyRoleArtist("admin"),
-//   updateStatus
-// );
 router.get("/:token", verifyTokenArtist, getByToken);
 router.get("/artistDetail/:id", verifyTokenArtist, getById);
 router.post(

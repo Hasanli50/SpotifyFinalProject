@@ -6,6 +6,7 @@ import { getUserFromStorage } from "../../utils/localeStorage";
 import axios from "axios";
 import { BASE_URL, ENDPOINT } from "../../api/endpoint";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet-async";
 
 const Profile = () => {
   const [admin, setAdmin] = useState({
@@ -55,132 +56,137 @@ const Profile = () => {
   };
 
   return (
-    <div className={style.card}>
-      <form onSubmit={handleSubmit}>
-        <div className={style.field}>
-          <label className={style.label} htmlFor="username">
-            Username:
-          </label>
-          <TextField
-            value={admin?.username || ""}
-            onChange={(e) =>
-              setAdmin((prev) => ({ ...prev, username: e.target.value }))
-            }
-            sx={{
-              marginBottom: "10px",
-              width: "100%",
-              color: "#fff",
-              "& .MuiOutlinedInput-root": {
-                color:"#fff",
-                "&:hover .MuiOutlinedInput-notchedOutline": {
-                  borderColor: "#fff",
-                },
-                "& .MuiOutlinedInput-notchedOutline": {
-                  borderColor: "#fff",
-                  borderWidth: "2px",
-                },
-                "&.Mui-focused": {
+    <>
+      <Helmet>
+        <title>Profile</title>
+      </Helmet>
+      <div className={style.card}>
+        <form onSubmit={handleSubmit}>
+          <div className={style.field}>
+            <label className={style.label} htmlFor="username">
+              Username:
+            </label>
+            <TextField
+              value={admin?.username || ""}
+              onChange={(e) =>
+                setAdmin((prev) => ({ ...prev, username: e.target.value }))
+              }
+              sx={{
+                marginBottom: "10px",
+                width: "100%",
+                color: "#fff",
+                "& .MuiOutlinedInput-root": {
+                  color: "#fff",
+                  "&:hover .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#fff",
+                  },
                   "& .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "#A9B5DF",
+                    borderColor: "#fff",
                     borderWidth: "2px",
                   },
-                  "& input": {
-                    borderColor: "#fff",
-                    background: "transparant",
-                  },
-                  "& .MuiInputLabel-root": {
-                    color: "#fff",
+                  "&.Mui-focused": {
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#A9B5DF",
+                      borderWidth: "2px",
+                    },
+                    "& input": {
+                      borderColor: "#fff",
+                      background: "transparant",
+                    },
+                    "& .MuiInputLabel-root": {
+                      color: "#fff",
+                    },
                   },
                 },
-              },
-              "& .MuiInputLabel-root": {
-                color: "#A9B5DF",
-              },
-              "& input::placeholder": {
-                color: "#fff",
-              },
-            }}
-            name="username"
-            className={style.input}
-            label="Username"
-            variant="outlined"
-          />
-        </div>
+                "& .MuiInputLabel-root": {
+                  color: "#A9B5DF",
+                },
+                "& input::placeholder": {
+                  color: "#fff",
+                },
+              }}
+              name="username"
+              className={style.input}
+              label="Username"
+              variant="outlined"
+            />
+          </div>
 
-        <div className={style.field}>
-          <label className={style.label} htmlFor="email">
-            Email:
-          </label>
-          <TextField
-            value={admin?.email || ""}
-            onChange={(e) =>
-              setAdmin((prev) => ({ ...prev, email: e.target.value }))
-            }
-            sx={{
-              marginBottom: "10px",
-              width: "100%",
-              color: "#fff",
-              "& .MuiOutlinedInput-root": {
-                color:"#fff",
-                "&:hover .MuiOutlinedInput-notchedOutline": {
-                  borderColor: "#fff",
-                },
-                "& .MuiOutlinedInput-notchedOutline": {
-                  borderColor: "#fff",
-                  borderWidth: "2px",
-                },
-                "&.Mui-focused": {
+          <div className={style.field}>
+            <label className={style.label} htmlFor="email">
+              Email:
+            </label>
+            <TextField
+              value={admin?.email || ""}
+              onChange={(e) =>
+                setAdmin((prev) => ({ ...prev, email: e.target.value }))
+              }
+              sx={{
+                marginBottom: "10px",
+                width: "100%",
+                color: "#fff",
+                "& .MuiOutlinedInput-root": {
+                  color: "#fff",
+                  "&:hover .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#fff",
+                  },
                   "& .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "#A9B5DF",
+                    borderColor: "#fff",
                     borderWidth: "2px",
                   },
-                  "& input": {
-                    borderColor: "#fff",
-                    background: "transparant",
-                  },
-                  "& .MuiInputLabel-root": {
-                    color: "#fff",
+                  "&.Mui-focused": {
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#A9B5DF",
+                      borderWidth: "2px",
+                    },
+                    "& input": {
+                      borderColor: "#fff",
+                      background: "transparant",
+                    },
+                    "& .MuiInputLabel-root": {
+                      color: "#fff",
+                    },
                   },
                 },
-              },
-              "& .MuiInputLabel-root": {
-                color: "#A9B5DF",
-              },
-              "& input::placeholder": {
-                color: "#fff",
-              },
-            }}
-            name="email"
-            className={style.input}
-            label="Email"
-            variant="outlined"
-          />
-        </div>
+                "& .MuiInputLabel-root": {
+                  color: "#A9B5DF",
+                },
+                "& input::placeholder": {
+                  color: "#fff",
+                },
+              }}
+              name="email"
+              className={style.input}
+              label="Email"
+              variant="outlined"
+            />
+          </div>
 
-        <div className={style.field}>
-          <label className={style.label} htmlFor="image">
-            Profile Image:
-          </label>
-          <input
-            onChange={(e) =>
-              setAdmin((prev) => ({
-                ...prev,
-                image: e.target.files[0],
-              }))
-            }
-            name="image"
-            type="file"
-            style={{ marginBottom: "10px" }}
-          />
-        </div>
+          <div className={style.field}>
+            <label className={style.label} htmlFor="image">
+              Profile Image:
+            </label>
+            <input
+              onChange={(e) =>
+                setAdmin((prev) => ({
+                  ...prev,
+                  image: e.target.files[0],
+                }))
+              }
+              name="image"
+              type="file"
+              style={{ marginBottom: "10px" }}
+            />
+          </div>
 
-        <div className={style.buttons}>
-          <button type="submit" className={style.saveBtn}>
-            Save Changes
-          </button>
-        </div>
-      </form>
-    </div>
+          <div className={style.buttons}>
+            <button type="submit" className={style.saveBtn}>
+              Save Changes
+            </button>
+          </div>
+        </form>
+      </div>
+    </>
   );
 };
 

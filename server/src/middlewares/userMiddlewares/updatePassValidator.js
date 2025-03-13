@@ -1,7 +1,6 @@
 const { body, param, validationResult } = require("express-validator");
 
 const updatePasswordValidator = [
-  // param("id").isMongoId().withMessage("Invalid user ID format"),
 
   body("password")
     .notEmpty()

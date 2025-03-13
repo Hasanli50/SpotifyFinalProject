@@ -103,7 +103,6 @@ export const login = async (values) => {
     const response = await axiosInstance.post(
       `${BASE_URL + ENDPOINT.artists}/login`, values
     );
-    console.log("Response: ",response.data)
     return response.data;
   } catch (error) {
     console.error("Error in login", error);

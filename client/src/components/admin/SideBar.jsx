@@ -4,7 +4,6 @@ import {
   MenuUnfoldOutlined,
   HomeOutlined,
   LogoutOutlined,
-  // UserAddOutlined,
 } from "@ant-design/icons";
 import { Button, Layout, Menu } from "antd";
 import style from "../../assets/style/admin/sideBar.module.scss";
@@ -69,7 +68,6 @@ const SideBar = () => {
 
   return (
     <Layout>
-      {/* Sidebar */}
       <Sider
         trigger={null}
         collapsible
@@ -147,9 +145,7 @@ const SideBar = () => {
         />
       </Sider>
 
-      {/* Main Layout */}
       <Layout>
-        {/* Header */}
         <Header
           className={style.header}
           style={{
@@ -182,18 +178,15 @@ const SideBar = () => {
           </div>
         </Header>
 
-        {/* Content */}
         <Content
           style={{
             margin: "0",
-            // padding: 24,
             height: "100%",
             background: "#000",
             color: "#fff",
             textAlign: "center",
           }}
         >
-          {/* components!!!! */}
           <Outlet />
         </Content>
 

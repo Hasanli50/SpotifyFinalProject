@@ -1,8 +1,12 @@
+import { Helmet } from "react-helmet-async";
 import style from "../assets/style/aboutUs.module.scss";
 
 const AboutUs = () => {
   return (
     <>
+      <Helmet>
+        <title>About Us</title>
+      </Helmet>
       <main className={style.main}>
         <section className={style.aboutUs}>
           <h2 className={style.heading}>About Us</h2>

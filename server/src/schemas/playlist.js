@@ -40,7 +40,6 @@ const playlistSchema = new Schema(
   { timestamps: true }
 );
 
-// Virtual field to dynamically reference the 'Track' or 'Single' model based on the 'type' of track
 playlistSchema.virtual("trackType").get(function () {
   return this.trackIds[0]?.type === "album" ? "Track" : "Single";
 });

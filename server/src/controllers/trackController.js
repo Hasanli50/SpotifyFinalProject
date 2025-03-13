@@ -162,16 +162,7 @@ const getTrackById = async (req, res) => {
         status: "fail",
       });
     }
-    // console.log(track.previewUrl.split("/").reverse()[0].split("20%")[0]);
-    // console.log(track.coverImage.split("/").reverse()[0].split(".")[0]);
-    // console.log(track.previewUrl);
-
-    // console.log("Original previewUrl:", track.previewUrl);
     const publicId = extractPublicIAudio(track);
-    console.log("Extracted Public ID for Audio:", publicId);
-
-    // const publicAudio = extractPublicIdImage(track);
-    // console.log(publicAudio);
 
     return res.status(200).json({
       data: formatObj(track),
@@ -211,7 +202,7 @@ const getAllTracks = async (req, res) => {
   }
 };
 
-// Delete a track - have bug ????
+// Delete a track 
 const deleteTrack = async (req, res) => {
   try {
     const { id } = req.params;
@@ -244,20 +235,16 @@ const deleteTrack = async (req, res) => {
     if (track.coverImage) {
       const publicId = extractPublicIdImage(track);
       const result = await cloudinary.uploader.destroy(`uploads/${publicId}`);
-      console.log("Cloudinary Response:", result);
       if (result.result !== "ok") {
         throw new Error("Failed to delete image from Cloudinary");
       }
     }
-    // console.log(track.previewUrl);
 
     if (track.previewUrl) {
       const publicId = extractPublicIAudio(track);
-      console.log(publicId);
       const result = await cloudinary.uploader.destroy(`uploads/${publicId}`, {
         resource_type: "raw",
       });
-      console.log("Cloudinary Response:", result);
       if (result.result !== "ok") {
         throw new Error("Failed to delete audio from Cloudinary");
       }

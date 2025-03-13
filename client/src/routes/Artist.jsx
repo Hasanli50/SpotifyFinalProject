@@ -10,7 +10,6 @@ import Albums from "../pages/Artist/Albums";
 import Tracks from "../pages/Artist/Tracks";
 import AddTrack from "../pages/Artist/AddTrack";
 import Profile from "../pages/Artist/Profile";
-import Setting from "../pages/Artist/Setting";
 import SideBar from "../components/artist/SideBar";
 import PremiumTracks from "../pages/Artist/PremiumTracks";
 import AboutUs from "../components/AboutUs";
@@ -35,10 +34,8 @@ const Artist = () => {
           <Route index element={<Home />} />
           <Route path="albums" element={<Albums />} />
           <Route path="tracks" element={<Tracks />} />
-          <Route path="add-track" element={<AddTrack />} />
           <Route path="edit-album/:id" element={<UpdateAlbum />} />
           <Route path="profile" element={<Profile />} />
-          <Route path="setting" element={<Setting />} />
           <Route path="premium-tracks" element={<PremiumTracks />} />
           <Route path="about-us" element={<AboutUs />} />
           <Route path="contact" element={<Contact />} />

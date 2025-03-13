@@ -10,6 +10,7 @@ import { useFormik } from "formik";
 import { updatePassSchema } from "../../schema/editPass";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const styles = {
   position: "absolute",
@@ -89,7 +90,6 @@ const Profile = () => {
     onSubmit: async (values, actions) => {
       try {
         const { password, confirmPassword } = values;
-        console.log(values);
 
         if (password === user?.password) {
           toast.error(
@@ -176,6 +176,9 @@ const Profile = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Profile</title>
+      </Helmet>
       <section className={style.box}>
         <div className={style.card}>
           <form onSubmit={handleUpdateUserInfo}>

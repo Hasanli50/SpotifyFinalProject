@@ -12,6 +12,7 @@ import {
   removeUserFromStorage,
   saveUserToStorage,
 } from "../../utils/localeStorage";
+import { Helmet } from "react-helmet-async";
 
 const ResetPass = () => {
   const navigate = useNavigate();
@@ -63,6 +64,9 @@ const ResetPass = () => {
   });
   return (
     <>
+      <Helmet>
+        <title>Reset Password</title>
+      </Helmet>
       <section className={style.resetPass}>
         <Grid container spacing={6}>
           <Grid item xs={12} sm={12} md={5} lg={5} xl={6}>

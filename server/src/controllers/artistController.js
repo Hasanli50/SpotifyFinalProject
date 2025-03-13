@@ -198,7 +198,6 @@ const login = async (req, res) => {
 
     const remainingMilliseconds = artist.banExpiresAt - Date.now();
     if (remainingMilliseconds <= 0) {
-      // Unban the artist if the ban has expired
       await Artist.findByIdAndUpdate(artist._id, {
         isBanned: false,
         banExpiresAt: null,
@@ -215,7 +214,6 @@ const login = async (req, res) => {
         status: "fail",
       });
     }
-    //check if frozen - unfreeze in login
     if (artist.isFrozen === true) {
       await Artist.findByIdAndUpdate(artist._id, { isFrozen: false });
     }
@@ -227,7 +225,7 @@ const login = async (req, res) => {
         email: artist.email,
         role: artist.role,
       },
-      token: artist.generateToken(), // generate token
+      token: artist.generateToken(), 
       message: "Artist logged in successfully",
       status: "success",
     });
@@ -257,7 +255,6 @@ const verifyAccount = async (req, res) => {
       });
     }
 
-    //send mail with nodemailer
     await transporter
       .sendMail({
         from: process.env.MAIL_USER,
@@ -486,7 +483,7 @@ const unfreezeAccount = async (req, res) => {
 const banAccount = async (req, res) => {
   try {
     const { id } = req.params;
-    const { duration } = req.body; // in minutes
+    const { duration } = req.body; 
 
     const banExpiresAt = new Date(Date.now() + duration * 60 * 1000);
     const artist = await Artist.findById(id);
@@ -681,7 +678,6 @@ const updatePassword = async (req, res) => {
   }
 };
 
-//send email
 const forgotPassword = async (req, res) => {
   try {
     const { email } = req.body;
@@ -804,7 +800,6 @@ const forgotPassword = async (req, res) => {
   }
 };
 
-//reset password
 const resetPassword = async (req, res) => {
   try {
     const { token } = req.params;
@@ -863,7 +858,6 @@ const resetPassword = async (req, res) => {
 module.exports = {
   getAllNonDeletedArtists,
   getAllDeletedArtists,
-  // updateStatus,
   getById,
   getByToken,
   register,
