@@ -26,6 +26,6 @@ export default defineConfig({
   },
 
   optimizeDeps: {
-    exclude: ["some-package-name"],
+    include: ["yup"],
   },
 });
