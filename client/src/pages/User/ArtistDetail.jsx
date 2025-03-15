@@ -36,7 +36,10 @@ const ArtistDetail = () => {
   const { data: playlists } = useFetchALlPlaylistsByUser();
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredData, setFilteredData] = useState(playlists);
-  const [isFollowing, setIsFollowing] = useState(false);
+  const [user, setUser] = useState([]);
+  const [isFollowing, setIsFollowing] = useState(
+    user?.following.includes(artist?.id)
+  );
 
   const [currentSong, setCurrentSong] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -157,7 +160,6 @@ const ArtistDetail = () => {
 
   //---------------------------------------------------
   //get user by token
-  const [user, setUser] = useState([]);
 
   useEffect(() => {
     const getUserByToken = async () => {
@@ -256,6 +258,7 @@ const ArtistDetail = () => {
 
   const addToFollow = async (artistId) => {
     try {
+      setIsFollowing(true);
       await axios.patch(
         `${BASE_URL + ENDPOINT.users}/following/${artistId}`,
         null,
@@ -265,7 +268,6 @@ const ArtistDetail = () => {
           },
         }
       );
-      setIsFollowing(true);
       toast.success("Artist added to following list!");
     } catch (error) {
       setIsFollowing(false);
