@@ -1,4 +1,4 @@
-import * as Yup from "yup";
+import * as Yup from "yup/es";
 
 
 export const loginSchema = Yup.object().shape({

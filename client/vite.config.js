@@ -19,7 +19,7 @@ export default defineConfig({
     assetsDir: "assets",
     outDir: "dist",
     rollupOptions: {
-      external: ["**/*.woff2", "**/*.woff", "**/*.ttf", "**/*.otf"],
+      external: ["**/*.woff2", "**/*.woff", "**/*.ttf", "**/*.otf", "yup"],
     },
     chunkSizeWarningLimit: 2000,
     target: "es2020",
