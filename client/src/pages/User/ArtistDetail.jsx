@@ -233,7 +233,6 @@ const ArtistDetail = () => {
     try {
       await axios.patch(
         `${BASE_URL + ENDPOINT.playlists}/${playlistId}/addTracks`,
-        null,
         {
           trackId: songId,
           type: songType,
@@ -244,10 +243,8 @@ const ArtistDetail = () => {
           },
         }
       );
-      setIsFollowing(true);
       toast.success("Song successfully added to playlist!");
     } catch (error) {
-      setIsFollowing(false);
       console.log("Error:", error.response?.data?.message || error.message);
       toast.error("Song already have in playlist!");
     }
@@ -259,14 +256,20 @@ const ArtistDetail = () => {
 
   const addToFollow = async (artistId) => {
     try {
-      await axios.patch(`${BASE_URL + ENDPOINT.users}/following/${artistId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await axios.patch(
+        `${BASE_URL + ENDPOINT.users}/following/${artistId}`,
+        null,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setIsFollowing(true);
       toast.success("Artist added to following list!");
     } catch (error) {
-      console.log(error);
+      setIsFollowing(false);
+      console.log("Error:", error.response?.data?.message || error.message);
     }
   };
 
