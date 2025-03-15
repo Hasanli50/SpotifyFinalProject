@@ -12,7 +12,7 @@ export default defineConfig({
     alias: {
       "@assets": path.resolve(__dirname, "src/assets"),
       "@components": path.resolve(__dirname, "src/components"),
-      yup: "yup",
+      "yup":  path.resolve(__dirname, "node_modules/yup"),
     },
   },
 
@@ -20,7 +20,7 @@ export default defineConfig({
     assetsDir: "assets",
     outDir: "dist",
     rollupOptions: {
-      external: ["**/*.woff2", "**/*.woff", "**/*.ttf", "**/*.otf", "yup"],
+      external: ["**/*.woff2", "**/*.woff", "**/*.ttf", "**/*.otf"],
     },
     chunkSizeWarningLimit: 2000,
     target: "es2020",
