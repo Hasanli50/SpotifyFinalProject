@@ -21,11 +21,11 @@ export default defineConfig({
     rollupOptions: {
       external: ["**/*.woff2", "**/*.woff", "**/*.ttf", "**/*.otf", "yup"],
     },
-    chunkSizeWarningLimit: 2000, 
+    chunkSizeWarningLimit: 2000,
+    target: "es2020",
   },
 
-  
   optimizeDeps: {
-    exclude: ["some-package-name"], 
+    exclude: ["some-package-name"],
   },
 });
