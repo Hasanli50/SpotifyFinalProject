@@ -38,7 +38,7 @@ const ArtistDetail = () => {
   const [filteredData, setFilteredData] = useState(playlists);
   const [user, setUser] = useState([]);
   const [isFollowing, setIsFollowing] = useState(
-    user?.following.includes(artist?.id)
+    user?.following?.includes(artist?.id)
   );
 
   const [currentSong, setCurrentSong] = useState(null);
