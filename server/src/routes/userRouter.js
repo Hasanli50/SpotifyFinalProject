@@ -18,6 +18,8 @@ const {
   updateUserInfo,
   updatePassword,
   payment,
+  addtoFollowing,
+  deleteFollow,
 } = require("../controllers/userController.js");
 const validateRegistration = require("../middlewares/userMiddlewares/registerValidator.js");
 const { verifyToken } = require("../middlewares/verifyToken.js");
@@ -122,5 +124,8 @@ router.get("/logout", (req, res) => {
 });
 
 router.post("/create-payment-intent", verifyToken, checkPremiumStatus, payment);
+
+router.patch("/following/:artistId", verifyToken, addtoFollowing);
+router.patch("/delete-follow/:artistId", verifyToken, deleteFollow);
 
 module.exports = router;

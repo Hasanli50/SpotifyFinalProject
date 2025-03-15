@@ -29,13 +29,13 @@ const userSchema = new Schema(
       enum: ["admin", "user"],
       default: "user",
     },
-    followers: {
-      type: Number,
-      default: 0,
-    },
+    // followers: {
+    //   type: Number,
+    //   default: 0,
+    // },
     following: {
-      type: Number,
-      default: 0,
+      type: [Schema.Types.ObjectId],
+      ref: "Artist",
     },
     playlistCount: {
       type: Number,

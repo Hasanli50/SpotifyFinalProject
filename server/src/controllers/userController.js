@@ -8,6 +8,8 @@ const { cloudinary } = require("../config/imageCloudinary.js");
 const Stripe = require("stripe");
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 const cron = require("node-cron");
+const Artist = require("../models/artist.js");
+const mongoose = require("mongoose");
 
 const getAllNonDeletedUsers = async (_, res) => {
   try {
@@ -945,6 +947,108 @@ const payment = async (req, res) => {
   }
 };
 
+const addtoFollowing = async (req, res) => {
+  try {
+    const { id } = req.user;
+    const { artistId } = req.params;
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+        status: "fail",
+        data: {},
+      });
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(artistId)) {
+      return res.status(400).json({
+        message: "Invalid artist ID",
+        status: "fail",
+        data: {},
+      });
+    }
+
+    const artist = await Artist.findById({ _id: artistId });
+    if (!artist) {
+      return res.status(404).json({
+        message: "Artist not found",
+        status: "fail",
+        data: {},
+      });
+    }
+
+    if (!user.following.includes(artistId)) {
+      user.following.push(artistId);
+      await user.save();
+
+      artist.followers += 1;
+      await artist.save();
+    }
+
+    res.status(200).json({
+      message: "Artist successfully added to followers",
+      status: "success",
+      data: user,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error?.message || "Internal server error",
+      status: "fail",
+    });
+  }
+};
+
+const deleteFollow = async (req, res) => {
+  try {
+    const { id } = req.user;
+    const { artistId } = req.params;
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+        status: "fail",
+        data: {},
+      });
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(artistId)) {
+      return res.status(400).json({
+        message: "Invalid artist ID",
+        status: "fail",
+        data: {},
+      });
+    }
+
+    const artist = await Artist.findById({ _id: artistId });
+    if (!artist) {
+      return res.status(404).json({
+        message: "Artist not found",
+        status: "fail",
+        data: {},
+      });
+    }
+
+    if (user.following.includes(artistId)) {
+      user.following.pop(artistId);
+      await user.save();
+
+      artist.followers -= 1;
+      await artist.save();
+    }
+
+    res.status(200).json({
+      message: "Artist successfully added to followers",
+      status: "success",
+      data: user,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error?.message || "Internal server error",
+      status: "fail",
+    });
+  }
+};
+
 const updatePremiumStatus = async () => {
   try {
     const users = await User.find({
@@ -1088,4 +1192,6 @@ module.exports = {
   updatePassword,
   updateUserInfo,
   payment,
+  addtoFollowing,
+  deleteFollow,
 };
