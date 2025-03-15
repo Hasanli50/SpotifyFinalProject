@@ -25,8 +25,9 @@ import Discover from "../pages/User/Discover";
 import GenreDetail from "../pages/User/GenreDetail";
 import CheckoutForm from "../pages/User/CheckoutForm";
 import Premium from "../pages/User/Premium";
-import {UserLoginRedirect} from "./ProtectedRoute";
+import { UserLoginRedirect } from "./ProtectedRoute";
 import PremiumTracks from "../pages/User/PremiumTracks";
+import Following from "../pages/User/Following";
 
 const User = () => {
   return (
@@ -60,6 +61,7 @@ const User = () => {
           <Route path="premium" element={<Premium />} />
           <Route path="checkout" element={<CheckoutForm />} />
           <Route path="premium-songs" element={<PremiumTracks />} />
+          <Route path="following" element={<Following />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

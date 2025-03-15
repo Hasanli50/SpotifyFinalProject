@@ -36,6 +36,7 @@ const ArtistDetail = () => {
   const { data: playlists } = useFetchALlPlaylistsByUser();
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredData, setFilteredData] = useState(playlists);
+  const [isFollowing, setIsFollowing] = useState(false);
 
   const [currentSong, setCurrentSong] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -232,6 +233,7 @@ const ArtistDetail = () => {
     try {
       await axios.patch(
         `${BASE_URL + ENDPOINT.playlists}/${playlistId}/addTracks`,
+        null,
         {
           trackId: songId,
           type: songType,
@@ -242,8 +244,10 @@ const ArtistDetail = () => {
           },
         }
       );
+      setIsFollowing(true);
       toast.success("Song successfully added to playlist!");
     } catch (error) {
+      setIsFollowing(false);
       console.log("Error:", error.response?.data?.message || error.message);
       toast.error("Song already have in playlist!");
     }
@@ -251,6 +255,19 @@ const ArtistDetail = () => {
 
   const handleCreateNewPlaylist = (newPlaylist) => {
     setFilteredData((prevData) => [...prevData, newPlaylist]);
+  };
+
+  const addToFollow = async (artistId) => {
+    try {
+      await axios.patch(`${BASE_URL + ENDPOINT.users}/following/${artistId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      toast.success("Artist added to following list!");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -264,15 +281,24 @@ const ArtistDetail = () => {
             <div className={style.profileImgBox}>
               <img
                 className={style.profileImg}
-                src={artist.image}
+                src={artist?.image}
                 alt="profile image"
               />
             </div>
           </Grid>
           <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
             <div className={style.text}>
-              <p className={style.username}>{artist.username}</p>
-              <p className={style.description}>{artist.description}</p>
+              <div className={style.artistInfo}>
+                <p className={style.username}>{artist?.username}</p>
+                <button
+                  disabled={isFollowing}
+                  onClick={() => addToFollow(artist?.id)}
+                  className={style.followBtn}
+                >
+                  {isFollowing ? "Following" : "Follow"}
+                </button>
+              </div>
+              <p className={style.description}>{artist?.description}</p>
             </div>
           </Grid>
         </Grid>

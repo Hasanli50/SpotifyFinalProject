@@ -24,7 +24,8 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import FeaturedPlayListIcon from "@mui/icons-material/FeaturedPlayList";
 import AlbumIcon from "@mui/icons-material/Album";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
-import AudiotrackIcon from '@mui/icons-material/Audiotrack';
+import AudiotrackIcon from "@mui/icons-material/Audiotrack";
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 const { Header, Sider, Content } = Layout;
 
@@ -46,6 +47,7 @@ const SideBar = () => {
     10: "none",
     11: "none",
     12: "none",
+    13: "none",
   };
 
   const headerHeight = selectedKey === "1" ? "100vh" : "";
@@ -103,7 +105,7 @@ const SideBar = () => {
           {collapsed ? "M" : "Melodies"}
         </div>
         <Menu
-        className={style.user}
+          className={style.user}
           theme="dark"
           mode="inline"
           style={{ backgroundColor: "#000" }}
@@ -147,37 +149,40 @@ const SideBar = () => {
                     icon: <PersonIcon />,
                     label: <Link to={"/profile"}>Profile</Link>,
                   },
+                  {
+                    key: "8",
+                    icon: <PersonAddIcon />,
+                    label: <Link to={"/following"}>Following</Link>,
+                  },
                 ]
               : []),
 
-            ...(user &&
-            Object.keys(user).length > 0 &&
-            user.isPremium === true
+            ...(user && Object.keys(user).length > 0 && user.isPremium === true
               ? [
                   {
-                    key: "8",
+                    key: "9",
                     icon: <AudiotrackIcon />,
                     label: <Link to={"/premium-songs"}>Premium Songs</Link>,
                   },
                 ]
               : []),
             {
-              key: "9",
+              key: "10",
               icon: <WorkspacePremiumIcon />,
               label: <Link to={"/premium"}>Premium</Link>,
             },
             {
-              key: "10",
+              key: "11",
               icon: <InfoIcon />,
               label: <Link to={"/about-us"}>About Us</Link>,
             },
             {
-              key: "11",
+              key: "12",
               icon: <PhoneIcon />,
               label: <Link to={"/contact"}>Contact</Link>,
             },
             {
-              key: "12",
+              key: "13",
               icon: <LogoutOutlined />,
               label: <p onClick={handleLogout}>Logout</p>,
             },
