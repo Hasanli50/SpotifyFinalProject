@@ -17,16 +17,15 @@ export default defineConfig({
 
   build: {
     assetsDir: "assets",
+    outDir: 'dist', 
     rollupOptions: {
       external: ["**/*.woff2", "**/*.woff", "**/*.ttf", "**/*.otf"],
     },
-    build: {
-      outDir: 'dist' 
-    }
+    chunkSizeWarningLimit: 1000, // You can increase the chunk size limit here if needed
   },
 
   // Add this block to exclude dependencies from optimization
   optimizeDeps: {
-    exclude: ['some-package-name']  // Replace 'some-package-name' with the actual package name causing issues
+    exclude: ['some-package-name'],  // Replace 'some-package-name' with the actual package name causing issues
   },
 });
