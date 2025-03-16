@@ -30,7 +30,17 @@ const ProtectedRouteAdmin = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(isAuthAdmin());
 
   useEffect(() => {
+    const handleStorageChange = () => {
+      setIsAuthenticated(isAuthAdmin());
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
     setIsAuthenticated(isAuthAdmin());
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
   }, []);
 
   if (!isAuthenticated) {
