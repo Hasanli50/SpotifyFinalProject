@@ -20,8 +20,7 @@ export const removeUserFromStorage = () => {
 };
 
 export const getUserFromStorage = () => {
-  const data = localStorage.getItem(KEY);
-  return data ? JSON.parse(data) : null;
+  return localStorage.getItem(KEY);
 };
 
 export const getFavorites = () => {
