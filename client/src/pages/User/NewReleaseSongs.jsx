@@ -99,7 +99,7 @@ const NewReleaseSongs = () => {
         <div
           style={{
             display: "flex",
-            gap: "40px",
+            gap: "37px",
             flexWrap: "wrap",
             alignItems: "center",
           }}
