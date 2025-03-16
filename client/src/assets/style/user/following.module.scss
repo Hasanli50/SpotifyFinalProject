@@ -1,0 +1,21 @@
+@use "../../scss/variables" as *;
+@use "../../scss/extends" as *;
+
+.inputBox {
+  padding-left: 50px;
+  max-width: 335px;
+  position: relative;
+  margin-bottom: 30px;
+  @media only screen and (max-width: 520px) {
+    padding: 0 10px;
+  }
+}
+.input {
+  @extend %input;
+}
+.input:focus {
+  outline: none;
+}
+.searchIcon {
+  @extend %search-icon;
+}
