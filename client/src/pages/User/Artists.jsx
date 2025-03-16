@@ -81,12 +81,12 @@ const Artists = () => {
                   <div className={style.profileImgBox}>
                     <img
                       className={style.profileImg}
-                      src={artist.image}
+                      src={artist?.image}
                       alt="profile image"
                     />
                   </div>
                   <p style={{ fontSize: "16px", color: "#fff" }}>
-                    {artist.username}
+                    {artist?.username}
                   </p>
                 </div>
               </Link>

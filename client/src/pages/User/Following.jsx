@@ -30,8 +30,8 @@ function Following() {
 
   useEffect(() => {
     if (data && user) {
-      const followingArtist = data.filter((artist) =>
-        user.following?.includes(artist.id)
+      const followingArtist = data?.filter((artist) =>
+        user?.following?.includes(artist?.id)
       );
       setArtists(followingArtist);
     }
@@ -81,14 +81,14 @@ function Following() {
                   <div className={style.songsCard__imgBox}>
                     <img
                       className={style.songsCard__imgBox__img}
-                      src={artist.coverImage}
-                      alt="coverImage"
+                      src={artist.image}
+                      alt="image"
                     />
                   </div>
                   <div>
-                    <p className={style.letterTop}>{artist.name}</p>
+                    <p className={style.letterTop}>{artist?.username}</p>
                     <p className={style.letterBottom}>
-                      {artist.artistId.username}
+                      {artist?.trackIds?.length}
                     </p>
                   </div>
                 </div>
