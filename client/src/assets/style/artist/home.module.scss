@@ -44,6 +44,7 @@
 }
 .songsCard__imgBox__img {
   @extend %img;
+  height: 60px;
 }
 .songsCard:hover {
   .songsCard__imgBox__img {
@@ -79,6 +80,7 @@
 }
 .img {
   @extend %img;
+  height: 150px;
 }
 .card:hover {
   .img {

@@ -2,12 +2,16 @@
 @use "../../scss/extends" as ext;
 
 .inputBox {
-  @extend %input-box;
+  padding-left: 50px;
+  max-width: 335px;
+  position: relative;
   margin-bottom: 30px;
+  @media only screen and (max-width: 520px) {
+    padding: 0 10px;
+  }
 }
 .input {
   @extend %input;
-  width: 335px;
 }
 .input:focus {
   outline: none;
@@ -45,6 +49,7 @@
 }
 .songsCard__imgBox__img {
   @extend %img;
+  height: 60px;
 }
 .songsCard:hover {
   .songsCard__imgBox__img {
@@ -194,9 +199,6 @@
 .allAlbums {
   padding: 0 50px;
   margin-bottom: 50px;
-  @media only screen and (max-width: 520px) {
-    padding: 10px;
-  }
 }
 .albums {
   display: flex;
@@ -219,6 +221,7 @@
 }
 .img {
   @extend %img;
+  height: 150px;
 }
 .card:hover {
   .img {

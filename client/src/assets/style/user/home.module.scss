@@ -23,6 +23,7 @@
 }
 .img {
   @extend %img;
+  height: 150px;
 }
 .card:hover {
   .img {
@@ -87,6 +88,7 @@
 }
 .songsCard__imgBox__img {
   @extend %img;
+  height: 60px;
 }
 .songsCard__letter {
   @media only screen and (max-width: 660px) {

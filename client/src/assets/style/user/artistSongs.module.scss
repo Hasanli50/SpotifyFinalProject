@@ -49,6 +49,7 @@
 }
 .img {
   @extend %img;
+  height: 150px;
 }
 .card:hover {
   .img {
