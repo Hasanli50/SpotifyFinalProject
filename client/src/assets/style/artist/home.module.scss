@@ -4,19 +4,19 @@
 .main {
 }
 .albums {
-  padding: 4% 50px;
+  padding: 1% 50px;
   @extend %section-margin;
 }
 .singles {
-  padding: 4% 50px;
+  padding: 1% 50px;
   @extend %section-margin;
 }
 .songs {
-  padding: 4% 50px;
+  padding: 1% 50px;
   @extend %section-margin;
 }
 .trendingSngs {
-  padding: 4% 50px;
+  padding: 1% 50px;
   @extend %section-margin;
   @media only screen and (max-width: 520px) {
     padding: 10px;
