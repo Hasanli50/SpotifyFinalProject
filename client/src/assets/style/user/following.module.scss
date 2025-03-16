@@ -37,15 +37,33 @@
   @extend %songsCard-imgBox;
   position: relative;
 }
+.songsCard__imgBox__img {
+  @extend %img;
+}
+.songsCard:hover {
+  .songsCard__imgBox__img {
+    transform: scale(1.1);
+  }
+}
 .letterTop {
   @extend %letter-top;
+  transition: 0.3s ease-in-out;
+}
+.letterTop:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(238, 16, 176, 1) 12%,
+    rgba(14, 158, 239, 1) 100%
+  );
+  background-clip: text;
+  color: transparent;
 }
 .letterBottom {
   @extend %letter-bottom;
 }
 .followBtn {
-  padding: 7px 20px;
-  border-radius: 20px;
+  padding: 12px 20px;
+  border-radius: 6px;
   background: linear-gradient(
     90deg,
     rgba(247, 169, 33, 1) 0%,

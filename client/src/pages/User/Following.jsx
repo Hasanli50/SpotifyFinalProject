@@ -52,6 +52,14 @@ function Following() {
   }, [data, searchQuery, artists]);
 
   const deleteFollowing = async (artistId) => {
+    const updatedArtists = artists.filter((artist) => artist.id !== artistId);
+    const updatedFilteredData = filteredData.filter(
+      (artist) => artist.id !== artistId
+    );
+
+    setArtists(updatedArtists);
+    setFilteredData(updatedFilteredData);
+
     try {
       await axios.patch(
         `${BASE_URL + ENDPOINT.users}/delete-follow/${artistId}`,
@@ -64,6 +72,9 @@ function Following() {
       );
       toast.success("Artist deleted from following list!");
     } catch (error) {
+      setArtists((prevState) => [...prevState]);
+      setFilteredData((prevState) => [...prevState]);
+      toast.error("Error deleting artist from following list.");
       console.log("Error:", error.response?.data?.message || error.message);
     }
   };
