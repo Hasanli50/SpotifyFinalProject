@@ -4,6 +4,20 @@ import { getUserFromStorage } from "../utils/localeStorage";
 import Login from "../pages/User/Login";
 import { useEffect, useState } from "react";
 
+//------------------------------------------------------------
+// for user
+const isAuthUser = () => {
+  return localStorage.getItem("userauth") === "true";
+};
+
+const UserLoginRedirect = () => {
+  if (isAuthUser()) {
+    return <Navigate to="/" replace />;
+  }
+
+  return <Login />;
+};
+
 //for artist
 const isAuthArtist = () => {
   return localStorage.getItem("artistauth") === "true";
@@ -30,38 +44,16 @@ const ProtectedRouteAdmin = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(isAuthAdmin());
 
   useEffect(() => {
-    const handleStorageChange = () => {
-      setIsAuthenticated(isAuthAdmin());
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-
+    console.log("Admin Auth Status:", isAuthAdmin());
     setIsAuthenticated(isAuthAdmin());
-
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-    };
   }, []);
 
   if (!isAuthenticated) {
+    console.log("Redirecting to Admin Login...");
     return <Navigate to={"/admin/login"} replace />;
   }
 
   return children;
-};
-
-//------------------------------------------------------------
-// for user
-const isAuthUser = () => {
-  return localStorage.getItem("userauth") === "true";
-};
-
-const UserLoginRedirect = () => {
-  if (isAuthUser()) {
-    return <Navigate to="/" replace />;
-  }
-
-  return <Login />;
 };
 
 export { ProtectedRoute, ProtectedRouteAdmin, UserLoginRedirect };
