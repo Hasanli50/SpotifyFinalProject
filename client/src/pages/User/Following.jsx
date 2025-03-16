@@ -60,6 +60,16 @@ function Following() {
     setArtists(updatedArtists);
     setFilteredData(updatedFilteredData);
 
+    setUser((prevState) => {
+      const updatedFollowing = prevState?.following?.filter(
+        (id) => id !== artistId
+      );
+      return {
+        ...prevState,
+        following: updatedFollowing,
+      };
+    });
+
     try {
       await axios.patch(
         `${BASE_URL + ENDPOINT.users}/delete-follow/${artistId}`,

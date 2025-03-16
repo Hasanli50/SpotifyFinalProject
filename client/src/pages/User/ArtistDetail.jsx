@@ -36,7 +36,6 @@ const ArtistDetail = () => {
   const { data: playlists } = useFetchALlPlaylistsByUser();
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredData, setFilteredData] = useState(playlists);
-  const [followingStatus, setFollowingStatus] = useState({});
 
   const [currentSong, setCurrentSong] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -255,20 +254,14 @@ const ArtistDetail = () => {
   };
 
   const addToFollow = async (artistId) => {
-    setUser((prevState) => {
-      const updatedFollowing = [...prevState.following, artistId];
-      return {
-        ...prevState,
-        following: updatedFollowing,
-      };
-    });
-
-    setFollowingStatus((prevStatus) => ({
-      ...prevStatus,
-      [artistId]: "Following",
-    }));
-
     try {
+      setUser((prevState) => {
+        const updatedFollowing = [...prevState.following, artistId];
+        return {
+          ...prevState,
+          following: updatedFollowing,
+        };
+      });
       await axios.patch(
         `${BASE_URL + ENDPOINT.users}/following/${artistId}`,
         null,
@@ -280,17 +273,7 @@ const ArtistDetail = () => {
       );
       toast.success("Artist added to following list!");
     } catch (error) {
-      setUser((prevState) => ({
-        ...prevState,
-        following: prevState.following.filter((id) => id !== artistId),
-      }));
-
-      setFollowingStatus((prevStatus) => ({
-        ...prevStatus,
-        [artistId]: "Follow",
-      }));
-      toast.error("Failed to follow the artist. Please try again.");
-      console.log(error);
+      console.log("Error:", error.response?.data?.message || error.message);
     }
   };
 
@@ -315,11 +298,13 @@ const ArtistDetail = () => {
               <div className={style.artistInfo}>
                 <p className={style.username}>{artist?.username}</p>
                 <button
-                  disabled={followingStatus[artist?.id] === "Following"}
+                  disabled={user?.following?.includes(artist?.id)}
                   onClick={() => addToFollow(artist?.id)}
                   className={style.followBtn}
                 >
-                  {followingStatus[artist?.id] || "Follow"}
+                  {user?.following?.includes(artist?.id)
+                    ? "Following"
+                    : "Follow"}
                 </button>
               </div>
               <p className={style.description}>{artist?.description}</p>

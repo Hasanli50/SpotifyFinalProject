@@ -32,6 +32,7 @@
 }
 .songsCard {
   @extend %songs-card;
+  padding-right: 10px;
 }
 .songsCard__imgBox {
   @extend %songsCard-imgBox;
