@@ -13,7 +13,7 @@ axiosInstance.interceptors.request.use(
     const token = localStorage.getItem("authToken");
 
     if (token) {
-      config.headers["Authorization"] = `Bearer ${token}`; 
+      config.headers["Authorization"] = `Bearer ${token}`;
     }
     return config;
   },
@@ -21,13 +21,19 @@ axiosInstance.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-  
+
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response && error.response.status === 401) {
       localStorage.removeItem("authToken");
-      window.location.href = "/artist/login";
+      if (localStorage.getItem("adminauth") === "true") {
+        window.location.href = "/admin/login";
+      } else if (localStorage.getItem("artistauth") === "true") {
+        window.location.href = "/artist/login";
+      } else {
+        window.location.href = "/login"; 
+      }
     }
     return Promise.reject(error);
   }
