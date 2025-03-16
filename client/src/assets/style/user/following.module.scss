@@ -1,6 +1,13 @@
 @use "../../scss/variables" as *;
 @use "../../scss/extends" as *;
 
+.following {
+  padding: 0 50px;
+  margin-bottom: 30px;
+  @media only screen and (max-width: 520px) {
+    padding: 10px;
+  }
+}
 .inputBox {
   padding-left: 50px;
   max-width: 335px;

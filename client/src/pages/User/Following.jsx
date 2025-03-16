@@ -1,6 +1,6 @@
 import { useAllNonDeletedArtists } from "../../hooks/useArtist";
 import style from "../../assets/style/user/following.module.scss";
-// import { Link } from "react-router";
+import { Link } from "react-router";
 import SearchIcon from "@mui/icons-material/Search";
 import { useEffect, useState } from "react";
 import { getUserFromStorage } from "../../utils/localeStorage";
@@ -9,6 +9,7 @@ import { Helmet } from "react-helmet-async";
 import axios from "axios";
 import { BASE_URL, ENDPOINT } from "../../api/endpoint";
 import toast from "react-hot-toast";
+import Grid from "@mui/material/Grid";
 
 function Following() {
   const { data } = useAllNonDeletedArtists();
@@ -83,44 +84,51 @@ function Following() {
         <SearchIcon className={style.searchIcon} />
       </div>
 
-      <section className={style.popular}>
+      <section className={style.following}>
         <p className={style.heading}>
           Following: {user?.following?.length || 0}
         </p>
-        {filteredData?.length > 0 &&
-          filteredData?.map((artist) => (
-            <div className={style.box} key={artist.id}>
-              <div className={style.songsCard}>
-                <div
-                  style={{
-                    display: "flex",
-                    gap: "7px",
-                    alignItems: "center",
-                  }}
-                >
-                  <div className={style.songsCard__imgBox}>
-                    <img
-                      className={style.songsCard__imgBox__img}
-                      src={artist.image}
-                      alt="image"
-                    />
+        {filteredData?.length > 0 && (
+          <Grid container spacing={2}>
+            {filteredData?.map((artist) => (
+              <Grid item xs={12} sm={12} md={6} lg={6} xl={6} key={artist.id}>
+                <div className={style.box}>
+                  <div className={style.songsCard}>
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "7px",
+                        alignItems: "center",
+                      }}
+                    >
+                      <div className={style.songsCard__imgBox}>
+                        <img
+                          className={style.songsCard__imgBox__img}
+                          src={artist.image}
+                          alt="image"
+                        />
+                      </div>
+                      <div>
+                        <Link to={`/artists/${artist?.id}`}>
+                          <p className={style.letterTop}>{artist?.username}</p>
+                        </Link>
+                        <p className={style.letterBottom}>
+                          Songs: {artist?.trackIds?.length}
+                        </p>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => deleteFollowing(artist?.id)}
+                      className={style.followBtn}
+                    >
+                      Following
+                    </button>
                   </div>
-                  <div>
-                    <p className={style.letterTop}>{artist?.username}</p>
-                    <p className={style.letterBottom}>
-                      Songs: {artist?.trackIds?.length}
-                    </p>
-                  </div>
-                  <button
-                    onClick={() => deleteFollowing(artist?.id)}
-                    className={style.followBtn}
-                  >
-                    Following
-                  </button>
                 </div>
-              </div>
-            </div>
-          ))}
+              </Grid>
+            ))}
+          </Grid>
+        )}
       </section>
     </>
   );
