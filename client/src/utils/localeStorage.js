@@ -1,7 +1,7 @@
 const KEY = "token";
 
 export const saveUserToStorage = (token) => {
-  localStorage.setItem(KEY, JSON.stringify(token));
+  localStorage.setItem(KEY, token);
 };
 
 export const removeArtistFromStorage = () => {
