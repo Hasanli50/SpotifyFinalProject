@@ -5,7 +5,6 @@ import Home from "../pages/Artist/Home";
 import ForgotPass from "../pages/Artist/ForgotPass";
 import ResetPass from "../pages/Artist/ResetPass";
 import NotFound from "../pages/Artist/NotFound";
-import { ProtectedRoute } from "./ProtectedRoute";
 import Albums from "../pages/Artist/Albums";
 import Tracks from "../pages/Artist/Tracks";
 import AddTrack from "../pages/Artist/AddTrack";
@@ -15,6 +14,7 @@ import PremiumTracks from "../pages/Artist/PremiumTracks";
 import AboutUs from "../components/AboutUs";
 import Contact from "../components/Contact";
 import UpdateAlbum from "../components/artist/UpdateAlbum";
+import ProtectedRouteArtist from "./ProtectedRouteArtist";
 const Artist = () => {
   return (
     <>
@@ -26,9 +26,9 @@ const Artist = () => {
         <Route
           path="/"
           element={
-            <ProtectedRoute>
+            <ProtectedRouteArtist>
               <SideBar />
-            </ProtectedRoute>
+            </ProtectedRouteArtist>
           }
         >
           <Route index element={<Home />} />

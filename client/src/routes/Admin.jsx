@@ -1,13 +1,13 @@
 import { Route, Routes } from "react-router";
 import Login from "../pages/Admin/Login";
 import Home from "../pages/Admin/Home";
-import { ProtectedRouteAdmin } from "../routes/ProtectedRoute";
 import SideBar from "../components/admin/SideBar";
 import NotFound from "../pages/Admin/NotFound";
 import Arists from "../pages/Admin/Arists";
 import Users from "../pages/Admin/Users";
 import Messages from "../pages/Admin/Messages";
 import Profile from "../pages/Admin/Profile";
+import ProtectedRouteAdmin from "./ProtectedRouteAdmin";
 const Admin = () => {
   return (
     <>

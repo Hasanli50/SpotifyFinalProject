@@ -25,9 +25,9 @@ import Discover from "../pages/User/Discover";
 import GenreDetail from "../pages/User/GenreDetail";
 import CheckoutForm from "../pages/User/CheckoutForm";
 import Premium from "../pages/User/Premium";
-import { UserLoginRedirect } from "./ProtectedRoute";
 import PremiumTracks from "../pages/User/PremiumTracks";
 import Following from "../pages/User/Following";
+import UserLoginRedirect from "./ProtectedRouteUser";
 
 const User = () => {
   return (
