@@ -8,7 +8,7 @@ import Arists from "../pages/Admin/Arists";
 import Users from "../pages/Admin/Users";
 import Messages from "../pages/Admin/Messages";
 import Profile from "../pages/Admin/Profile";
-const User = () => {
+const Admin = () => {
   return (
     <>
       <Routes>
@@ -34,4 +34,4 @@ const User = () => {
   );
 };
 
-export default User;
+export default Admin;

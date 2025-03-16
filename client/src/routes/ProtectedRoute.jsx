@@ -2,9 +2,10 @@
 import { Navigate } from "react-router";
 import { getUserFromStorage } from "../utils/localeStorage";
 import Login from "../pages/User/Login";
+import { useEffect, useState } from "react";
 
 //for artist
-export const isAuthArtist = () => {
+const isAuthArtist = () => {
   return localStorage.getItem("artistauth") === "true";
 };
 
@@ -21,20 +22,27 @@ const ProtectedRoute = ({ children }) => {
 
 //-----------------------------------------------------------
 //for admin
-export const isAuthAdmin = () => {
+const isAuthAdmin = () => {
   return localStorage.getItem("adminauth") === "true";
 };
 
 const ProtectedRouteAdmin = ({ children }) => {
-  const user = getUserFromStorage();
-  const candition =
-    isAuthAdmin() && user ? children : <Navigate to={"/admin/login"} replace />;
-  return candition;
+  const [isAuthenticated, setIsAuthenticated] = useState(isAuthAdmin());
+
+  useEffect(() => {
+    setIsAuthenticated(isAuthAdmin());
+  }, []);
+
+  if (!isAuthenticated) {
+    return <Navigate to={"/admin/login"} replace />;
+  }
+
+  return children;
 };
 
 //------------------------------------------------------------
 // for user
-export const isAuthUser = () => {
+const isAuthUser = () => {
   return localStorage.getItem("userauth") === "true";
 };
 
