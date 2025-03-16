@@ -260,7 +260,7 @@ const Tracks = () => {
                   </div>
                 ))
             ) : (
-              <p className={style.sentence}>Artist dont have single songs</p>
+              <p className={style.sentence}>You dont have single songs</p>
             )}
           </div>
         </section>
