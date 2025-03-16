@@ -6,7 +6,6 @@ import {
   SearchOutlined,
   HeartOutlined,
   LogoutOutlined,
-  UserAddOutlined,
 } from "@ant-design/icons";
 import { Button, Layout, Menu } from "antd";
 import style from "../../assets/style/user/sideBar.module.scss";
@@ -267,9 +266,6 @@ const SideBar = () => {
               <p className={style.letter} style={{ color: "#fff" }}>
                 Welcome back,{" "}
                 <span style={{ color: "#EE10B0" }}>{user?.username}!</span>
-              </p>
-              <p className={style.paragraph} style={{ color: "#d1d5db" }}>
-                Followers: {user?.followers} <UserAddOutlined />
               </p>
             </div>
           )}

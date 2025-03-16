@@ -2,8 +2,7 @@
 @use "../../scss/extends" as ext;
 
 .inputBox {
-  padding-left: 50px;
-  max-width: 335px;
+  max-width: 285px;
   position: relative;
   margin-bottom: 30px;
   @media only screen and (max-width: 520px) {
