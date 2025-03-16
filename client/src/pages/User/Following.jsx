@@ -6,6 +6,9 @@ import { useEffect, useState } from "react";
 import { getUserFromStorage } from "../../utils/localeStorage";
 import { fetchUserByToken } from "../../utils/reusableFunc";
 import { Helmet } from "react-helmet-async";
+import axios from "axios";
+import { BASE_URL, ENDPOINT } from "../../api/endpoint";
+import toast from "react-hot-toast";
 
 function Following() {
   const { data } = useAllNonDeletedArtists();
@@ -46,6 +49,23 @@ function Following() {
     );
     setFilteredData(artist);
   }, [data, searchQuery, artists]);
+
+  const deleteFollowing = async (artistId) => {
+    try {
+      await axios.patch(
+        `${BASE_URL + ENDPOINT.users}/delete-follow/${artistId}`,
+        null,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      toast.success("Artist deleted from following list!");
+    } catch (error) {
+      console.log("Error:", error.response?.data?.message || error.message);
+    }
+  };
 
   return (
     <>
@@ -88,9 +108,15 @@ function Following() {
                   <div>
                     <p className={style.letterTop}>{artist?.username}</p>
                     <p className={style.letterBottom}>
-                      {artist?.trackIds?.length}
+                      Songs: {artist?.trackIds?.length}
                     </p>
                   </div>
+                  <button
+                    onClick={() => deleteFollowing(artist?.id)}
+                    className={style.followBtn}
+                  >
+                    Following
+                  </button>
                 </div>
               </div>
             </div>

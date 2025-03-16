@@ -253,22 +253,22 @@ const ArtistDetail = () => {
     setFilteredData((prevData) => [...prevData, newPlaylist]);
   };
 
-    const addToFollow = async (artistId) => {
-      try {
-        await axios.patch(
-          `${BASE_URL + ENDPOINT.users}/following/${artistId}`,
-          null,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        toast.success("Artist added to following list!");
-      } catch (error) {
-        console.log("Error:", error.response?.data?.message || error.message);
-      }
-    };
+  const addToFollow = async (artistId) => {
+    try {
+      await axios.patch(
+        `${BASE_URL + ENDPOINT.users}/following/${artistId}`,
+        null,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      toast.success("Artist added to following list!");
+    } catch (error) {
+      console.log("Error:", error.response?.data?.message || error.message);
+    }
+  };
 
   return (
     <>

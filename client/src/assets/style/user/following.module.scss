@@ -19,3 +19,67 @@
 .searchIcon {
   @extend %search-icon;
 }
+
+.heading {
+  @extend %heading;
+}
+.songsCard {
+  @extend %songs-card;
+}
+.songsCard__imgBox {
+  @extend %songsCard-imgBox;
+  position: relative;
+}
+.letterTop {
+  @extend %letter-top;
+}
+.letterBottom {
+  @extend %letter-bottom;
+}
+.followBtn {
+  padding: 7px 20px;
+  border-radius: 20px;
+  background: linear-gradient(
+    90deg,
+    rgba(247, 169, 33, 1) 0%,
+    rgba(252, 44, 93, 1) 33%,
+    rgba(191, 18, 153, 1) 65%,
+    rgba(103, 48, 202, 1) 100%
+  );
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.followBtn::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300%;
+  height: 300%;
+  background: rgba(255, 255, 255, 0.1);
+  transition: width 0.3s ease, height 0.3s ease, top 0.3s ease, left 0.3s ease;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.followBtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(103, 48, 202, 0.7);
+  background: linear-gradient(
+    90deg,
+    rgba(238, 16, 176, 1) 12%,
+    rgba(14, 158, 239, 1) 100%
+  );
+}
+
+.followBtn:hover::after {
+  width: 500%;
+  height: 500%;
+  top: -150%;
+  left: -150%;
+}
