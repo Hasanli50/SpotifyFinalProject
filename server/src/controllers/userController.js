@@ -762,7 +762,7 @@ const forgotPassword = async (req, res) => {
   }
 };
 
-//reset password
+//reset password------------------------------------------------
 const resetPassword = async (req, res) => {
   try {
     const { token } = req.params;
