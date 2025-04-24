@@ -2,7 +2,7 @@ const nodemailer = require("nodemailer");
 require("dotenv").config();
 
 const transporter = nodemailer.createTransport({
-  // host: "smtp.ethereal.email",
+  host: "smtp.ethereal.email",
   service: "gmail",
   debug: true, 
   port: 587,
